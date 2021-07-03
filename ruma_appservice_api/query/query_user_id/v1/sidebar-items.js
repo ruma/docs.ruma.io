@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `query_user_id` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `query_user_id` API endpoint."],["Response","Data in the response from the `query_user_id` API endpoint."]]});

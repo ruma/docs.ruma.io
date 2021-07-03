@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `get_content_thumbnail` API endpoint."]],"enum":[["Method","The desired resizing method."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `get_content_thumbnail` API endpoint."],["Response","Data in the response from the `get_content_thumbnail` API endpoint."]]});

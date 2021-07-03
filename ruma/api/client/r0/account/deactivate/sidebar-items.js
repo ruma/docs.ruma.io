@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `deactivate` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `deactivate` API endpoint."],["Response","Data in the response from the `deactivate` API endpoint."]]});

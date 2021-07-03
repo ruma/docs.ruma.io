@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_account_information","Gets information about what user owns the access token used in the request."],["logout","Logs out the access token, preventing it from being used to authenticate future requests to the server."],["register","Exchanges an OpenID token from the homeserver for an access token to access the identity server."]]});

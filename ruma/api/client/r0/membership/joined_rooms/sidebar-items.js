@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `joined_rooms` API endpoint."]],"struct":[["Request","Data for a request to the `joined_rooms` API endpoint."],["Response","Data in the response from the `joined_rooms` API endpoint."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["create_alias","PUT /_matrix/client/r0/directory/room/{roomAlias}"],["delete_alias","DELETE /_matrix/client/r0/directory/room/{roomAlias}"],["get_alias","GET /_matrix/client/r0/directory/room/{roomAlias}"]]});

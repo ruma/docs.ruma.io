@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["v1","PUT /_matrix/federation/v1/send/{txnId}"]]});

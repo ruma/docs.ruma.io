@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CustomEventContent","A custom event’s type and `content` JSON object."],["RedactedCustomEventContent","A custom event that has been redacted."]]});

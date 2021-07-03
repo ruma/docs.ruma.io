@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["PresenceState","A description of a user’s connectivity and availability for chat."]]});

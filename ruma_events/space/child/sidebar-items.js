@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ChildEventContent","The payload for `ChildEvent`."],["RedactedChildEventContent","The payload for a redacted `ChildEventContent`"]],"type":[["ChildEvent","The admins of a space can advertise rooms and subspaces for their space by setting `m.space.child` state events."]]});

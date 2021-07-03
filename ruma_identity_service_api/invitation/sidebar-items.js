@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["sign_invitation_ed25519","Endpoint to sign invitation details."],["store_invitation","Endpoint to store pending invitations to a user’s 3PID."]]});

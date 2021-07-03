@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["EventFormatVersion",""],["RoomDisposition",""],["StateResolutionVersion",""]],"struct":[["RoomVersion",""]]});

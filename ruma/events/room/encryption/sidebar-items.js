@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EncryptionEventContent","The payload for `EncryptionEvent`."],["RedactedEncryptionEventContent","The payload for a redacted `EncryptionEventContent`"]],"type":[["EncryptionEvent","Defines how messages sent in this room should be encrypted."]]});

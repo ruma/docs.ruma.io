@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["IdentifierHashingAlgorithm","The algorithms that can be used to hash the identifiers used for lookup, as defined in the Matrix Spec."]],"mod":[["get_hash_parameters","Endpoint to get details about Hashing identifiers."],["lookup_3pid","Endpoint to look up set of Matrix IDs which are bound to 3PIDs."]]});

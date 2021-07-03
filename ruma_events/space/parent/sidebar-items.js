@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ParentEventContent","The payload for `ParentEvent`."],["RedactedParentEventContent","The payload for a redacted `ParentEventContent`"]],"type":[["ParentEvent","Rooms can claim parents via the `m.space.parent` state event."]]});

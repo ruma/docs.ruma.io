@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `get_event_authorization` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `get_event_authorization` API endpoint."],["Response","Data in the response from the `get_event_authorization` API endpoint."]]});

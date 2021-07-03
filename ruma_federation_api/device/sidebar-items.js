@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_devices","Endpoint to get information about a user’s devices"]]});

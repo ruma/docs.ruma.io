@@ -1,0 +1,1 @@
+initSidebarItems({"derive":[["Event","Generates implementations needed to serialize and deserialize Matrix events."],["EventContent","Generates an implementation of `ruma_events::EventContent`."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["v1","POST /_matrix/federation/v1/user/keys/claim"]]});

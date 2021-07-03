@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ReactionEventContent","The payload for a `ReactionEvent`."],["RedactedReactionEventContent","The payload for a redacted `ReactionEventContent`"],["Relation","The relation that contains info which event the reaction is applying to."]],"type":[["ReactionEvent","A reaction to another event."]]});

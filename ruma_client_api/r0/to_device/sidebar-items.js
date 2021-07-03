@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["send_event_to_device","PUT /_matrix/client/r0/sendToDevice/{eventType}/{txnId}"]]});

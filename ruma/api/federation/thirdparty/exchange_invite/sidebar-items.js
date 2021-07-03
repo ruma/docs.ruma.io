@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["v1","PUT /_matrix/federation/v1/exchange_third_party_invite/{roomId}"]]});

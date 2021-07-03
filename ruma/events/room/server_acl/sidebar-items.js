@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RedactedServerAclEventContent","The payload for a redacted `ServerAclEventContent`"],["ServerAclEventContent","The payload for `ServerAclEvent`."]],"type":[["ServerAclEvent","An event to indicate which servers are permitted to participate in the room."]]});

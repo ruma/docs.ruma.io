@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `exchange_invite` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `exchange_invite` API endpoint."],["Response","Data in the response from the `exchange_invite` API endpoint."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `validate_email` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `validate_email` API endpoint."],["Response","Data in the response from the `validate_email` API endpoint."]]});

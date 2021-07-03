@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["search_users","POST /_matrix/client/r0/user_directory/search"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["sync_events","GET /_matrix/client/r0/sync"]]});

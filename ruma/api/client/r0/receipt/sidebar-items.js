@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["create_receipt","POST /_matrix/client/r0/rooms/{roomId}/receipt/{receiptType}/{eventId}"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RedactedTombstoneEventContent","The payload for a redacted `TombstoneEventContent`"],["TombstoneEventContent","The payload for `TombstoneEvent`."]],"type":[["TombstoneEvent","A state event signifying that a room has been upgraded to a different room version, and that clients should go there."]]});

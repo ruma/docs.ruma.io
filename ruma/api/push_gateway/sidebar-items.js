@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["send_event_notification","Endpoint to notify a push gateway about an event or update the number of unread notifications a user has."]]});

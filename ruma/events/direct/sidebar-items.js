@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["DirectEventContent","The payload for `DirectEvent`."]],"type":[["DirectEvent","Informs the client about the rooms that are considered direct by a user."]]});

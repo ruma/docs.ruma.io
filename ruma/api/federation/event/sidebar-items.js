@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_event","Retrieves a single event."],["get_missing_events","Retrieves previous events that the sender is missing."],["get_room_state","Retrieves a snapshot of a room’s state at a given event."],["get_room_state_ids","Retrieves a snapshot of a room’s state at a given event, in the form of event IDs."]]});

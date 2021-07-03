@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `authorize_fallback` API endpoint."]],"struct":[["Request","Data for a request to the `authorize_fallback` API endpoint."],["Response","Data in the response from the `authorize_fallback` API endpoint."]]});

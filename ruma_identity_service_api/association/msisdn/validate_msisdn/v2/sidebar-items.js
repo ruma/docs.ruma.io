@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `validate_msisdn` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `validate_msisdn` API endpoint."],["Response","Data in the response from the `validate_msisdn` API endpoint."]]});

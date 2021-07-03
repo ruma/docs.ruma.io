@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["create_typing_event","PUT /_matrix/client/r0/rooms/{roomId}/typing/{userId}"]]});

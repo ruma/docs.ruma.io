@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["ruma_api"] = [];
+implementors["ruma_client_api"] = [{"text":"impl <a class=\"trait\" href=\"ruma_api/trait.EndpointError.html\" title=\"trait ruma_api::EndpointError\">EndpointError</a> for <a class=\"struct\" href=\"ruma_client_api/error/struct.Error.html\" title=\"struct ruma_client_api::error::Error\">Error</a>","synthetic":false,"types":["ruma_client_api::error::Error"]},{"text":"impl <a class=\"trait\" href=\"ruma_api/trait.EndpointError.html\" title=\"trait ruma_api::EndpointError\">EndpointError</a> for <a class=\"enum\" href=\"ruma_client_api/r0/uiaa/enum.UiaaResponse.html\" title=\"enum ruma_client_api::r0::uiaa::UiaaResponse\">UiaaResponse</a>","synthetic":false,"types":["ruma_client_api::r0::uiaa::UiaaResponse"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

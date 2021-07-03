@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["check_public_key_validity","Endpoint to check for valid public key with an identity server."],["get_public_key","Endpoint to retrieve the public key for a key ID."],["validate_ephemeral_key","Endpoint to check for validity of short-term public key."]]});

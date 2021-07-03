@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `claim_keys` API endpoint."]],"struct":[["Request","Data for a request to the `claim_keys` API endpoint."],["Response","Data in the response from the `claim_keys` API endpoint."]],"type":[["OneTimeKeys","The one-time keys for a given device."]]});

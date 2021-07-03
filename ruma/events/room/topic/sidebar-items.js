@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RedactedTopicEventContent","The payload for a redacted `TopicEventContent`"],["TopicEventContent","The payload for `TopicEvent`."]],"type":[["TopicEvent","A topic is a short message detailing what is currently being discussed in the room."]]});

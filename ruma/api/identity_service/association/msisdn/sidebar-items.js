@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["create_msisdn_validation_session","Create a session for validation of a phone number."],["validate_msisdn","Validate the ownership of a phone number."],["validate_msisdn_by_phone_number","Endpoint to validate the ownership of a phone number by the end user."]]});

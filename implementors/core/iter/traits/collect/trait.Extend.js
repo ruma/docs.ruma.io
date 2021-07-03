@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["ruma_common"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.Extend.html\" title=\"trait core::iter::traits::collect::Extend\">Extend</a>&lt;<a class=\"enum\" href=\"ruma_common/push/enum.AnyPushRule.html\" title=\"enum ruma_common::push::AnyPushRule\">AnyPushRule</a>&gt; for <a class=\"struct\" href=\"ruma_common/push/struct.Ruleset.html\" title=\"struct ruma_common::push::Ruleset\">Ruleset</a>","synthetic":false,"types":["ruma_common::push::Ruleset"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

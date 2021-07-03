@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `whoami` API endpoint."]],"struct":[["Request","Data for a request to the `whoami` API endpoint."],["Response","Data in the response from the `whoami` API endpoint."]]});

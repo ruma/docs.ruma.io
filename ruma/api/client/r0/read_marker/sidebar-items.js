@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["set_read_marker","POST /_matrix/client/r0/rooms/{roomId}/read_markers"]]});

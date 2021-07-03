@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_openid_userinfo","Endpdoint for retrieving OpenID userinfo."]]});

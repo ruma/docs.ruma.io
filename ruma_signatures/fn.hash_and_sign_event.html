@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Hashes and signs an event and adds the hash and signature to objects under the keys `hashes` and `signatures`, respectively."><meta name="keywords" content="rust, rustlang, rust-lang, hash_and_sign_event"><title>hash_and_sign_event in ruma_signatures - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;www.ruma.io&#x2F;favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc fn"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../ruma_signatures/index.html'><div class='logo-container rust-logo'><img src='https:&#x2F;&#x2F;www.ruma.io&#x2F;images&#x2F;logo.png' alt='logo'></div></a><div class="sidebar-elems"><p class="location">Other items in<br><a href="index.html">ruma_signatures</a></p><div id="sidebar-vars" data-name="hash_and_sign_event" data-ty="fn" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input"name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Function <a href="index.html">ruma_signatures</a>::<wbr><a class="fn" href="#">hash_and_sign_event</a><button id="copy-path" onclick="copy_path(this)" title="copy path"><img src="../clipboard.svg" width="19" height="18" alt="Copy item import" title="Copy item import to clipboard"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/ruma_signatures/functions.rs.html#475-504" title="goto source code">[src]</a></span></h1><pre class="rust fn">pub fn hash_and_sign_event&lt;K&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;entity_id: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;key_pair: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>K, <br>&nbsp;&nbsp;&nbsp;&nbsp;object: &amp;mut <a class="type" href="type.CanonicalJsonObject.html" title="type ruma_signatures::CanonicalJsonObject">CanonicalJsonObject</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;version: &amp;<a class="enum" href="../ruma_identifiers/room_version_id/enum.RoomVersionId.html" title="enum ruma_identifiers::room_version_id::RoomVersionId">RoomVersionId</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="enum" href="enum.Error.html" title="enum ruma_signatures::Error">Error</a>&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;K: <a class="trait" href="trait.KeyPair.html" title="trait ruma_signatures::KeyPair">KeyPair</a>,&nbsp;</span></pre><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Hashes and signs an event and adds the hash and signature to objects under the keys <code>hashes</code> and
+<code>signatures</code>, respectively.</p>
+<p>If <code>hashes</code> and/or <code>signatures</code> are already present, the new data will be appended to the
+existing data.</p>
+<h1 id="parameters" class="section-header"><a href="#parameters">Parameters</a></h1>
+<ul>
+<li>entity_id: The identifier of the entity creating the signature. Generally this means a
+homeserver, e.g. “example.com”.</li>
+<li>key_pair: A cryptographic key pair used to sign the event.</li>
+<li>object: A JSON object to be hashed and signed according to the Matrix specification.</li>
+</ul>
+<h1 id="errors" class="section-header"><a href="#errors">Errors</a></h1>
+<p>Returns an error if:</p>
+<ul>
+<li><code>object</code> contains a field called <code>content</code> that is not a JSON object.</li>
+<li><code>object</code> contains a field called <code>hashes</code> that is not a JSON object.</li>
+<li><code>object</code> contains a field called <code>signatures</code> that is not a JSON object.</li>
+<li><code>object</code> is missing the <code>type</code> field or the field is not a JSON string.</li>
+</ul>
+<h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">const</span> <span class="ident">PKCS8</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;\
+    MFMCAQEwBQYDK2VwBCIEINjozvdfbsGEt6DD+7Uf4PiJ/YvTNXV2mIPc/\
+    tA0T+6toSMDIQDdM+tpNzNWQM9NFpfgr4B9S7LHszOrVRp9NfKmeXS3aQ\
+&quot;</span>;
+
+<span class="kw">let</span> <span class="ident">document</span> <span class="op">=</span> <span class="ident">base64::decode_config</span>(<span class="kw-2">&amp;</span><span class="ident">PKCS8</span>, <span class="ident">base64::STANDARD_NO_PAD</span>).<span class="ident">unwrap</span>();
+
+<span class="comment">// Create an Ed25519 key pair.</span>
+<span class="kw">let</span> <span class="ident">key_pair</span> <span class="op">=</span> <span class="ident">Ed25519KeyPair::from_der</span>(
+    <span class="kw-2">&amp;</span><span class="ident">document</span>,
+    <span class="string">&quot;1&quot;</span>.<span class="ident">into</span>(), <span class="comment">// The &quot;version&quot; of the key.</span>
+).<span class="ident">unwrap</span>();
+
+<span class="comment">// Deserialize an event from JSON.</span>
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">object</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(
+    <span class="string">r#&quot;{
+        &quot;room_id&quot;: &quot;!x:domain&quot;,
+        &quot;sender&quot;: &quot;@a:domain&quot;,
+        &quot;origin&quot;: &quot;domain&quot;,
+        &quot;origin_server_ts&quot;: 1000000,
+        &quot;signatures&quot;: {},
+        &quot;hashes&quot;: {},
+        &quot;type&quot;: &quot;X&quot;,
+        &quot;content&quot;: {},
+        &quot;prev_events&quot;: [],
+        &quot;auth_events&quot;: [],
+        &quot;depth&quot;: 3,
+        &quot;unsigned&quot;: {
+            &quot;age_ts&quot;: 1000000
+        }
+    }&quot;#</span>
+).<span class="ident">unwrap</span>();
+
+<span class="comment">// Hash and sign the JSON with the key pair.</span>
+<span class="macro">assert!</span>(<span class="ident">hash_and_sign_event</span>(<span class="string">&quot;domain&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">object</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version1</span>).<span class="ident">is_ok</span>());</pre></div>
+<p>This will modify the JSON from the structure shown to a structure like this:</p>
+<pre><code class="language-json">{
+    &quot;auth_events&quot;: [],
+    &quot;content&quot;: {},
+    &quot;depth&quot;: 3,
+    &quot;hashes&quot;: {
+        &quot;sha256&quot;: &quot;5jM4wQpv6lnBo7CLIghJuHdW+s2CMBJPUOGOC89ncos&quot;
+    },
+    &quot;origin&quot;: &quot;domain&quot;,
+    &quot;origin_server_ts&quot;: 1000000,
+    &quot;prev_events&quot;: [],
+    &quot;room_id&quot;: &quot;!x:domain&quot;,
+    &quot;sender&quot;: &quot;@a:domain&quot;,
+    &quot;signatures&quot;: {
+        &quot;domain&quot;: {
+            &quot;ed25519:1&quot;: &quot;KxwGjPSDEtvnFgU00fwFz+l6d2pJM6XBIaMEn81SXPTRl16AqLAYqfIReFGZlHi5KLjAWbOoMszkwsQma+lYAg&quot;
+        }
+    },
+    &quot;type&quot;: &quot;X&quot;,
+    &quot;unsigned&quot;: {
+        &quot;age_ts&quot;: 1000000
+    }
+}
+</code></pre>
+<p>Notice the addition of <code>hashes</code> and <code>signatures</code>.</p>
+</div></details></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma_signatures" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
+    <script src="../main.js"></script>
+</body></html>

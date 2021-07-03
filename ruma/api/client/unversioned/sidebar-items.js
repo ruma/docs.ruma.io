@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["discover_homeserver","GET /.well-known/matrix/client"],["get_supported_versions","GET /_matrix/client/versions"]]});

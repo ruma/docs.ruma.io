@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_contacts","GET /_matrix/client/r0/account/3pid"],["request_contact_verification_token","POST /_matrix/client/r0/account/3pid/email/requestToken"]]});

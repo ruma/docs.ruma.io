@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CapabilitiesIter","An iterator over capabilities."],["CapabilityRef","Reference to a capability."]]});

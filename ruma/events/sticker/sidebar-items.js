@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RedactedStickerEventContent","The payload for a redacted `StickerEventContent`"],["StickerEventContent","The payload for `StickerEvent`."]],"type":[["StickerEvent","A sticker message."]]});

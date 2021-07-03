@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["accept_terms_of_service","Endpoint to send acceptance of the terms of service of an identity server."],["get_terms_of_service","Endpoint to retrieve the terms of service of an identity server."]]});

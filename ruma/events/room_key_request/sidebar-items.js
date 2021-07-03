@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Action","A new key request or a cancellation of a previous request."]],"struct":[["RequestedKeyInfo","Information about a requested key."],["RoomKeyRequestToDeviceEventContent","The payload for `RoomKeyRequestEvent`."]]});

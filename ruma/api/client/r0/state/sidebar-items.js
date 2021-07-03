@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_state_events","GET /_matrix/client/r0/rooms/{roomId}/state"],["get_state_events_for_key","GET /_matrix/client/r0/rooms/{roomId}/state/{eventType}/{stateKey}"],["send_state_event","PUT /_matrix/client/r0/rooms/{roomId}/state/{eventType}/{stateKey}"]]});

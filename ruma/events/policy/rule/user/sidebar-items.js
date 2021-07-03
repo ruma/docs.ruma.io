@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RedactedUserEventContent","The payload for a redacted `UserEventContent`"],["UserEventContent","The payload for `UserEvent`."]],"type":[["UserEvent","This event type is used to apply rules to user entities."]]});
