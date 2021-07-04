@@ -224,6 +224,8 @@
 <span id="224">224</span>
 <span id="225">225</span>
 <span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
 </pre><pre class="rust">
 <span class="doccomment">//! [GET /_matrix/client/r0/rooms/{roomId}/messages](https://matrix.org/docs/spec/client_server/r0.6.0#get-matrix-client-r0-rooms-roomid-messages)</span>
 
@@ -375,7 +377,11 @@
         <span class="kw">let</span> <span class="ident">filter</span> <span class="op">=</span> <span class="ident">RoomEventFilter</span> {
             <span class="ident">lazy_load_options</span>: <span class="ident">LazyLoadOptions::Enabled</span> { <span class="ident">include_redundant_members</span>: <span class="bool-val">true</span> },
             <span class="ident">rooms</span>: <span class="prelude-val">Some</span>(<span class="ident">rooms</span>),
-            <span class="ident">not_rooms</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;room&quot;</span>.<span class="ident">into</span>(), <span class="string">&quot;room2&quot;</span>.<span class="ident">into</span>(), <span class="string">&quot;room3&quot;</span>.<span class="ident">into</span>()],
+            <span class="ident">not_rooms</span>: <span class="kw-2">&amp;</span>[
+                <span class="macro">room_id!</span>(<span class="string">&quot;!room:example.org&quot;</span>),
+                <span class="macro">room_id!</span>(<span class="string">&quot;!room2:example.org&quot;</span>),
+                <span class="macro">room_id!</span>(<span class="string">&quot;!room3:example.org&quot;</span>),
+            ],
             <span class="ident">not_types</span>: <span class="kw-2">&amp;</span>[<span class="string">&quot;type&quot;</span>.<span class="ident">into</span>()],
             ..<span class="ident">Default::default</span>()
         };
@@ -399,9 +405,7 @@
              &amp;to=token2\
              &amp;dir=b\
              &amp;limit=0\
-             &amp;filter=%7B%22not_types%22%3A%5B%22type%22%5D%2C%22not_rooms%22%3A%5B%22room%22%2C%22\
-              room2%22%2C%22room3%22%5D%2C%22rooms%22%3A%5B%22%21roomid%3Aexample.org%22%5D%2C%22\
-              lazy_load_members%22%3Atrue%2C%22include_redundant_members%22%3Atrue%7D&quot;</span>,
+             &amp;filter=%7B%22not_types%22%3A%5B%22type%22%5D%2C%22not_rooms%22%3A%5B%22%21room%3Aexample.org%22%2C%22%21room2%3Aexample.org%22%2C%22%21room3%3Aexample.org%22%5D%2C%22rooms%22%3A%5B%22%21roomid%3Aexample.org%22%5D%2C%22lazy_load_members%22%3Atrue%2C%22include_redundant_members%22%3Atrue%7D&quot;</span>,
             <span class="ident">request</span>.<span class="ident">uri</span>().<span class="ident">query</span>().<span class="ident">unwrap</span>()
         );
     }
