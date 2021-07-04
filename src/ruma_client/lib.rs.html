@@ -251,6 +251,25 @@
 <span id="251">251</span>
 <span id="252">252</span>
 <span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
 </pre><pre class="rust">
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
@@ -323,6 +342,25 @@
 <span class="doccomment">//! }</span>
 <span class="doccomment">//! # ;</span>
 <span class="doccomment">//! ```</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Crate features</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The following features activate http client types in the [`http_client`] module:</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! * `hyper`</span>
+<span class="doccomment">//! * `hyper-native-tls`</span>
+<span class="doccomment">//! * `hyper-rustls`</span>
+<span class="doccomment">//! * `isahc`</span>
+<span class="doccomment">//! * `reqwest` – if you use the `reqwest` library already, activate this feature and configure the</span>
+<span class="doccomment">//!   TLS backend on `reqwest` directly. If you want to use `reqwest` but don&#39;t depend on it</span>
+<span class="doccomment">//!   already, use one of the sub-features instead. For details on the meaning of these, see</span>
+<span class="doccomment">//!   [reqwest&#39;s documentation](https://docs.rs/reqwest/0.11/reqwest/#optional-features):</span>
+<span class="doccomment">//!   * `reqwest-native-tls`</span>
+<span class="doccomment">//!   * `reqwest-native-tls-alpn`</span>
+<span class="doccomment">//!   * `reqwest-native-tls-vendored`</span>
+<span class="doccomment">//!   * `reqwest-rustls-manual-roots`</span>
+<span class="doccomment">//!   * `reqwest-rustls-webpki-roots`</span>
+<span class="doccomment">//!   * `reqwest-rustls-native-roots`</span>
 
 <span class="attribute">#![<span class="ident">warn</span>(<span class="ident">missing_docs</span>)]</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>))]</span>
