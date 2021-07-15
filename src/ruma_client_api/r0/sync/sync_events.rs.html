@@ -930,6 +930,34 @@
 <span id="930">930</span>
 <span id="931">931</span>
 <span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
+<span id="947">947</span>
+<span id="948">948</span>
+<span id="949">949</span>
+<span id="950">950</span>
+<span id="951">951</span>
+<span id="952">952</span>
+<span id="953">953</span>
+<span id="954">954</span>
+<span id="955">955</span>
+<span id="956">956</span>
+<span id="957">957</span>
+<span id="958">958</span>
+<span id="959">959</span>
+<span id="960">960</span>
 </pre><pre class="rust">
 <span class="doccomment">//! [GET /_matrix/client/r0/sync](https://matrix.org/docs/spec/client_server/r0.6.0#get-matrix-client-r0-sync)</span>
 
@@ -1115,6 +1143,12 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">invite</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">InvitedRoom</span><span class="op">&gt;</span>,
 
+    <span class="doccomment">/// The rooms that the user has knocked on.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">knock</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">KnockedRoom</span><span class="op">&gt;</span>,
+
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
@@ -1139,6 +1173,8 @@
             <span class="ident">leave</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="ident">join</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="ident">invite</span>: <span class="ident">BTreeMap::new</span>(),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="ident">knock</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
             <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
         }
@@ -1258,6 +1294,26 @@
             <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
         }
     }
+}
+
+<span class="doccomment">/// Updates to knocked rooms.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KnockedRoom</span> {
+    <span class="doccomment">/// The knock state.</span>
+    <span class="kw">pub</span> <span class="ident">knock_state</span>: <span class="ident">KnockState</span>,
+}
+
+<span class="doccomment">/// A mapping from a key `events` to a list of `StrippedStateEvent`.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KnockState</span> {
+    <span class="doccomment">/// The list of events.</span>
+    <span class="kw">pub</span> <span class="ident">events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AnyStrippedStateEvent</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Unread notifications count.</span>
