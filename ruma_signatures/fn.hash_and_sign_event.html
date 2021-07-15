@@ -55,7 +55,7 @@ homeserver, e.g. “example.com”.</li>
 <span class="comment">// Hash and sign the JSON with the key pair.</span>
 <span class="macro">assert!</span>(<span class="ident">hash_and_sign_event</span>(<span class="string">&quot;domain&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">object</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version1</span>).<span class="ident">is_ok</span>());</pre></div>
 <p>This will modify the JSON from the structure shown to a structure like this:</p>
-<pre><code class="language-json">{
+<div class="example-wrap"><pre class="language-json">{
     &quot;auth_events&quot;: [],
     &quot;content&quot;: {},
     &quot;depth&quot;: 3,
@@ -76,8 +76,7 @@ homeserver, e.g. “example.com”.</li>
     &quot;unsigned&quot;: {
         &quot;age_ts&quot;: 1000000
     }
-}
-</code></pre>
+}</pre></div>
 <p>Notice the addition of <code>hashes</code> and <code>signatures</code>.</p>
 </div></details></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma_signatures" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
     <script src="../main.js"></script>
