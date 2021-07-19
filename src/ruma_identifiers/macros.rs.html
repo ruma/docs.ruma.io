@@ -457,6 +457,13 @@
 <span id="457">457</span>
 <span id="458">458</span>
 <span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
 </pre><pre class="rust">
 <span class="doccomment">/// Declares an item with a doc attribute computed by some macro expression.</span>
 <span class="doccomment">/// This allows documentation to be dynamically generated based on input.</span>
@@ -862,7 +869,14 @@
             <span class="kw">where</span>
                 <span class="ident">D</span>: <span class="ident">serde::Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
             {
-                <span class="ident">Box</span>::<span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">deserializer</span>).<span class="ident">map</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">id::from_owned</span>)
+                <span class="kw">use</span> <span class="ident">serde::de::Error</span>;
+
+                <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">String::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
+
+                <span class="kw">match</span> <span class="ident">try_from</span>(<span class="ident">s</span>) {
+                    <span class="prelude-val">Ok</span>(<span class="ident">o</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">o</span>),
+                    <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">D::Error::custom</span>(<span class="ident">e</span>)),
+                }
             }
         }
 

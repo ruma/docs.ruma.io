@@ -342,6 +342,7 @@
 <span id="342">342</span>
 <span id="343">343</span>
 <span id="344">344</span>
+<span id="345">345</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">proc_macro2</span>::{<span class="ident">Span</span>, <span class="ident">TokenStream</span>};
 <span class="kw">use</span> <span class="ident">quote</span>::{<span class="ident">format_ident</span>, <span class="ident">quote</span>};
@@ -609,6 +610,7 @@
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;ServerName&quot;</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;SessionId&quot;</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;RawJsonValue&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;RoomName&quot;</span>
                     {
                         <span class="comment">// The identifiers that need to be boxed `Box&lt;T&gt;` since they are DST&#39;s.</span>
                         <span class="prelude-val">Some</span>(<span class="macro">parse_quote!</span> { <span class="ident">::std::boxed::Box</span><span class="op">&lt;</span>#<span class="ident">path</span><span class="op">&gt;</span> })

@@ -152,7 +152,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::thirdparty::Medium</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser::SerializeSeq</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="macro">ruma_api!</span> {
@@ -202,7 +202,7 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// This should be retrieved from the `m.room.name` state event.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">room_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">room_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomName</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// The display name of the user ID initiating the invite.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>

@@ -302,7 +302,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomNameBox</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Outgoing</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span>, <span class="ident">MapAccess</span>, <span class="ident">Visitor</span>},
@@ -328,7 +328,7 @@
 
     <span class="doccomment">/// The name of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomNameBox</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The number of members joined to the room.</span>
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,

@@ -235,7 +235,7 @@
     },
     <span class="ident">AnyInitialStateEvent</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -282,7 +282,7 @@
         <span class="doccomment">/// If this is included, an `m.room.name` event will be sent into the room to indicate</span>
         <span class="doccomment">/// the name of the room.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomName</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Power level content to override in the default power level event.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
