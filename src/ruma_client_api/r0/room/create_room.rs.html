@@ -239,8 +239,8 @@
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::Visibility</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::r0::membership</span>::{<span class="ident">IncomingInvite3pid</span>, <span class="ident">Invite3pid</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Visibility</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::membership</span>::{<span class="ident">IncomingInvite3pid</span>, <span class="ident">Invite3pid</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -318,7 +318,7 @@
         <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
@@ -414,7 +414,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">CreationContent</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::new</span>()
+        <span class="ident"><span class="self">Self</span>::new</span>()
     }
 }
 

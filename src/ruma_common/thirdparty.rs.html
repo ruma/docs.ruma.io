@@ -323,7 +323,7 @@
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MilliSecondsSinceUnixEpoch</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MilliSecondsSinceUnixEpoch</span>;
 
 <span class="doccomment">/// Metadata about a third party protocol.</span>
 <span class="doccomment">///</span>
@@ -605,7 +605,7 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Medium</span>, <span class="ident">ThirdPartyIdentifier</span>};
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MilliSecondsSinceUnixEpoch</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MilliSecondsSinceUnixEpoch</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">third_party_identifier_serde</span>() {

@@ -107,8 +107,8 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers::MxcUri</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::ThumbnailInfo</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StateEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ThumbnailInfo</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
 
 <span class="doccomment">/// A picture that is associated with the room.</span>
 <span class="doccomment">///</span>
@@ -152,7 +152,7 @@
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method takes an `MxcUri`.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
 
@@ -198,7 +198,7 @@
 <span class="kw">impl</span> <span class="ident">ImageInfo</span> {
     <span class="doccomment">/// Create a new `ImageInfo` with all fields set to `None`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
 </pre></div>

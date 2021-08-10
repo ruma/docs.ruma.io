@@ -136,40 +136,12 @@
 <span id="136">136</span>
 <span id="137">137</span>
 <span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
-<span id="143">143</span>
-<span id="144">144</span>
-<span id="145">145</span>
-<span id="146">146</span>
-<span id="147">147</span>
-<span id="148">148</span>
-<span id="149">149</span>
-<span id="150">150</span>
-<span id="151">151</span>
-<span id="152">152</span>
-<span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
-<span id="159">159</span>
-<span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
 </pre><pre class="rust">
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser::SerializeStruct</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Annotation</span>, <span class="ident">Reference</span>, <span class="ident">Replacement</span>};
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InReplyTo</span>, <span class="ident">Relation</span>};
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::room::message::MessageEventContent</span>;
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
@@ -185,9 +157,8 @@
             <span class="kw">let</span> <span class="ident">relation</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">relation</span> {
                 <span class="ident">RelationJsonRepr::Annotation</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Relation::Annotation</span>(<span class="ident">a</span>),
                 <span class="ident">RelationJsonRepr::Reference</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Relation::Reference</span>(<span class="ident">r</span>),
-                <span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">ReplacementJsonRepr</span> { <span class="ident">event_id</span> }) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">new_content</span> <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">new_content</span><span class="question-mark">?</span>;
-                    <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> })
+                <span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span> }) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span> })
                 }
                 <span class="comment">// FIXME: Maybe we should log this, though at this point we don&#39;t even have access</span>
                 <span class="comment">// to the rel_type of the unknown relation.</span>
@@ -227,17 +198,12 @@
             ..<span class="ident">Default::default</span>()
         }),
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> }) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="ident">EventWithRelatesToJsonRepr</span> {
-                <span class="ident">relates_to</span>: <span class="ident">RelatesToJsonRepr</span> {
-                    <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">ReplacementJsonRepr</span> {
-                        <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>(),
-                    })),
-                    ..<span class="ident">Default::default</span>()
-                },
-                <span class="ident">new_content</span>: <span class="prelude-val">Some</span>(<span class="ident">new_content</span>.<span class="ident">clone</span>()),
-            }
-        }
+        <span class="ident">Relation::Replacement</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventWithRelatesToJsonRepr</span> {
+            <span class="ident">relates_to</span>: <span class="ident">RelatesToJsonRepr</span> {
+                <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">r</span>.<span class="ident">clone</span>())),
+                ..<span class="ident">Default::default</span>()
+            },
+        },
         <span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventWithRelatesToJsonRepr::new</span>(<span class="ident">RelatesToJsonRepr</span> {
             <span class="ident">in_reply_to</span>: <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>.<span class="ident">clone</span>()),
             ..<span class="ident">Default::default</span>()
@@ -251,19 +217,11 @@
 <span class="kw">struct</span> <span class="ident">EventWithRelatesToJsonRepr</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relates_to&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;RelatesToJsonRepr::is_empty&quot;</span>)]</span>
     <span class="ident">relates_to</span>: <span class="ident">RelatesToJsonRepr</span>,
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.new_content&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">new_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MessageEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">EventWithRelatesToJsonRepr</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">relates_to</span>: <span class="ident">RelatesToJsonRepr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">relates_to</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">new_content</span>: <span class="prelude-val">None</span>,
-        }
+        <span class="self">Self</span> { <span class="ident">relates_to</span> }
     }
 }
 
@@ -308,7 +266,7 @@
 
     <span class="doccomment">/// An event that replaces another event.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.replace&quot;</span>)]</span>
-    <span class="ident">Replacement</span>(<span class="ident">ReplacementJsonRepr</span>),
+    <span class="ident">Replacement</span>(<span class="ident">Replacement</span>),
 
     <span class="doccomment">/// An unknown relation type.</span>
     <span class="doccomment">///</span>
@@ -316,12 +274,6 @@
     <span class="doccomment">/// doesn&#39;t fail with new / custom `rel_type`s.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">other</span>)]</span>
     <span class="ident">Unknown</span>,
-}
-
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">struct</span> <span class="ident">ReplacementJsonRepr</span> {
-    <span class="ident">event_id</span>: <span class="ident">EventId</span>,
 }
 </pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_events" data-search-index-js="../../../../search-index.js" data-search-js="../../../../search.js"></div>

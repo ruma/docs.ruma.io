@@ -140,7 +140,7 @@
         <span class="kw">pub</span> <span class="ident">devices</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">DeviceInfo</span><span class="op">&gt;</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -169,7 +169,7 @@
 <span class="kw">impl</span> <span class="ident">DeviceInfo</span> {
     <span class="doccomment">/// Create a new `DeviceInfo` with no sessions.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
 
@@ -185,7 +185,7 @@
 <span class="kw">impl</span> <span class="ident">SessionInfo</span> {
     <span class="doccomment">/// Create a new `SessionInfo` with no connections.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
 
@@ -206,7 +206,7 @@
 <span class="kw">impl</span> <span class="ident">ConnectionInfo</span> {
     <span class="doccomment">/// Create a new `ConnectionInfo` with all fields set to `None`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
 </pre></div>

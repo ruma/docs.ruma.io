@@ -101,8 +101,8 @@
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::Relation</span>;
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MessageEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Relation</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MessageEvent</span>;
 
 <span class="doccomment">/// Event signaling that the interactive key verification has successfully</span>
 <span class="doccomment">/// concluded.</span>
@@ -150,8 +150,8 @@
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::DoneEventContent</span>;
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::key::verification::Relation</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::DoneEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::key::verification::Relation</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {

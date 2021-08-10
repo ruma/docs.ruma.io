@@ -316,7 +316,7 @@
 <span class="doccomment">/// The string must either include the leading ! sigil, the localpart, a literal colon, and a</span>
 <span class="doccomment">/// valid homeserver host or include the leading # sigil, the alias, a literal colon, and a</span>
 <span class="doccomment">/// valid homeserver host.</span>
-<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">room_id_or_alias_id</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RoomIdOrAliasId</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span>
+<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">room_id_or_alias_id</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RoomIdOrAliasId</span>, <span class="ident"><span class="kw">crate</span>::Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 {
@@ -369,8 +369,8 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::RoomIdOrAliasId</span>;
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Error</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomIdOrAliasId</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Error</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id_or_alias_id_with_a_room_alias_id</span>() {

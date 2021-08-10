@@ -41,7 +41,7 @@
 <span class="doccomment">//! Matrix device identifiers.</span>
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::generate_localpart</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::generate_localpart</span>;
 
 <span class="macro">opaque_identifier!</span> {
     <span class="doccomment">/// A Matrix key ID.</span>
@@ -56,7 +56,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="self">Self</span><span class="ident">::from_owned</span>(<span class="ident">generate_localpart</span>(<span class="number">8</span>))
+        <span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="ident">generate_localpart</span>(<span class="number">8</span>))
     }
 }
 
@@ -70,7 +70,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::DeviceId</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::DeviceId</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">generate_device_id</span>() {

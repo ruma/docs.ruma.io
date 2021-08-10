@@ -213,7 +213,7 @@
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StateEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
 
 <span class="doccomment">/// This is the first event in a room and cannot be changed. It acts as the root of all other</span>
 <span class="doccomment">/// events.</span>
@@ -318,10 +318,10 @@
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::CreateEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::CreateEventContent</span>;
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::RoomType</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomType</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {

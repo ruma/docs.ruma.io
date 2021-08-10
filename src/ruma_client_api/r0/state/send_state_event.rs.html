@@ -177,7 +177,7 @@
         <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="doccomment">/// Data for a request to the `send_state_event` API endpoint.</span>
@@ -226,7 +226,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ruma_api::OutgoingRequest</span> <span class="kw">for</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">EndpointError</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::Error</span>;
+    <span class="kw">type</span> <span class="ident">EndpointError</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::Error</span>;
     <span class="kw">type</span> <span class="ident">IncomingResponse</span> <span class="op">=</span> <span class="ident">Response</span>;
 
     <span class="kw">const</span> <span class="ident">METADATA</span>: <span class="ident">ruma_api::Metadata</span> <span class="op">=</span> <span class="ident">METADATA</span>;
@@ -275,7 +275,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">ruma_api::IncomingRequest</span> <span class="kw">for</span> <span class="ident">IncomingRequest</span> {
-    <span class="kw">type</span> <span class="ident">EndpointError</span> <span class="op">=</span> <span class="kw">crate</span><span class="ident">::Error</span>;
+    <span class="kw">type</span> <span class="ident">EndpointError</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::Error</span>;
     <span class="kw">type</span> <span class="ident">OutgoingResponse</span> <span class="op">=</span> <span class="ident">Response</span>;
 
     <span class="kw">const</span> <span class="ident">METADATA</span>: <span class="ident">ruma_api::Metadata</span> <span class="op">=</span> <span class="ident">METADATA</span>;

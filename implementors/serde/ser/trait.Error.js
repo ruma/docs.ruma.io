@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["ruma_serde"] = [{"text":"impl <a class=\"trait\" href=\"https://docs.rs/serde/1.0.126/serde/ser/trait.Error.html\" title=\"trait serde::ser::Error\">Error</a> for <a class=\"enum\" href=\"ruma_serde/urlencoded/ser/enum.Error.html\" title=\"enum ruma_serde::urlencoded::ser::Error\">Error</a>","synthetic":false,"types":["ruma_serde::urlencoded::ser::Error"]}];
+implementors["ruma_serde"] = [{"text":"impl <a class=\"trait\" href=\"https://docs.rs/serde/1.0.127/serde/ser/trait.Error.html\" title=\"trait serde::ser::Error\">Error</a> for <a class=\"enum\" href=\"ruma_serde/urlencoded/ser/enum.Error.html\" title=\"enum ruma_serde::urlencoded::ser::Error\">Error</a>","synthetic":false,"types":["ruma_serde::urlencoded::ser::Error"]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

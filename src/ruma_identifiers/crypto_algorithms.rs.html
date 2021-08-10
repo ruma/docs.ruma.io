@@ -190,7 +190,7 @@
         <span class="kw">use</span> <span class="ident">ruma_serde::test::serde_json_eq</span>;
         <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
-        <span class="kw">use</span> <span class="kw">super</span><span class="ident">::EventEncryptionAlgorithm</span>;
+        <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::EventEncryptionAlgorithm</span>;
 
         <span class="ident">serde_json_eq</span>(<span class="ident">EventEncryptionAlgorithm::MegolmV1AesSha2</span>, <span class="macro">json!</span>(<span class="string">&quot;m.megolm.v1.aes-sha2&quot;</span>));
         <span class="ident">serde_json_eq</span>(

@@ -161,15 +161,15 @@
 <span class="kw">mod</span> <span class="ident">reqwest</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hyper::Hyper</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::hyper::Hyper</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-native-tls&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hyper::HyperNativeTls</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::hyper::HyperNativeTls</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-rustls&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::hyper::HyperRustls</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::hyper::HyperRustls</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;isahc&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::isahc::Isahc</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::isahc::Isahc</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;reqwest&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span><span class="ident">::reqwest::Reqwest</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::reqwest::Reqwest</span>;
 
 <span class="doccomment">/// An HTTP client that can be used to send requests to a Matrix homeserver.</span>
 <span class="attribute">#[<span class="ident">async_trait</span>]</span>
@@ -186,8 +186,8 @@
     <span class="doccomment">/// Send an `http::Request` to get back an `http::Response`.</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_http_request</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::RequestBody</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::ResponseBody</span><span class="op">&gt;</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span>;
+        <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::RequestBody</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::ResponseBody</span><span class="op">&gt;</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// An HTTP client that has a default configuration.</span>
@@ -224,9 +224,9 @@
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">R</span>: <span class="ident">OutgoingRequest</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>,
-        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">http::Request</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::RequestBody</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ResponseError</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>,
+        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::RequestBody</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ResponseError</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>,
     {
-        <span class="ident">Box::pin</span>(<span class="kw">crate</span><span class="ident">::send_customized_request</span>(
+        <span class="ident">Box::pin</span>(<span class="ident"><span class="kw">crate</span>::send_customized_request</span>(
             <span class="self">self</span>,
             <span class="ident">homeserver_url</span>,
             <span class="ident">access_token</span>,
@@ -272,8 +272,8 @@
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_http_request</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">_req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::RequestBody</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::ResponseBody</span><span class="op">&gt;</span>, <span class="self">Self</span><span class="ident">::Error</span><span class="op">&gt;</span> {
+        <span class="ident">_req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::RequestBody</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::ResponseBody</span><span class="op">&gt;</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
         <span class="macro">unimplemented!</span>(<span class="string">&quot;this client only exists to allow doctests to compile&quot;</span>)
     }
 }

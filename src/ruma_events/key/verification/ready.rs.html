@@ -175,7 +175,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Relation</span>, <span class="ident">VerificationMethod</span>};
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MessageEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MessageEvent</span>;
 
 <span class="doccomment">/// Response to a previously sent *m.key.verification.request* message.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ReadyEvent</span> <span class="op">=</span> <span class="ident">MessageEvent</span><span class="op">&lt;</span><span class="ident">ReadyEventContent</span><span class="op">&gt;</span>;
@@ -247,7 +247,7 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ReadyEventContent</span>, <span class="ident">ReadyToDeviceEventContent</span>};
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::key::verification</span>::{<span class="ident">Relation</span>, <span class="ident">VerificationMethod</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::key::verification</span>::{<span class="ident">Relation</span>, <span class="ident">VerificationMethod</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {

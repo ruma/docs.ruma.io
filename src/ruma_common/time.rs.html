@@ -134,7 +134,7 @@
 
     <span class="doccomment">/// The current milliseconds since the unix epoch.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">now</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::from_system_time</span>(<span class="ident">SystemTime::now</span>()).<span class="ident">unwrap</span>()
+        <span class="ident"><span class="self">Self</span>::from_system_time</span>(<span class="ident">SystemTime::now</span>()).<span class="ident">unwrap</span>()
     }
 
     <span class="doccomment">/// Creates a new `SystemTime` from `self`, if it can be represented.</span>

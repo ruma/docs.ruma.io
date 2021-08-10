@@ -520,7 +520,7 @@
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">EventFormat</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::Client</span>
+        <span class="ident"><span class="self">Self</span>::Client</span>
     }
 }
 
@@ -594,7 +594,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can also use the [`Default`] implementation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">empty</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 
     <span class="doccomment">/// Creates a new `RoomEventFilter` that can be used to ignore all room events.</span>
@@ -680,7 +680,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can also use the [`Default`] implementation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">empty</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 
     <span class="doccomment">/// Creates a new `RoomFilter` that can be used to ignore all room events (of any type).</span>
@@ -756,7 +756,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can also use the [`Default`] implementation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">empty</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 
     <span class="doccomment">/// Creates a new `Filter` that can be used to ignore all events.</span>
@@ -824,7 +824,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can also use the [`Default`] implementation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">empty</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::default</span>()
+        <span class="ident"><span class="self">Self</span>::default</span>()
     }
 
     <span class="doccomment">/// Creates a new `FilterDefinition` that can be used to ignore all events.</span>

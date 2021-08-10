@@ -174,7 +174,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_identifiers_validation::mxc_uri::validate</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ServerName</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
 
 <span class="doccomment">/// A URI that should be a Matrix-spec compliant [MXC URI].</span>
 <span class="doccomment">///</span>
@@ -275,9 +275,9 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ServerName</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::MxcUri</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::MxcUri</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">parse_mxc_uri</span>() {

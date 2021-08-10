@@ -174,7 +174,7 @@
         <span class="kw">pub</span> <span class="ident">total_room_count_estimate</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -201,7 +201,7 @@
         <span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">OutgoingRequest</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">SendAccessToken</span>};
         <span class="kw">use</span> <span class="ident">ruma_identifiers::server_name</span>;
 
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="kw">super</span><span class="ident">::Request</span> {
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident"><span class="kw">super</span>::Request</span> {
             <span class="ident">limit</span>: <span class="prelude-val">Some</span>(<span class="macro">uint!</span>(<span class="number">10</span>)),
             <span class="ident">since</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;hello&quot;</span>),
             <span class="ident">server</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="macro">server_name!</span>(<span class="string">&quot;test.tld&quot;</span>)),
@@ -226,7 +226,7 @@
     <span class="kw">fn</span> <span class="ident">construct_response_from_refs</span>() {
         <span class="kw">use</span> <span class="ident">ruma_api::OutgoingResponse</span> <span class="kw">as</span> <span class="kw">_</span>;
 
-        <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">super</span><span class="ident">::Response</span> {
+        <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident"><span class="kw">super</span>::Response</span> {
             <span class="ident">chunk</span>: <span class="macro">vec!</span>[],
             <span class="ident">next_batch</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;next_batch_token&quot;</span>.<span class="ident">into</span>()),
             <span class="ident">prev_batch</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;prev_batch_token&quot;</span>.<span class="ident">into</span>()),

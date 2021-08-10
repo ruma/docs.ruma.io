@@ -136,14 +136,14 @@
 <span class="kw">impl</span> <span class="ident">LazyLoadOptions</span> {
     <span class="doccomment">/// Returns `true` is `self` is `Disabled`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_disabled</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="self">Self</span><span class="ident">::Disabled</span>)
+        <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident"><span class="self">Self</span>::Disabled</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">LazyLoadOptions</span> {
     <span class="doccomment">/// `LazyLoadOptions::Disabled`</span>
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::Disabled</span>
+        <span class="ident"><span class="self">Self</span>::Disabled</span>
     }
 }
 
@@ -154,16 +154,16 @@
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span>;
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="self">Self</span><span class="ident">::Enabled</span> { <span class="ident">include_redundant_members</span>: <span class="bool-val">true</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::Enabled</span> { <span class="ident">include_redundant_members</span>: <span class="bool-val">true</span> } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">state</span> <span class="op">=</span> <span class="ident">serializer</span>.<span class="ident">serialize_struct</span>(<span class="string">&quot;LazyLoad&quot;</span>, <span class="number">2</span>)<span class="question-mark">?</span>;
                 <span class="ident">state</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;lazy_load_members&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">true</span>)<span class="question-mark">?</span>;
                 <span class="ident">state</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;include_redundant_members&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">true</span>)<span class="question-mark">?</span>;
             }
-            <span class="self">Self</span><span class="ident">::Enabled</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::Enabled</span> { .. } <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">state</span> <span class="op">=</span> <span class="ident">serializer</span>.<span class="ident">serialize_struct</span>(<span class="string">&quot;LazyLoad&quot;</span>, <span class="number">1</span>)<span class="question-mark">?</span>;
                 <span class="ident">state</span>.<span class="ident">serialize_field</span>(<span class="string">&quot;lazy_load_members&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">true</span>)<span class="question-mark">?</span>;
             }
-            <span class="self">Self</span><span class="ident">::Disabled</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::Disabled</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">state</span> <span class="op">=</span> <span class="ident">serializer</span>.<span class="ident">serialize_struct</span>(<span class="string">&quot;LazyLoad&quot;</span>, <span class="number">0</span>)<span class="question-mark">?</span>;
             }
         }
@@ -180,11 +180,11 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">LazyLoadJsonRepr</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">LazyLoadOptions</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">opts</span>: <span class="ident">LazyLoadJsonRepr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">if</span> <span class="ident">opts</span>.<span class="ident">lazy_load_members</span>.<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>) {
-            <span class="self">Self</span><span class="ident">::Enabled</span> {
+            <span class="ident"><span class="self">Self</span>::Enabled</span> {
                 <span class="ident">include_redundant_members</span>: <span class="ident">opts</span>.<span class="ident">include_redundant_members</span>.<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>),
             }
         } <span class="kw">else</span> {
-            <span class="self">Self</span><span class="ident">::Disabled</span>
+            <span class="ident"><span class="self">Self</span>::Disabled</span>
         }
     }
 }
@@ -193,7 +193,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::LazyLoadOptions</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::LazyLoadOptions</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialize_disabled</span>() {

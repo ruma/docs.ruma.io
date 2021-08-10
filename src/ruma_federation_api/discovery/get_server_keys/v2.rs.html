@@ -48,7 +48,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::discovery::ServerSigningKeys</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::discovery::ServerSigningKeys</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -86,7 +86,7 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Response</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">server_key</span>: <span class="ident">ServerSigningKeys</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">server_key</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">server_key</span>)
     }
 }
 </pre></div>

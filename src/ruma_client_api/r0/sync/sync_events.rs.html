@@ -979,7 +979,7 @@
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::r0::filter</span>::{<span class="ident">FilterDefinition</span>, <span class="ident">IncomingFilterDefinition</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::filter</span>::{<span class="ident">FilterDefinition</span>, <span class="ident">IncomingFilterDefinition</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -1062,10 +1062,10 @@
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+        <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
@@ -1087,7 +1087,7 @@
             <span class="ident">device_lists</span>: <span class="ident">Default::default</span>(),
             <span class="ident">device_one_time_keys_count</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1118,13 +1118,13 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">FilterDefinition</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">def</span>: <span class="ident">FilterDefinition</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::FilterDefinition</span>(<span class="ident">def</span>)
+        <span class="ident"><span class="self">Self</span>::FilterDefinition</span>(<span class="ident">def</span>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::FilterId</span>(<span class="ident">id</span>)
+        <span class="ident"><span class="self">Self</span>::FilterId</span>(<span class="ident">id</span>)
     }
 }
 
@@ -1152,7 +1152,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Rooms</span> {
@@ -1176,7 +1176,7 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">knock</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1200,7 +1200,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">LeftRoom</span> {
@@ -1222,7 +1222,7 @@
             <span class="ident">state</span>: <span class="ident">Default::default</span>(),
             <span class="ident">account_data</span>: <span class="ident">Default::default</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1261,7 +1261,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">JoinedRoom</span> {
@@ -1291,7 +1291,7 @@
             <span class="ident">account_data</span>: <span class="ident">Default::default</span>(),
             <span class="ident">ephemeral</span>: <span class="ident">Default::default</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1330,7 +1330,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">UnreadNotificationsCount</span> {
@@ -1351,7 +1351,7 @@
             <span class="ident">highlight_count</span>: <span class="prelude-val">None</span>,
             <span class="ident">notification_count</span>: <span class="prelude-val">None</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1377,7 +1377,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Timeline</span> {
@@ -1399,7 +1399,7 @@
             <span class="ident">prev_batch</span>: <span class="prelude-val">None</span>,
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1414,7 +1414,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">State</span> {
@@ -1434,7 +1434,7 @@
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1449,7 +1449,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">GlobalAccountData</span> {
@@ -1469,7 +1469,7 @@
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1484,7 +1484,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomAccountData</span> {
@@ -1504,7 +1504,7 @@
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1519,7 +1519,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Ephemeral</span> {
@@ -1539,7 +1539,7 @@
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1567,7 +1567,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomSummary</span> {
@@ -1591,7 +1591,7 @@
             <span class="ident">joined_member_count</span>: <span class="prelude-val">None</span>,
             <span class="ident">invited_member_count</span>: <span class="prelude-val">None</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1606,7 +1606,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">InvitedRoom</span> {
@@ -1626,7 +1626,7 @@
         <span class="self">Self</span> {
             <span class="ident">invite_state</span>: <span class="ident">Default::default</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1641,7 +1641,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">InviteState</span> {
@@ -1661,7 +1661,7 @@
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1676,7 +1676,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Presence</span> {
@@ -1696,7 +1696,7 @@
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1711,7 +1711,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ToDevice</span> {
@@ -1731,7 +1731,7 @@
         <span class="self">Self</span> {
             <span class="ident">events</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1752,7 +1752,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>, <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::private&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::Private</span>,
+    <span class="kw">pub</span> <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::Private</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">DeviceLists</span> {
@@ -1773,7 +1773,7 @@
             <span class="ident">changed</span>: <span class="macro">vec!</span>[],
             <span class="ident">left</span>: <span class="macro">vec!</span>[],
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
-            <span class="ident">__test_exhaustive</span>: <span class="kw">crate</span><span class="ident">::private</span>(),
+            <span class="ident">__test_exhaustive</span>: <span class="ident"><span class="kw">crate</span>::private</span>(),
         }
     }
 }
@@ -1784,7 +1784,7 @@
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::Timeline</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Timeline</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">timeline_serde</span>() {

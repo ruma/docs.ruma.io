@@ -65,7 +65,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::RuleKind</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RuleKind</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -97,7 +97,7 @@
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
     <span class="ident">response</span>: {}
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -108,12 +108,12 @@
 
     <span class="doccomment">/// Creates a new `Request` to enable the given rule.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">enable</span>(<span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">kind</span>: <span class="ident">RuleKind</span>, <span class="ident">rule_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">scope</span>, <span class="ident">kind</span>, <span class="ident">rule_id</span>, <span class="bool-val">true</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">scope</span>, <span class="ident">kind</span>, <span class="ident">rule_id</span>, <span class="bool-val">true</span>)
     }
 
     <span class="doccomment">/// Creates a new `Request` to disable the given rule.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">disable</span>(<span class="ident">scope</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">kind</span>: <span class="ident">RuleKind</span>, <span class="ident">rule_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">scope</span>, <span class="ident">kind</span>, <span class="ident">rule_id</span>, <span class="bool-val">false</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">scope</span>, <span class="ident">kind</span>, <span class="ident">rule_id</span>, <span class="bool-val">false</span>)
     }
 }
 

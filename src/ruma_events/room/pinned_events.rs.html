@@ -80,7 +80,7 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StateEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
 
 <span class="doccomment">/// Used to &quot;pin&quot; particular events in a room for other participants to review later.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">PinnedEventsEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">PinnedEventsEventContent</span><span class="op">&gt;</span>;
@@ -109,7 +109,7 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::PinnedEventsEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::PinnedEventsEventContent</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">StateEvent</span>, <span class="ident">Unsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

@@ -171,7 +171,7 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">key_id</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span>
+<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">key_id</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span>, <span class="ident"><span class="kw">crate</span>::Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 {
@@ -185,7 +185,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::DeviceKeyId</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::DeviceKeyId</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">crypto_algorithms::DeviceKeyAlgorithm</span>, <span class="ident">Error</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

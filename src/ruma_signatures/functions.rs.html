@@ -1972,7 +1972,7 @@
     <span class="kw">use</span> <span class="ident">ruma_serde::CanonicalJsonValue</span>;
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::canonical_json</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::canonical_json</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::{
         <span class="ident">sign_json</span>, <span class="ident">verify_event</span>, <span class="ident">Ed25519KeyPair</span>, <span class="ident">Error</span>, <span class="ident">PublicKeyMap</span>, <span class="ident">PublicKeySet</span>,
         <span class="ident">VerificationError</span>, <span class="ident">Verified</span>,
@@ -2057,7 +2057,7 @@
 
         <span class="macro">assert!</span>(<span class="ident">verify</span>(<span class="ident">STANDARD_NO_PAD</span>).<span class="ident">is_err</span>());
 
-        <span class="macro">assert!</span>(<span class="kw">super</span><span class="ident">::also_try_forgiving_base64</span>(<span class="ident">STANDARD_NO_PAD</span>, <span class="ident">verify</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident"><span class="kw">super</span>::also_try_forgiving_base64</span>(<span class="ident">STANDARD_NO_PAD</span>, <span class="ident">verify</span>).<span class="ident">is_ok</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

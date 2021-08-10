@@ -148,7 +148,7 @@
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
     <span class="ident">response</span>: {}
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -187,8 +187,8 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers::user_id</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::IncomingInvitationRecipient</span>;
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::r0::membership::IncomingInvite3pid</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::IncomingInvitationRecipient</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::membership::IncomingInvite3pid</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_invite_by_user_id</span>() {

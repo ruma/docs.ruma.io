@@ -241,7 +241,7 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomName</span>, <span class="ident">RoomNameBox</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StateEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
 
 <span class="doccomment">/// The room name is a human-friendly string designed to be displayed to the end-user.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">NameEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">NameEventContent</span><span class="op">&gt;</span>;
@@ -280,7 +280,7 @@
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::NameEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::NameEventContent</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">StateEvent</span>, <span class="ident">Unsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

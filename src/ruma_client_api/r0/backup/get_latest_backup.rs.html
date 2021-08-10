@@ -56,7 +56,7 @@
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::BackupAlgorithm</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::BackupAlgorithm</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -87,7 +87,7 @@
         <span class="kw">pub</span> <span class="ident">version</span>: <span class="ident">String</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span> <span class="ident">Request</span> {

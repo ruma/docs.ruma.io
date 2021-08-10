@@ -351,11 +351,11 @@
     <span class="ident">parse_quote</span>,
     <span class="ident">punctuated::Punctuated</span>,
     <span class="ident">AngleBracketedGenericArguments</span>, <span class="ident">Attribute</span>, <span class="ident">Data</span>, <span class="ident">DeriveInput</span>, <span class="ident">Field</span>, <span class="ident">Fields</span>, <span class="ident">GenericArgument</span>,
-    <span class="ident">GenericParam</span>, <span class="ident">Generics</span>, <span class="ident">Ident</span>, <span class="ident">ImplGenerics</span>, <span class="ident">ParenthesizedGenericArguments</span>, <span class="ident">PathArguments</span>,
-    <span class="ident">Token</span>, <span class="ident">Type</span>, <span class="ident">TypeGenerics</span>, <span class="ident">TypePath</span>, <span class="ident">TypeReference</span>, <span class="ident">TypeSlice</span>, <span class="ident">Variant</span>,
+    <span class="ident">GenericParam</span>, <span class="ident">Generics</span>, <span class="ident">Ident</span>, <span class="ident">ImplGenerics</span>, <span class="ident">ParenthesizedGenericArguments</span>, <span class="ident">Path</span>,
+    <span class="ident">PathArguments</span>, <span class="ident">Token</span>, <span class="ident">Type</span>, <span class="ident">TypeGenerics</span>, <span class="ident">TypePath</span>, <span class="ident">TypeReference</span>, <span class="ident">TypeSlice</span>, <span class="ident">Variant</span>,
 };
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::import_ruma_serde</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util::import_ruma_serde</span>;
 
 <span class="kw">enum</span> <span class="ident">StructKind</span> {
     <span class="ident">Struct</span>,
@@ -665,7 +665,7 @@
 }
 
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DeriveMac</span> {
-    <span class="ident">Regular</span>(<span class="ident">Ident</span>),
+    <span class="ident">Regular</span>(<span class="ident">Path</span>),
     <span class="ident">NegativeDeserialize</span>,
 }
 
@@ -682,10 +682,10 @@
                 ));
             }
 
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::NegativeDeserialize</span>)
+            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::NegativeDeserialize</span>)
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="ident">mac</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span><span class="ident">::Regular</span>(<span class="ident">mac</span>))
+            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::Regular</span>(<span class="ident">mac</span>))
         }
     }
 }

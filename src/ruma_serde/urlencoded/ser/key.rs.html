@@ -127,7 +127,7 @@
     <span class="ident">End</span>: <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;key</span><span class="op">&gt;</span> <span class="ident">FnOnce</span>(<span class="ident">Key</span><span class="op">&lt;</span><span class="lifetime">&#39;key</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-val">Ok</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
 {
     <span class="kw">type</span> <span class="prelude-val">Ok</span> <span class="op">=</span> <span class="prelude-val">Ok</span>;
-    <span class="kw">type</span> <span class="ident">SerializeSeq</span> <span class="op">=</span> <span class="ident">ser::Impossible</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::Ok</span>, <span class="ident">Error</span><span class="op">&gt;</span>;
+    <span class="kw">type</span> <span class="ident">SerializeSeq</span> <span class="op">=</span> <span class="ident">ser::Impossible</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Ok</span>, <span class="ident">Error</span><span class="op">&gt;</span>;
 
     <span class="kw">fn</span> <span class="ident">serialize_static_str</span>(<span class="self">self</span>, <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-val">Ok</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         (<span class="self">self</span>.<span class="ident">end</span>)(<span class="ident">Key::Static</span>(<span class="ident">value</span>))
@@ -149,7 +149,7 @@
         <span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">unsupported</span>())
     }
 
-    <span class="kw">fn</span> <span class="ident">serialize_seq</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="ident">::SerializeSeq</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">serialize_seq</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::SerializeSeq</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">unsupported</span>())
     }
 

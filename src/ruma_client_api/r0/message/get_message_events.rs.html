@@ -236,7 +236,7 @@
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::r0::filter</span>::{<span class="ident">IncomingRoomEventFilter</span>, <span class="ident">RoomEventFilter</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::filter</span>::{<span class="ident">IncomingRoomEventFilter</span>, <span class="ident">RoomEventFilter</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -310,7 +310,7 @@
         <span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -323,12 +323,12 @@
 
     <span class="doccomment">/// Creates a new `Request` with the given room ID and from token, and `dir` set to `Backward`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">backward</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">from</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">room_id</span>, <span class="ident">from</span>, <span class="ident">Direction::Backward</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">room_id</span>, <span class="ident">from</span>, <span class="ident">Direction::Backward</span>)
     }
 
     <span class="doccomment">/// Creates a new `Request` with the given room ID and from token, and `dir` set to `Forward`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">forward</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">from</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">room_id</span>, <span class="ident">from</span>, <span class="ident">Direction::Forward</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">room_id</span>, <span class="ident">from</span>, <span class="ident">Direction::Forward</span>)
     }
 }
 
@@ -368,7 +368,7 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers::room_id</span>;
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Direction</span>, <span class="ident">Request</span>};
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::r0::filter</span>::{<span class="ident">LazyLoadOptions</span>, <span class="ident">RoomEventFilter</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::filter</span>::{<span class="ident">LazyLoadOptions</span>, <span class="ident">RoomEventFilter</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialize_some_room_event_filter</span>() {

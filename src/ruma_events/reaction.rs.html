@@ -88,7 +88,7 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MessageEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MessageEvent</span>;
 
 <span class="doccomment">/// A reaction to another event.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ReactionEvent</span> <span class="op">=</span> <span class="ident">MessageEvent</span><span class="op">&lt;</span><span class="ident">ReactionEventContent</span><span class="op">&gt;</span>;
@@ -114,7 +114,7 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ReactionEventContent</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">relates_to</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">relates_to</span>)
     }
 }
 

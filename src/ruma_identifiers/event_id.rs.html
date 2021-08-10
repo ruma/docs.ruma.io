@@ -286,7 +286,7 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">fmt</span>, <span class="ident">num::NonZeroU8</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ServerName</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
 
 <span class="doccomment">/// A Matrix event ID.</span>
 <span class="doccomment">///</span>
@@ -343,7 +343,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="kw-2">&amp;</span><span class="ident">ServerName</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-        <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::generate_localpart</span>;
+        <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::generate_localpart</span>;
 
         <span class="kw">let</span> <span class="ident">full_id</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;${}:{}&quot;</span>, <span class="ident">generate_localpart</span>(<span class="number">18</span>), <span class="ident">server_name</span>).<span class="ident">into</span>();
 
@@ -377,7 +377,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// If using the original event format as used by Matrix room versions 1 and 2, the string must</span>
 <span class="doccomment">/// include the leading $ sigil, the localpart, a literal colon, and a valid homeserver hostname.</span>
-<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">event_id</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="kw">crate</span><span class="ident">::Error</span><span class="op">&gt;</span>
+<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">event_id</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident"><span class="kw">crate</span>::Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 {
@@ -391,8 +391,8 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::EventId</span>;
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::Error</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::EventId</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Error</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_original_event_id</span>() {
@@ -427,7 +427,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">generate_random_valid_event_id</span>() {
-        <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ServerName</span>;
+        <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
 
         <span class="kw">let</span> <span class="ident">server_name</span> <span class="op">=</span>
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to parse ServerName&quot;</span>);

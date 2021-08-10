@@ -584,12 +584,12 @@
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::Relation</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Relation</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">HashAlgorithm</span>, <span class="ident">KeyAgreementProtocol</span>, <span class="ident">MessageAuthenticationCode</span>, <span class="ident">ShortAuthenticationString</span>,
 };
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::MessageEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MessageEvent</span>;
 
 <span class="doccomment">/// Begins an SAS key verification process.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
@@ -796,8 +796,8 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ReciprocateV1Content</span>, <span class="ident">StartEventContent</span>};
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::key::verification::Relation</span>;
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ToDeviceEvent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::key::verification::Relation</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ToDeviceEvent</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {

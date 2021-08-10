@@ -113,7 +113,7 @@
         <span class="kw">pub</span> <span class="ident">tags</span>: <span class="ident">Tags</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -137,7 +137,7 @@
     <span class="kw">use</span> <span class="ident">ruma_events::tag</span>::{<span class="ident">TagInfo</span>, <span class="ident">Tags</span>};
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::Response</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Response</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serializing_get_tags_response</span>() {

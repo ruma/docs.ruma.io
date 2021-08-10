@@ -53,7 +53,7 @@
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
 
-<span class="kw">use</span> <span class="kw">super</span><span class="ident">::IncomingFilterDefinition</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::IncomingFilterDefinition</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -81,7 +81,7 @@
         <span class="kw">pub</span> <span class="ident">filter</span>: <span class="ident">IncomingFilterDefinition</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {

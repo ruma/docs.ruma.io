@@ -83,7 +83,7 @@
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StateEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
 
 <span class="doccomment">/// An event to indicate which servers are permitted to participate in the room.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ServerAclEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">ServerAclEventContent</span><span class="op">&gt;</span>;
@@ -132,8 +132,8 @@
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::ServerAclEventContent</span>;
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::StateEvent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ServerAclEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">default_values</span>() {

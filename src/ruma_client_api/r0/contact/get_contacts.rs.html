@@ -59,13 +59,13 @@
     <span class="ident">request</span>: {}
 
     <span class="ident">response</span>: {
-        <span class="doccomment">/// A list of third party identifiers the homeserver has associated with the user&#39;s</span>
-        <span class="doccomment">/// account.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
+        <span class="doccomment">/// A list of third party identifiers the homeserver has associated with the user&#39;s account.</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
+        <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>))]</span>
         <span class="kw">pub</span> <span class="ident">threepids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ThirdPartyIdentifier</span><span class="op">&gt;</span>,
     }
 
-    <span class="ident">error</span>: <span class="kw">crate</span><span class="ident">::Error</span>
+    <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
 }
 
 <span class="kw">impl</span> <span class="ident">Request</span> {

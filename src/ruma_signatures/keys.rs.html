@@ -269,7 +269,7 @@
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ParseError::Oid</span> { <span class="ident">expected</span>: <span class="ident">ED25519_OID</span>, <span class="ident">found</span>: <span class="ident">oid</span> }.<span class="ident">into</span>());
         }
 
-        <span class="kw">let</span> <span class="ident">secret_key</span> <span class="op">=</span> <span class="ident">SecretKey::from_bytes</span>(<span class="self">Self</span><span class="ident">::correct_privkey_from_octolet</span>(<span class="ident">privkey</span>))
+        <span class="kw">let</span> <span class="ident">secret_key</span> <span class="op">=</span> <span class="ident">SecretKey::from_bytes</span>(<span class="ident"><span class="self">Self</span>::correct_privkey_from_octolet</span>(<span class="ident">privkey</span>))
             .<span class="ident">map_err</span>(<span class="ident">ParseError::SecretKey</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">derived_pubkey</span> <span class="op">=</span> <span class="ident">PublicKey::from</span>(<span class="kw-2">&amp;</span><span class="ident">secret_key</span>);
@@ -313,17 +313,17 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">document</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">oak</span> <span class="op">=</span> <span class="ident">PrivateKeyInfo::from_der</span>(<span class="ident">document</span>).<span class="ident">map_err</span>(<span class="ident">Error::DerParse</span>)<span class="question-mark">?</span>;
 
-        <span class="self">Self</span><span class="ident">::from_pkcs8_oak</span>(<span class="ident">oak</span>, <span class="ident">version</span>)
+        <span class="ident"><span class="self">Self</span>::from_pkcs8_oak</span>(<span class="ident">oak</span>, <span class="ident">version</span>)
     }
 
     <span class="doccomment">/// Constructs a key pair from [`pkcs8::PrivateKeyInfo`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8_oak</span>(<span class="ident">oak</span>: <span class="ident">PrivateKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">oak</span>.<span class="ident">algorithm</span>.<span class="ident">oid</span>, <span class="ident">oak</span>.<span class="ident">private_key</span>, <span class="ident">oak</span>.<span class="ident">public_key</span>, <span class="ident">version</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">oak</span>.<span class="ident">algorithm</span>.<span class="ident">oid</span>, <span class="ident">oak</span>.<span class="ident">private_key</span>, <span class="ident">oak</span>.<span class="ident">public_key</span>, <span class="ident">version</span>)
     }
 
     <span class="doccomment">/// Constructs a key pair from [`pkcs8::PrivateKeyInfo`].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8_pki</span>(<span class="ident">oak</span>: <span class="ident">PrivateKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="self">Self</span><span class="ident">::new</span>(<span class="ident">oak</span>.<span class="ident">algorithm</span>.<span class="ident">oid</span>, <span class="ident">oak</span>.<span class="ident">private_key</span>, <span class="prelude-val">None</span>, <span class="ident">version</span>)
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">oak</span>.<span class="ident">algorithm</span>.<span class="ident">oid</span>, <span class="ident">oak</span>.<span class="ident">private_key</span>, <span class="prelude-val">None</span>, <span class="ident">version</span>)
     }
 
     <span class="doccomment">/// PKCS#8&#39;s &quot;private key&quot; is not yet actually the entire key,</span>
@@ -410,7 +410,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::Ed25519KeyPair</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Ed25519KeyPair</span>;
 
     <span class="kw">const</span> <span class="ident">RING_DOC</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[
         <span class="number">0x30</span>, <span class="number">0x53</span>, <span class="number">0x02</span>, <span class="number">0x01</span>, <span class="number">0x01</span>, <span class="number">0x30</span>, <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x03</span>, <span class="number">0x2B</span>, <span class="number">0x65</span>, <span class="number">0x70</span>, <span class="number">0x04</span>, <span class="number">0x22</span>, <span class="number">0x04</span>,

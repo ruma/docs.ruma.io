@@ -121,8 +121,8 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">EventEncryptionAlgorithm</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span><span class="ident">::RoomKeyToDeviceEventContent</span>;
-    <span class="kw">use</span> <span class="kw">crate</span><span class="ident">::ToDeviceEvent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomKeyToDeviceEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ToDeviceEvent</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
