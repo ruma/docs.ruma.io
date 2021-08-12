@@ -130,6 +130,7 @@
 <span id="130">130</span>
 <span id="131">131</span>
 <span id="132">132</span>
+<span id="133">133</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
@@ -138,8 +139,9 @@
 <span class="kw">use</span> <span class="ident">futures_core::stream::Stream</span>;
 <span class="kw">use</span> <span class="ident">ruma_client_api::r0</span>::{
     <span class="ident">account::register</span>::{<span class="self">self</span>, <span class="ident">RegistrationKind</span>},
-    <span class="ident">session::login</span>::{<span class="self">self</span>, <span class="ident">LoginInfo</span>, <span class="ident">UserIdentifier</span>},
+    <span class="ident">session::login</span>::{<span class="self">self</span>, <span class="ident">LoginInfo</span>},
     <span class="ident">sync::sync_events</span>,
+    <span class="ident">uiaa::UserIdentifier</span>,
 };
 <span class="kw">use</span> <span class="ident">ruma_common::presence::PresenceState</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceId</span>;

@@ -242,53 +242,15 @@
 <span id="242">242</span>
 <span id="243">243</span>
 <span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
-<span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
-<span id="263">263</span>
-<span id="264">264</span>
-<span id="265">265</span>
-<span id="266">266</span>
-<span id="267">267</span>
-<span id="268">268</span>
-<span id="269">269</span>
-<span id="270">270</span>
-<span id="271">271</span>
-<span id="272">272</span>
-<span id="273">273</span>
-<span id="274">274</span>
-<span id="275">275</span>
-<span id="276">276</span>
-<span id="277">277</span>
-<span id="278">278</span>
-<span id="279">279</span>
-<span id="280">280</span>
-<span id="281">281</span>
-<span id="282">282</span>
-<span id="283">283</span>
 </pre><pre class="rust">
 <span class="doccomment">//! [POST /_matrix/client/r0/login](https://matrix.org/docs/spec/client_server/r0.6.0#post-matrix-client-r0-login)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_common::thirdparty::Medium</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">DeviceIdBox</span>, <span class="ident">ServerNameBox</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Outgoing</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::uiaa</span>::{<span class="ident">IncomingUserIdentifier</span>, <span class="ident">UserIdentifier</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -359,35 +321,6 @@
     }
 }
 
-<span class="doccomment">/// Identification information for the user.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">from</span> <span class="op">=</span> <span class="string">&quot;user_serde::IncomingUserIdentifier&quot;</span>, <span class="ident">into</span> <span class="op">=</span> <span class="string">&quot;user_serde::UserIdentifier&lt;&#39;_&gt;&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_enums</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Either a fully qualified Matrix user ID, or just the localpart (as part of the &#39;identifier&#39;</span>
-    <span class="doccomment">/// field).</span>
-    <span class="ident">MatrixId</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>),
-
-    <span class="doccomment">/// Third party identifier (as part of the &#39;identifier&#39; field).</span>
-    <span class="ident">ThirdPartyId</span> {
-        <span class="doccomment">/// Third party identifier for the user.</span>
-        <span class="ident">address</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
-
-        <span class="doccomment">/// The medium of the identifier.</span>
-        <span class="ident">medium</span>: <span class="ident">Medium</span>,
-    },
-
-    <span class="doccomment">/// Same as third-party identification with medium == msisdn, but with a non-canonicalised</span>
-    <span class="doccomment">/// phone number.</span>
-    <span class="ident">PhoneNumber</span> {
-        <span class="doccomment">/// The country that the phone number is from.</span>
-        <span class="ident">country</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
-
-        <span class="doccomment">/// The phone number.</span>
-        <span class="ident">phone</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
-    },
-}
-
 <span class="doccomment">/// The authentication mechanism.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
@@ -398,6 +331,7 @@
     <span class="ident">Password</span> {
         <span class="doccomment">/// Identification information for the user.</span>
         <span class="ident">identifier</span>: <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+
         <span class="doccomment">/// The password.</span>
         <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
     },
@@ -460,14 +394,13 @@
     }
 }
 
-<span class="kw">mod</span> <span class="ident">user_serde</span>;
-
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">IncomingLoginInfo</span>, <span class="ident">IncomingUserIdentifier</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::IncomingLoginInfo</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::uiaa::IncomingUserIdentifier</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_login_type</span>() {
@@ -497,25 +430,14 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">deserialize_user</span>() {
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>(<span class="macro">json!</span>({
-                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.id.user&quot;</span>,
-                <span class="string">&quot;user&quot;</span>: <span class="string">&quot;cheeky_monkey&quot;</span>
-            }))
-            .<span class="ident">unwrap</span>(),
-            <span class="ident">IncomingUserIdentifier::MatrixId</span>(<span class="ident">id</span>)
-            <span class="kw">if</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;cheeky_monkey&quot;</span>
-        );
-    }
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">serialize_login_request_body</span>() {
         <span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
+        <span class="kw">use</span> <span class="ident">ruma_common::thirdparty::Medium</span>;
         <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
-        <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">LoginInfo</span>, <span class="ident">Medium</span>, <span class="ident">Request</span>, <span class="ident">UserIdentifier</span>};
+        <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">LoginInfo</span>, <span class="ident">Request</span>};
+        <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::uiaa::UserIdentifier</span>;
 
         <span class="kw">let</span> <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Request</span> {
             <span class="ident">login_info</span>: <span class="ident">LoginInfo::Token</span> { <span class="ident">token</span>: <span class="string">&quot;0xdeadbeef&quot;</span> },

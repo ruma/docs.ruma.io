@@ -382,6 +382,26 @@
 <span id="382">382</span>
 <span id="383">383</span>
 <span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
 </pre><pre class="rust">
 <span class="doccomment">//! Types for the *m.room.encrypted* event.</span>
 
@@ -411,7 +431,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encrypted&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptedEventContent</span> {
-    <span class="doccomment">/// Encrypted event content</span>
+    <span class="doccomment">/// Algorithm-specific fields.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>,
 
@@ -421,9 +441,6 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;relation_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
-
-<span class="doccomment">/// The to-device version of the payload for the `EncryptedEvent`.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">EncryptedToDeviceEventContent</span> <span class="op">=</span> <span class="ident">EncryptedEventContent</span>;
 
 <span class="kw">impl</span> <span class="ident">EncryptedEventContent</span> {
     <span class="doccomment">/// Creates a new `EncryptedEventContent` with the given scheme and relation.</span>
@@ -438,7 +455,30 @@
     }
 }
 
-<span class="doccomment">/// The encryption scheme for `EncryptedEventContent`</span>
+<span class="doccomment">/// The to-device content payload for `m.encrypted` events.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+<span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encrypted&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptedToDeviceEventContent</span> {
+    <span class="doccomment">/// Algorithm-specific fields.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">EncryptedToDeviceEventContent</span> {
+    <span class="doccomment">/// Creates a new `EncryptedToDeviceEventContent` with the given scheme.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">scheme</span> }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EncryptedEventScheme</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EncryptedToDeviceEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">scheme</span> }
+    }
+}
+
+<span class="doccomment">/// The encryption scheme for `EncryptedEventContent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;algorithm&quot;</span>)]</span>
