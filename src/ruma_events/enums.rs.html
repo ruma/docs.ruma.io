@@ -376,7 +376,7 @@
 <span id="376">376</span>
 </pre><pre class="rust">
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_events_macros::event_enum</span>;
+<span class="kw">use</span> <span class="ident">ruma_events_macros</span>::{<span class="ident">event_enum</span>, <span class="ident">EventEnumFromEvent</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -523,7 +523,7 @@
 
 <span class="doccomment">/// Any room event.</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::large_enum_variant</span>, <span class="ident">clippy::exhaustive_enums</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">EventEnumFromEvent</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AnyRoomEvent</span> {
     <span class="doccomment">/// Any message event.</span>
@@ -548,7 +548,7 @@
 
 <span class="doccomment">/// Any sync room event (room event without a `room_id`, as returned in `/sync` responses)</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::large_enum_variant</span>, <span class="ident">clippy::exhaustive_enums</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">EventEnumFromEvent</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AnySyncRoomEvent</span> {
     <span class="doccomment">/// Any sync message event</span>
@@ -641,7 +641,7 @@
 
 <span class="doccomment">/// Any redacted room event.</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::large_enum_variant</span>, <span class="ident">clippy::exhaustive_enums</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">EventEnumFromEvent</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AnyRedactedRoomEvent</span> {
     <span class="doccomment">/// Any message event that has been redacted.</span>
     <span class="ident">Message</span>(<span class="ident">AnyRedactedMessageEvent</span>),
@@ -677,7 +677,7 @@
 
 <span class="doccomment">/// Any redacted sync room event (room event without a `room_id`, as returned in `/sync` responses)</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::large_enum_variant</span>, <span class="ident">clippy::exhaustive_enums</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">EventEnumFromEvent</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AnyRedactedSyncRoomEvent</span> {
     <span class="doccomment">/// Any sync message event that has been redacted.</span>
     <span class="ident">Message</span>(<span class="ident">AnyRedactedSyncMessageEvent</span>),
