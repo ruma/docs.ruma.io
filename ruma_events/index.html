@@ -26,8 +26,7 @@ other supporting types required by the event’s other fields.</p>
 structs, for this event we will use a <code>SyncMessageEvent</code> struct but any <code>MessageEvent</code> struct
 would work.</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">macros::EventContent</span>, <span class="ident">SyncMessageEvent</span>};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">macros::EventContent</span>, <span class="ident">SyncMessageEvent</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -83,7 +82,7 @@ would work.</p>
         },
         ..
     }) <span class="kw">if</span> <span class="ident">key</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;👍&quot;</span>
-);</pre></div>
+);</code></pre></div>
 <h1 id="serialization-and-deserialization" class="section-header"><a href="#serialization-and-deserialization">Serialization and deserialization</a></h1>
 <p>All concrete event types in ruma-events can be serialized via the <code>Serialize</code> trait from
 <a href="https://serde.rs/">serde</a> and can be deserialized from as <code>Raw&lt;EventType&gt;</code>. In order to

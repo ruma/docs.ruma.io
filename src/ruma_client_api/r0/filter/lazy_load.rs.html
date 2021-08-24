@@ -111,8 +111,7 @@
 <span id="111">111</span>
 <span id="112">112</span>
 <span id="113">113</span>
-</pre><pre class="rust">
-<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser::SerializeStruct</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser::SerializeStruct</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
 <span class="doccomment">/// Specifies options for [lazy-loading membership events][lazy-loading] on</span>
 <span class="doccomment">/// supported endpoints</span>
@@ -225,7 +224,7 @@
         <span class="macro">assert_eq!</span>(<span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">LazyLoadOptions</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(), <span class="ident">LazyLoadOptions::Disabled</span>);
     }
 }
-</pre></div>
+</code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-search-index-js="../../../../search-index.js" data-search-js="../../../../search.js"></div>
     <script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script>
 </body></html>
