@@ -634,7 +634,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;kind&quot;</span>, <span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PushCondition</span> {
-    <span class="doccomment">/// This is a glob pattern match on a field of the event.</span>
+    <span class="doccomment">/// A glob pattern match on a field of the event.</span>
     <span class="ident">EventMatch</span> {
         <span class="doccomment">/// The dot-separated field of the event to match.</span>
         <span class="ident">key</span>: <span class="ident">String</span>,
@@ -646,18 +646,18 @@
         <span class="ident">pattern</span>: <span class="ident">String</span>,
     },
 
-    <span class="doccomment">/// This matches unencrypted messages where `content.body` contains the owner&#39;s display name in</span>
-    <span class="doccomment">/// that room.</span>
+    <span class="doccomment">/// Matches unencrypted messages where `content.body` contains the owner&#39;s display name in that</span>
+    <span class="doccomment">/// room.</span>
     <span class="ident">ContainsDisplayName</span>,
 
-    <span class="doccomment">/// This matches the current number of members in the room.</span>
+    <span class="doccomment">/// Matches the current number of members in the room.</span>
     <span class="ident">RoomMemberCount</span> {
         <span class="doccomment">/// The condition on the current number of members in the room.</span>
         <span class="ident">is</span>: <span class="ident">RoomMemberCountIs</span>,
     },
 
-    <span class="doccomment">/// This takes into account the current power levels in the room, ensuring the sender of the</span>
-    <span class="doccomment">/// event has high enough power to trigger the notification.</span>
+    <span class="doccomment">/// Takes into account the current power levels in the room, ensuring the sender of the event</span>
+    <span class="doccomment">/// has high enough power to trigger the notification.</span>
     <span class="ident">SenderNotificationPermission</span> {
         <span class="doccomment">/// The field in the power level event the user needs a minimum power level for.</span>
         <span class="doccomment">///</span>

@@ -413,7 +413,6 @@
 <span id="413">413</span>
 <span id="414">414</span>
 <span id="415">415</span>
-<span id="416">416</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! Core types used to define the requests and responses for each endpoint in the various</span>
@@ -494,10 +493,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ## Request</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The request block contains normal struct field definitions.</span>
-<span class="doccomment">/// Doc comments and attributes are allowed as normal.</span>
-<span class="doccomment">/// There are also a few special attributes available to control how the struct is converted</span>
-<span class="doccomment">/// into a `http::Request`:</span>
+<span class="doccomment">/// The request block contains normal struct field definitions. Doc comments and attributes are</span>
+<span class="doccomment">/// allowed as normal. There are also a few special attributes available to control how the</span>
+<span class="doccomment">/// struct is converted into an `http::Request`:</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// * `#[ruma_api(header = HEADER_NAME)]`: Fields with this attribute will be treated as HTTP</span>
 <span class="doccomment">///   headers on the request. The value must implement `AsRef&lt;str&gt;`. Generally this is a</span>

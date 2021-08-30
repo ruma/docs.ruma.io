@@ -136,6 +136,18 @@
 <span id="136">136</span>
 <span id="137">137</span>
 <span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/pushers/set](https://matrix.org/docs/spec/client_server/r0.6.0#post-matrix-client-r0-pushers-set)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -192,13 +204,19 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pusher</span> {
-    <span class="doccomment">/// This is a unique identifier for this pusher. Max length, 512 bytes.</span>
+    <span class="doccomment">/// A unique identifier for this pusher.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The maximum allowed length is 512 bytes.</span>
     <span class="kw">pub</span> <span class="ident">pushkey</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// The kind of the pusher. `None` deletes the pusher.</span>
+    <span class="doccomment">/// The kind of the pusher.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `None` deletes the pusher.</span>
     <span class="kw">pub</span> <span class="ident">kind</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PusherKind</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// This is a reverse-DNS style identifier for the application. Max length, 64 chars.</span>
+    <span class="doccomment">/// A reverse-DNS style identifier for the application.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The maximum allowed length is 64 bytes.</span>
     <span class="kw">pub</span> <span class="ident">app_id</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// A string that will allow the user to identify what application owns this pusher.</span>
@@ -207,7 +225,7 @@
     <span class="doccomment">/// A string that will allow the user to identify what device owns this pusher.</span>
     <span class="kw">pub</span> <span class="ident">device_display_name</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// This string determines which set of device specific rules this pusher executes.</span>
+    <span class="doccomment">/// Determines which set of device specific rules this pusher executes.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">profile_tag</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -225,13 +243,19 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PusherInit</span> {
-    <span class="doccomment">/// This is a unique identifier for this pusher. Max length, 512 bytes.</span>
+    <span class="doccomment">/// A unique identifier for this pusher.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The maximum allowed length is 512 bytes.</span>
     <span class="kw">pub</span> <span class="ident">pushkey</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// The kind of the pusher. `None` deletes the pusher.</span>
+    <span class="doccomment">/// The kind of the pusher.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `None` deletes the pusher.</span>
     <span class="kw">pub</span> <span class="ident">kind</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PusherKind</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// This is a reverse-DNS style identifier for the application. Max length, 64 chars.</span>
+    <span class="doccomment">/// A reverse-DNS style identifier for the application.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The maximum allowed length is 64 bytes.</span>
     <span class="kw">pub</span> <span class="ident">app_id</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// A string that will allow the user to identify what application owns this pusher.</span>
@@ -240,7 +264,7 @@
     <span class="doccomment">/// A string that will allow the user to identify what device owns this pusher.</span>
     <span class="kw">pub</span> <span class="ident">device_display_name</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// This string determines which set of device specific rules this pusher executes.</span>
+    <span class="doccomment">/// Determines which set of device specific rules this pusher executes.</span>
     <span class="kw">pub</span> <span class="ident">profile_tag</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The preferred language for receiving notifications (e.g. &#39;en&#39; or &#39;en-US&#39;)</span>

@@ -49,6 +49,8 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/rooms/{roomId}/read_markers](https://matrix.org/docs/spec/client_server/r0.6.0#post-matrix-client-r0-rooms-roomid-read-markers)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -70,13 +72,15 @@
         <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
 
         <span class="doccomment">/// The event ID the read marker should be located at.</span>
+        <span class="doccomment">///</span>
         <span class="doccomment">/// The event MUST belong to the room.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.fully_read&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">fully_read</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>,
 
         <span class="doccomment">/// The event ID to set the read receipt location at.</span>
-        <span class="doccomment">/// This is equivalent to calling the create_read_receipt endpoint and is</span>
-        <span class="doccomment">/// provided here to save that extra call.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// This is equivalent to calling the create_read_receipt endpoint and is provided here to</span>
+        <span class="doccomment">/// save that extra call.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.read&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">read_receipt</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span><span class="op">&gt;</span>,
     }

@@ -1215,6 +1215,10 @@
 <span id="1215">1215</span>
 <span id="1216">1216</span>
 <span id="1217">1217</span>
+<span id="1218">1218</span>
+<span id="1219">1219</span>
+<span id="1220">1220</span>
+<span id="1221">1221</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.message* event.</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -1258,7 +1262,7 @@
     <span class="doccomment">/// Information about related messages for [rich replies].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [rich replies]: https://matrix.org/docs/spec/client_server/r0.6.1#rich-replies</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;relation_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
 
@@ -1482,6 +1486,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Currently used for replies and editing (message replacement).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::manual_non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Relation</span> {
     <span class="doccomment">/// An `m.in_reply_to` relation indicating that the event is a reply to another event.</span>
@@ -1494,6 +1499,9 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="ident">Replacement</span>(<span class="ident">Replacement</span>),
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="ident">_Custom</span>,
 }
 
 <span class="doccomment">/// Information about the event a &quot;rich reply&quot; is replying to.</span>
@@ -1714,7 +1722,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ImageMessageEventContent</span> {
     <span class="doccomment">/// A textual representation of the image.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This could be the alt text of the image, the filename of the image, or some kind of content</span>
+    <span class="doccomment">/// Could be the alt text of the image, the filename of the image, or some kind of content</span>
     <span class="doccomment">/// description for accessibility e.g. &quot;image attachment&quot;.</span>
     <span class="kw">pub</span> <span class="ident">body</span>: <span class="ident">String</span>,
 

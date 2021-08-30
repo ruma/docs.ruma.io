@@ -377,9 +377,6 @@
 <span id="377">377</span>
 <span id="378">378</span>
 <span id="379">379</span>
-<span id="380">380</span>
-<span id="381">381</span>
-<span id="382">382</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/push/v1/notify](https://matrix.org/docs/spec/push_gateway/r0.1.1#post-matrix-push-v1-notify)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -444,10 +441,9 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Notification</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// The Matrix event ID of the event being notified about.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is required if the notification is about a particular Matrix event.</span>
-    <span class="doccomment">/// It may be omitted for notifications that only contain updated badge</span>
-    <span class="doccomment">/// counts. This ID can and should be used to detect duplicate notification</span>
-    <span class="doccomment">/// requests.</span>
+    <span class="doccomment">/// Required if the notification is about a particular Matrix event. May be omitted for</span>
+    <span class="doccomment">/// notifications that only contain updated badge counts. This ID can and should be used to</span>
+    <span class="doccomment">/// detect duplicate notification requests.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span><span class="op">&gt;</span>,
 
@@ -465,8 +461,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">sender</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// The current display name of the sender in the room in which the event</span>
-    <span class="doccomment">/// occurred.</span>
+    <span class="doccomment">/// The current display name of the sender in the room in which the event occurred.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">sender_display_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
 
@@ -478,32 +473,31 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">room_alias</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// This is `true` if the user receiving the notification is the subject of</span>
-    <span class="doccomment">/// a member event (i.e. the `state_key` of the member event is equal to the</span>
-    <span class="doccomment">/// user&#39;s Matrix ID).</span>
+    <span class="doccomment">/// Whether the user receiving the notification is the subject of a member event (i.e. the</span>
+    <span class="doccomment">/// `state_key` of the member event is equal to the user&#39;s Matrix ID).</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">user_is_target</span>: <span class="ident">bool</span>,
 
     <span class="doccomment">/// The priority of the notification.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If omitted, `high` is assumed. This may be used by push gateways to</span>
-    <span class="doccomment">/// deliver less time-sensitive notifications in a way that will preserve</span>
-    <span class="doccomment">/// battery power on mobile devices.</span>
+    <span class="doccomment">/// If omitted, `high` is assumed. This may be used by push gateways to deliver less</span>
+    <span class="doccomment">/// time-sensitive notifications in a way that will preserve battery power on mobile devices.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">prio</span>: <span class="ident">NotificationPriority</span>,
 
-    <span class="doccomment">/// The `content` field from the event, if present. The pusher may omit this</span>
-    <span class="doccomment">/// if the event had no content or for any other reason.</span>
+    <span class="doccomment">/// The `content` field from the event, if present.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The pusher may omit this if the event had no content or for any other reason.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// This is a dictionary of the current number of unacknowledged</span>
-    <span class="doccomment">/// communications for the recipient user. Counts whose value is zero should</span>
-    <span class="doccomment">/// be omitted.</span>
+    <span class="doccomment">/// Current number of unacknowledged communications for the recipient user.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Counts whose value is zero should be omitted.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">counts</span>: <span class="ident">NotificationCounts</span>,
 
-    <span class="doccomment">/// This is an array of devices that the notification should be sent to.</span>
+    <span class="doccomment">/// An array of devices that the notification should be sent to.</span>
     <span class="kw">pub</span> <span class="ident">devices</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Device</span>],
 }
 

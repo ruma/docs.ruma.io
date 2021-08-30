@@ -44,10 +44,9 @@ parameter will be expected in the request struct (see below for details).</li>
 <li><code>authentication</code>: What authentication scheme the endpoint uses.</li>
 </ul>
 <h2 id="request" class="section-header"><a href="#request">Request</a></h2>
-<p>The request block contains normal struct field definitions.
-Doc comments and attributes are allowed as normal.
-There are also a few special attributes available to control how the struct is converted
-into a <code>http::Request</code>:</p>
+<p>The request block contains normal struct field definitions. Doc comments and attributes are
+allowed as normal. There are also a few special attributes available to control how the
+struct is converted into an <code>http::Request</code>:</p>
 <ul>
 <li><code>#[ruma_api(header = HEADER_NAME)]</code>: Fields with this attribute will be treated as HTTP
 headers on the request. The value must implement <code>AsRef&lt;str&gt;</code>. Generally this is a

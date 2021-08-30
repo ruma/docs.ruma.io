@@ -77,6 +77,7 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
+<span id="80">80</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.server_acl* event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
@@ -92,28 +93,29 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.server_acl&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ServerAclEventContent</span> {
-    <span class="doccomment">/// True to allow server names that are IP address literals. False to deny.</span>
+    <span class="doccomment">/// Whether to allow server names that are IP address literals.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is strongly recommended to be set to false as servers running with IP literal</span>
-    <span class="doccomment">/// names are strongly discouraged in order to require legitimate homeservers to be</span>
-    <span class="doccomment">/// backed by a valid registered domain name.</span>
+    <span class="doccomment">/// This is strongly recommended to be set to false as servers running with IP literal names</span>
+    <span class="doccomment">/// are strongly discouraged in order to require legitimate homeservers to be backed by a</span>
+    <span class="doccomment">/// valid registered domain name.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::default_true&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_true&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">allow_ip_literals</span>: <span class="ident">bool</span>,
 
-    <span class="doccomment">/// The server names to allow in the room, excluding any port information. Wildcards may</span>
-    <span class="doccomment">/// be used to cover a wider range of hosts, where `*` matches zero or more characters</span>
-    <span class="doccomment">/// and `?` matches exactly one character.</span>
+    <span class="doccomment">/// The server names to allow in the room, excluding any port information.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// **This defaults to an empty list when not provided, effectively disallowing every</span>
-    <span class="doccomment">/// server.**</span>
+    <span class="doccomment">/// Wildcards may be used to cover a wider range of hosts, where `*` matches zero or more</span>
+    <span class="doccomment">/// characters and `?` matches exactly one character.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Defaults to an empty list when not provided, effectively disallowing every server.**</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">allow</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// The server names to disallow in the room, excluding any port information. Wildcards may</span>
-    <span class="doccomment">/// be used to cover a wider range of hosts, where * matches zero or more characters and ?</span>
-    <span class="doccomment">/// matches exactly one character.</span>
+    <span class="doccomment">/// The server names to disallow in the room, excluding any port information.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This defaults to an empty list when not provided.</span>
+    <span class="doccomment">/// Wildcards may be used to cover a wider range of hosts, where * matches zero or more</span>
+    <span class="doccomment">/// characters and `?` matches exactly one character.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Defaults to an empty list when not provided.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">deny</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }

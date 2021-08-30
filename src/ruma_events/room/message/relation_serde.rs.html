@@ -135,14 +135,9 @@
 <span id="135">135</span>
 <span id="136">136</span>
 <span id="137">137</span>
-<span id="138">138</span>
-<span id="139">139</span>
-<span id="140">140</span>
-<span id="141">141</span>
-<span id="142">142</span>
 </pre><pre class="rust"><code><span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
-<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser::SerializeStruct</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
+<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Replacement</span>;
@@ -150,71 +145,66 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::room::message::MessageEventContent</span>;
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
-{
-    <span class="kw">fn</span> <span class="ident">convert_relation</span>(<span class="ident">ev</span>: <span class="ident">EventWithRelatesToJsonRepr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Relation</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
+    {
+        <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">EventWithRelatesToJsonRepr::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
+
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">in_reply_to</span> {
-            <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> });
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> });
         }
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">relation</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span> {
-            <span class="kw">let</span> <span class="ident">relation</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">relation</span> {
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">relation</span> {
                 <span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">ReplacementJsonRepr</span> { <span class="ident">event_id</span> }) <span class="op">=</span><span class="op">&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">new_content</span> <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">new_content</span><span class="question-mark">?</span>;
+                    <span class="kw">let</span> <span class="ident">new_content</span> <span class="op">=</span> <span class="ident">ev</span>
+                        .<span class="ident">new_content</span>
+                        .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">serde::de::Error::missing_field</span>(<span class="string">&quot;m.new_content&quot;</span>))<span class="question-mark">?</span>;
                     <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> })
                 }
-                <span class="comment">// FIXME: Maybe we should log this, though at this point we don&#39;t even have access</span>
-                <span class="comment">// to the rel_type of the unknown relation.</span>
-                <span class="ident">RelationJsonRepr::Unknown</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">None</span>,
-            };
-
-            <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">relation</span>);
+                <span class="comment">// FIXME: Maybe we should log this, though at this point we don&#39;t even have</span>
+                <span class="comment">// access to the rel_type of the unknown relation.</span>
+                <span class="ident">RelationJsonRepr::Unknown</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Relation::_Custom</span>,
+            });
         }
 
-        <span class="prelude-val">None</span>
+        <span class="prelude-val">Ok</span>(<span class="ident">Relation::_Custom</span>)
     }
-
-    <span class="ident">EventWithRelatesToJsonRepr::deserialize</span>(<span class="ident">deserializer</span>).<span class="ident">map</span>(<span class="ident">convert_relation</span>)
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">relation</span>: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S::Ok</span>, <span class="ident">S::Error</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">Serializer</span>,
-{
-    <span class="kw">let</span> <span class="ident">relation</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">relation</span> {
-        <span class="prelude-val">Some</span>(<span class="ident">rel</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">rel</span>,
-        <span class="comment">// FIXME: If this crate ends up depending on tracing, emit a warning here.</span>
-        <span class="comment">// This code path should not be reachable due to the skip_serializing_if serde attribute</span>
-        <span class="comment">// that should be applied together with `with = &quot;relation_serde&quot;`.</span>
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">serializer</span>.<span class="ident">serialize_struct</span>(<span class="string">&quot;NoRelation&quot;</span>, <span class="number">0</span>)<span class="question-mark">?</span>.<span class="ident">end</span>(),
-    };
-
-    <span class="kw">let</span> <span class="ident">json_repr</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">relation</span> {
-        <span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventWithRelatesToJsonRepr::new</span>(<span class="ident">RelatesToJsonRepr</span> {
-            <span class="ident">in_reply_to</span>: <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>.<span class="ident">clone</span>()),
-            ..<span class="ident">Default::default</span>()
-        }),
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> }) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="ident">EventWithRelatesToJsonRepr</span> {
-                <span class="ident">relates_to</span>: <span class="ident">RelatesToJsonRepr</span> {
-                    <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">ReplacementJsonRepr</span> {
-                        <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>(),
-                    })),
-                    ..<span class="ident">Default::default</span>()
-                },
-                <span class="ident">new_content</span>: <span class="prelude-val">Some</span>(<span class="ident">new_content</span>.<span class="ident">clone</span>()),
+<span class="kw">impl</span> <span class="ident">Serialize</span> <span class="kw">for</span> <span class="ident">Relation</span> {
+    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S::Ok</span>, <span class="ident">S::Error</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">S</span>: <span class="ident">Serializer</span>,
+    {
+        <span class="kw">let</span> <span class="ident">json_repr</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventWithRelatesToJsonRepr::new</span>(<span class="ident">RelatesToJsonRepr</span> {
+                <span class="ident">in_reply_to</span>: <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>.<span class="ident">clone</span>()),
+                ..<span class="ident">Default::default</span>()
+            }),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> }) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">EventWithRelatesToJsonRepr</span> {
+                    <span class="ident">relates_to</span>: <span class="ident">RelatesToJsonRepr</span> {
+                        <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">ReplacementJsonRepr</span> {
+                            <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>(),
+                        })),
+                        ..<span class="ident">Default::default</span>()
+                    },
+                    <span class="ident">new_content</span>: <span class="prelude-val">Some</span>(<span class="ident">new_content</span>.<span class="ident">clone</span>()),
+                }
             }
-        }
-    };
+            <span class="ident">Relation::_Custom</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">EventWithRelatesToJsonRepr::default</span>(),
+        };
 
-    <span class="ident">json_repr</span>.<span class="ident">serialize</span>(<span class="ident">serializer</span>)
+        <span class="ident">json_repr</span>.<span class="ident">serialize</span>(<span class="ident">serializer</span>)
+    }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">struct</span> <span class="ident">EventWithRelatesToJsonRepr</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relates_to&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;RelatesToJsonRepr::is_empty&quot;</span>)]</span>
     <span class="ident">relates_to</span>: <span class="ident">RelatesToJsonRepr</span>,

@@ -353,17 +353,6 @@
 <span id="353">353</span>
 <span id="354">354</span>
 <span id="355">355</span>
-<span id="356">356</span>
-<span id="357">357</span>
-<span id="358">358</span>
-<span id="359">359</span>
-<span id="360">360</span>
-<span id="361">361</span>
-<span id="362">362</span>
-<span id="363">363</span>
-<span id="364">364</span>
-<span id="365">365</span>
-<span id="366">366</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
@@ -410,9 +399,8 @@
 
 <span class="doccomment">/// A message event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `MessageEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `MessageEvent` implements the comparison traits using only the `event_id` field, a sorted list</span>
+<span class="doccomment">/// would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
@@ -436,9 +424,8 @@
 
 <span class="doccomment">/// A message event without a `room_id`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `SyncMessageEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `SyncMessageEvent` implements the comparison traits using only the `event_id` field, a sorted</span>
+<span class="doccomment">/// list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncMessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
@@ -459,9 +446,8 @@
 
 <span class="doccomment">/// A redacted message event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `RedactedMessageEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `RedactedMessageEvent` implements the comparison traits using only the `event_id` field, a</span>
+<span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedMessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
@@ -485,13 +471,11 @@
 
 <span class="doccomment">/// A redacted message event without a `room_id`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `RedactedSyncMessageEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `RedactedSyncMessageEvent` implements the comparison traits using only the `event_id` field, a</span>
+<span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncMessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
-    <span class="comment">// #[serde(default, skip_serializing_if = &quot;is_zst&quot;)]</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
@@ -509,9 +493,8 @@
 
 <span class="doccomment">/// A state event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `StateEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `StateEvent` implements the comparison traits using only the `event_id` field, a sorted list</span>
+<span class="doccomment">/// would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
@@ -531,8 +514,8 @@
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show</span>
-    <span class="doccomment">/// which user the event affects.</span>
+    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show which user the event</span>
+    <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// Optional previous content for this event.</span>
@@ -544,9 +527,8 @@
 
 <span class="doccomment">/// A state event without a `room_id`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `SyncStateEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `SyncStateEvent` implements the comparison traits using only the `event_id` field, a sorted list</span>
+<span class="doccomment">/// would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
@@ -563,8 +545,8 @@
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show</span>
-    <span class="doccomment">/// which user the event affects.</span>
+    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show which user the event</span>
+    <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// Optional previous content for this event.</span>
@@ -574,8 +556,7 @@
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
 }
 
-<span class="doccomment">/// A stripped-down state event, used for previews of rooms the user has been</span>
-<span class="doccomment">/// invited to.</span>
+<span class="doccomment">/// A stripped-down state event, used for previews of rooms the user has been invited to.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StrippedStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
@@ -586,8 +567,8 @@
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show</span>
-    <span class="doccomment">/// which user the event affects.</span>
+    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show which user the event</span>
+    <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 }
 
@@ -599,8 +580,8 @@
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show</span>
-    <span class="doccomment">/// which user the event affects.</span>
+    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show which user the event</span>
+    <span class="doccomment">/// affects.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to the empty string.</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">default</span>)]</span>
@@ -609,9 +590,8 @@
 
 <span class="doccomment">/// A redacted state event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `RedactedStateEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `RedactedStateEvent` implements the comparison traits using only the `event_id` field, a sorted</span>
+<span class="doccomment">/// list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedStateEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
@@ -631,8 +611,8 @@
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show</span>
-    <span class="doccomment">/// which user the event affects.</span>
+    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show which user the event</span>
+    <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
@@ -641,13 +621,11 @@
 
 <span class="doccomment">/// A redacted state event without a `room_id`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `RedactedSyncStateEvent` implements the comparison traits using only</span>
-<span class="doccomment">/// the `event_id` field, a sorted list would be sorted lexicographically based on</span>
-<span class="doccomment">/// the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `RedactedSyncStateEvent` implements the comparison traits using only the `event_id` field, a</span>
+<span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedStateEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
-    <span class="comment">// #[serde(default, skip_serializing_if = &quot;is_zst&quot;)]</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
@@ -661,8 +639,8 @@
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show</span>
-    <span class="doccomment">/// which user the event affects.</span>
+    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show which user the event</span>
+    <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
@@ -680,8 +658,8 @@
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show</span>
-    <span class="doccomment">/// which user the event affects.</span>
+    <span class="doccomment">/// This is often an empty string, but some events send a `UserId` to show which user the event</span>
+    <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 }
 

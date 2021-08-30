@@ -526,7 +526,6 @@
 <span id="526">526</span>
 <span id="527">527</span>
 <span id="528">528</span>
-<span id="529">529</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Module for [User-Interactive Authentication API][uiaa] types.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [uiaa]: https://matrix.org/docs/spec/client_server/r0.6.1#user-interactive-authentication-api</span>
@@ -557,7 +556,6 @@
 <span class="doccomment">/// Additional authentication information for the user-interactive authentication API.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::manual_non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">incoming_derive</span>(<span class="op">!</span><span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AuthData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {

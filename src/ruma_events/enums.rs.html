@@ -746,7 +746,7 @@
             <span class="op">|</span> <span class="ident">AnyMessageEventContent::RoomMessageFeedback</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident">AnyMessageEventContent::RoomRedaction</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident">AnyMessageEventContent::Sticker</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::_Custom</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="op">|</span> <span class="ident">AnyMessageEventContent::_Custom</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }
