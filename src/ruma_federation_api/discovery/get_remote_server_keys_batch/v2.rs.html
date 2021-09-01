@@ -83,8 +83,6 @@
 <span id="83">83</span>
 <span id="84">84</span>
 <span id="85">85</span>
-<span id="86">86</span>
-<span id="87">87</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/key/v2/query](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-key-v2-query)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -107,26 +105,24 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// The query criteria. The outer string key on the object is the server</span>
-        <span class="doccomment">/// name (eg: matrix.org). The inner string key is the Key ID to query</span>
-        <span class="doccomment">/// for the particular server. If no key IDs are given to be queried,</span>
-        <span class="doccomment">/// the notary server should query for all keys. If no servers are</span>
-        <span class="doccomment">/// given, the notary server must return an empty server_keys array in</span>
-        <span class="doccomment">/// the response.</span>
-        <span class="doccomment">///</span>
-        <span class="doccomment">/// The notary server may return multiple keys regardless of the Key IDs</span>
-        <span class="doccomment">/// given.</span>
-        <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">server_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">QueryCriteria</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-
-        <span class="doccomment">/// A millisecond POSIX timestamp in milliseconds indicating when the</span>
-        <span class="doccomment">/// returned certificates will need to be valid until to be useful to</span>
+        <span class="doccomment">/// The time until which the returned certificates will need to be valid to be useful to</span>
         <span class="doccomment">/// the requesting server.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// If not supplied, the current time as determined by the notary server</span>
-        <span class="doccomment">/// is used.</span>
+        <span class="doccomment">/// If not supplied, the current time as determined by the notary server is used.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;MilliSecondsSinceUnixEpoch::now&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">minimum_valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
+
+        <span class="doccomment">/// The query criteria.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// The outer string key on the object is the server name (eg: matrix.org). The inner</span>
+        <span class="doccomment">/// string key is the Key ID to query for the particular server. If no key IDs are given to</span>
+        <span class="doccomment">/// be queried, the notary server should query for all keys. If no servers are given, the</span>
+        <span class="doccomment">/// notary server must return an empty server_keys array in the response.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// The notary server may return multiple keys regardless of the Key IDs given.</span>
+        <span class="kw">pub</span> <span class="ident">server_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">QueryCriteria</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+
     }
 
     <span class="ident">response</span>: {
