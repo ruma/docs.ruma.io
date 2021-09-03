@@ -1318,7 +1318,7 @@
                 <span class="bool-val">false</span>
             } <span class="kw">else</span> {
                 <span class="kw">let</span> <span class="ident">allow</span> <span class="op">=</span> <span class="ident">verify_third_party_invite</span>(
-                    <span class="prelude-val">Some</span>(<span class="ident">state_key</span>),
+                    <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">target_user_id</span>),
                     <span class="ident">user_sender</span>,
                     <span class="kw-2">&amp;</span><span class="ident">tp_id</span>,
                     <span class="ident">current_third_party_invite</span>,
@@ -1754,7 +1754,7 @@
 }
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_third_party_invite</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(
-    <span class="ident">user_state_key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
+    <span class="ident">target_user</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
     <span class="ident">sender</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>,
     <span class="ident">tp_id</span>: <span class="kw-2">&amp;</span><span class="ident">ThirdPartyInvite</span>,
     <span class="ident">current_third_party_invite</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -1763,7 +1763,7 @@
     <span class="comment">// checking for mxid and token keys is done by ruma when deserializing</span>
 
     <span class="comment">// The state key must match the invitee</span>
-    <span class="kw">if</span> <span class="ident">user_state_key</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">tp_id</span>.<span class="ident">signed</span>.<span class="ident">mxid</span>.<span class="ident">as_str</span>()) {
+    <span class="kw">if</span> <span class="ident">target_user</span> <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">tp_id</span>.<span class="ident">signed</span>.<span class="ident">mxid</span>) {
         <span class="kw">return</span> <span class="bool-val">false</span>;
     }
 
