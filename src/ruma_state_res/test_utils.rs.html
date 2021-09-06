@@ -841,7 +841,6 @@
 <span id="841">841</span>
 <span id="842">842</span>
 <span id="843">843</span>
-<span id="844">844</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
     <span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
@@ -865,7 +864,7 @@
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 <span class="kw">use</span> <span class="ident">tracing::info</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="self">self</span> <span class="kw">as</span> <span class="ident">state_res</span>, <span class="ident">auth_types_for_event</span>, <span class="ident">Error</span>, <span class="ident">Event</span>, <span class="prelude-ty">Result</span>, <span class="ident">StateMap</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">auth_types_for_event</span>, <span class="ident">Error</span>, <span class="ident">Event</span>, <span class="prelude-ty">Result</span>, <span class="ident">StateMap</span>};
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event::StateEvent</span>;
 
@@ -920,7 +919,7 @@
 
     <span class="comment">// Resolve the current state and add it to the state_at_event map then continue</span>
     <span class="comment">// on in &quot;time&quot;</span>
-    <span class="kw">for</span> <span class="ident">node</span> <span class="kw">in</span> <span class="ident">state_res::lexicographical_topological_sort</span>(<span class="kw-2">&amp;</span><span class="ident">graph</span>, <span class="op">|</span><span class="ident">id</span><span class="op">|</span> {
+    <span class="kw">for</span> <span class="ident">node</span> <span class="kw">in</span> <span class="ident"><span class="kw">crate</span>::lexicographical_topological_sort</span>(<span class="kw-2">&amp;</span><span class="ident">graph</span>, <span class="op">|</span><span class="ident">id</span><span class="op">|</span> {
         <span class="prelude-val">Ok</span>((<span class="number">0</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">0</span>)), <span class="ident">id</span>.<span class="ident">clone</span>()))
     })
     .<span class="ident">unwrap</span>()
@@ -952,8 +951,7 @@
                     .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
             );
 
-            <span class="kw">let</span> <span class="ident">resolved</span> <span class="op">=</span> <span class="ident">state_res::resolve</span>(
-                <span class="kw-2">&amp;</span><span class="ident">room_id</span>(),
+            <span class="kw">let</span> <span class="ident">resolved</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::resolve</span>(
                 <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version6</span>,
                 <span class="kw-2">&amp;</span><span class="ident">state_sets</span>,
                 <span class="ident">state_sets</span>
@@ -974,12 +972,12 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state_after</span> <span class="op">=</span> <span class="ident">state_before</span>.<span class="ident">clone</span>();
 
-        <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <span class="ident">fake_event</span>.<span class="ident">event_type</span>();
-        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">fake_event</span>.<span class="ident">state_key</span>();
+        <span class="kw">let</span> <span class="ident">ty</span> <span class="op">=</span> <span class="ident">fake_event</span>.<span class="ident">event_type</span>().<span class="ident">to_owned</span>();
+        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">fake_event</span>.<span class="ident">state_key</span>().<span class="ident">to_owned</span>();
         <span class="ident">state_after</span>.<span class="ident">insert</span>((<span class="ident">ty</span>, <span class="ident">key</span>), <span class="ident">event_id</span>.<span class="ident">clone</span>());
 
         <span class="kw">let</span> <span class="ident">auth_types</span> <span class="op">=</span> <span class="ident">auth_types_for_event</span>(
-            <span class="kw-2">&amp;</span><span class="ident">fake_event</span>.<span class="ident">event_type</span>(),
+            <span class="ident">fake_event</span>.<span class="ident">event_type</span>(),
             <span class="ident">fake_event</span>.<span class="ident">sender</span>(),
             <span class="prelude-val">Some</span>(<span class="ident">fake_event</span>.<span class="ident">state_key</span>()),
             <span class="ident">fake_event</span>.<span class="ident">content</span>(),
@@ -1000,7 +998,7 @@
             <span class="ident">e</span>.<span class="ident">event_id</span>().<span class="ident">as_str</span>(),
             <span class="ident">e</span>.<span class="ident">sender</span>().<span class="ident">clone</span>(),
             <span class="ident">e</span>.<span class="ident">event_type</span>().<span class="ident">clone</span>(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">e</span>.<span class="ident">state_key</span>()),
+            <span class="prelude-val">Some</span>(<span class="ident">e</span>.<span class="ident">state_key</span>()),
             <span class="ident">e</span>.<span class="ident">content</span>(),
             <span class="kw-2">&amp;</span><span class="ident">auth_events</span>,
             <span class="kw-2">&amp;</span><span class="ident">prev_events</span>.<span class="ident">iter</span>().<span class="ident">cloned</span>().<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>(),
@@ -1024,7 +1022,7 @@
             )
         });
 
-        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<span class="ident">ev</span>.<span class="ident">event_type</span>(), <span class="ident">ev</span>.<span class="ident">state_key</span>());
+        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<span class="ident">ev</span>.<span class="ident">event_type</span>().<span class="ident">to_owned</span>(), <span class="ident">ev</span>.<span class="ident">state_key</span>().<span class="ident">to_owned</span>());
 
         <span class="ident">expected_state</span>.<span class="ident">insert</span>(<span class="ident">key</span>, <span class="ident">node</span>);
     }
@@ -1089,7 +1087,7 @@
 
             <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_event</span>(<span class="ident">room_id</span>, <span class="kw-2">&amp;</span><span class="ident">ev_id</span>)<span class="question-mark">?</span>;
 
-            <span class="ident">stack</span>.<span class="ident">extend</span>(<span class="ident">event</span>.<span class="ident">auth_events</span>().<span class="ident">clone</span>());
+            <span class="ident">stack</span>.<span class="ident">extend</span>(<span class="ident">event</span>.<span class="ident">auth_events</span>().<span class="ident">cloned</span>());
         }
 
         <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
@@ -1184,17 +1182,17 @@
 
         <span class="kw">let</span> <span class="ident">state_at_bob</span> <span class="op">=</span> [<span class="kw-2">&amp;</span><span class="ident">create_event</span>, <span class="kw-2">&amp;</span><span class="ident">alice_mem</span>, <span class="kw-2">&amp;</span><span class="ident">join_rules</span>, <span class="kw-2">&amp;</span><span class="ident">bob_mem</span>]
             .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> ((<span class="ident">e</span>.<span class="ident">event_type</span>(), <span class="ident">e</span>.<span class="ident">state_key</span>()), <span class="ident">e</span>.<span class="ident">event_id</span>().<span class="ident">clone</span>()))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> ((<span class="ident">e</span>.<span class="ident">event_type</span>().<span class="ident">to_owned</span>(), <span class="ident">e</span>.<span class="ident">state_key</span>().<span class="ident">to_owned</span>()), <span class="ident">e</span>.<span class="ident">event_id</span>().<span class="ident">clone</span>()))
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">StateMap</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
         <span class="kw">let</span> <span class="ident">state_at_charlie</span> <span class="op">=</span> [<span class="kw-2">&amp;</span><span class="ident">create_event</span>, <span class="kw-2">&amp;</span><span class="ident">alice_mem</span>, <span class="kw-2">&amp;</span><span class="ident">join_rules</span>, <span class="kw-2">&amp;</span><span class="ident">charlie_mem</span>]
             .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> ((<span class="ident">e</span>.<span class="ident">event_type</span>(), <span class="ident">e</span>.<span class="ident">state_key</span>()), <span class="ident">e</span>.<span class="ident">event_id</span>().<span class="ident">clone</span>()))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> ((<span class="ident">e</span>.<span class="ident">event_type</span>().<span class="ident">to_owned</span>(), <span class="ident">e</span>.<span class="ident">state_key</span>().<span class="ident">to_owned</span>()), <span class="ident">e</span>.<span class="ident">event_id</span>().<span class="ident">clone</span>()))
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">StateMap</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
         <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> [<span class="kw-2">&amp;</span><span class="ident">create_event</span>, <span class="kw-2">&amp;</span><span class="ident">alice_mem</span>, <span class="kw-2">&amp;</span><span class="ident">join_rules</span>, <span class="kw-2">&amp;</span><span class="ident">bob_mem</span>, <span class="kw-2">&amp;</span><span class="ident">charlie_mem</span>]
             .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> ((<span class="ident">e</span>.<span class="ident">event_type</span>(), <span class="ident">e</span>.<span class="ident">state_key</span>()), <span class="ident">e</span>.<span class="ident">event_id</span>().<span class="ident">clone</span>()))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> ((<span class="ident">e</span>.<span class="ident">event_type</span>().<span class="ident">to_owned</span>(), <span class="ident">e</span>.<span class="ident">state_key</span>().<span class="ident">to_owned</span>()), <span class="ident">e</span>.<span class="ident">event_id</span>().<span class="ident">clone</span>()))
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">StateMap</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
         (<span class="ident">state_at_bob</span>, <span class="ident">state_at_charlie</span>, <span class="ident">expected</span>)
@@ -1430,7 +1428,7 @@
         <span class="kw">fn</span> <span class="ident">sender</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">UserId</span> {
             <span class="self">self</span>.<span class="ident">sender</span>()
         }
-        <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventType</span> {
+        <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EventType</span> {
             <span class="self">self</span>.<span class="ident">event_type</span>()
         }
 
@@ -1441,16 +1439,16 @@
             <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">origin_server_ts</span>()
         }
 
-        <span class="kw">fn</span> <span class="ident">state_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">state_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
             <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">state_key</span>())
         }
-        <span class="kw">fn</span> <span class="ident">prev_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">prev_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">DoubleEndedIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">EventId</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
             <span class="self">self</span>.<span class="ident">prev_event_ids</span>()
         }
         <span class="kw">fn</span> <span class="ident">depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">UInt</span> {
             <span class="self">self</span>.<span class="ident">depth</span>()
         }
-        <span class="kw">fn</span> <span class="ident">auth_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">auth_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">DoubleEndedIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">EventId</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
             <span class="self">self</span>.<span class="ident">auth_events</span>()
         }
         <span class="kw">fn</span> <span class="ident">redacts</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">EventId</span><span class="op">&gt;</span> {
@@ -1566,18 +1564,18 @@
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;new PDU version&quot;</span>),
             }
         }
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EventType</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EventType</span> {
             <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">rest</span> {
-                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">kind</span>.<span class="ident">clone</span>(),
-                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">kind</span>.<span class="ident">clone</span>(),
+                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">kind</span>,
+                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">kind</span>,
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;new PDU version&quot;</span>),
             }
         }
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">state_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">state_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
             <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">rest</span> {
-                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">state_key</span>.<span class="ident">clone</span>().<span class="ident">unwrap</span>(),
-                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">state_key</span>.<span class="ident">clone</span>().<span class="ident">unwrap</span>(),
+                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">state_key</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>(),
+                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">state_key</span>.<span class="ident">as_ref</span>().<span class="ident">unwrap</span>(),
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;new PDU version&quot;</span>),
             }
@@ -1593,19 +1591,19 @@
             }
         }
 
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prev_event_ids</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">prev_event_ids</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">DoubleEndedIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">EventId</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
             <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">rest</span> {
-                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">prev_events</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">id</span>).<span class="ident">cloned</span>().<span class="ident">collect</span>(),
-                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">prev_events</span>.<span class="ident">clone</span>(),
+                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Box::new</span>(<span class="ident">ev</span>.<span class="ident">prev_events</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">id</span>)),
+                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Box::new</span>(<span class="ident">ev</span>.<span class="ident">prev_events</span>.<span class="ident">iter</span>()),
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;new PDU version&quot;</span>),
             }
         }
 
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_events</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">DoubleEndedIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">EventId</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
             <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">rest</span> {
-                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">auth_events</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">id</span>).<span class="ident">cloned</span>().<span class="ident">collect</span>(),
-                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">auth_events</span>.<span class="ident">to_vec</span>(),
+                <span class="ident">Pdu::RoomV1Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Box::new</span>(<span class="ident">ev</span>.<span class="ident">auth_events</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">id</span>, <span class="kw">_</span>)<span class="op">|</span> <span class="ident">id</span>)),
+                <span class="ident">Pdu::RoomV3Pdu</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Box::new</span>(<span class="ident">ev</span>.<span class="ident">auth_events</span>.<span class="ident">iter</span>()),
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>))]</span>
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">unreachable!</span>(<span class="string">&quot;new PDU version&quot;</span>),
             }
