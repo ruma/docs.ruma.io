@@ -13,5 +13,5 @@ sourcesIndex["ruma_push_gateway_api"] = {"name":"","dirs":[{"name":"send_event_n
 sourcesIndex["ruma_serde"] = {"name":"","dirs":[{"name":"canonical_json","files":["value.rs"]},{"name":"duration","files":["opt_ms.rs","secs.rs"]},{"name":"urlencoded","dirs":[{"name":"de","files":["val_or_vec.rs"]},{"name":"ser","files":["key.rs","pair.rs","part.rs","value.rs"]}],"files":["de.rs","ser.rs"]}],"files":["buf.rs","can_be_empty.rs","canonical_json.rs","cow.rs","duration.rs","empty.rs","json_string.rs","lib.rs","raw.rs","single_element_seq.rs","strings.rs","test.rs","urlencoded.rs"]};
 sourcesIndex["ruma_serde_macros"] = {"name":"","files":["attr.rs","case.rs","deserialize_from_cow_str.rs","display_as_ref_str.rs","enum_as_ref_str.rs","enum_from_string.rs","eq_as_ref_str.rs","lib.rs","ord_as_ref_str.rs","outgoing.rs","serialize_as_ref_str.rs","util.rs"]};
 sourcesIndex["ruma_signatures"] = {"name":"","files":["error.rs","functions.rs","keys.rs","lib.rs","signatures.rs","verification.rs"]};
-sourcesIndex["ruma_state_res"] = {"name":"","files":["error.rs","event_auth.rs","lib.rs","room_version.rs","state_event.rs","test_utils.rs"]};
+sourcesIndex["ruma_state_res"] = {"name":"","files":["error.rs","event_auth.rs","lib.rs","room_version.rs","state_event.rs"]};
 createSourceSidebar();
