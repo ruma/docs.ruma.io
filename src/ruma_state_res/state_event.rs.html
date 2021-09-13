@@ -171,6 +171,10 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">sync::Arc</span>};
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -197,7 +201,11 @@
     <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">EventType</span>;
 
     <span class="doccomment">/// The event&#39;s content.</span>
-    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Value</span>;
+    <span class="comment">// FIXME: This forces a serde_json::Value to be stored, which the previous solution of returning</span>
+    <span class="comment">// an owned one did not. However, the previous signature was even less efficient and also</span>
+    <span class="comment">// heavily encouraged storing `serde_json::Value`. We should likely force usage of `RawValue`</span>
+    <span class="comment">// instead, or somehow allow different storage without pessimizing all but one.</span>
+    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">serde_json::Value</span>;
 
     <span class="doccomment">/// The state key for this event.</span>
     <span class="kw">fn</span> <span class="ident">state_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>;
@@ -250,7 +258,7 @@
         (<span class="kw-2">*</span><span class="self">self</span>).<span class="ident">event_type</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Value</span> {
+    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">serde_json::Value</span> {
         (<span class="kw-2">*</span><span class="self">self</span>).<span class="ident">content</span>()
     }
 
@@ -308,7 +316,7 @@
         (<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>).<span class="ident">event_type</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Value</span> {
+    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">serde_json::Value</span> {
         (<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="self">self</span>).<span class="ident">content</span>()
     }
 
