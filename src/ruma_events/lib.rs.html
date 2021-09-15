@@ -403,6 +403,8 @@
 <span id="403">403</span>
 <span id="404">404</span>
 <span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
@@ -566,6 +568,8 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">fully_read</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ignored_user_list</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">key</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pdu&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pdu&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">pdu</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">policy</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">presence</span>;

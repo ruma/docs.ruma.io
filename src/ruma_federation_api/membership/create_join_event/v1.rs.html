@@ -77,9 +77,9 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v1/send_join/{roomId}/{eventId}](https://matrix.org/docs/spec/server_server/r0.1.3#put-matrix-federation-v1-send-join-roomid-eventid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_events::pdu::Pdu</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+
+<span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomState</span>;
 
@@ -106,7 +106,7 @@
 
         <span class="doccomment">/// The PDU.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">pdu</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">pdu</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">response</span>: {
@@ -118,8 +118,8 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Creates a new `Request` from the given room ID, event ID and `Pdu`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>, <span class="ident">pdu</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="doccomment">/// Creates a new `Request` from the given room ID, event ID and PDU.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>, <span class="ident">pdu</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">event_id</span>, <span class="ident">pdu</span> }
     }
 }

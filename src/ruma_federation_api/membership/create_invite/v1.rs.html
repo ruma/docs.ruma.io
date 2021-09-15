@@ -133,14 +133,16 @@
 <span id="133">133</span>
 <span id="134">134</span>
 <span id="135">135</span>
+<span id="136">136</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v1/invite/{roomId}/{eventId}](https://matrix.org/docs/spec/server_server/r0.1.4#put-matrix-federation-v1-invite-roomid-eventid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">pdu::Pdu</span>, <span class="ident">room::member::MemberEventContent</span>, <span class="ident">AnyStrippedStateEvent</span>, <span class="ident">EventType</span>};
+<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::MemberEventContent</span>, <span class="ident">AnyStrippedStateEvent</span>, <span class="ident">EventType</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+<span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -189,7 +191,7 @@
         <span class="doccomment">/// The signed invite event.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::v1_pdu&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
     }
 }
 
@@ -264,7 +266,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given invite event.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event</span> }
     }
 }

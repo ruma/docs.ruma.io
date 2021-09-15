@@ -60,12 +60,14 @@
 <span id="60">60</span>
 <span id="61">61</span>
 <span id="62">62</span>
+<span id="63">63</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v2/invite/{roomId}/{eventId}](https://matrix.org/docs/spec/server_server/r0.1.4#put-matrix-federation-v2-invite-roomid-eventid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">pdu::Pdu</span>, <span class="ident">AnyStrippedStateEvent</span>};
+<span class="kw">use</span> <span class="ident">ruma_events::AnyStrippedStateEvent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+<span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -90,7 +92,7 @@
         <span class="kw">pub</span> <span class="ident">room_version</span>: <span class="ident">RoomVersionId</span>,
 
         <span class="doccomment">/// The invite event which needs to be signed.</span>
-        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// An optional list of simplified events to help the receiver of the invite identify the room.</span>
         <span class="kw">pub</span> <span class="ident">invite_room_state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStrippedStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -98,7 +100,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// The signed invite event.</span>
-        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
     }
 }
 
@@ -109,7 +111,7 @@
         <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
         <span class="ident">event_id</span>: <span class="ident">EventId</span>,
         <span class="ident">room_version</span>: <span class="ident">RoomVersionId</span>,
-        <span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>,
+        <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
         <span class="ident">invite_room_state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStrippedStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">event_id</span>, <span class="ident">room_version</span>, <span class="ident">event</span>, <span class="ident">invite_room_state</span> }
@@ -118,7 +120,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given invite event.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event</span> }
     }
 }

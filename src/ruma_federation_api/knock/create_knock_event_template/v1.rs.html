@@ -54,13 +54,11 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
-<span id="57">57</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/make_knock/{roomId}/{userId}](https://spec.matrix.org/unstable/server-server-api/#get_matrixfederationv1make_knockroomiduserid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_events::pdu::Pdu</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+<span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -95,7 +93,7 @@
         <span class="doccomment">/// An unsigned template event.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// May differ between room versions.</span>
-        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
     }
 }
 
@@ -108,7 +106,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given room version ID and event.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_version</span>: <span class="ident">RoomVersionId</span>, <span class="ident">event</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_version</span>: <span class="ident">RoomVersionId</span>, <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_version</span>, <span class="ident">event</span> }
     }
 }

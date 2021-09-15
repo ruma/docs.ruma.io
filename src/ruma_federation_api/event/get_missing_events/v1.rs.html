@@ -78,9 +78,9 @@
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">uint</span>, <span class="ident">UInt</span>};
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_events::pdu::Pdu</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+
+<span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -115,7 +115,7 @@
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
     <span class="ident">response</span>: {
         <span class="doccomment">/// The missing PDUs.</span>
-        <span class="kw">pub</span> <span class="ident">events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 }
 
@@ -138,7 +138,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given events.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">events</span> }
     }
 }

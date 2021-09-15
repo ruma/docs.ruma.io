@@ -78,9 +78,9 @@
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_events::pdu::Pdu</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">ServerName</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+<span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::transactions::edu::Edu</span>;
 
@@ -110,7 +110,7 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// Must not be more than 50 items.</span>
         <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>))]</span>
-        <span class="kw">pub</span> <span class="ident">pdus</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Pdu</span><span class="op">&gt;</span>],
+        <span class="kw">pub</span> <span class="ident">pdus</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>],
 
         <span class="doccomment">/// List of ephemeral messages.</span>
         <span class="doccomment">///</span>

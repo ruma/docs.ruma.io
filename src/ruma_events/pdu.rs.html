@@ -162,18 +162,12 @@
 <span id="162">162</span>
 <span id="163">163</span>
 <span id="164">164</span>
-<span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for persistent data unit schemas</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The differences between the `RoomV1Pdu` schema and the `RoomV3Pdu` schema are</span>
 <span class="doccomment">//! that the `RoomV1Pdu` takes an `event_id` field (`RoomV3Pdu` does not), and</span>
 <span class="doccomment">//! `auth_events` and `prev_events` take `Vec&lt;(EventId, EventHash)&gt; rather than</span>
 <span class="doccomment">//! `Vec&lt;EventId&gt;` in `RoomV3Pdu`.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! The stubbed versions of each PDU type remove the `event_id` field (if any)</span>
-<span class="doccomment">//! and the `room_id` field for use in PDU templates.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -181,7 +175,7 @@
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerNameBox</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
+<span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EventType</span>;
 
@@ -225,7 +219,7 @@
     <span class="kw">pub</span> <span class="ident">kind</span>: <span class="ident">EventType</span>,
 
     <span class="doccomment">/// The event&#39;s content.</span>
-    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">JsonValue</span>,
 
     <span class="doccomment">/// A key that determines which piece of room state the event represents.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -251,7 +245,7 @@
     <span class="doccomment">/// Additional data added by the origin server but not covered by the</span>
     <span class="doccomment">/// signatures.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Content hashes of the PDU.</span>
     <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">EventHash</span>,
@@ -285,7 +279,7 @@
     <span class="kw">pub</span> <span class="ident">kind</span>: <span class="ident">EventType</span>,
 
     <span class="doccomment">/// The event&#39;s content.</span>
-    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">JsonValue</span>,
 
     <span class="doccomment">/// A key that determines which piece of room state the event represents.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -309,7 +303,7 @@
     <span class="doccomment">/// Additional data added by the origin server but not covered by the</span>
     <span class="doccomment">/// signatures.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Content hashes of the PDU.</span>
     <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">EventHash</span>,
