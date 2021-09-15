@@ -318,7 +318,7 @@
         }))
         .<span class="ident">unwrap</span>();
 
-        <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">Raw::from</span>(<span class="ident">state_event</span>), <span class="ident">Raw::from</span>(<span class="ident">message_event</span>)];
+        <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">Raw::new</span>(<span class="kw-2">&amp;</span><span class="ident">state_event</span>).<span class="ident">unwrap</span>(), <span class="ident">Raw::new</span>(<span class="kw-2">&amp;</span><span class="ident">message_event</span>).<span class="ident">unwrap</span>()];
         <span class="kw">let</span> <span class="ident">incoming_request</span> <span class="op">=</span> <span class="ident">IncomingRequest</span> { <span class="ident">txn_id</span>: <span class="ident">txn_id</span>.<span class="ident">clone</span>(), <span class="ident">events</span> };
 
         <span class="kw">let</span> <span class="ident">response</span>: <span class="ident">sync_events::Response</span> <span class="op">=</span>
@@ -355,7 +355,7 @@
             },
         }))
         .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">dummy_event</span> <span class="op">=</span> <span class="ident">Raw::from</span>(<span class="ident">dummy_event</span>);
+        <span class="kw">let</span> <span class="ident">dummy_event</span> <span class="op">=</span> <span class="ident">Raw::new</span>(<span class="kw-2">&amp;</span><span class="ident">dummy_event</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">dummy_event</span>];
 
         <span class="kw">let</span> <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Request</span> { <span class="ident">events</span>: <span class="kw-2">&amp;</span><span class="ident">events</span>, <span class="ident">txn_id</span>: <span class="string">&quot;any_txn_id&quot;</span> }
