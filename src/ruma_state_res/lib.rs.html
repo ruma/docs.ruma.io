@@ -1184,21 +1184,91 @@
 <span id="1184">1184</span>
 <span id="1185">1185</span>
 <span id="1186">1186</span>
+<span id="1187">1187</span>
+<span id="1188">1188</span>
+<span id="1189">1189</span>
+<span id="1190">1190</span>
+<span id="1191">1191</span>
+<span id="1192">1192</span>
+<span id="1193">1193</span>
+<span id="1194">1194</span>
+<span id="1195">1195</span>
+<span id="1196">1196</span>
+<span id="1197">1197</span>
+<span id="1198">1198</span>
+<span id="1199">1199</span>
+<span id="1200">1200</span>
+<span id="1201">1201</span>
+<span id="1202">1202</span>
+<span id="1203">1203</span>
+<span id="1204">1204</span>
+<span id="1205">1205</span>
+<span id="1206">1206</span>
+<span id="1207">1207</span>
+<span id="1208">1208</span>
+<span id="1209">1209</span>
+<span id="1210">1210</span>
+<span id="1211">1211</span>
+<span id="1212">1212</span>
+<span id="1213">1213</span>
+<span id="1214">1214</span>
+<span id="1215">1215</span>
+<span id="1216">1216</span>
+<span id="1217">1217</span>
+<span id="1218">1218</span>
+<span id="1219">1219</span>
+<span id="1220">1220</span>
+<span id="1221">1221</span>
+<span id="1222">1222</span>
+<span id="1223">1223</span>
+<span id="1224">1224</span>
+<span id="1225">1225</span>
+<span id="1226">1226</span>
+<span id="1227">1227</span>
+<span id="1228">1228</span>
+<span id="1229">1229</span>
+<span id="1230">1230</span>
+<span id="1231">1231</span>
+<span id="1232">1232</span>
+<span id="1233">1233</span>
+<span id="1234">1234</span>
+<span id="1235">1235</span>
+<span id="1236">1236</span>
+<span id="1237">1237</span>
+<span id="1238">1238</span>
+<span id="1239">1239</span>
+<span id="1240">1240</span>
+<span id="1241">1241</span>
+<span id="1242">1242</span>
+<span id="1243">1243</span>
+<span id="1244">1244</span>
+<span id="1245">1245</span>
+<span id="1246">1246</span>
+<span id="1247">1247</span>
+<span id="1248">1248</span>
+<span id="1249">1249</span>
+<span id="1250">1250</span>
+<span id="1251">1251</span>
+<span id="1252">1252</span>
+<span id="1253">1253</span>
+<span id="1254">1254</span>
+<span id="1255">1255</span>
+<span id="1256">1256</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">cmp::Reverse</span>,
-    <span class="ident">collections</span>::{<span class="ident">BinaryHeap</span>, <span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
+    <span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BinaryHeap</span>, <span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
 };
 
 <span class="kw">use</span> <span class="ident">itertools::Itertools</span>;
+<span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
 <span class="kw">use</span> <span class="ident">ruma_events</span>::{
-    <span class="ident">room</span>::{
-        <span class="ident">member</span>::{<span class="ident">MemberEventContent</span>, <span class="ident">MembershipState</span>},
-        <span class="ident">power_levels::PowerLevelsEventContent</span>,
-    },
+    <span class="ident">room::member</span>::{<span class="ident">MemberEventContent</span>, <span class="ident">MembershipState</span>},
     <span class="ident">EventType</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
+<span class="kw">use</span> <span class="ident">serde_json::from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>;
 <span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">debug</span>, <span class="ident">info</span>, <span class="ident">trace</span>, <span class="ident">warn</span>};
 
 <span class="kw">mod</span> <span class="ident">error</span>;
@@ -1407,7 +1477,7 @@
     <span class="comment">// This is used in the `key_fn` passed to the lexico_topo_sort fn</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">event_to_pl</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
     <span class="kw">for</span> <span class="ident">event_id</span> <span class="kw">in</span> <span class="ident">graph</span>.<span class="ident">keys</span>() {
-        <span class="kw">let</span> <span class="ident">pl</span> <span class="op">=</span> <span class="ident">get_power_level_for_sender</span>(<span class="ident">event_id</span>, <span class="kw-2">&amp;</span><span class="ident">fetch_event</span>);
+        <span class="kw">let</span> <span class="ident">pl</span> <span class="op">=</span> <span class="ident">get_power_level_for_sender</span>(<span class="ident">event_id</span>, <span class="kw-2">&amp;</span><span class="ident">fetch_event</span>)<span class="question-mark">?</span>;
         <span class="macro">info!</span>(<span class="string">&quot;{} power level {}&quot;</span>, <span class="ident">event_id</span>, <span class="ident">pl</span>);
 
         <span class="ident">event_to_pl</span>.<span class="ident">insert</span>(<span class="ident">event_id</span>.<span class="ident">clone</span>(), <span class="ident">pl</span>);
@@ -1439,7 +1509,7 @@
     <span class="ident">key_fn</span>: <span class="ident">F</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">i64</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">EventId</span>)<span class="op">&gt;</span>,
+    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Int</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">EventId</span>)<span class="op">&gt;</span>,
 {
     <span class="macro">info!</span>(<span class="string">&quot;starting lexicographical topological sort&quot;</span>);
     <span class="comment">// NOTE: an event that has no incoming edges happened most recently,</span>
@@ -1500,11 +1570,25 @@
     <span class="prelude-val">Ok</span>(<span class="ident">sorted</span>)
 }
 
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
+<span class="kw">struct</span> <span class="ident">PowerLevelsContentFields</span> {
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::btreemap_int_or_string_to_int_values&quot;</span>)
+    )]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
+    <span class="ident">users</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">Int</span><span class="op">&gt;</span>,
+
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::int_or_string_to_int&quot;</span>))]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+    <span class="ident">users_default</span>: <span class="ident">Int</span>,
+}
+
 <span class="doccomment">/// Find the power level for the sender of `event_id` or return a default value of zero.</span>
 <span class="kw">fn</span> <span class="ident">get_power_level_for_sender</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(
     <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="ident">EventId</span>,
     <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i64</span> {
+) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">Int</span><span class="op">&gt;</span> {
     <span class="macro">info!</span>(<span class="string">&quot;fetch event ({}) senders power level&quot;</span>, <span class="ident">event_id</span>);
 
     <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">fetch_event</span>(<span class="ident">event_id</span>);
@@ -1519,23 +1603,19 @@
         }
     }
 
-    <span class="kw">if</span> <span class="ident">pl</span>.<span class="ident">is_none</span>() {
-        <span class="kw">return</span> <span class="number">0</span>;
+    <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">PowerLevelsContentFields</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">pl</span> {
+        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="macro">int!</span>(<span class="number">0</span>)),
+        <span class="prelude-val">Some</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_json_str</span>(<span class="ident">ev</span>.<span class="ident">content</span>().<span class="ident">get</span>())<span class="question-mark">?</span>,
+    };
+
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">ev</span>) <span class="op">=</span> <span class="ident">event</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">user_level</span>) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="ident">ev</span>.<span class="ident">sender</span>()) {
+            <span class="macro">debug!</span>(<span class="string">&quot;found {} at power_level {}&quot;</span>, <span class="ident">ev</span>.<span class="ident">sender</span>(), <span class="ident">user_level</span>);
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">user_level</span>);
+        }
     }
 
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">pl</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">pl</span><span class="op">|</span> {
-        <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">PowerLevelsEventContent</span><span class="op">&gt;</span>(<span class="ident">pl</span>.<span class="ident">content</span>().<span class="ident">to_owned</span>()).<span class="ident">ok</span>()
-    }) {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">ev</span>) <span class="op">=</span> <span class="ident">event</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">user</span>) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="ident">ev</span>.<span class="ident">sender</span>()) {
-                <span class="macro">debug!</span>(<span class="string">&quot;found {} at power_level {}&quot;</span>, <span class="ident">ev</span>.<span class="ident">sender</span>(), <span class="ident">user</span>);
-                <span class="kw">return</span> (<span class="kw-2">*</span><span class="ident">user</span>).<span class="ident">into</span>();
-            }
-        }
-        <span class="ident">content</span>.<span class="ident">users_default</span>.<span class="ident">into</span>()
-    } <span class="kw">else</span> {
-        <span class="number">0</span>
-    }
+    <span class="prelude-val">Ok</span>(<span class="ident">content</span>.<span class="ident">users_default</span>)
 }
 
 <span class="doccomment">/// Check the that each event is authenticated based on the events before it.</span>
@@ -1592,7 +1672,7 @@
             <span class="ident">event</span>.<span class="ident">sender</span>(),
             <span class="prelude-val">Some</span>(<span class="ident">state_key</span>),
             <span class="ident">event</span>.<span class="ident">content</span>(),
-        ) {
+        )<span class="question-mark">?</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">ev_id</span>) <span class="op">=</span> <span class="ident">resolved_state</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">fetch_event</span>(<span class="ident">ev_id</span>) {
                     <span class="comment">// TODO synapse checks `rejected_reason` is None here</span>
@@ -1776,9 +1856,7 @@
             <span class="ident">event</span>.<span class="ident">state_key</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>)
         }
         <span class="ident">EventType::RoomMember</span> <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span>
-                <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">MemberEventContent</span><span class="op">&gt;</span>(<span class="ident">event</span>.<span class="ident">content</span>().<span class="ident">to_owned</span>())
-            {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">MemberEventContent</span><span class="op">&gt;</span>(<span class="ident">event</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
                 <span class="kw">if</span> [<span class="ident">MembershipState::Leave</span>, <span class="ident">MembershipState::Ban</span>].<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">membership</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>.<span class="ident">sender</span>().<span class="ident">as_str</span>()) <span class="op">!</span><span class="op">=</span> <span class="ident">event</span>.<span class="ident">state_key</span>();
                 }
@@ -1797,13 +1875,13 @@
         <span class="ident">sync::Arc</span>,
     };
 
-    <span class="kw">use</span> <span class="ident">js_int::uint</span>;
+    <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">uint</span>};
     <span class="kw">use</span> <span class="ident">maplit</span>::{<span class="ident">hashmap</span>, <span class="ident">hashset</span>};
     <span class="kw">use</span> <span class="ident">rand::seq::SliceRandom</span>;
     <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
     <span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::join_rules::JoinRule</span>, <span class="ident">EventType</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>};
-    <span class="kw">use</span> <span class="ident">serde_json::json</span>;
+    <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>};
     <span class="kw">use</span> <span class="ident">tracing::debug</span>;
 
     <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -1896,7 +1974,7 @@
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;MA&quot;</span>,
@@ -1917,7 +1995,7 @@
                 <span class="ident">bob</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
         ];
 
@@ -1938,30 +2016,48 @@
             <span class="ident">tracing::subscriber::set_default</span>(<span class="ident">tracing_subscriber::fmt</span>().<span class="ident">with_test_writer</span>().<span class="ident">finish</span>());
 
         <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="kw-2">&amp;</span>[
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T1&quot;</span>, <span class="ident">alice</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T1&quot;</span>,
+                <span class="ident">alice</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA1&quot;</span>,
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T2&quot;</span>, <span class="ident">alice</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T2&quot;</span>,
+                <span class="ident">alice</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA2&quot;</span>,
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">0</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">0</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">bob</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T3&quot;</span>, <span class="ident">bob</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T3&quot;</span>,
+                <span class="ident">bob</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
         ];
 
         <span class="kw">let</span> <span class="ident">edges</span> <span class="op">=</span>
@@ -1981,15 +2077,27 @@
             <span class="ident">tracing::subscriber::set_default</span>(<span class="ident">tracing_subscriber::fmt</span>().<span class="ident">with_test_writer</span>().<span class="ident">finish</span>());
 
         <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="kw-2">&amp;</span>[
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T1&quot;</span>, <span class="ident">alice</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T1&quot;</span>,
+                <span class="ident">alice</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA&quot;</span>,
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T2&quot;</span>, <span class="ident">bob</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T2&quot;</span>,
+                <span class="ident">bob</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;MB&quot;</span>,
                 <span class="ident">alice</span>(),
@@ -2021,7 +2129,7 @@
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomJoinRules</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;join_rule&quot;</span>: <span class="ident">JoinRule::Private</span> }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;join_rule&quot;</span>: <span class="ident">JoinRule::Private</span> })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;ME&quot;</span>,
@@ -2053,21 +2161,23 @@
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">bob</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span>, <span class="ident">charlie</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span>, <span class="ident">charlie</span>(): <span class="number">50</span> } }))
+                    .<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PC&quot;</span>,
                 <span class="ident">charlie</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span>, <span class="ident">charlie</span>(): <span class="number">0</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span>, <span class="ident">charlie</span>(): <span class="number">0</span> } }))
+                    .<span class="ident">unwrap</span>(),
             ),
         ];
 
@@ -2087,32 +2197,62 @@
             <span class="ident">tracing::subscriber::set_default</span>(<span class="ident">tracing_subscriber::fmt</span>().<span class="ident">with_test_writer</span>().<span class="ident">finish</span>());
 
         <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="kw-2">&amp;</span>[
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T1&quot;</span>, <span class="ident">alice</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T1&quot;</span>,
+                <span class="ident">alice</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA1&quot;</span>,
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T2&quot;</span>, <span class="ident">alice</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T2&quot;</span>,
+                <span class="ident">alice</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA2&quot;</span>,
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">0</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">0</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">bob</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T3&quot;</span>, <span class="ident">bob</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;MZ1&quot;</span>, <span class="ident">zara</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
-            <span class="ident">to_init_pdu_event</span>(<span class="string">&quot;T4&quot;</span>, <span class="ident">alice</span>(), <span class="ident">EventType::RoomTopic</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>), <span class="macro">json!</span>({})),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T3&quot;</span>,
+                <span class="ident">bob</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;MZ1&quot;</span>,
+                <span class="ident">zara</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
+            <span class="ident">to_init_pdu_event</span>(
+                <span class="string">&quot;T4&quot;</span>,
+                <span class="ident">alice</span>(),
+                <span class="ident">EventType::RoomTopic</span>,
+                <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
+            ),
         ];
 
         <span class="kw">let</span> <span class="ident">edges</span> <span class="op">=</span> <span class="macro">vec!</span>[
@@ -2172,7 +2312,7 @@
         };
 
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::lexicographical_topological_sort</span>(<span class="kw-2">&amp;</span><span class="ident">graph</span>, <span class="op">|</span><span class="ident">id</span><span class="op">|</span> {
-            <span class="prelude-val">Ok</span>((<span class="number">0</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">0</span>)), <span class="ident">id</span>.<span class="ident">clone</span>()))
+            <span class="prelude-val">Ok</span>((<span class="macro">int!</span>(<span class="number">0</span>), <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">0</span>)), <span class="ident">id</span>.<span class="ident">clone</span>()))
         })
         .<span class="ident">unwrap</span>();
 
@@ -2306,7 +2446,7 @@
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IMA&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>], <span class="comment">// auth_events</span>
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;START&quot;</span>],                   <span class="comment">// prev_events</span>
             ),
@@ -2315,7 +2455,7 @@
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IMA&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>],
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;END&quot;</span>],
             ),
@@ -2351,7 +2491,7 @@
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomJoinRules</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="macro">json!</span>({ <span class="string">&quot;join_rule&quot;</span>: <span class="string">&quot;invite&quot;</span> }),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;join_rule&quot;</span>: <span class="string">&quot;invite&quot;</span> })).<span class="ident">unwrap</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IMA&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>],
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;START&quot;</span>],
             ),
