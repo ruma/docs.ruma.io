@@ -1257,6 +1257,7 @@
 <span id="1257">1257</span>
 <span id="1258">1258</span>
 <span id="1259">1259</span>
+<span id="1260">1260</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">cmp::Reverse</span>,
     <span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BinaryHeap</span>, <span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
@@ -1686,6 +1687,7 @@
 
         <span class="macro">debug!</span>(<span class="string">&quot;event to check {:?}&quot;</span>, <span class="ident">event</span>.<span class="ident">event_id</span>());
 
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::redundant_closure</span>)]</span>
         <span class="kw">let</span> <span class="ident">most_recent_prev_event</span> <span class="op">=</span>
             <span class="ident">event</span>.<span class="ident">prev_events</span>().<span class="ident">filter_map</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">fetch_event</span>(<span class="ident">id</span>)).<span class="ident">next_back</span>();
 
