@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["RequestToDeviceEventContent","The content of an `m.key.verification.request` event."]],"type":[["RequestToDeviceEvent","A `m.key.verification.request` event."]]});
+initSidebarItems({"struct":[["RequestToDeviceEventContent","The content of an `m.key.verification.request` event."]],"type":[["RequestToDeviceEvent","An `m.key.verification.request` event."]]});

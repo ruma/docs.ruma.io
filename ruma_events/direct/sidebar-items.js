@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["DirectEventContent","The content of an `m.direct` event."]],"type":[["DirectEvent","A `m.direct` event."]]});
+initSidebarItems({"struct":[["DirectEventContent","The content of an `m.direct` event."]],"type":[["DirectEvent","An `m.direct` event."]]});
