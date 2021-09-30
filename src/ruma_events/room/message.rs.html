@@ -1238,6 +1238,37 @@
 <span id="1238">1238</span>
 <span id="1239">1239</span>
 <span id="1240">1240</span>
+<span id="1241">1241</span>
+<span id="1242">1242</span>
+<span id="1243">1243</span>
+<span id="1244">1244</span>
+<span id="1245">1245</span>
+<span id="1246">1246</span>
+<span id="1247">1247</span>
+<span id="1248">1248</span>
+<span id="1249">1249</span>
+<span id="1250">1250</span>
+<span id="1251">1251</span>
+<span id="1252">1252</span>
+<span id="1253">1253</span>
+<span id="1254">1254</span>
+<span id="1255">1255</span>
+<span id="1256">1256</span>
+<span id="1257">1257</span>
+<span id="1258">1258</span>
+<span id="1259">1259</span>
+<span id="1260">1260</span>
+<span id="1261">1261</span>
+<span id="1262">1262</span>
+<span id="1263">1263</span>
+<span id="1264">1264</span>
+<span id="1265">1265</span>
+<span id="1266">1266</span>
+<span id="1267">1267</span>
+<span id="1268">1268</span>
+<span id="1269">1269</span>
+<span id="1270">1270</span>
+<span id="1271">1271</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.message* event.</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -1248,7 +1279,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceIdBox</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">MxcUri</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::DeserializeOwned</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
@@ -1260,14 +1291,11 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">feedback</span>;
 <span class="kw">mod</span> <span class="ident">relation_serde</span>;
 
-<span class="kw">type</span> <span class="ident">JsonObject</span> <span class="op">=</span> <span class="ident">serde_json::Map</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span>;
-
+<span class="doccomment">/// The content of an `m.room.message` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// This event is used when sending messages in a room.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Messages are not limited to be text.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">MessageEvent</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::MessageEvent</span><span class="op">&lt;</span><span class="ident">MessageEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `MessageEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.message&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
@@ -1427,24 +1455,35 @@
     <span class="doccomment">/// Prefer to use the public variants of `MessageType` where possible; this constructor is meant</span>
     <span class="doccomment">/// be used for unsupported message types only and does not allow setting arbitrary data for</span>
     <span class="doccomment">/// supported ones.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">msgtype</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">data</span>: <span class="ident">JsonObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">fn</span> <span class="ident">from_json_object</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="ident">JsonObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Errors</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns an error if the `msgtype` is known and serialization of `data` to the corresponding</span>
+    <span class="doccomment">/// `MessageType` variant fails.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">msgtype</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">data</span>: <span class="ident">JsonObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">deserialize_variant</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(
+            <span class="ident">body</span>: <span class="ident">String</span>,
+            <span class="kw-2">mut</span> <span class="ident">obj</span>: <span class="ident">JsonObject</span>,
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+            <span class="ident">obj</span>.<span class="ident">insert</span>(<span class="string">&quot;body&quot;</span>.<span class="ident">into</span>(), <span class="ident">body</span>.<span class="ident">into</span>());
             <span class="ident">serde_json::from_value</span>(<span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>))
         }
 
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">msgtype</span> {
-            <span class="string">&quot;m.audio&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.emote&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.file&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.image&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.location&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Location</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.notice&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.server_notice&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.text&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Text</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.video&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Video</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.audio&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.emote&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.file&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.image&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.location&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Location</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.notice&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.server_notice&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.text&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Text</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.video&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Video</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="string">&quot;m.key.verification.request&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::VerificationRequest</span>(<span class="ident">from_json_object</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">CustomEventContent</span> { <span class="ident">msgtype</span>: <span class="ident">msgtype</span>.<span class="ident">to_owned</span>(), <span class="ident">data</span> }),
+            <span class="string">&quot;m.key.verification.request&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident"><span class="self">Self</span>::VerificationRequest</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>)
+            }
+            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">CustomEventContent</span> { <span class="ident">msgtype</span>: <span class="ident">msgtype</span>.<span class="ident">to_owned</span>(), <span class="ident">body</span>, <span class="ident">data</span> }),
         })
     }
 
@@ -1466,14 +1505,38 @@
         }
     }
 
+    <span class="doccomment">/// Return a reference to the message body.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident">MessageType::Audio</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Emote</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::File</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Image</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Location</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Notice</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::ServerNotice</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Text</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Video</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::_Custom</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+        }
+    }
+
     <span class="doccomment">/// Returns the associated data.</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// The returned JSON object won&#39;t contain the `msgtype` and `body` fields, use</span>
+    <span class="doccomment">/// [`.msgtype()`][Self::msgtype] / [`.body()`](Self::body) to access those.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// Prefer to use the public variants of `MessageType` where possible; this method is meant to</span>
-    <span class="doccomment">/// be used for unsupported message types only.</span>
+    <span class="doccomment">/// be used for custom message types only.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonObject</span><span class="op">&gt;</span> {
         <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">JsonObject</span> {
             <span class="kw">match</span> <span class="ident">serde_json::to_value</span>(<span class="ident">obj</span>).<span class="ident">expect</span>(<span class="string">&quot;message type serialization to succeed&quot;</span>) {
-                <span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">obj</span>,
+                <span class="ident">JsonValue::Object</span>(<span class="kw-2">mut</span> <span class="ident">obj</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                    <span class="ident">obj</span>.<span class="ident">remove</span>(<span class="string">&quot;body&quot;</span>);
+                    <span class="ident">obj</span>
+                }
                 <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;all message types must serialize to objects&quot;</span>),
             }
         }
@@ -2169,10 +2232,13 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CustomEventContent</span> {
-    <span class="doccomment">/// A custom msgtype</span>
+    <span class="doccomment">/// A custom msgtype.</span>
     <span class="ident">msgtype</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// Remaining event content</span>
+    <span class="doccomment">/// The message body.</span>
+    <span class="ident">body</span>: <span class="ident">String</span>,
+
+    <span class="doccomment">/// Remaining event content.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="ident">data</span>: <span class="ident">JsonObject</span>,
 }
@@ -2207,11 +2273,7 @@
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent a video.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
         <span class="ident">MessageType::_Custom</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="macro">format!</span>(
-                <span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>,
-                <span class="ident">original_message</span>.<span class="ident">sender</span>,
-                <span class="ident">content</span>.<span class="ident">data</span>[<span class="string">&quot;body&quot;</span>].<span class="ident">as_str</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;&quot;</span>),
-            )
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -2396,7 +2458,7 @@
                 <span class="ident">room_id</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">room_id</span>,
                 <span class="ident">event_id</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">event_id</span>,
                 <span class="ident">sender</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">sender</span>,
-                <span class="ident">body</span> <span class="op">=</span> <span class="ident">content</span>.<span class="ident">data</span>[<span class="string">&quot;body&quot;</span>].<span class="ident">as_str</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;&quot;</span>),
+                <span class="ident">body</span> <span class="op">=</span> <span class="ident">content</span>.<span class="ident">body</span>,
             )
         }
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>

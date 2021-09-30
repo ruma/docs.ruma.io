@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["NameEventContent","The payload for `NameEvent`."],["RedactedNameEventContent","The payload for a redacted `NameEventContent`"]],"type":[["NameEvent","The room name is a human-friendly string designed to be displayed to the end-user."]]});
+initSidebarItems({"struct":[["NameEventContent","The content of an `m.room.name` event."],["RedactedNameEventContent","Redacted form of [`NameEventContent`]"]],"type":[["NameEvent","A `m.room.name` event."],["SyncNameEvent","A `m.room.name` event from a `sync_events` response."]]});

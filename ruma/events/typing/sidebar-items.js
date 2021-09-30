@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["TypingEventContent","The payload for `TypingEvent`."]],"type":[["TypingEvent","Informs the client who is currently typing in a given room."]]});
+initSidebarItems({"struct":[["TypingEventContent","The content of an `m.typing` event."]],"type":[["SyncTypingEvent","A `m.typing` event from a `sync_events` response."],["TypingEvent","A `m.typing` event."]]});

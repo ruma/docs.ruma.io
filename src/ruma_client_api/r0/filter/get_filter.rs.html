@@ -133,8 +133,6 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::filter::IncomingFilterDefinition</span>;
-
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_response</span>() {
@@ -152,6 +150,8 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialize_response</span>() {
         <span class="kw">use</span> <span class="ident">ruma_api::OutgoingResponse</span>;
+
+        <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::filter::IncomingFilterDefinition</span>;
 
         <span class="macro">assert_matches!</span>(
             <span class="ident"><span class="kw">super</span>::Response::new</span>(<span class="ident">IncomingFilterDefinition::default</span>())

@@ -60,9 +60,6 @@
 <span id="60">60</span>
 <span id="61">61</span>
 <span id="62">62</span>
-<span id="63">63</span>
-<span id="64">64</span>
-<span id="65">65</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.receipt* event.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -75,15 +72,12 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EphemeralRoomEvent</span>;
-
-<span class="doccomment">/// Informs the client who has read a message specified by it&#39;s event id.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ReceiptEvent</span> <span class="op">=</span> <span class="ident">EphemeralRoomEvent</span><span class="op">&lt;</span><span class="ident">ReceiptEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `ReceiptEvent`.</span>
+<span class="doccomment">/// The content of an `m.receipt` event.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A mapping of event ID to a collection of receipts for this event ID. The event ID is the ID of</span>
 <span class="doccomment">/// the event being acknowledged and *not* an ID for the receipt itself.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Informs the client who has read a message specified by it&#39;s event id.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.receipt&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">EphemeralRoom</span>)]</span>

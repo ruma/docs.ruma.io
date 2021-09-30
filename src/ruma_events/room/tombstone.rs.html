@@ -29,22 +29,16 @@
 <span id="29">29</span>
 <span id="30">30</span>
 <span id="31">31</span>
-<span id="32">32</span>
-<span id="33">33</span>
-<span id="34">34</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.tombstone* event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
-
+<span class="doccomment">/// The content of an `m.room.tombstone` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// A state event signifying that a room has been upgraded to a different room version, and that</span>
 <span class="doccomment">/// clients should go there.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">TombstoneEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">TombstoneEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `TombstoneEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.tombstone&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>

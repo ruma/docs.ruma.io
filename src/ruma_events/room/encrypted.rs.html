@@ -394,19 +394,6 @@
 <span id="394">394</span>
 <span id="395">395</span>
 <span id="396">396</span>
-<span id="397">397</span>
-<span id="398">398</span>
-<span id="399">399</span>
-<span id="400">400</span>
-<span id="401">401</span>
-<span id="402">402</span>
-<span id="403">403</span>
-<span id="404">404</span>
-<span id="405">405</span>
-<span id="406">406</span>
-<span id="407">407</span>
-<span id="408">408</span>
-<span id="409">409</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.encrypted* event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -418,19 +405,13 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::room::message</span>::{<span class="self">self</span>, <span class="ident">InReplyTo</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">key::verification</span>, <span class="ident">reaction</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">room::message</span>::{<span class="self">self</span>, <span class="ident">InReplyTo</span>},
-    <span class="ident">MessageEvent</span>,
-};
 
 <span class="kw">mod</span> <span class="ident">relation_serde</span>;
 
-<span class="doccomment">/// An event that has been encrypted.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">EncryptedEvent</span> <span class="op">=</span> <span class="ident">MessageEvent</span><span class="op">&lt;</span><span class="ident">EncryptedEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The content payload for `EncryptedEvent`.</span>
+<span class="doccomment">/// The content of an `m.room.encrypted` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encrypted&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
@@ -459,7 +440,7 @@
     }
 }
 
-<span class="doccomment">/// The to-device content payload for `m.encrypted` events.</span>
+<span class="doccomment">/// The to-device content of an `m.room.encrypted` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encrypted&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
@@ -531,7 +512,7 @@
 <span class="doccomment">/// The event this relation belongs to replaces another event.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// In contrast to [`message::Replacement`], this struct doesn&#39;t store the new content, since that</span>
-<span class="doccomment">/// is part of the encrypted payload for `m.encrypted` events.</span>
+<span class="doccomment">/// is part of the encrypted content of an `m.room.encrypted` events.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
@@ -580,7 +561,7 @@
     }
 }
 
-<span class="doccomment">/// The payload for `EncryptedEvent` using the *m.olm.v1.curve25519-aes-sha2* algorithm.</span>
+<span class="doccomment">/// The content of an `m.room.encrypted` event using the *m.olm.v1.curve25519-aes-sha2* algorithm.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OlmV1Curve25519AesSha2Content</span> {
@@ -619,7 +600,7 @@
     }
 }
 
-<span class="doccomment">/// The payload for `EncryptedEvent` using the *m.megolm.v1.aes-sha2* algorithm.</span>
+<span class="doccomment">/// The content of an `m.room.encrypted` event using the *m.megolm.v1.aes-sha2* algorithm.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To create an instance of this type, first create a `MegolmV1AesSha2ContentInit` and convert it</span>
 <span class="doccomment">/// via `MegolmV1AesSha2Content::from` / `.into()`.</span>
@@ -752,11 +733,7 @@
             },
         });
 
-        <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">EncryptedEventContent</span> <span class="op">=</span>
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">EncryptedEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
-                .<span class="ident">unwrap</span>()
-                .<span class="ident">deserialize</span>()
-                .<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">EncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
         <span class="macro">assert_matches!</span>(
             <span class="ident">content</span>.<span class="ident">scheme</span>,
@@ -790,10 +767,7 @@
             },
             <span class="string">&quot;algorithm&quot;</span>: <span class="string">&quot;m.olm.v1.curve25519-aes-sha2&quot;</span>
         });
-        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">EncryptedEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
-            .<span class="ident">unwrap</span>()
-            .<span class="ident">deserialize</span>()
-            .<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">EncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">match</span> <span class="ident">content</span>.<span class="ident">scheme</span> {
             <span class="ident">EncryptedEventScheme::OlmV1Curve25519AesSha2</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {

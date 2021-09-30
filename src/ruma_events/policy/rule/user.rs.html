@@ -12,18 +12,16 @@
 <span id="12">12</span>
 <span id="13">13</span>
 <span id="14">14</span>
-<span id="15">15</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.policy.rule.user* event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">policy::rule::PolicyRuleEventContent</span>, <span class="ident">StateEvent</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::policy::rule::PolicyRuleEventContent</span>;
 
+<span class="doccomment">/// The content of an `m.policy.rule.user` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// This event type is used to apply rules to user entities.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">UserEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">UserEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `UserEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.policy.rule.user&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>

@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["SendToDeviceEventContent","The payload for `SendToDeviceEvent`."]],"type":[["SendToDeviceEvent","An event sent by a client to share a secret with another device, in response to an `m.secret.request` event."]]});
+initSidebarItems({"struct":[["SendToDeviceEventContent","The content of an `m.secret.send` event."]],"type":[["SendToDeviceEvent","A `m.secret.send` event."]]});

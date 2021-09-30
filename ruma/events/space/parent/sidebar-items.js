@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["ParentEventContent","The payload for `ParentEvent`."],["RedactedParentEventContent","The payload for a redacted `ParentEventContent`"]],"type":[["ParentEvent","Rooms can claim parents via the `m.space.parent` state event."]]});
+initSidebarItems({"struct":[["ParentEventContent","The content of an `m.space.parent` event."],["RedactedParentEventContent","Redacted form of [`ParentEventContent`]"]],"type":[["ParentEvent","A `m.space.parent` event."],["SyncParentEvent","A `m.space.parent` event from a `sync_events` response."]]});

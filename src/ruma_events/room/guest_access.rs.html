@@ -49,24 +49,18 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.guest_access* event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
-
+<span class="doccomment">/// The content of an `m.room.guest_access` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// Controls whether guest users are allowed to join rooms.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This event controls whether guest users are allowed to join rooms. If this event is absent,</span>
 <span class="doccomment">/// servers should act as if it is present and has the value `GuestAccess::Forbidden`.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">GuestAccessEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">GuestAccessEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `GuestAccessEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.guest_access&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>

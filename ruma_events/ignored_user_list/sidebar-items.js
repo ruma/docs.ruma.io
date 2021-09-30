@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["IgnoredUserListEventContent","The payload for `IgnoredUserListEvent`."]],"type":[["IgnoredUserListEvent","A list of users to ignore."]]});
+initSidebarItems({"struct":[["IgnoredUserListEventContent","The content of an `m.ignored_user_list` event."]],"type":[["IgnoredUserListEvent","A `m.ignored_user_list` event."]]});

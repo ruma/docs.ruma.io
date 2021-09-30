@@ -439,6 +439,29 @@
 <span id="439">439</span>
 <span id="440">440</span>
 <span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Edu type and variant content structs.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -554,7 +577,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PresenceUpdate</span> {
-    <span class="doccomment">/// Creates a new `PresenceUpdate` with default `status_msg` and `currently_active`.</span>
+    <span class="doccomment">/// Creates a new `PresenceUpdate` with the given `user_id`, `presence` and `last_activity`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">presence</span>: <span class="ident">PresenceState</span>, <span class="ident">last_activity</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
@@ -648,7 +671,8 @@
     <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>,
 
     <span class="doccomment">/// The public human-readable name of this device. Will be absent if the device has no name.</span>
-    <span class="kw">pub</span> <span class="ident">device_display_name</span>: <span class="ident">String</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">device_display_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// An ID sent by the server for this update, unique for a given user_id.</span>
     <span class="kw">pub</span> <span class="ident">stream_id</span>: <span class="ident">UInt</span>,
@@ -668,13 +692,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DeviceListUpdateContent</span> {
-    <span class="doccomment">/// Creates a new `DeviceListUpdateContent` with default `prev_id`, `deleted`</span>
-    <span class="doccomment">/// and `keys` fields.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">name</span>: <span class="ident">String</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="doccomment">/// Create a new `DeviceListUpdateContent` with the given `user_id`, `device_id` and</span>
+    <span class="doccomment">/// `stream_id`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">device_id</span>,
-            <span class="ident">device_display_name</span>: <span class="ident">name</span>,
+            <span class="ident">device_display_name</span>: <span class="prelude-val">None</span>,
             <span class="ident">stream_id</span>,
             <span class="ident">prev_id</span>: <span class="macro">vec!</span>[],
             <span class="ident">deleted</span>: <span class="prelude-val">None</span>,
@@ -705,7 +729,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DirectDeviceContent</span> {
-    <span class="doccomment">/// Creates a new `DirectDeviceContent` with an empty `messages` map.</span>
+    <span class="doccomment">/// Creates a new `DirectDeviceContent` with the given `sender, `ev_type` and `message_id`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sender</span>: <span class="ident">UserId</span>, <span class="ident">ev_type</span>: <span class="ident">EventType</span>, <span class="ident">message_id</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sender</span>, <span class="ident">ev_type</span>, <span class="ident">message_id</span>, <span class="ident">messages</span>: <span class="ident">DirectDeviceMessages::new</span>() }
     }
@@ -721,7 +745,7 @@
 <span class="kw">mod</span> <span class="ident">test</span> {
     <span class="kw">use</span> <span class="ident">js_int::uint</span>;
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">device_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>};
+    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">room_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -729,34 +753,34 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">device_list_update_edu</span>() {
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
-                <span class="string">&quot;content&quot;</span>: {
-                    <span class="string">&quot;deleted&quot;</span>: <span class="bool-val">false</span>,
-                    <span class="string">&quot;device_display_name&quot;</span>: <span class="string">&quot;Mobile&quot;</span>,
-                    <span class="string">&quot;device_id&quot;</span>: <span class="string">&quot;QBUAZIFURK&quot;</span>,
+            <span class="string">&quot;content&quot;</span>: {
+                <span class="string">&quot;deleted&quot;</span>: <span class="bool-val">false</span>,
+                <span class="string">&quot;device_display_name&quot;</span>: <span class="string">&quot;Mobile&quot;</span>,
+                <span class="string">&quot;device_id&quot;</span>: <span class="string">&quot;QBUAZIFURK&quot;</span>,
+                <span class="string">&quot;keys&quot;</span>: {
+                    <span class="string">&quot;algorithms&quot;</span>: [
+                        <span class="string">&quot;m.olm.v1.curve25519-aes-sha2&quot;</span>,
+                        <span class="string">&quot;m.megolm.v1.aes-sha2&quot;</span>
+                    ],
+                    <span class="string">&quot;device_id&quot;</span>: <span class="string">&quot;JLAFKJWSCS&quot;</span>,
                     <span class="string">&quot;keys&quot;</span>: {
-                        <span class="string">&quot;algorithms&quot;</span>: [
-                            <span class="string">&quot;m.olm.v1.curve25519-aes-sha2&quot;</span>,
-                            <span class="string">&quot;m.megolm.v1.aes-sha2&quot;</span>
-                        ],
-                        <span class="string">&quot;device_id&quot;</span>: <span class="string">&quot;JLAFKJWSCS&quot;</span>,
-                        <span class="string">&quot;keys&quot;</span>: {
-                            <span class="string">&quot;curve25519:JLAFKJWSCS&quot;</span>: <span class="string">&quot;3C5BFWi2Y8MaVvjM8M22DBmh24PmgR0nPvJOIArzgyI&quot;</span>,
-                            <span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>: <span class="string">&quot;lEuiRJBit0IG6nUf5pUzWTUEsRVVe/HJkoKuEww9ULI&quot;</span>
-                        },
-                        <span class="string">&quot;signatures&quot;</span>: {
-                            <span class="string">&quot;@alice:example.com&quot;</span>: {
-                                <span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>: <span class="string">&quot;dSO80A01XiigH3uBiDVx/EjzaoycHcjq9lfQX0uWsqxl2giMIiSPR8a4d291W1ihKJL/a+myXS367WT6NAIcBA&quot;</span>
-                            }
-                        },
-                        <span class="string">&quot;user_id&quot;</span>: <span class="string">&quot;@alice:example.com&quot;</span>
+                        <span class="string">&quot;curve25519:JLAFKJWSCS&quot;</span>: <span class="string">&quot;3C5BFWi2Y8MaVvjM8M22DBmh24PmgR0nPvJOIArzgyI&quot;</span>,
+                        <span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>: <span class="string">&quot;lEuiRJBit0IG6nUf5pUzWTUEsRVVe/HJkoKuEww9ULI&quot;</span>
                     },
-                    <span class="string">&quot;stream_id&quot;</span>: <span class="number">6</span>,
-                    <span class="string">&quot;user_id&quot;</span>: <span class="string">&quot;@john:example.com&quot;</span>
+                    <span class="string">&quot;signatures&quot;</span>: {
+                        <span class="string">&quot;@alice:example.com&quot;</span>: {
+                            <span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>: <span class="string">&quot;dSO80A01XiigH3uBiDVx/EjzaoycHcjq9lfQX0uWsqxl2giMIiSPR8a4d291W1ihKJL/a+myXS367WT6NAIcBA&quot;</span>
+                        }
+                    },
+                    <span class="string">&quot;user_id&quot;</span>: <span class="string">&quot;@alice:example.com&quot;</span>
                 },
+                <span class="string">&quot;stream_id&quot;</span>: <span class="number">6</span>,
+                <span class="string">&quot;user_id&quot;</span>: <span class="string">&quot;@john:example.com&quot;</span>
+            },
             <span class="string">&quot;edu_type&quot;</span>: <span class="string">&quot;m.device_list_update&quot;</span>
         });
 
-        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
         <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
             <span class="ident">Edu::DeviceListUpdate</span>(<span class="ident">DeviceListUpdateContent</span> {
@@ -767,19 +791,50 @@
                 <span class="ident">prev_id</span>,
                 <span class="ident">deleted</span>,
                 <span class="ident">keys</span>
-            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@john:example.com&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">device_id!</span>(<span class="string">&quot;QBUAZIFURK&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">device_display_name</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;Mobile&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">stream_id</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">uint!</span>(<span class="number">6</span>)
+            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;QBUAZIFURK&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">device_display_name</span>.<span class="ident">as_deref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;Mobile&quot;</span>)
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">stream_id</span> <span class="op">=</span><span class="op">=</span> <span class="macro">uint!</span>(<span class="number">6</span>)
                 <span class="op">&amp;&amp;</span> <span class="ident">prev_id</span>.<span class="ident">is_empty</span>()
-                <span class="op">&amp;&amp;</span> <span class="ident">deleted</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="prelude-val">Some</span>(<span class="bool-val">false</span>)
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">deleted</span> <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="bool-val">false</span>)
                 <span class="op">&amp;&amp;</span> <span class="ident">keys</span>.<span class="ident">is_some</span>()
         );
 
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(),
-            <span class="string">r#&quot;{&quot;edu_type&quot;:&quot;m.device_list_update&quot;,&quot;content&quot;:{&quot;user_id&quot;:&quot;@john:example.com&quot;,&quot;device_id&quot;:&quot;QBUAZIFURK&quot;,&quot;device_display_name&quot;:&quot;Mobile&quot;,&quot;stream_id&quot;:6,&quot;deleted&quot;:false,&quot;keys&quot;:{&quot;user_id&quot;:&quot;@alice:example.com&quot;,&quot;device_id&quot;:&quot;JLAFKJWSCS&quot;,&quot;algorithms&quot;:[&quot;m.olm.v1.curve25519-aes-sha2&quot;,&quot;m.megolm.v1.aes-sha2&quot;],&quot;keys&quot;:{&quot;curve25519:JLAFKJWSCS&quot;:&quot;3C5BFWi2Y8MaVvjM8M22DBmh24PmgR0nPvJOIArzgyI&quot;,&quot;ed25519:JLAFKJWSCS&quot;:&quot;lEuiRJBit0IG6nUf5pUzWTUEsRVVe/HJkoKuEww9ULI&quot;},&quot;signatures&quot;:{&quot;@alice:example.com&quot;:{&quot;ed25519:JLAFKJWSCS&quot;:&quot;dSO80A01XiigH3uBiDVx/EjzaoycHcjq9lfQX0uWsqxl2giMIiSPR8a4d291W1ihKJL/a+myXS367WT6NAIcBA&quot;}}}}}&quot;#</span>
+        <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">minimal_device_list_update_edu</span>() {
+        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
+            <span class="string">&quot;content&quot;</span>: {
+                <span class="string">&quot;device_id&quot;</span>: <span class="string">&quot;QBUAZIFURK&quot;</span>,
+                <span class="string">&quot;stream_id&quot;</span>: <span class="number">6</span>,
+                <span class="string">&quot;user_id&quot;</span>: <span class="string">&quot;@john:example.com&quot;</span>
+            },
+            <span class="string">&quot;edu_type&quot;</span>: <span class="string">&quot;m.device_list_update&quot;</span>
+        });
+
+        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
+        <span class="macro">assert_matches!</span>(
+            <span class="kw-2">&amp;</span><span class="ident">edu</span>,
+            <span class="ident">Edu::DeviceListUpdate</span>(<span class="ident">DeviceListUpdateContent</span> {
+                <span class="ident">user_id</span>,
+                <span class="ident">device_id</span>,
+                <span class="ident">device_display_name</span>,
+                <span class="ident">stream_id</span>,
+                <span class="ident">prev_id</span>,
+                <span class="ident">deleted</span>,
+                <span class="ident">keys</span>
+            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;QBUAZIFURK&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">device_display_name</span>.<span class="ident">is_none</span>()
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">stream_id</span> <span class="op">=</span><span class="op">=</span> <span class="macro">uint!</span>(<span class="number">6</span>)
+                <span class="op">&amp;&amp;</span> <span class="ident">prev_id</span>.<span class="ident">is_empty</span>()
+                <span class="op">&amp;&amp;</span> <span class="ident">deleted</span>.<span class="ident">is_none</span>()
+                <span class="op">&amp;&amp;</span> <span class="ident">keys</span>.<span class="ident">is_none</span>()
         );
+
+        <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -802,17 +857,14 @@
             <span class="string">&quot;edu_type&quot;</span>: <span class="string">&quot;m.receipt&quot;</span>
         });
 
-        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
         <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
             <span class="ident">Edu::Receipt</span>(<span class="ident">ReceiptContent</span> { <span class="ident">receipts</span> })
                 <span class="kw">if</span> <span class="ident">receipts</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="macro">room_id!</span>(<span class="string">&quot;!some_room:example.org&quot;</span>)).<span class="ident">is_some</span>()
         );
 
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(),
-            <span class="string">r#&quot;{&quot;edu_type&quot;:&quot;m.receipt&quot;,&quot;content&quot;:{&quot;!some_room:example.org&quot;:{&quot;m.read&quot;:{&quot;@john:matrix.org&quot;:{&quot;data&quot;:{&quot;ts&quot;:1533358},&quot;event_ids&quot;:[&quot;$read_this_event:matrix.org&quot;]}}}}}&quot;#</span>
-        );
+        <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -826,20 +878,17 @@
             <span class="string">&quot;edu_type&quot;</span>: <span class="string">&quot;m.typing&quot;</span>
         });
 
-        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
         <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
             <span class="ident">Edu::Typing</span>(<span class="ident">TypingContent</span> {
                 <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">typing</span>
-            }) <span class="kw">if</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">room_id!</span>(<span class="string">&quot;!somewhere:matrix.org&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@john:matrix.org&quot;</span>)
+            }) <span class="kw">if</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!somewhere:matrix.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:matrix.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">typing</span>
         );
 
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(),
-            <span class="string">r#&quot;{&quot;edu_type&quot;:&quot;m.typing&quot;,&quot;content&quot;:{&quot;room_id&quot;:&quot;!somewhere:matrix.org&quot;,&quot;user_id&quot;:&quot;@john:matrix.org&quot;,&quot;typing&quot;:true}}&quot;#</span>
-        );
+        <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -863,21 +912,18 @@
             <span class="string">&quot;edu_type&quot;</span>: <span class="string">&quot;m.direct_to_device&quot;</span>
         });
 
-        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
         <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
             <span class="ident">Edu::DirectToDevice</span>(<span class="ident">DirectDeviceContent</span> {
                 <span class="ident">sender</span>, <span class="ident">ev_type</span>, <span class="ident">message_id</span>, <span class="ident">messages</span>
-            }) <span class="kw">if</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@john:example.com&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">ev_type</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">EventType::RoomKeyRequest</span>
+            }) <span class="kw">if</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">ev_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">EventType::RoomKeyRequest</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">message_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;hiezohf6Hoo7kaev&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">messages</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@alice:example.org&quot;</span>)).<span class="ident">is_some</span>()
         );
 
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(),
-            <span class="string">r#&quot;{&quot;edu_type&quot;:&quot;m.direct_to_device&quot;,&quot;content&quot;:{&quot;sender&quot;:&quot;@john:example.com&quot;,&quot;type&quot;:&quot;m.room_key_request&quot;,&quot;message_id&quot;:&quot;hiezohf6Hoo7kaev&quot;,&quot;messages&quot;:{&quot;@alice:example.org&quot;:{&quot;IWHQUZUIAH&quot;:{&quot;algorithm&quot;:&quot;m.megolm.v1.aes-sha2&quot;,&quot;room_id&quot;:&quot;!Cuyf34gef24t:localhost&quot;,&quot;session_id&quot;:&quot;X3lUlvLELLYxeTx4yOVu6UDpasGEVO0Jbu+QFnm0cKQ&quot;,&quot;session_key&quot;:&quot;AgAAAADxKHa9uFxcXzwYoNueL5Xqi69IkD4sni8LlfJL7qNBEY...&quot;}}}}}&quot;#</span>
-        );
+        <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
 }
 </code></pre></div>

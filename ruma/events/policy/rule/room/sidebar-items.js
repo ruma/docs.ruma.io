@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["RedactedRoomEventContent","The payload for a redacted `RoomEventContent`"],["RoomEventContent","The payload for `RoomEvent`."]],"type":[["RoomEvent","This event type is used to apply rules to room entities."]]});
+initSidebarItems({"struct":[["RedactedRoomEventContent","Redacted form of [`RoomEventContent`]"],["RoomEventContent","The content of an `m.policy.rule.room` event."]],"type":[["RoomEvent","A `m.policy.rule.room` event."],["SyncRoomEvent","A `m.policy.rule.room` event from a `sync_events` response."]]});

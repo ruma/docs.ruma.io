@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["RedactedServerEventContent","The payload for a redacted `ServerEventContent`"],["ServerEventContent","The payload for `ServerEvent`."]],"type":[["ServerEvent","This event type is used to apply rules to server entities."]]});
+initSidebarItems({"struct":[["RedactedServerEventContent","Redacted form of [`ServerEventContent`]"],["ServerEventContent","The content of an `m.policy.rule.server` event."]],"type":[["ServerEvent","A `m.policy.rule.server` event."],["SyncServerEvent","A `m.policy.rule.server` event from a `sync_events` response."]]});

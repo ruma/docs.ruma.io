@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["AnswerEventContent","The payload for `AnswerEvent`."],["RedactedAnswerEventContent","The payload for a redacted `AnswerEventContent`"]],"type":[["AnswerEvent","This event is sent by the callee when they wish to answer the call."]]});
+initSidebarItems({"struct":[["AnswerEventContent","The content of an `m.call.answer` event."],["RedactedAnswerEventContent","Redacted form of [`AnswerEventContent`]"]],"type":[["AnswerEvent","A `m.call.answer` event."],["SyncAnswerEvent","A `m.call.answer` event from a `sync_events` response."]]});

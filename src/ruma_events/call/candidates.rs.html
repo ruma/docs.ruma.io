@@ -51,22 +51,16 @@
 <span id="51">51</span>
 <span id="52">52</span>
 <span id="53">53</span>
-<span id="54">54</span>
-<span id="55">55</span>
-<span id="56">56</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.call.candidates* event.</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MessageEvent</span>;
-
+<span class="doccomment">/// The content of an `m.call.candidates` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// This event is sent by callers after sending an invite and by the callee after answering. Its</span>
 <span class="doccomment">/// purpose is to give the other party additional ICE candidates to try using to communicate.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">CandidatesEvent</span> <span class="op">=</span> <span class="ident">MessageEvent</span><span class="op">&lt;</span><span class="ident">CandidatesEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `CandidatesEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.call.candidates&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>

@@ -163,7 +163,7 @@
         <span class="kw">let</span> <span class="ident">response</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">send_request</span>(<span class="macro">assign!</span>(
                 <span class="ident">login::Request::new</span>(
-                    <span class="ident">LoginInfo::Password</span> { <span class="ident">identifier</span>: <span class="ident">UserIdentifier::MatrixId</span>(<span class="ident">user</span>), <span class="ident">password</span> }
+                    <span class="ident">LoginInfo::Password</span>(<span class="ident">login::Password</span> { <span class="ident">identifier</span>: <span class="ident">UserIdentifier::MatrixId</span>(<span class="ident">user</span>), <span class="ident">password</span> })
                 ), {
                     <span class="ident">device_id</span>,
                     <span class="ident">initial_device_display_name</span>,

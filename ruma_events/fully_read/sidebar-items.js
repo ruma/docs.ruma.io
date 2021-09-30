@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["FullyReadEventContent","The payload for `FullyReadEvent`."]],"type":[["FullyReadEvent","The current location of the user’s read marker in a room."]]});
+initSidebarItems({"struct":[["FullyReadEventContent","The content of an `m.fully_read` event."]],"type":[["FullyReadEvent","A `m.fully_read` event."]]});

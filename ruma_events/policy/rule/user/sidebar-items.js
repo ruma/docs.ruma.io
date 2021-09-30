@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["RedactedUserEventContent","The payload for a redacted `UserEventContent`"],["UserEventContent","The payload for `UserEvent`."]],"type":[["UserEvent","This event type is used to apply rules to user entities."]]});
+initSidebarItems({"struct":[["RedactedUserEventContent","Redacted form of [`UserEventContent`]"],["UserEventContent","The content of an `m.policy.rule.user` event."]],"type":[["SyncUserEvent","A `m.policy.rule.user` event from a `sync_events` response."],["UserEvent","A `m.policy.rule.user` event."]]});

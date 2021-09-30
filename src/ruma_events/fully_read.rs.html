@@ -23,25 +23,17 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
-<span id="26">26</span>
-<span id="27">27</span>
-<span id="28">28</span>
-<span id="29">29</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.fully_read* event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::RoomAccountDataEvent</span>;
-
+<span class="doccomment">/// The content of an `m.fully_read` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// The current location of the user&#39;s read marker in a room.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This event appears in the user&#39;s room account data for the room the marker is applicable</span>
-<span class="doccomment">/// for.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">FullyReadEvent</span> <span class="op">=</span> <span class="ident">RoomAccountDataEvent</span><span class="op">&lt;</span><span class="ident">FullyReadEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `FullyReadEvent`.</span>
+<span class="doccomment">/// This event appears in the user&#39;s room account data for the room the marker is applicable for.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.fully_read&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">RoomAccountData</span>)]</span>

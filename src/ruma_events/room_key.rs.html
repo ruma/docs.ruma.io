@@ -80,7 +80,7 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="doccomment">/// The payload for `RoomKeyEvent`.</span>
+<span class="doccomment">/// The content of an `m.room_key` event.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Typically encrypted as an *m.room.encrypted* event, then sent as a to-device event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>

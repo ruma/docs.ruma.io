@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["RedactedTopicEventContent","The payload for a redacted `TopicEventContent`"],["TopicEventContent","The payload for `TopicEvent`."]],"type":[["TopicEvent","A topic is a short message detailing what is currently being discussed in the room."]]});
+initSidebarItems({"struct":[["RedactedTopicEventContent","Redacted form of [`TopicEventContent`]"],["TopicEventContent","The content of an `m.room.topic` event."]],"type":[["SyncTopicEvent","A `m.room.topic` event from a `sync_events` response."],["TopicEvent","A `m.room.topic` event."]]});

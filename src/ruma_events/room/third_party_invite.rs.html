@@ -69,24 +69,18 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
-<span id="72">72</span>
-<span id="73">73</span>
-<span id="74">74</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.third_party_invite* event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
-
+<span class="doccomment">/// The content of an `m.room.third_party_invite` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// An invitation to a room issued to a third party identifier, rather than a matrix user ID.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Acts as an *m.room.member* invite event, where there isn&#39;t a target user_id to invite. This</span>
 <span class="doccomment">/// event contains a token and a public key whose private key must be used to sign the token.</span>
 <span class="doccomment">/// Any user who can present that signature may use this invitation to join the target room.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ThirdPartyInviteEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">ThirdPartyInviteEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `ThirdPartyInviteEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.third_party_invite&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>

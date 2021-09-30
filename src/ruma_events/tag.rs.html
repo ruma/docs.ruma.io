@@ -221,9 +221,6 @@
 <span id="221">221</span>
 <span id="222">222</span>
 <span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
-<span id="226">226</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.tag* event.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">error::Error</span>, <span class="ident">fmt</span>, <span class="ident">str::FromStr</span>};
@@ -232,15 +229,12 @@
 <span class="kw">use</span> <span class="ident">ruma_serde::deserialize_cow_str</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::RoomAccountDataEvent</span>;
-
-<span class="doccomment">/// Informs the client of tags on a room.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">TagEvent</span> <span class="op">=</span> <span class="ident">RoomAccountDataEvent</span><span class="op">&lt;</span><span class="ident">TagEventContent</span><span class="op">&gt;</span>;
-
 <span class="doccomment">/// Map of tag names to tag info.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Tags</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">TagName</span>, <span class="ident">TagInfo</span><span class="op">&gt;</span>;
 
-<span class="doccomment">/// The payload for `TagEvent`.</span>
+<span class="doccomment">/// The content of an `m.tag` event.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Informs the client of tags on a room.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.tag&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">RoomAccountData</span>)]</span>

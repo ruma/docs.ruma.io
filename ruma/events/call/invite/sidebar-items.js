@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["InviteEventContent","The payload for `InviteEvent`."],["RedactedInviteEventContent","The payload for a redacted `InviteEventContent`"]],"type":[["InviteEvent","This event is sent by the caller when they wish to establish a call."]]});
+initSidebarItems({"struct":[["InviteEventContent","The content of an `m.call.invite` event."],["RedactedInviteEventContent","Redacted form of [`InviteEventContent`]"]],"type":[["InviteEvent","A `m.call.invite` event."],["SyncInviteEvent","A `m.call.invite` event from a `sync_events` response."]]});

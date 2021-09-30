@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["RedactedStickerEventContent","The payload for a redacted `StickerEventContent`"],["StickerEventContent","The payload for `StickerEvent`."]],"type":[["StickerEvent","A sticker message."]]});
+initSidebarItems({"struct":[["RedactedStickerEventContent","Redacted form of [`StickerEventContent`]"],["StickerEventContent","The content of an `m.sticker` event."]],"type":[["StickerEvent","A `m.sticker` event."],["SyncStickerEvent","A `m.sticker` event from a `sync_events` response."]]});

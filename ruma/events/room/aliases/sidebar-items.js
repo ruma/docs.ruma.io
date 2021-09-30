@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["AliasesEventContent","The payload for `AliasesEvent`."],["RedactedAliasesEventContent","An aliases event that has been redacted."]],"type":[["AliasesEvent","Informs the room about what room aliases it has been given."]]});
+initSidebarItems({"struct":[["AliasesEventContent","The content of an `m.room.aliases` event."],["RedactedAliasesEventContent","An aliases event that has been redacted."]],"type":[["AliasesEvent","A `m.room.aliases` event."],["SyncAliasesEvent","A `m.room.aliases` event from a `sync_events` response."]]});

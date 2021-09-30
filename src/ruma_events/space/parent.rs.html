@@ -66,25 +66,19 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
-<span id="69">69</span>
-<span id="70">70</span>
-<span id="71">71</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.space.child* event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::ServerNameBox</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
-
+<span class="doccomment">/// The content of an `m.space.parent` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// Rooms can claim parents via the `m.space.parent` state event.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Similar to `m.space.child`, the `state_key` is the ID of the parent space, and the content must</span>
 <span class="doccomment">/// contain a `via` key which gives a list of candidate servers that can be used to join the</span>
 <span class="doccomment">/// parent.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ParentEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">ParentEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `ParentEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.space.parent&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>

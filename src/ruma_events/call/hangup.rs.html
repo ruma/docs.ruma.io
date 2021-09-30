@@ -59,9 +59,6 @@
 <span id="59">59</span>
 <span id="60">60</span>
 <span id="61">61</span>
-<span id="62">62</span>
-<span id="63">63</span>
-<span id="64">64</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.call.hangup* event.</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -69,13 +66,10 @@
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MessageEvent</span>;
-
+<span class="doccomment">/// The content of an `m.call.hangup` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// Sent by either party to signal their termination of the call. This can be sent either once the</span>
 <span class="doccomment">/// call has has been established or before to abort the call.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">HangupEvent</span> <span class="op">=</span> <span class="ident">MessageEvent</span><span class="op">&lt;</span><span class="ident">HangupEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `HangupEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.call.hangup&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>

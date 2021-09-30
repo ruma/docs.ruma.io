@@ -37,19 +37,17 @@
 <span id="37">37</span>
 <span id="38">38</span>
 <span id="39">39</span>
-<span id="40">40</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.encryption* event.</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">StateEvent</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EventEncryptionAlgorithm</span>;
 
+<span class="doccomment">/// The content of an `m.room.encryption` event.</span>
+<span class="doccomment">///</span>
 <span class="doccomment">/// Defines how messages sent in this room should be encrypted.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">EncryptionEvent</span> <span class="op">=</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">EncryptionEventContent</span><span class="op">&gt;</span>;
-
-<span class="doccomment">/// The payload for `EncryptionEvent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encryption&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
