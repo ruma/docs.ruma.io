@@ -550,7 +550,6 @@
 <span id="550">550</span>
 <span id="551">551</span>
 <span id="552">552</span>
-<span id="553">553</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.start` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -673,8 +672,7 @@
 <span class="kw">impl</span> <span class="ident">ReciprocateV1Content</span> {
     <span class="doccomment">/// Create a new `ReciprocateV1Content` with the given shared secret.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The shared secret needs to come from the scanned QR code, encoded using</span>
-    <span class="doccomment">/// unpadded base64.</span>
+    <span class="doccomment">/// The shared secret needs to come from the scanned QR code, encoded using unpadded base64.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">secret</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">secret</span> }
     }

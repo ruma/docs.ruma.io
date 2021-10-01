@@ -101,8 +101,8 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ToDeviceMacEventContent</span> {
-    <span class="doccomment">/// Creates a new `ToDeviceMacEventContent` with the given transaction ID, key ID to MAC</span>
-    <span class="doccomment">/// map and key MAC.</span>
+    <span class="doccomment">/// Creates a new `ToDeviceMacEventContent` with the given transaction ID, key ID to MAC map and</span>
+    <span class="doccomment">/// key MAC.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">mac</span>, <span class="ident">keys</span> }
     }

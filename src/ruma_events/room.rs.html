@@ -215,6 +215,12 @@
 <span id="215">215</span>
 <span id="216">216</span>
 <span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.room` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -340,6 +346,7 @@
     <span class="kw">pub</span> <span class="ident">iv</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// A map from an algorithm name to a hash of the ciphertext, encoded as unpadded base64.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// Clients should support the SHA-256 hash, which uses the key sha256.</span>
     <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -364,6 +371,7 @@
     <span class="kw">pub</span> <span class="ident">iv</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// A map from an algorithm name to a hash of the ciphertext, encoded as unpadded base64.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// Clients should support the SHA-256 hash, which uses the key sha256.</span>
     <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -397,7 +405,9 @@
     <span class="doccomment">/// The key, encoded as url-safe unpadded base64.</span>
     <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// Extractable. Must be `true`. This is a</span>
+    <span class="doccomment">/// Extractable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Must be `true`. This is a</span>
     <span class="doccomment">/// [W3C extension](https://w3c.github.io/webcrypto/#iana-section-jwk).</span>
     <span class="kw">pub</span> <span class="ident">ext</span>: <span class="ident">bool</span>,
 }
@@ -421,7 +431,9 @@
     <span class="doccomment">/// The key, encoded as url-safe unpadded base64.</span>
     <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// Extractable. Must be `true`. This is a</span>
+    <span class="doccomment">/// Extractable.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Must be `true`. This is a</span>
     <span class="doccomment">/// [W3C extension](https://w3c.github.io/webcrypto/#iana-section-jwk).</span>
     <span class="kw">pub</span> <span class="ident">ext</span>: <span class="ident">bool</span>,
 }

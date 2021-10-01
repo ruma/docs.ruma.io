@@ -220,7 +220,6 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
-<span id="223">223</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/createRoom](https://matrix.org/docs/spec/client_server/r0.6.0#post-matrix-client-r0-createroom)</span>
 
 <span class="kw">use</span> <span class="ident">assign::assign</span>;
@@ -259,8 +258,7 @@
 
         <span class="doccomment">/// List of state events to send to the new room.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// Takes precedence over events set by preset, but gets overridden by</span>
-        <span class="doccomment">/// name and topic keys.</span>
+        <span class="doccomment">/// Takes precedence over events set by preset, but gets overridden by name and topic keys.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">initial_state</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyInitialStateEvent</span><span class="op">&gt;</span>],
 
@@ -278,8 +276,8 @@
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">is_direct</span>: <span class="ident">bool</span>,
 
-        <span class="doccomment">/// If this is included, an `m.room.name` event will be sent into the room to indicate</span>
-        <span class="doccomment">/// the name of the room.</span>
+        <span class="doccomment">/// If this is included, an `m.room.name` event will be sent into the room to indicate the</span>
+        <span class="doccomment">/// name of the room.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomName</span><span class="op">&gt;</span>,
 
