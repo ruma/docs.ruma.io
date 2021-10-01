@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["RequestAction","Action for an m.secret.request event."],["SecretName","The name of a secret."]],"struct":[["RequestToDeviceEventContent","The content of an `m.secret.request` event."]],"type":[["RequestToDeviceEvent","An `m.secret.request` event."]]});
+initSidebarItems({"enum":[["RequestAction","Action for an m.secret.request event."],["SecretName","The name of a secret."]],"struct":[["ToDeviceRequestEventContent","The content of an `m.secret.request` event."]],"type":[["ToDeviceRequestEvent","An `m.secret.request` event."]]});

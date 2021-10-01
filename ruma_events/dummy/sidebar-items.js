@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["DummyToDeviceEventContent","The content of an `m.dummy` event."]],"type":[["DummyToDeviceEvent","An `m.dummy` event."]]});
+initSidebarItems({"struct":[["ToDeviceDummyEventContent","The content of an `m.dummy` event."]],"type":[["ToDeviceDummyEvent","An `m.dummy` event."]]});

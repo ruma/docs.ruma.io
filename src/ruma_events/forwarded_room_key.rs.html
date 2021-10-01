@@ -102,12 +102,12 @@
 
 <span class="doccomment">/// The content of an `m.forwarded_room_key` event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// To create an instance of this type, first create a `ForwardedRoomKeyToDeviceEventContentInit`</span>
-<span class="doccomment">/// and convert it via `ForwardedRoomKeyToDeviceEventContent::from` / `.into()`.</span>
+<span class="doccomment">/// To create an instance of this type, first create a `ToDeviceForwardedRoomKeyEventContentInit`</span>
+<span class="doccomment">/// and convert it via `ToDeviceForwardedRoomKeyEventContent::from` / `.into()`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.forwarded_room_key&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ForwardedRoomKeyToDeviceEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceForwardedRoomKeyEventContent</span> {
     <span class="doccomment">/// The encryption algorithm the key in this event is to be used with.</span>
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
 
@@ -139,13 +139,13 @@
     <span class="kw">pub</span> <span class="ident">forwarding_curve25519_key_chain</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
-<span class="doccomment">/// Initial set of fields of `ForwardedRoomKeyToDeviceEventContent`.</span>
+<span class="doccomment">/// Initial set of fields of `ToDeviceForwardedRoomKeyEventContent`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This struct will not be updated even if additional fields are added to `ConditionalPushRule` in</span>
 <span class="doccomment">/// a new (non-breaking) release of the Matrix specification.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ForwardedRoomKeyToDeviceEventContentInit</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceForwardedRoomKeyEventContentInit</span> {
     <span class="doccomment">/// The encryption algorithm the key in this event is to be used with.</span>
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
 
@@ -177,8 +177,8 @@
     <span class="kw">pub</span> <span class="ident">forwarding_curve25519_key_chain</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ForwardedRoomKeyToDeviceEventContentInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ForwardedRoomKeyToDeviceEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">ForwardedRoomKeyToDeviceEventContentInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ToDeviceForwardedRoomKeyEventContentInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ToDeviceForwardedRoomKeyEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">ToDeviceForwardedRoomKeyEventContentInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">algorithm</span>: <span class="ident">init</span>.<span class="ident">algorithm</span>,
             <span class="ident">room_id</span>: <span class="ident">init</span>.<span class="ident">room_id</span>,

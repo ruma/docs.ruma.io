@@ -84,7 +84,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.mac&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MacToDeviceEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceMacEventContent</span> {
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be the same as the one used for the *m.key.verification.start* message.</span>
@@ -100,9 +100,9 @@
     <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">String</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">MacToDeviceEventContent</span> {
-    <span class="doccomment">/// Creates a new `MacToDeviceEventContent` with the given transaction ID, key ID to MAC map and</span>
-    <span class="doccomment">/// key MAC.</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceMacEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceMacEventContent` with the given transaction ID, key ID to MAC</span>
+    <span class="doccomment">/// map and key MAC.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">mac</span>, <span class="ident">keys</span> }
     }

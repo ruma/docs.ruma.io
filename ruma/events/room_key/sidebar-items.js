@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["RoomKeyToDeviceEventContent","The content of an `m.room_key` event."]],"type":[["RoomKeyToDeviceEvent","An `m.room_key` event."]]});
+initSidebarItems({"struct":[["ToDeviceRoomKeyEventContent","The content of an `m.room_key` event."]],"type":[["ToDeviceRoomKeyEvent","An `m.room_key` event."]]});

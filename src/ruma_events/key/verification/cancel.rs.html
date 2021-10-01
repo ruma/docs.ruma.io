@@ -176,7 +176,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.cancel&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CancelToDeviceEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceCancelEventContent</span> {
     <span class="doccomment">/// The opaque identifier for the verification process/request.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 
@@ -189,8 +189,8 @@
     <span class="kw">pub</span> <span class="ident">code</span>: <span class="ident">CancelCode</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">CancelToDeviceEventContent</span> {
-    <span class="doccomment">/// Creates a new `CancelToDeviceEventContent` with the given transaction ID, reason and code.</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceCancelEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceCancelEventContent` with the given transaction ID, reason and code.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">reason</span>, <span class="ident">code</span> }
     }

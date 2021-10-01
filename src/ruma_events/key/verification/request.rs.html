@@ -55,7 +55,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.request&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RequestToDeviceEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceRequestEventContent</span> {
     <span class="doccomment">/// The device ID which is initiating the request.</span>
     <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
 
@@ -74,8 +74,8 @@
     <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">RequestToDeviceEventContent</span> {
-    <span class="doccomment">/// Creates a new `RequestToDeviceEventContent` with the given device ID, transaction ID,</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceRequestEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceRequestEventContent` with the given device ID, transaction ID,</span>
     <span class="doccomment">/// methods and timestamp.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,

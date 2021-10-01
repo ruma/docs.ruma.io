@@ -86,7 +86,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room_key&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomKeyToDeviceEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceRoomKeyEventContent</span> {
     <span class="doccomment">/// The encryption algorithm the key in this event is to be used with.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be `m.megolm.v1.aes-sha2`.</span>
@@ -102,8 +102,8 @@
     <span class="kw">pub</span> <span class="ident">session_key</span>: <span class="ident">String</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">RoomKeyToDeviceEventContent</span> {
-    <span class="doccomment">/// Creates a new `RoomKeyToDeviceEventContent` with the given algorithm, room ID, session ID</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceRoomKeyEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceRoomKeyEventContent` with the given algorithm, room ID, session ID</span>
     <span class="doccomment">/// and session key.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
@@ -120,13 +120,13 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">EventEncryptionAlgorithm</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomKeyToDeviceEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ToDeviceRoomKeyEventContent</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ToDeviceEvent</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
         <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">ToDeviceEvent</span> {
-            <span class="ident">content</span>: <span class="ident">RoomKeyToDeviceEventContent</span> {
+            <span class="ident">content</span>: <span class="ident">ToDeviceRoomKeyEventContent</span> {
                 <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm::MegolmV1AesSha2</span>,
                 <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!testroomid:example.org&quot;</span>),
                 <span class="ident">session_id</span>: <span class="string">&quot;SessId&quot;</span>.<span class="ident">into</span>(),
