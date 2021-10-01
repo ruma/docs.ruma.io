@@ -4,7 +4,7 @@
     pub session_id: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub session_key: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
 }</code></pre></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The content of an <code>m.room_key</code> event.</p>
-<p>Typically encrypted as an <em>m.room.encrypted</em> event, then sent as a to-device event.</p>
+<p>Typically encrypted as an <code>m.room.encrypted</code> event, then sent as a to-device event.</p>
 </div></details><h2 id="fields" class="fields small-section-header">Fields<a href="#fields" class="anchor"></a></h2><span id="structfield.algorithm" class="structfield small-section-header"><a href="#structfield.algorithm" class="anchor field"></a><code>algorithm: <a class="enum" href="../../enum.EventEncryptionAlgorithm.html" title="enum ruma::EventEncryptionAlgorithm">EventEncryptionAlgorithm</a></code></span><div class="docblock"><p>The encryption algorithm the key in this event is to be used with.</p>
 <p>Must be <code>m.megolm.v1.aes-sha2</code>.</p>
 </div><span id="structfield.room_id" class="structfield small-section-header"><a href="#structfield.room_id" class="anchor field"></a><code>room_id: <a class="struct" href="../../struct.RoomId.html" title="struct ruma::RoomId">RoomId</a></code></span><div class="docblock"><p>The room where the key is used.</p>

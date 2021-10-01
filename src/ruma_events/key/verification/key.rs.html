@@ -53,7 +53,7 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.key.verification.key* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.key` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -70,7 +70,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceKeyEventContent</span> {
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Must be the same as the one used for the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// Must be the same as the one used for the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The device&#39;s ephemeral public key, encoded as unpadded Base64.</span>

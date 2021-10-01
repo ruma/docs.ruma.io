@@ -90,7 +90,7 @@
 <span id="90">90</span>
 <span id="91">91</span>
 <span id="92">92</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.key.verification.done* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.done` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -106,7 +106,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceDoneEventContent</span> {
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Must be the same as the one used for the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// Must be the same as the one used for the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 }
 

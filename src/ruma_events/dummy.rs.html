@@ -66,7 +66,7 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.dummy* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.dummy` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
@@ -80,12 +80,12 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This event is used to indicate new Olm sessions for end-to-end encryption.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Typically it is encrypted as an *m.room.encrypted* event, then sent as a to-device event.</span>
+<span class="doccomment">/// Typically it is encrypted as an `m.room.encrypted` event, then sent as a to-device event.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The event does not have any content associated with it. The sending client is expected to</span>
 <span class="doccomment">/// send a key share request shortly after this message, causing the receiving client to process</span>
-<span class="doccomment">/// this *m.dummy* event as the most recent event and using the keyshare request to set up the</span>
-<span class="doccomment">/// session. The keyshare request and *m.dummy* combination should result in the original sending</span>
+<span class="doccomment">/// this `m.dummy` event as the most recent event and using the keyshare request to set up the</span>
+<span class="doccomment">/// session. The keyshare request and `m.dummy` combination should result in the original sending</span>
 <span class="doccomment">/// client receiving keys over the newly established session.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>

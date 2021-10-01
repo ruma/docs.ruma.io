@@ -213,7 +213,7 @@
 <span id="213">213</span>
 <span id="214">214</span>
 <span id="215">215</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the *m.key.verification* namespace.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.key.verification` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
 <span class="doccomment">//!</span>
@@ -361,21 +361,21 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">VerificationMethod</span> {
-    <span class="doccomment">/// The *m.sas.v1* verification method.</span>
+    <span class="doccomment">/// The `m.sas.v1` verification method.</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.sas.v1&quot;</span>)]</span>
     <span class="ident">SasV1</span>,
 
-    <span class="doccomment">/// The *m.qr_code.scan.v1* verification method.</span>
+    <span class="doccomment">/// The `m.qr_code.scan.v1` verification method.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.qr_code.scan.v1&quot;</span>)]</span>
     <span class="ident">QrCodeScanV1</span>,
 
-    <span class="doccomment">/// The *m.qr_code.show.v1* verification method.</span>
+    <span class="doccomment">/// The `m.qr_code.show.v1` verification method.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.qr_code.show.v1&quot;</span>)]</span>
     <span class="ident">QrCodeShowV1</span>,
 
-    <span class="doccomment">/// The *m.reciprocate.v1* verification method.</span>
+    <span class="doccomment">/// The `m.reciprocate.v1` verification method.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.reciprocate.v1&quot;</span>)]</span>
     <span class="ident">ReciprocateV1</span>,

@@ -161,7 +161,7 @@
 <span id="161">161</span>
 <span id="162">162</span>
 <span id="163">163</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.key.verification.cancel* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.cancel` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
@@ -252,7 +252,7 @@
 
     <span class="doccomment">/// The device does not know how to handle the requested method.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Should be sent for *m.key.verification.start* messages and messages defined by individual</span>
+    <span class="doccomment">/// Should be sent for `m.key.verification.start` messages and messages defined by individual</span>
     <span class="doccomment">/// verification processes.</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.unknown_method&quot;</span>)]</span>
     <span class="ident">UnknownMethod</span>,
@@ -275,7 +275,7 @@
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.invalid_message&quot;</span>)]</span>
     <span class="ident">InvalidMessage</span>,
 
-    <span class="doccomment">/// An *m.key.verification.request* was accepted by a different device.</span>
+    <span class="doccomment">/// An `m.key.verification.request` was accepted by a different device.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The device receiving this error can ignore the verification request.</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.accepted&quot;</span>)]</span>

@@ -68,7 +68,7 @@
 <span id="68">68</span>
 <span id="69">69</span>
 <span id="70">70</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.key.verification.mac* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.mac` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -87,7 +87,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceMacEventContent</span> {
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Must be the same as the one used for the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// Must be the same as the one used for the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// A map of the key ID to the MAC of the key, using the algorithm in the verification process.</span>

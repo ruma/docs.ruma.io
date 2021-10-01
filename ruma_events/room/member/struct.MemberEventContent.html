@@ -14,7 +14,7 @@ adjusting the state directly as there are a restricted set of valid transformati
 example, user A cannot force user B to join a room, and trying to force this state change
 directly will fail.</p>
 <p>The <code>third_party_invite</code> property will be set if this invite is an <em>invite</em> event and is the
-successor of an <em>m.room.third_party_invite</em> event, and absent otherwise.</p>
+successor of an <code>m.room.third_party_invite</code> event, and absent otherwise.</p>
 <p>This event may also include an <code>invite_room_state</code> key inside the event’s unsigned data. If
 present, this contains an array of <code>StrippedState</code> events. These events provide information
 on a subset of state events such as the room name. Note that ruma-events treats unsigned

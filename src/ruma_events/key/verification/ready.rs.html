@@ -160,7 +160,7 @@
 <span id="160">160</span>
 <span id="161">161</span>
 <span id="162">162</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.key.verification.ready* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.ready` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceIdBox</span>;
@@ -170,7 +170,7 @@
 
 <span class="doccomment">/// The content of a to-device `m.m.key.verification.ready` event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Response to a previously sent *m.key.verification.request* message.</span>
+<span class="doccomment">/// Response to a previously sent `m.key.verification.request` message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.ready&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
@@ -184,7 +184,7 @@
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be unique with respect to the devices involved. Must be the same as the</span>
-    <span class="doccomment">/// `transaction_id` given in the *m.key.verification.request* from a</span>
+    <span class="doccomment">/// `transaction_id` given in the `m.key.verification.request` from a</span>
     <span class="doccomment">/// request.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 }
@@ -203,7 +203,7 @@
 
 <span class="doccomment">/// The content of an in-room `m.m.key.verification.ready` event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Response to a previously sent *m.key.verification.request* message.</span>
+<span class="doccomment">/// Response to a previously sent `m.key.verification.request` message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.ready&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>

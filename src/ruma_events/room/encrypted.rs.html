@@ -394,7 +394,7 @@
 <span id="394">394</span>
 <span id="395">395</span>
 <span id="396">396</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.encrypted* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.encrypted` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -468,11 +468,11 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;algorithm&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">EncryptedEventScheme</span> {
-    <span class="doccomment">/// An event encrypted with *m.olm.v1.curve25519-aes-sha2*.</span>
+    <span class="doccomment">/// An event encrypted with `m.olm.v1.curve25519-aes-sha2`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.olm.v1.curve25519-aes-sha2&quot;</span>)]</span>
     <span class="ident">OlmV1Curve25519AesSha2</span>(<span class="ident">OlmV1Curve25519AesSha2Content</span>),
 
-    <span class="doccomment">/// An event encrypted with *m.megolm.v1.aes-sha2*.</span>
+    <span class="doccomment">/// An event encrypted with `m.megolm.v1.aes-sha2`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.megolm.v1.aes-sha2&quot;</span>)]</span>
     <span class="ident">MegolmV1AesSha2</span>(<span class="ident">MegolmV1AesSha2Content</span>),
 }
@@ -561,7 +561,7 @@
     }
 }
 
-<span class="doccomment">/// The content of an `m.room.encrypted` event using the *m.olm.v1.curve25519-aes-sha2* algorithm.</span>
+<span class="doccomment">/// The content of an `m.room.encrypted` event using the `m.olm.v1.curve25519-aes-sha2` algorithm.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OlmV1Curve25519AesSha2Content</span> {
@@ -581,7 +581,7 @@
 
 <span class="doccomment">/// Ciphertext information holding the ciphertext and message type.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Used for messages encrypted with the *m.olm.v1.curve25519-aes-sha2* algorithm.</span>
+<span class="doccomment">/// Used for messages encrypted with the `m.olm.v1.curve25519-aes-sha2` algorithm.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CiphertextInfo</span> {
@@ -600,7 +600,7 @@
     }
 }
 
-<span class="doccomment">/// The content of an `m.room.encrypted` event using the *m.megolm.v1.aes-sha2* algorithm.</span>
+<span class="doccomment">/// The content of an `m.room.encrypted` event using the `m.megolm.v1.aes-sha2` algorithm.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To create an instance of this type, first create a `MegolmV1AesSha2ContentInit` and convert it</span>
 <span class="doccomment">/// via `MegolmV1AesSha2Content::from` / `.into()`.</span>

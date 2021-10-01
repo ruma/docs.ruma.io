@@ -5,7 +5,7 @@
     pub public_keys: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="struct.PublicKey.html" title="struct ruma_events::room::third_party_invite::PublicKey">PublicKey</a>&gt;&gt;,
 }</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The content of an <code>m.room.third_party_invite</code> event.</p>
 <p>An invitation to a room issued to a third party identifier, rather than a matrix user ID.</p>
-<p>Acts as an <em>m.room.member</em> invite event, where there isn’t a target user_id to invite. This
+<p>Acts as an <code>m.room.member</code> invite event, where there isn’t a target user_id to invite. This
 event contains a token and a public key whose private key must be used to sign the token.
 Any user who can present that signature may use this invitation to join the target room.</p>
 </div></details><h2 id="fields" class="fields small-section-header">Fields<a href="#fields" class="anchor"></a></h2><span id="structfield.display_name" class="structfield small-section-header"><a href="#structfield.display_name" class="anchor field"></a><code>display_name: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a></code></span><div class="docblock"><p>A user-readable string which represents the user who has been invited.</p>

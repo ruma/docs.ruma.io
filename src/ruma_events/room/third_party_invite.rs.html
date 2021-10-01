@@ -69,7 +69,7 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room.third_party_invite* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.third_party_invite` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -78,7 +78,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// An invitation to a room issued to a third party identifier, rather than a matrix user ID.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Acts as an *m.room.member* invite event, where there isn&#39;t a target user_id to invite. This</span>
+<span class="doccomment">/// Acts as an `m.room.member` invite event, where there isn&#39;t a target user_id to invite. This</span>
 <span class="doccomment">/// event contains a token and a public key whose private key must be used to sign the token.</span>
 <span class="doccomment">/// Any user who can present that signature may use this invitation to join the target room.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>

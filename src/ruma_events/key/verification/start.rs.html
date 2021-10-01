@@ -551,7 +551,7 @@
 <span id="551">551</span>
 <span id="552">552</span>
 <span id="553">553</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.key.verification.start* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.start` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -579,7 +579,7 @@
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be unique with respect to the devices involved. Must be the same as the</span>
-    <span class="doccomment">/// `transaction_id` given in the *m.key.verification.request* if this process is originating</span>
+    <span class="doccomment">/// `transaction_id` given in the `m.key.verification.request` if this process is originating</span>
     <span class="doccomment">/// from a request.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 
@@ -625,15 +625,15 @@
     }
 }
 
-<span class="doccomment">/// An enum representing the different method specific *m.key.verification.start* content.</span>
+<span class="doccomment">/// An enum representing the different method specific `m.key.verification.start` content.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">StartMethod</span> {
-    <span class="doccomment">/// The *m.sas.v1* verification method.</span>
+    <span class="doccomment">/// The `m.sas.v1` verification method.</span>
     <span class="ident">SasV1</span>(<span class="ident">SasV1Content</span>),
 
-    <span class="doccomment">/// The *m.reciprocate.v1* verification method.</span>
+    <span class="doccomment">/// The `m.reciprocate.v1` verification method.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The spec entry for this method can be found [here][1].</span>
     <span class="doccomment">///</span>
@@ -659,7 +659,7 @@
     <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span>,
 }
 
-<span class="doccomment">/// The payload of an *m.key.verification.start* event using the *m.sas.v1* method.</span>
+<span class="doccomment">/// The payload of an `m.key.verification.start` event using the `m.sas.v1` method.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
@@ -680,7 +680,7 @@
     }
 }
 
-<span class="doccomment">/// The payload of an *m.key.verification.start* event using the *m.sas.v1* method.</span>
+<span class="doccomment">/// The payload of an `m.key.verification.start` event using the `m.sas.v1` method.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To create an instance of this type, first create a `SasV1ContentInit` and convert it via</span>
 <span class="doccomment">/// `SasV1Content::from` / `.into()`.</span>

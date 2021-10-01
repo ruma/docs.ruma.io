@@ -425,14 +425,14 @@
 <span class="doccomment">//! all the event types defined by the Matrix specification. Matrix event types are serialized to</span>
 <span class="doccomment">//! JSON strings in [reverse domain name</span>
 <span class="doccomment">//! notation](https://en.wikipedia.org/wiki/Reverse_domain_name_notation), although the core event</span>
-<span class="doccomment">//! types all use the special &quot;m&quot; TLD, e.g. *m.room.message*.</span>
+<span class="doccomment">//! types all use the special &quot;m&quot; TLD, e.g. `m.room.message`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Core event types</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ruma-events includes Rust types for every one of the event types in the Matrix specification.</span>
 <span class="doccomment">//! To better organize the crate, these types live in separate modules with a hierarchy that</span>
 <span class="doccomment">//! matches the reverse domain name notation of the event type.</span>
-<span class="doccomment">//! For example, the *m.room.message* event lives at `ruma_events::room::message::MessageEvent`.</span>
+<span class="doccomment">//! For example, the `m.room.message` event lives at `ruma_events::room::message::MessageEvent`.</span>
 <span class="doccomment">//! Each type&#39;s module also contains a Rust type for that event type&#39;s `content` field, and any</span>
 <span class="doccomment">//! other supporting types required by the event&#39;s other fields.</span>
 <span class="doccomment">//!</span>

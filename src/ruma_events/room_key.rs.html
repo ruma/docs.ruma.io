@@ -74,7 +74,7 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.room_key* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room_key` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>};
@@ -82,7 +82,7 @@
 
 <span class="doccomment">/// The content of an `m.room_key` event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Typically encrypted as an *m.room.encrypted* event, then sent as a to-device event.</span>
+<span class="doccomment">/// Typically encrypted as an `m.room.encrypted` event, then sent as a to-device event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room_key&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>

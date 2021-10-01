@@ -420,7 +420,7 @@
 <span id="420">420</span>
 <span id="421">421</span>
 <span id="422">422</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types for the *m.key.verification.accept* event.</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.accept` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -436,14 +436,14 @@
 
 <span class="doccomment">/// The content of a to-device `m.key.verification.accept` event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Accepts a previously sent *m.key.verification.start* message.</span>
+<span class="doccomment">/// Accepts a previously sent `m.key.verification.start` message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.accept&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceAcceptEventContent</span> {
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Must be the same as the one used for the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// Must be the same as the one used for the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The method specific content.</span>
@@ -461,7 +461,7 @@
 
 <span class="doccomment">/// The content of a in-room `m.key.verification.accept` event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Accepts a previously sent *m.key.verification.start* message.</span>
+<span class="doccomment">/// Accepts a previously sent `m.key.verification.start` message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.accept&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
@@ -486,12 +486,12 @@
     }
 }
 
-<span class="doccomment">/// An enum representing the different method specific *m.key.verification.accept* content.</span>
+<span class="doccomment">/// An enum representing the different method specific `m.key.verification.accept` content.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AcceptMethod</span> {
-    <span class="doccomment">/// The *m.sas.v1* verification method.</span>
+    <span class="doccomment">/// The `m.sas.v1` verification method.</span>
     <span class="ident">SasV1</span>(<span class="ident">SasV1Content</span>),
 
     <span class="doccomment">/// Any unknown accept method.</span>
@@ -512,33 +512,33 @@
     <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span>,
 }
 
-<span class="doccomment">/// The payload of an *m.key.verification.accept* event using the *m.sas.v1* method.</span>
+<span class="doccomment">/// The payload of an `m.key.verification.accept` event using the `m.sas.v1` method.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.sas.v1&quot;</span>, <span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;method&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SasV1Content</span> {
     <span class="doccomment">/// The key agreement protocol the device is choosing to use, out of the</span>
-    <span class="doccomment">/// options in the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// options in the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">key_agreement_protocol</span>: <span class="ident">KeyAgreementProtocol</span>,
 
     <span class="doccomment">/// The hash method the device is choosing to use, out of the options in the</span>
-    <span class="doccomment">/// *m.key.verification.start* message.</span>
+    <span class="doccomment">/// `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">hash</span>: <span class="ident">HashAlgorithm</span>,
 
     <span class="doccomment">/// The message authentication code the device is choosing to use, out of</span>
-    <span class="doccomment">/// the options in the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// the options in the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">message_authentication_code</span>: <span class="ident">MessageAuthenticationCode</span>,
 
     <span class="doccomment">/// The SAS methods both devices involved in the verification process</span>
     <span class="doccomment">/// understand.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Must be a subset of the options in the *m.key.verification.start*</span>
+    <span class="doccomment">/// Must be a subset of the options in the `m.key.verification.start`</span>
     <span class="doccomment">/// message.</span>
     <span class="kw">pub</span> <span class="ident">short_authentication_string</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ShortAuthenticationString</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The hash (encoded as unpadded base64) of the concatenation of the</span>
     <span class="doccomment">/// device&#39;s ephemeral public key (encoded as unpadded base64) and the</span>
-    <span class="doccomment">/// canonical JSON representation of the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// canonical JSON representation of the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">commitment</span>: <span class="ident">String</span>,
 }
 
@@ -547,11 +547,11 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SasV1ContentInit</span> {
     <span class="doccomment">/// The key agreement protocol the device is choosing to use, out of the</span>
-    <span class="doccomment">/// options in the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// options in the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">key_agreement_protocol</span>: <span class="ident">KeyAgreementProtocol</span>,
 
     <span class="doccomment">/// The hash method the device is choosing to use, out of the options in the</span>
-    <span class="doccomment">/// *m.key.verification.start* message.</span>
+    <span class="doccomment">/// `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">hash</span>: <span class="ident">HashAlgorithm</span>,
 
     <span class="doccomment">/// The message authentication codes that the accepting device understands.</span>
@@ -560,13 +560,13 @@
     <span class="doccomment">/// The SAS methods both devices involved in the verification process</span>
     <span class="doccomment">/// understand.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Must be a subset of the options in the *m.key.verification.start*</span>
+    <span class="doccomment">/// Must be a subset of the options in the `m.key.verification.start`</span>
     <span class="doccomment">/// message.</span>
     <span class="kw">pub</span> <span class="ident">short_authentication_string</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ShortAuthenticationString</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The hash (encoded as unpadded base64) of the concatenation of the</span>
     <span class="doccomment">/// device&#39;s ephemeral public key (encoded as unpadded base64) and the</span>
-    <span class="doccomment">/// canonical JSON representation of the *m.key.verification.start* message.</span>
+    <span class="doccomment">/// canonical JSON representation of the `m.key.verification.start` message.</span>
     <span class="kw">pub</span> <span class="ident">commitment</span>: <span class="ident">String</span>,
 }
 
