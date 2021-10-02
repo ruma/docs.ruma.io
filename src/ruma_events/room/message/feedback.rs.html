@@ -70,7 +70,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.message.feedback&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FeedbackEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomMessageFeedbackEventContent</span> {
     <span class="doccomment">/// The event that this feedback is related to.</span>
     <span class="kw">pub</span> <span class="ident">target_event_id</span>: <span class="ident">EventId</span>,
 
@@ -79,8 +79,8 @@
     <span class="kw">pub</span> <span class="ident">feedback_type</span>: <span class="ident">FeedbackType</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">FeedbackEventContent</span> {
-    <span class="doccomment">/// Create a `FeedbackEventContent` from the given target event id and feedback type.</span>
+<span class="kw">impl</span> <span class="ident">RoomMessageFeedbackEventContent</span> {
+    <span class="doccomment">/// Create a `RoomFeedbackEventContent` from the given target event id and feedback type.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">target_event_id</span>: <span class="ident">EventId</span>, <span class="ident">feedback_type</span>: <span class="ident">FeedbackType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">target_event_id</span>, <span class="ident">feedback_type</span> }
     }

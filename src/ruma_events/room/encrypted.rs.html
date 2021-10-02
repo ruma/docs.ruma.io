@@ -394,6 +394,8 @@
 <span id="394">394</span>
 <span id="395">395</span>
 <span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.encrypted` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -415,7 +417,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encrypted&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptedEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomEncryptedEventContent</span> {
     <span class="doccomment">/// Algorithm-specific fields.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>,
@@ -427,14 +429,14 @@
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">EncryptedEventContent</span> {
-    <span class="doccomment">/// Creates a new `EncryptedEventContent` with the given scheme and relation.</span>
+<span class="kw">impl</span> <span class="ident">RoomEncryptedEventContent</span> {
+    <span class="doccomment">/// Creates a new `RoomEncryptedEventContent` with the given scheme and relation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>, <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">scheme</span>, <span class="ident">relates_to</span> }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EncryptedEventScheme</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EncryptedEventContent</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EncryptedEventScheme</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomEncryptedEventContent</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">scheme</span>, <span class="ident">relates_to</span>: <span class="prelude-val">None</span> }
     }
@@ -444,26 +446,26 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encrypted&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceEncryptedEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceRoomEncryptedEventContent</span> {
     <span class="doccomment">/// Algorithm-specific fields.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ToDeviceEncryptedEventContent</span> {
-    <span class="doccomment">/// Creates a new `ToDeviceEncryptedEventContent` with the given scheme.</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceRoomEncryptedEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceRoomEncryptedEventContent` with the given scheme.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">scheme</span> }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EncryptedEventScheme</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ToDeviceEncryptedEventContent</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">EncryptedEventScheme</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ToDeviceRoomEncryptedEventContent</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">scheme</span> }
     }
 }
 
-<span class="doccomment">/// The encryption scheme for `EncryptedEventContent`.</span>
+<span class="doccomment">/// The encryption scheme for `RoomEncryptedEventContent`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;algorithm&quot;</span>)]</span>
@@ -684,13 +686,15 @@
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EncryptedEventContent</span>, <span class="ident">EncryptedEventScheme</span>, <span class="ident">MegolmV1AesSha2Content</span>, <span class="ident">Relation</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{
+        <span class="ident">EncryptedEventScheme</span>, <span class="ident">MegolmV1AesSha2Content</span>, <span class="ident">Relation</span>, <span class="ident">RoomEncryptedEventContent</span>,
+    };
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::room::message::InReplyTo</span>;
     <span class="kw">use</span> <span class="ident">ruma_identifiers::event_id</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
-        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">EncryptedEventContent</span> {
+        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">RoomEncryptedEventContent</span> {
             <span class="ident">scheme</span>: <span class="ident">EncryptedEventScheme::MegolmV1AesSha2</span>(<span class="ident">MegolmV1AesSha2Content</span> {
                 <span class="ident">ciphertext</span>: <span class="string">&quot;ciphertext&quot;</span>.<span class="ident">into</span>(),
                 <span class="ident">sender_key</span>: <span class="string">&quot;sender_key&quot;</span>.<span class="ident">into</span>(),
@@ -733,7 +737,7 @@
             },
         });
 
-        <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">EncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">RoomEncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
         <span class="macro">assert_matches!</span>(
             <span class="ident">content</span>.<span class="ident">scheme</span>,
@@ -767,7 +771,7 @@
             },
             <span class="string">&quot;algorithm&quot;</span>: <span class="string">&quot;m.olm.v1.curve25519-aes-sha2&quot;</span>
         });
-        <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">EncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">RoomEncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">match</span> <span class="ident">content</span>.<span class="ident">scheme</span> {
             <span class="ident">EncryptedEventScheme::OlmV1Curve25519AesSha2</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> {
@@ -782,7 +786,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialization_failure</span>() {
-        <span class="macro">assert!</span>(<span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">EncryptedEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+        <span class="macro">assert!</span>(<span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomEncryptedEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(
             <span class="macro">json!</span>({ <span class="string">&quot;algorithm&quot;</span>: <span class="string">&quot;m.megolm.v1.aes-sha2&quot;</span> })
         )
         .<span class="ident">unwrap</span>()

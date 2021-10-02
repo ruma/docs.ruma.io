@@ -84,7 +84,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.third_party_invite&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThirdPartyInviteEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomThirdPartyInviteEventContent</span> {
     <span class="doccomment">/// A user-readable string which represents the user who has been invited.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will give you an</span>
@@ -111,9 +111,9 @@
     <span class="kw">pub</span> <span class="ident">public_keys</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PublicKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ThirdPartyInviteEventContent</span> {
-    <span class="doccomment">/// Creates a new `ThirdPartyInviteEventContent` with the given display name, key validity url</span>
-    <span class="doccomment">/// and public key.</span>
+<span class="kw">impl</span> <span class="ident">RoomThirdPartyInviteEventContent</span> {
+    <span class="doccomment">/// Creates a new `RoomThirdPartyInviteEventContent` with the given display name, key validity</span>
+    <span class="doccomment">/// url and public key.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">display_name</span>: <span class="ident">String</span>, <span class="ident">key_validity_url</span>: <span class="ident">String</span>, <span class="ident">public_key</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">display_name</span>, <span class="ident">key_validity_url</span>, <span class="ident">public_key</span>, <span class="ident">public_keys</span>: <span class="prelude-val">None</span> }
     }

@@ -154,7 +154,7 @@
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::MemberEventContent</span>, <span class="ident">EventType</span>};
+<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::RoomMemberEventContent</span>, <span class="ident">EventType</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -201,7 +201,7 @@
 
         <span class="doccomment">/// The content of the event.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">MemberEventContent</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// This field must be present but is ignored; it may be 0.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
@@ -248,7 +248,7 @@
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
     <span class="doccomment">/// The content of the event.</span>
-    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">MemberEventContent</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// This field must be present but is ignored; it may be 0.</span>
     <span class="kw">pub</span> <span class="ident">depth</span>: <span class="ident">UInt</span>,

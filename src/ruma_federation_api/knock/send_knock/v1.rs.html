@@ -47,10 +47,14 @@
 <span id="47">47</span>
 <span id="48">48</span>
 <span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v1/send_knock/{roomId}/{eventId}](https://spec.matrix.org/unstable/server-server-api/#put_matrixfederationv1send_knockroomideventid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::MemberEvent</span>, <span class="ident">AnyStrippedStateEvent</span>};
+<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::RoomMemberEvent</span>, <span class="ident">AnyStrippedStateEvent</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>};
 
 <span class="macro">ruma_api!</span> {
@@ -74,7 +78,7 @@
 
         <span class="doccomment">/// The full knock event.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">knock_event</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MemberEvent</span>,
+        <span class="kw">pub</span> <span class="ident">knock_event</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomMemberEvent</span>,
     }
 
     <span class="ident">response</span>: {
@@ -85,7 +89,11 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given room ID, event ID and knock event.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>, <span class="ident">knock_event</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MemberEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
+        <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
+        <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>,
+        <span class="ident">knock_event</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomMemberEvent</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">event_id</span>, <span class="ident">knock_event</span> }
     }
 }

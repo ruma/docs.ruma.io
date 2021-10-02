@@ -51,7 +51,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.encryption&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptionEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomEncryptionEventContent</span> {
     <span class="doccomment">/// The encryption algorithm to be used to encrypt messages sent in this room.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be `m.megolm.v1.aes-sha2`.</span>
@@ -70,8 +70,8 @@
     <span class="kw">pub</span> <span class="ident">rotation_period_msgs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">EncryptionEventContent</span> {
-    <span class="doccomment">/// Creates a new `EncryptionEventContent` with the given algorithm.</span>
+<span class="kw">impl</span> <span class="ident">RoomEncryptionEventContent</span> {
+    <span class="doccomment">/// Creates a new `RoomEncryptionEventContent` with the given algorithm.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">algorithm</span>, <span class="ident">rotation_period_ms</span>: <span class="prelude-val">None</span>, <span class="ident">rotation_period_msgs</span>: <span class="prelude-val">None</span> }
     }

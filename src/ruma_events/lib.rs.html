@@ -532,7 +532,7 @@
 };
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
-<span class="kw">use</span> <span class="ident"><span class="self">self</span>::room::redaction::SyncRedactionEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="self">self</span>::room::redaction::SyncRoomRedactionEvent</span>;
 
 <span class="kw">mod</span> <span class="ident">enums</span>;
 <span class="kw">mod</span> <span class="ident">event_kinds</span>;
@@ -627,7 +627,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// A small number of events have room-version specific redaction behavior, so a version has to</span>
     <span class="doccomment">/// be specified.</span>
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span>;
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span>;
 }
 
 <span class="doccomment">/// Trait to define the behavior of redact an event&#39;s content object.</span>

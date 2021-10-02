@@ -43,7 +43,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.call.answer&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AnswerEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CallAnswerEventContent</span> {
     <span class="doccomment">/// The VoIP session description object. The session description type must be *answer*.</span>
     <span class="kw">pub</span> <span class="ident">answer</span>: <span class="ident">SessionDescription</span>,
 
@@ -54,7 +54,7 @@
     <span class="kw">pub</span> <span class="ident">version</span>: <span class="ident">UInt</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">AnswerEventContent</span> {
+<span class="kw">impl</span> <span class="ident">CallAnswerEventContent</span> {
     <span class="doccomment">/// Creates an `AnswerEventContent` with the given answer, call ID and VoIP version.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">answer</span>: <span class="ident">SessionDescription</span>, <span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">answer</span>, <span class="ident">call_id</span>, <span class="ident">version</span> }

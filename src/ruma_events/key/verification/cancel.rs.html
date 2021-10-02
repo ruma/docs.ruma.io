@@ -161,6 +161,7 @@
 <span id="161">161</span>
 <span id="162">162</span>
 <span id="163">163</span>
+<span id="164">164</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.cancel` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
@@ -176,7 +177,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.cancel&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceCancelEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceKeyVerificationCancelEventContent</span> {
     <span class="doccomment">/// The opaque identifier for the verification process/request.</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 
@@ -189,8 +190,9 @@
     <span class="kw">pub</span> <span class="ident">code</span>: <span class="ident">CancelCode</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ToDeviceCancelEventContent</span> {
-    <span class="doccomment">/// Creates a new `ToDeviceCancelEventContent` with the given transaction ID, reason and code.</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationCancelEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationCancelEventContent` with the given transaction ID,</span>
+    <span class="doccomment">/// reason and code.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">reason</span>, <span class="ident">code</span> }
     }
@@ -204,7 +206,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.cancel&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CancelEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyVerificationCancelEventContent</span> {
     <span class="doccomment">/// A human readable description of the `code`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The client should only rely on this string if it does not understand the `code`.</span>
@@ -219,8 +221,8 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">CancelEventContent</span> {
-    <span class="doccomment">/// Creates a new `CancelEventContent` with the given reason, code and relation.</span>
+<span class="kw">impl</span> <span class="ident">KeyVerificationCancelEventContent</span> {
+    <span class="doccomment">/// Creates a new `KeyVerificationCancelEventContent` with the given reason, code and relation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">reason</span>, <span class="ident">code</span>, <span class="ident">relates_to</span> }
     }

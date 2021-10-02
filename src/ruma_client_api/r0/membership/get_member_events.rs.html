@@ -131,7 +131,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/rooms/{roomId}/members](https://matrix.org/docs/spec/client_server/r0.6.0#get-matrix-client-r0-rooms-roomid-members)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_events::room::member::MemberEvent</span>;
+<span class="kw">use</span> <span class="ident">ruma_events::room::member::RoomMemberEvent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomId</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>};
 
@@ -172,7 +172,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// A list of member events.</span>
-        <span class="kw">pub</span> <span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">MemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomMemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -187,7 +187,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given member event chunk.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">MemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomMemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">chunk</span> }
     }
 }

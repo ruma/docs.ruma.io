@@ -138,7 +138,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::MemberEventContent</span>, <span class="ident">AnyStrippedStateEvent</span>, <span class="ident">EventType</span>};
+<span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::RoomMemberEventContent</span>, <span class="ident">AnyStrippedStateEvent</span>, <span class="ident">EventType</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -180,7 +180,7 @@
         <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
 
         <span class="doccomment">/// The content of the event.</span>
-        <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">MemberEventContent</span>,
+        <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span>,
 
         <span class="doccomment">/// Information included alongside the event that is not signed.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;UnsignedEventContent::is_empty&quot;</span>)]</span>
@@ -241,7 +241,7 @@
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
 
     <span class="doccomment">/// The content of the event.</span>
-    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">MemberEventContent</span>,
+    <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span>,
 
     <span class="doccomment">/// Information included alongside the event that is not signed.</span>
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">UnsignedEventContent</span>,

@@ -160,6 +160,7 @@
 <span id="160">160</span>
 <span id="161">161</span>
 <span id="162">162</span>
+<span id="163">163</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.ready` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
@@ -174,7 +175,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.ready&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceReadyEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceKeyVerificationReadyEventContent</span> {
     <span class="doccomment">/// The device ID which is initiating the request.</span>
     <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
 
@@ -189,9 +190,9 @@
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">String</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ToDeviceReadyEventContent</span> {
-    <span class="doccomment">/// Creates a new `ToDeviceReadyEventContent` with the given device ID, verification methods and</span>
-    <span class="doccomment">/// transaction ID.</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationReadyEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationReadyEventContent` with the given device ID,</span>
+    <span class="doccomment">/// verification methods and transaction ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
         <span class="ident">methods</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">VerificationMethod</span><span class="op">&gt;</span>,
@@ -207,7 +208,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.ready&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReadyEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyVerificationReadyEventContent</span> {
     <span class="doccomment">/// The device ID which is initiating the request.</span>
     <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
 
@@ -220,8 +221,9 @@
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="ident">Relation</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ReadyEventContent</span> {
-    <span class="doccomment">/// Creates a new `ReadyEventContent` with the given device ID, methods and relation.</span>
+<span class="kw">impl</span> <span class="ident">KeyVerificationReadyEventContent</span> {
+    <span class="doccomment">/// Creates a new `KeyVerificationReadyEventContent` with the given device ID, methods and</span>
+    <span class="doccomment">/// relation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
         <span class="ident">methods</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">VerificationMethod</span><span class="op">&gt;</span>,
@@ -237,7 +239,7 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">DeviceIdBox</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ReadyEventContent</span>, <span class="ident">ToDeviceReadyEventContent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">KeyVerificationReadyEventContent</span>, <span class="ident">ToDeviceKeyVerificationReadyEventContent</span>};
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::key::verification</span>::{<span class="ident">Relation</span>, <span class="ident">VerificationMethod</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -254,7 +256,7 @@
             }
         });
 
-        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">ReadyEventContent</span> {
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">KeyVerificationReadyEventContent</span> {
             <span class="ident">from_device</span>: <span class="ident">device</span>.<span class="ident">clone</span>(),
             <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span> },
             <span class="ident">methods</span>: <span class="macro">vec!</span>[<span class="ident">VerificationMethod::SasV1</span>],
@@ -268,7 +270,7 @@
             <span class="string">&quot;transaction_id&quot;</span>: <span class="string">&quot;456&quot;</span>,
         });
 
-        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">ToDeviceReadyEventContent</span> {
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">ToDeviceKeyVerificationReadyEventContent</span> {
             <span class="ident">from_device</span>: <span class="ident">device</span>,
             <span class="ident">transaction_id</span>: <span class="string">&quot;456&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">methods</span>: <span class="macro">vec!</span>[<span class="ident">VerificationMethod::SasV1</span>],
@@ -292,8 +294,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ReadyEventContent</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ReadyEventContent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">KeyVerificationReadyEventContent</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">KeyVerificationReadyEventContent</span> {
                 <span class="ident">from_device</span>,
                 <span class="ident">relates_to</span>: <span class="ident">Relation</span> {
                     <span class="ident">event_id</span>
@@ -311,8 +313,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceReadyEventContent</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ToDeviceReadyEventContent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationReadyEventContent</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">ToDeviceKeyVerificationReadyEventContent</span> {
                 <span class="ident">from_device</span>,
                 <span class="ident">transaction_id</span>,
                 <span class="ident">methods</span>,

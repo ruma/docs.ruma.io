@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["ToDeviceSendEventContent","The content of an `m.secret.send` event."]],"type":[["ToDeviceSendEvent","An `m.secret.send` event."]]});
+initSidebarItems({"struct":[["ToDeviceSecretSendEventContent","The content of an `m.secret.send` event."]],"type":[["ToDeviceSecretSendEvent","An `m.secret.send` event."]]});

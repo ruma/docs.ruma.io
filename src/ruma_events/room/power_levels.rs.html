@@ -319,7 +319,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.power_levels&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PowerLevelsEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomPowerLevelsEventContent</span> {
     <span class="doccomment">/// The level required to ban a user.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you activate the `compat` feature, deserialization will work for stringified</span>
@@ -417,8 +417,8 @@
     <span class="kw">pub</span> <span class="ident">notifications</span>: <span class="ident">NotificationPowerLevels</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">PowerLevelsEventContent</span> {
-    <span class="doccomment">/// Creates a new `PowerLevelsEventContent` with all-default values.</span>
+<span class="kw">impl</span> <span class="ident">RoomPowerLevelsEventContent</span> {
+    <span class="doccomment">/// Creates a new `RoomPowerLevelsEventContent` with all-default values.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="comment">// events_default and users_default having a default of 0 while the others have a default</span>
         <span class="comment">// of 50 is not an oversight, these defaults are from the Matrix specification.</span>
@@ -437,7 +437,7 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PowerLevelsEventContent</span> {
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">RoomPowerLevelsEventContent</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>()
     }
@@ -460,7 +460,7 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>, <span class="ident">PowerLevelsEventContent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>, <span class="ident">RoomPowerLevelsEventContent</span>};
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventType</span>, <span class="ident">StateEvent</span>, <span class="ident">Unsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -468,7 +468,7 @@
         <span class="kw">let</span> <span class="ident">default</span> <span class="op">=</span> <span class="ident">default_power_level</span>();
 
         <span class="kw">let</span> <span class="ident">power_levels_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
-            <span class="ident">content</span>: <span class="ident">PowerLevelsEventContent</span> {
+            <span class="ident">content</span>: <span class="ident">RoomPowerLevelsEventContent</span> {
                 <span class="ident">ban</span>: <span class="ident">default</span>,
                 <span class="ident">events</span>: <span class="ident">BTreeMap::new</span>(),
                 <span class="ident">events_default</span>: <span class="macro">int!</span>(<span class="number">0</span>),
@@ -507,7 +507,7 @@
     <span class="kw">fn</span> <span class="ident">serialization_with_all_fields</span>() {
         <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>);
         <span class="kw">let</span> <span class="ident">power_levels_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
-            <span class="ident">content</span>: <span class="ident">PowerLevelsEventContent</span> {
+            <span class="ident">content</span>: <span class="ident">RoomPowerLevelsEventContent</span> {
                 <span class="ident">ban</span>: <span class="macro">int!</span>(<span class="number">23</span>),
                 <span class="ident">events</span>: <span class="macro">btreemap!</span> {
                     <span class="ident">EventType::Dummy</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">int!</span>(<span class="number">23</span>)
@@ -525,7 +525,7 @@
             },
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
-            <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">PowerLevelsEventContent</span> {
+            <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomPowerLevelsEventContent</span> {
                 <span class="comment">// Make just one field different so we at least know they&#39;re two different objects.</span>
                 <span class="ident">ban</span>: <span class="macro">int!</span>(<span class="number">42</span>),
                 <span class="ident">events</span>: <span class="macro">btreemap!</span> {

@@ -115,7 +115,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>, <span class="ident">derive</span>(<span class="ident">Default</span>))]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.avatar&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AvatarEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomAvatarEventContent</span> {
     <span class="doccomment">/// Information about the avatar image.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -133,8 +133,8 @@
     <span class="kw">pub</span> <span class="ident">url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">AvatarEventContent</span> {
-    <span class="doccomment">/// Create an `AvatarEventContent` from the given image URL.</span>
+<span class="kw">impl</span> <span class="ident">RoomAvatarEventContent</span> {
+    <span class="doccomment">/// Create an `RoomAvatarEventContent` from the given image URL.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method takes no parameters.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
@@ -142,7 +142,7 @@
         <span class="self">Self</span> { <span class="ident">info</span>: <span class="prelude-val">None</span>, <span class="ident">url</span> }
     }
 
-    <span class="doccomment">/// Create an empty `AvatarEventContent`.</span>
+    <span class="doccomment">/// Create an empty `RoomAvatarEventContent`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method takes an `MxcUri`.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>

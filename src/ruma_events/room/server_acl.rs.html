@@ -83,7 +83,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.server_acl&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ServerAclEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomServerAclEventContent</span> {
     <span class="doccomment">/// Whether to allow server names that are IP address literals.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is strongly recommended to be set to false as servers running with IP literal names</span>
@@ -111,9 +111,9 @@
     <span class="kw">pub</span> <span class="ident">deny</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ServerAclEventContent</span> {
-    <span class="doccomment">/// Creates a new `ServerAclEventContent` with the given IP literal allowance flag, allowed and</span>
-    <span class="doccomment">/// denied servers.</span>
+<span class="kw">impl</span> <span class="ident">RoomServerAclEventContent</span> {
+    <span class="doccomment">/// Creates a new `RoomServerAclEventContent` with the given IP literal allowance flag, allowed</span>
+    <span class="doccomment">/// and denied servers.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">allow_ip_literals</span>: <span class="ident">bool</span>, <span class="ident">allow</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">deny</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">allow_ip_literals</span>, <span class="ident">allow</span>, <span class="ident">deny</span> }
     }
@@ -123,7 +123,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ServerAclEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomServerAclEventContent</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::StateEvent</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -138,7 +138,7 @@
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.server_acl&quot;</span>
         });
 
-        <span class="kw">let</span> <span class="ident">server_acl_event</span>: <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">ServerAclEventContent</span><span class="op">&gt;</span> <span class="op">=</span>
+        <span class="kw">let</span> <span class="ident">server_acl_event</span>: <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomServerAclEventContent</span><span class="op">&gt;</span> <span class="op">=</span>
             <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
         <span class="macro">assert!</span>(<span class="ident">server_acl_event</span>.<span class="ident">content</span>.<span class="ident">allow_ip_literals</span>);

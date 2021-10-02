@@ -176,7 +176,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.canonical_alias&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CanonicalAliasEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomCanonicalAliasEventContent</span> {
     <span class="doccomment">/// The canonical alias.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Rooms with `alias: None` should be treated the same as a room</span>
@@ -193,8 +193,8 @@
     <span class="kw">pub</span> <span class="ident">alt_aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">CanonicalAliasEventContent</span> {
-    <span class="doccomment">/// Creates an empty `CanonicalAliasEventContent`.</span>
+<span class="kw">impl</span> <span class="ident">RoomCanonicalAliasEventContent</span> {
+    <span class="doccomment">/// Creates an empty `RoomCanonicalAliasEventContent`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">alias</span>: <span class="prelude-val">None</span>, <span class="ident">alt_aliases</span>: <span class="ident">Vec::new</span>() }
     }
@@ -207,13 +207,13 @@
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::CanonicalAliasEventContent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomCanonicalAliasEventContent</span>;
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">StateEvent</span>, <span class="ident">Unsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_optional_fields_as_none</span>() {
         <span class="kw">let</span> <span class="ident">canonical_alias_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
-            <span class="ident">content</span>: <span class="ident">CanonicalAliasEventContent</span> {
+            <span class="ident">content</span>: <span class="ident">RoomCanonicalAliasEventContent</span> {
                 <span class="ident">alias</span>: <span class="prelude-val">Some</span>(<span class="macro">room_alias_id!</span>(<span class="string">&quot;#somewhere:localhost&quot;</span>)),
                 <span class="ident">alt_aliases</span>: <span class="ident">Vec::new</span>(),
             },
@@ -255,7 +255,7 @@
         });
 
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">CanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomCanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
                 .<span class="ident">unwrap</span>()
                 .<span class="ident">content</span>
                 .<span class="ident">alias</span>,
@@ -277,7 +277,7 @@
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.canonical_alias&quot;</span>
         });
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">CanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomCanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
                 .<span class="ident">unwrap</span>()
                 .<span class="ident">content</span>
                 .<span class="ident">alias</span>,
@@ -299,7 +299,7 @@
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.canonical_alias&quot;</span>
         });
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">CanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomCanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
                 .<span class="ident">unwrap</span>()
                 .<span class="ident">content</span>
                 .<span class="ident">alias</span>,
@@ -322,7 +322,7 @@
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.canonical_alias&quot;</span>
         });
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">CanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomCanonicalAliasEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
                 .<span class="ident">unwrap</span>()
                 .<span class="ident">content</span>
                 .<span class="ident">alias</span>,

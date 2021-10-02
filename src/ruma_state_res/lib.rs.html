@@ -1267,7 +1267,7 @@
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
 <span class="kw">use</span> <span class="ident">ruma_events</span>::{
-    <span class="ident">room::member</span>::{<span class="ident">MemberEventContent</span>, <span class="ident">MembershipState</span>},
+    <span class="ident">room::member</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>},
     <span class="ident">EventType</span>,
 };
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
@@ -1861,7 +1861,7 @@
             <span class="ident">event</span>.<span class="ident">state_key</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>)
         }
         <span class="ident">EventType::RoomMember</span> <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">MemberEventContent</span><span class="op">&gt;</span>(<span class="ident">event</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span>(<span class="ident">event</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
                 <span class="kw">if</span> [<span class="ident">MembershipState::Leave</span>, <span class="ident">MembershipState::Ban</span>].<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">membership</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>.<span class="ident">sender</span>().<span class="ident">as_str</span>()) <span class="op">!</span><span class="op">=</span> <span class="ident">event</span>.<span class="ident">state_key</span>();
                 }
@@ -1885,7 +1885,7 @@
     <span class="kw">use</span> <span class="ident">rand::seq::SliceRandom</span>;
     <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
     <span class="kw">use</span> <span class="ident">ruma_events</span>::{
-        <span class="ident">room::join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">JoinRulesEventContent</span>},
+        <span class="ident">room::join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>},
         <span class="ident">EventType</span>,
     };
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>};
@@ -2137,7 +2137,7 @@
                 <span class="ident">alice</span>(),
                 <span class="ident">EventType::RoomJoinRules</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
-                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">JoinRulesEventContent::new</span>(<span class="ident">JoinRule::Private</span>)).<span class="ident">unwrap</span>(),
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">RoomJoinRulesEventContent::new</span>(<span class="ident">JoinRule::Private</span>)).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;ME&quot;</span>,

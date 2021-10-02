@@ -550,6 +550,7 @@
 <span id="550">550</span>
 <span id="551">551</span>
 <span id="552">552</span>
+<span id="553">553</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.key.verification.start` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -571,7 +572,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.start&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceStartEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
     <span class="doccomment">/// The device ID which is initiating the process.</span>
     <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
 
@@ -587,9 +588,9 @@
     <span class="kw">pub</span> <span class="ident">method</span>: <span class="ident">StartMethod</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">ToDeviceStartEventContent</span> {
-    <span class="doccomment">/// Creates a new `ToDeviceStartEventContent` with the given device ID, transaction ID and</span>
-    <span class="doccomment">/// method specific content.</span>
+<span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
+    <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationStartEventContent` with the given device ID,</span>
+    <span class="doccomment">/// transaction ID and method specific content.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">method</span>: <span class="ident">StartMethod</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">from_device</span>, <span class="ident">transaction_id</span>, <span class="ident">method</span> }
     }
@@ -603,7 +604,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.start&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StartEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyVerificationStartEventContent</span> {
     <span class="doccomment">/// The device ID which is initiating the process.</span>
     <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
 
@@ -617,8 +618,9 @@
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">StartEventContent</span> {
-    <span class="doccomment">/// Creates a new `StartEventContent` with the given device ID, method and relation.</span>
+<span class="kw">impl</span> <span class="ident">KeyVerificationStartEventContent</span> {
+    <span class="doccomment">/// Creates a new `KeyVerificationStartEventContent` with the given device ID, method and</span>
+    <span class="doccomment">/// relation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">method</span>: <span class="ident">StartMethod</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">from_device</span>, <span class="ident">method</span>, <span class="ident">relates_to</span> }
     }
@@ -761,18 +763,18 @@
 
     <span class="kw">use</span> <span class="kw">super</span>::{
         <span class="ident">HashAlgorithm</span>, <span class="ident">KeyAgreementProtocol</span>, <span class="ident">MessageAuthenticationCode</span>, <span class="ident">SasV1Content</span>,
-        <span class="ident">SasV1ContentInit</span>, <span class="ident">ShortAuthenticationString</span>, <span class="ident">StartMethod</span>, <span class="ident">ToDeviceStartEventContent</span>,
-        <span class="ident">_CustomContent</span>,
+        <span class="ident">SasV1ContentInit</span>, <span class="ident">ShortAuthenticationString</span>, <span class="ident">StartMethod</span>,
+        <span class="ident">ToDeviceKeyVerificationStartEventContent</span>, <span class="ident">_CustomContent</span>,
     };
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ReciprocateV1Content</span>, <span class="ident">StartEventContent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">KeyVerificationStartEventContent</span>, <span class="ident">ReciprocateV1Content</span>};
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::key::verification::Relation</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ToDeviceEvent</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
-        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">ToDeviceStartEventContent</span> {
+        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
             <span class="ident">from_device</span>: <span class="string">&quot;123&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">transaction_id</span>: <span class="string">&quot;456&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(
@@ -820,7 +822,7 @@
             <span class="string">&quot;sender&quot;</span>: <span class="ident">sender</span>
         });
 
-        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">ToDeviceStartEventContent</span> {
+        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
             <span class="ident">from_device</span>: <span class="string">&quot;123&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">transaction_id</span>: <span class="string">&quot;456&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">method</span>: <span class="ident">StartMethod::_Custom</span>(<span class="ident">_CustomContent</span> {
@@ -840,7 +842,7 @@
         {
             <span class="kw">let</span> <span class="ident">secret</span> <span class="op">=</span> <span class="string">&quot;This is a secret to everybody&quot;</span>.<span class="ident">to_owned</span>();
 
-            <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">ToDeviceStartEventContent</span> {
+            <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
                 <span class="ident">from_device</span>: <span class="string">&quot;123&quot;</span>.<span class="ident">into</span>(),
                 <span class="ident">transaction_id</span>: <span class="string">&quot;456&quot;</span>.<span class="ident">into</span>(),
                 <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content::new</span>(<span class="ident">secret</span>.<span class="ident">clone</span>())),
@@ -862,7 +864,7 @@
     <span class="kw">fn</span> <span class="ident">in_room_serialization</span>() {
         <span class="kw">let</span> <span class="ident">event_id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">StartEventContent</span> {
+        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">KeyVerificationStartEventContent</span> {
             <span class="ident">from_device</span>: <span class="string">&quot;123&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>() },
             <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(
@@ -893,7 +895,7 @@
 
         <span class="kw">let</span> <span class="ident">secret</span> <span class="op">=</span> <span class="string">&quot;This is a secret to everybody&quot;</span>.<span class="ident">to_owned</span>();
 
-        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">StartEventContent</span> {
+        <span class="kw">let</span> <span class="ident">key_verification_start_content</span> <span class="op">=</span> <span class="ident">KeyVerificationStartEventContent</span> {
             <span class="ident">from_device</span>: <span class="string">&quot;123&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>() },
             <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content::new</span>(<span class="ident">secret</span>.<span class="ident">clone</span>())),
@@ -926,8 +928,8 @@
 
         <span class="comment">// Deserialize the content struct separately to verify `TryFromRaw` is implemented for it.</span>
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ToDeviceStartEventContent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
                 <span class="ident">from_device</span>,
                 <span class="ident">transaction_id</span>,
                 <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(<span class="ident">SasV1Content</span> {
@@ -961,10 +963,10 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
             <span class="ident">ToDeviceEvent</span> {
                 <span class="ident">sender</span>,
-                <span class="ident">content</span>: <span class="ident">ToDeviceStartEventContent</span> {
+                <span class="ident">content</span>: <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
                     <span class="ident">from_device</span>,
                     <span class="ident">transaction_id</span>,
                     <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(<span class="ident">SasV1Content</span> {
@@ -997,10 +999,10 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
             <span class="ident">ToDeviceEvent</span> {
                 <span class="ident">sender</span>,
-                <span class="ident">content</span>: <span class="ident">ToDeviceStartEventContent</span> {
+                <span class="ident">content</span>: <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
                     <span class="ident">from_device</span>,
                     <span class="ident">transaction_id</span>,
                     <span class="ident">method</span>: <span class="ident">StartMethod::_Custom</span>(<span class="ident">_CustomContent</span> { <span class="ident">method</span>, <span class="ident">data</span> })
@@ -1026,10 +1028,10 @@
             });
 
             <span class="macro">assert_matches!</span>(
-                <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+                <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
                 <span class="ident">ToDeviceEvent</span> {
                     <span class="ident">sender</span>,
-                    <span class="ident">content</span>: <span class="ident">ToDeviceStartEventContent</span> {
+                    <span class="ident">content</span>: <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
                         <span class="ident">from_device</span>,
                         <span class="ident">transaction_id</span>,
                         <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content</span> { <span class="ident">secret</span> }),
@@ -1062,8 +1064,8 @@
 
         <span class="comment">// Deserialize the content struct separately to verify `TryFromRaw` is implemented for it.</span>
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">StartEventContent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">KeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">KeyVerificationStartEventContent</span> {
                 <span class="ident">from_device</span>,
                 <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span> },
                 <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(<span class="ident">SasV1Content</span> {
@@ -1091,8 +1093,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">StartEventContent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">KeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">KeyVerificationStartEventContent</span> {
                 <span class="ident">from_device</span>,
                 <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span> },
                 <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content</span> { <span class="ident">secret</span> }),

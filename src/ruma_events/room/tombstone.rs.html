@@ -42,7 +42,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.tombstone&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TombstoneEventContent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomTombstoneEventContent</span> {
     <span class="doccomment">/// A server-defined message.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will give you an</span>
@@ -54,8 +54,8 @@
     <span class="kw">pub</span> <span class="ident">replacement_room</span>: <span class="ident">RoomId</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">TombstoneEventContent</span> {
-    <span class="doccomment">/// Creates a new `TombstoneEventContent` with the given body and replacement room ID.</span>
+<span class="kw">impl</span> <span class="ident">RoomTombstoneEventContent</span> {
+    <span class="doccomment">/// Creates a new `RoomTombstoneEventContent` with the given body and replacement room ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">replacement_room</span>: <span class="ident">RoomId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">replacement_room</span> }
     }

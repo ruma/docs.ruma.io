@@ -376,13 +376,18 @@
 <span id="376">376</span>
 <span id="377">377</span>
 <span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
 <span class="kw">use</span> <span class="ident">ruma_events_macros</span>::{<span class="ident">event_enum</span>, <span class="ident">EventEnumFromEvent</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">room::redaction::SyncRedactionEvent</span>, <span class="ident">Redact</span>, <span class="ident">UnsignedDeHelper</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">from_raw_json_value</span>, <span class="ident">room::redaction::SyncRoomRedactionEvent</span>, <span class="ident">Redact</span>, <span class="ident">UnsignedDeHelper</span>,
+};
 
 <span class="macro">event_enum!</span> {
     <span class="doccomment">/// Any global account data event.</span>
@@ -659,7 +664,7 @@
     <span class="doccomment">/// Redacts `self`, referencing the given event in `unsigned.redacted_because`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Does nothing for events that are already redacted.</span>
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span> {
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
             <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
@@ -695,7 +700,7 @@
     <span class="doccomment">/// Redacts `self`, referencing the given event in `unsigned.redacted_because`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Does nothing for events that are already redacted.</span>
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span> {
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
             <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
@@ -722,21 +727,22 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">relation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="kw">crate</span>::room::encrypted::Relation</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::key::verification</span>::{
-            <span class="ident">accept::AcceptEventContent</span>, <span class="ident">cancel::CancelEventContent</span>, <span class="ident">done::DoneEventContent</span>,
-            <span class="ident">key::KeyEventContent</span>, <span class="ident">mac::MacEventContent</span>, <span class="ident">ready::ReadyEventContent</span>,
-            <span class="ident">start::StartEventContent</span>,
+            <span class="ident">accept::KeyVerificationAcceptEventContent</span>, <span class="ident">cancel::KeyVerificationCancelEventContent</span>,
+            <span class="ident">done::KeyVerificationDoneEventContent</span>, <span class="ident">key::KeyVerificationKeyEventContent</span>,
+            <span class="ident">mac::KeyVerificationMacEventContent</span>, <span class="ident">ready::KeyVerificationReadyEventContent</span>,
+            <span class="ident">start::KeyVerificationStartEventContent</span>,
         };
 
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">rustfmt::skip</span>]</span>
-            <span class="ident">AnyMessageEventContent::KeyVerificationReady</span>(<span class="ident">ReadyEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationStart</span>(<span class="ident">StartEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationCancel</span>(<span class="ident">CancelEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationAccept</span>(<span class="ident">AcceptEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationKey</span>(<span class="ident">KeyEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationMac</span>(<span class="ident">MacEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationDone</span>(<span class="ident">DoneEventContent</span> { <span class="ident">relates_to</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">AnyMessageEventContent::KeyVerificationReady</span>(<span class="ident">KeyVerificationReadyEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationStart</span>(<span class="ident">KeyVerificationStartEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationCancel</span>(<span class="ident">KeyVerificationCancelEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationAccept</span>(<span class="ident">KeyVerificationAcceptEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationKey</span>(<span class="ident">KeyVerificationKeyEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationMac</span>(<span class="ident">KeyVerificationMacEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationDone</span>(<span class="ident">KeyVerificationDoneEventContent</span> { <span class="ident">relates_to</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="prelude-val">Some</span>(<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">into</span>())
             },
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>

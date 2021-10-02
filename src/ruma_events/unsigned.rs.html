@@ -126,7 +126,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::relation::Relations</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::room::redaction::SyncRedactionEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::room::redaction::SyncRoomRedactionEvent</span>;
 
 <span class="doccomment">/// Extra information about an event that is not incorporated into the event&#39;s hash.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
@@ -174,7 +174,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedUnsigned</span> {
     <span class="doccomment">/// The event that redacted this event, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">redacted_because</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRedactionEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">redacted_because</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRoomRedactionEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RedactedUnsigned</span> {
@@ -184,7 +184,7 @@
     }
 
     <span class="doccomment">/// Create a new `RedactedUnsigned` with the given redacted because.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_because</span>(<span class="ident">redacted_because</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRedactionEvent</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_because</span>(<span class="ident">redacted_because</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRoomRedactionEvent</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">redacted_because</span>: <span class="prelude-val">Some</span>(<span class="ident">redacted_because</span>) }
     }
 
@@ -233,7 +233,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedUnsignedWithPrevContent</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">redacted_because</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRedactionEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">redacted_because</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRoomRedactionEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="kw">pub</span> <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">serde_json::value::RawValue</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
