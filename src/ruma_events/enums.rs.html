@@ -736,27 +736,27 @@
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">rustfmt::skip</span>]</span>
-            <span class="ident">AnyMessageEventContent::KeyVerificationReady</span>(<span class="ident">KeyVerificationReadyEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationStart</span>(<span class="ident">KeyVerificationStartEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationCancel</span>(<span class="ident">KeyVerificationCancelEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationAccept</span>(<span class="ident">KeyVerificationAcceptEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationKey</span>(<span class="ident">KeyVerificationKeyEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationMac</span>(<span class="ident">KeyVerificationMacEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::KeyVerificationDone</span>(<span class="ident">KeyVerificationDoneEventContent</span> { <span class="ident">relates_to</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::KeyVerificationReady</span>(<span class="ident">KeyVerificationReadyEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationStart</span>(<span class="ident">KeyVerificationStartEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationCancel</span>(<span class="ident">KeyVerificationCancelEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationAccept</span>(<span class="ident">KeyVerificationAcceptEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationKey</span>(<span class="ident">KeyVerificationKeyEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationMac</span>(<span class="ident">KeyVerificationMacEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationDone</span>(<span class="ident">KeyVerificationDoneEventContent</span> { <span class="ident">relates_to</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="prelude-val">Some</span>(<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">into</span>())
             },
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">AnyMessageEventContent::Reaction</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">into</span>()),
-            <span class="ident">AnyMessageEventContent::RoomEncrypted</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>(),
-            <span class="ident">AnyMessageEventContent::RoomMessage</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
-            <span class="ident">AnyMessageEventContent::CallAnswer</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::CallInvite</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::CallHangup</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::CallCandidates</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::RoomMessageFeedback</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::RoomRedaction</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::Sticker</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">AnyMessageEventContent::_Custom</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="ident"><span class="self">Self</span>::Reaction</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">into</span>()),
+            <span class="ident"><span class="self">Self</span>::RoomEncrypted</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>(),
+            <span class="ident"><span class="self">Self</span>::RoomMessage</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
+            <span class="ident"><span class="self">Self</span>::CallAnswer</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallInvite</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallHangup</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallCandidates</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::RoomMessageFeedback</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::RoomRedaction</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::Sticker</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::_Custom</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
         }
     }
 }
