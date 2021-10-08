@@ -51,6 +51,8 @@
 <span id="51">51</span>
 <span id="52">52</span>
 <span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/room_keys/keys/{roomId}/{sessionId}](https://matrix.org/docs/spec/client_server/unstable#get-matrix-client-r0-room-keys-keys-roomid-sessionid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -69,7 +71,9 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// The backup version. Must be the current backup.</span>
+        <span class="doccomment">/// The backup version.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must be the current backup.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 

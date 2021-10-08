@@ -53,6 +53,9 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/make_leave/{roomId}/{userId}](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-make-leave-roomid-userid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -81,12 +84,15 @@
     }
 
     <span class="ident">response</span>: {
-        <span class="doccomment">/// The version of the room where the server is trying to leave. If not provided, the room</span>
-        <span class="doccomment">/// version is assumed to be either &quot;1&quot; or &quot;2&quot;.</span>
+        <span class="doccomment">/// The version of the room where the server is trying to leave.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// If not provided, the room version is assumed to be either &quot;1&quot; or &quot;2&quot;.</span>
         <span class="kw">pub</span> <span class="ident">room_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomVersionId</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// An unsigned template event. Note that events have a different format depending on the</span>
-        <span class="doccomment">/// room version - check the room version specification for precise event formats.</span>
+        <span class="doccomment">/// An unsigned template event.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Note that events have a different format depending on the room version - check the room</span>
+        <span class="doccomment">/// version specification for precise event formats.</span>
         <span class="kw">pub</span> <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
     }
 }

@@ -92,6 +92,7 @@
 <span id="92">92</span>
 <span id="93">93</span>
 <span id="94">94</span>
+<span id="95">95</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/3pid/unbind](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-3pid-unbind)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -114,15 +115,16 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// If this is not provided, the request must be signed by the homeserver which controls</span>
         <span class="doccomment">/// the `mxid`.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">threepid_ownership_proof</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ThreePidOwnershipProof</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// The Matrix user ID to remove from the 3PIDs.</span>
         <span class="kw">pub</span> <span class="ident">mxid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
 
-        <span class="doccomment">/// The 3PID to remove. Must match the 3PID used to generate the session if using `sid` and</span>
-        <span class="doccomment">/// `client_secret` to authenticate this request.</span>
+        <span class="doccomment">/// The 3PID to remove.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must match the 3PID used to generate the session if using `sid` and `client_secret` to</span>
+        <span class="doccomment">/// authenticate this request.</span>
         <span class="kw">pub</span> <span class="ident">threepid</span>:  <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ThirdPartyId</span>,
     }
 

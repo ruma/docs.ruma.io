@@ -49,6 +49,8 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/rooms/{roomId}/report/{eventId}](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-rooms-roomid-report-eventid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::Int</span>;
@@ -77,7 +79,9 @@
         <span class="doccomment">/// Integer between -100 and 0 rating offensivness.</span>
         <span class="kw">pub</span> <span class="ident">score</span>: <span class="ident">Int</span>,
 
-        <span class="doccomment">/// Reason to report content. May be blank.</span>
+        <span class="doccomment">/// Reason to report content.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// May be blank.</span>
         <span class="kw">pub</span> <span class="ident">reason</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
     }
 

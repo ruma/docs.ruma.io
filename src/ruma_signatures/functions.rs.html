@@ -1104,6 +1104,8 @@
 <span id="1104">1104</span>
 <span id="1105">1105</span>
 <span id="1106">1106</span>
+<span id="1107">1107</span>
+<span id="1108">1108</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Functions for signing and verifying JSON and events.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1873,8 +1875,10 @@
     <span class="prelude-val">Ok</span>(<span class="ident">event</span>)
 }
 
-<span class="doccomment">/// Extracts the server names to check signatures for given event. It will return the sender&#39;s</span>
-<span class="doccomment">/// server (unless it&#39;s a third party invite) and the event id server (on v1 and v2 room versions)</span>
+<span class="doccomment">/// Extracts the server names to check signatures for given event.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// It will return the sender&#39;s server (unless it&#39;s a third party invite) and the event id server</span>
+<span class="doccomment">/// (on v1 and v2 room versions)</span>
 <span class="kw">fn</span> <span class="ident">servers_to_check_signatures</span>(
     <span class="ident">object</span>: <span class="kw-2">&amp;</span><span class="ident">CanonicalJsonObject</span>,
     <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>,

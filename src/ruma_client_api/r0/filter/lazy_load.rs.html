@@ -111,6 +111,8 @@
 <span id="111">111</span>
 <span id="112">112</span>
 <span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser::SerializeStruct</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
 <span class="doccomment">/// Specifies options for [lazy-loading membership events][lazy-loading] on</span>
@@ -126,8 +128,10 @@
 
     <span class="doccomment">/// Enables lazy-loading of events.</span>
     <span class="ident">Enabled</span> {
-        <span class="doccomment">/// If `true`, sends all membership events for all events, even if they have</span>
-        <span class="doccomment">/// already been sent to the client. Defaults to `false`.</span>
+        <span class="doccomment">/// If `true`, sends all membership events for all events, even if they have already been</span>
+        <span class="doccomment">/// sent to the client.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Defaults to `false`.</span>
         <span class="ident">include_redundant_members</span>: <span class="ident">bool</span>,
     },
 }

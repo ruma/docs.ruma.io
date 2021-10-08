@@ -382,6 +382,7 @@
 <span id="382">382</span>
 <span id="383">383</span>
 <span id="384">384</span>
+<span id="385">385</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/login](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-login)</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -416,8 +417,9 @@
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">DeviceId</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// A display name to assign to the newly-created device. Ignored if device_id corresponds</span>
-        <span class="doccomment">/// to a known device.</span>
+        <span class="doccomment">/// A display name to assign to the newly-created device.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Ignored if `device_id` corresponds to a known device.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">initial_device_display_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
     }

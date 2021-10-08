@@ -210,9 +210,6 @@
 <span id="210">210</span>
 <span id="211">211</span>
 <span id="212">212</span>
-<span id="213">213</span>
-<span id="214">214</span>
-<span id="215">215</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.key.verification` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -228,12 +225,10 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">accept</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">cancel</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">done</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">key</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">mac</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ready</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">request</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">start</span>;
@@ -338,7 +333,6 @@
 <span class="doccomment">/// A relation which associates an `m.key.verification.request` with another key verification event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;rel_type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.reference&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Relation</span> {

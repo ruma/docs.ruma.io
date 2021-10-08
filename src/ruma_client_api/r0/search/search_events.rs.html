@@ -495,6 +495,14 @@
 <span id="495">495</span>
 <span id="496">496</span>
 <span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/search](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-search)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -574,7 +582,9 @@
     <span class="doccomment">/// The string to search events for.</span>
     <span class="kw">pub</span> <span class="ident">search_term</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
-    <span class="doccomment">/// The keys to search for. Defaults to all keys.</span>
+    <span class="doccomment">/// The keys to search for.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Defaults to all keys.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">keys</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">SearchKeys</span>]<span class="op">&gt;</span>,
 
@@ -854,7 +864,9 @@
     <span class="kw">pub</span> <span class="ident">groups</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">GroupingKey</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomIdOrUserId</span>, <span class="ident">ResultGroup</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Token that can be used to get the next batch of results, by passing as the `next_batch`</span>
-    <span class="doccomment">/// parameter to the next call. If this field is absent, there are no more results.</span>
+    <span class="doccomment">/// parameter to the next call.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If this field is absent, there are no more results.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">next_batch</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -862,8 +874,9 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">results</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SearchResult</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// The current state for every room in the results. This is included if the request had the</span>
-    <span class="doccomment">/// `include_state` key set with a value of `true`.</span>
+    <span class="doccomment">/// The current state for every room in the results.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is included if the request had the `include_state` key set with a value of `true`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
@@ -895,8 +908,9 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ResultGroup</span> {
     <span class="doccomment">/// Token that can be used to get the next batch of results in the group, by passing as the</span>
-    <span class="doccomment">/// `next_batch` parameter to the next call. If this field is absent, there are no more</span>
-    <span class="doccomment">/// results in this group.</span>
+    <span class="doccomment">/// `next_batch` parameter to the next call.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If this field is absent, there are no more results in this group.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">next_batch</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -929,7 +943,9 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;EventContextResult::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">context</span>: <span class="ident">EventContextResult</span>,
 
-    <span class="doccomment">/// A number that describes how closely this result matches the search. Higher is closer.</span>
+    <span class="doccomment">/// A number that describes how closely this result matches the search.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Higher is closer.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">rank</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 
@@ -956,8 +972,8 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UserProfile</span> {
     <span class="doccomment">/// The user&#39;s avatar URL, if set.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you activate the `compat` feature, this field being an empty string in JSON will give</span>
-    <span class="doccomment">/// you `None` here.</span>
+    <span class="doccomment">/// If you activate the `compat` feature, this field being an empty string in JSON will result</span>
+    <span class="doccomment">/// in `None` here during deserialization.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,

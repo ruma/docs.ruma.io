@@ -82,6 +82,8 @@
 <span id="82">82</span>
 <span id="83">83</span>
 <span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Server discovery endpoints.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -143,12 +145,14 @@
     <span class="doccomment">/// Public keys that the homeserver used to use and when it stopped using them.</span>
     <span class="kw">pub</span> <span class="ident">old_verify_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">OldVerifyKey</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Digital signatures of this object signed using the verify_keys. Map of</span>
-    <span class="doccomment">/// server name to keys by key ID</span>
+    <span class="doccomment">/// Digital signatures of this object signed using the verify_keys.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Map of server name to keys by key ID</span>
     <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Timestamp when the keys should be refreshed. This field MUST be ignored in room</span>
-    <span class="doccomment">/// versions 1, 2, 3, and 4.</span>
+    <span class="doccomment">/// Timestamp when the keys should be refreshed.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This field MUST be ignored in room versions 1, 2, 3, and 4.</span>
     <span class="kw">pub</span> <span class="ident">valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 }
 

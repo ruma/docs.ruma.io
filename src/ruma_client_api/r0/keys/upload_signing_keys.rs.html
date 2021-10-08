@@ -57,6 +57,10 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
 </pre><pre class="rust"><code><span class="doccomment">//! POST /_matrix/client/r0/keys/device_signing/upload</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Defined in [MSC 1756](https://github.com/matrix-org/matrix-doc/blob/master/proposals/1756-cross-signing.md#uploading-signing-keys)</span>
@@ -86,13 +90,17 @@
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">master_key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CrossSigningKey</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// The user&#39;s self-signing key. Must be signed with the accompanied master, or by the</span>
-        <span class="doccomment">/// user&#39;s most recently uploaded master key if no master key is included in the request.</span>
+        <span class="doccomment">/// The user&#39;s self-signing key.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must be signed with the accompanied master, or by the user&#39;s most recently uploaded</span>
+        <span class="doccomment">/// master key if no master key is included in the request.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">self_signing_key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CrossSigningKey</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// The user&#39;s user-signing key. Must be signed with the accompanied master, or by the</span>
-        <span class="doccomment">/// user&#39;s most recently uploaded master key if no master key is included in the request.</span>
+        <span class="doccomment">/// The user&#39;s user-signing key.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must be signed with the accompanied master, or by the user&#39;s most recently uploaded</span>
+        <span class="doccomment">/// master key if no master key is included in the request.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">user_signing_key</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">CrossSigningKey</span><span class="op">&gt;</span>,
     }

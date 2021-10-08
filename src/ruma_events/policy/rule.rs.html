@@ -50,6 +50,8 @@
 <span id="50">50</span>
 <span id="51">51</span>
 <span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules and types for events in the `m.policy.rule` namespace.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
@@ -63,8 +65,10 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PolicyRuleEventContent</span> {
-    <span class="doccomment">/// The entity affected by this rule. Glob characters * and ? can be used to match zero or more</span>
-    <span class="doccomment">/// and one or more characters respectively.</span>
+    <span class="doccomment">/// The entity affected by this rule.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Glob characters `*` and `?` can be used to match zero or more and one or more characters</span>
+    <span class="doccomment">/// respectively.</span>
     <span class="kw">pub</span> <span class="ident">entity</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The suggested action to take.</span>

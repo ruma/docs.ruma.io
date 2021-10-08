@@ -52,6 +52,10 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/r0/room_keys/keys](https://matrix.org/docs/spec/client_server/unstable#put-matrix-client-r0-room-keys-keys)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -73,7 +77,9 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// The backup version. Must be the current backup.</span>
+        <span class="doccomment">/// The backup version.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must be the current backup.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
@@ -82,8 +88,10 @@
     }
 
     <span class="ident">response</span>: {
-        <span class="doccomment">/// An opaque string representing stored keys in the backup. Clients can compare it with</span>
-        <span class="doccomment">/// the etag value they received in the request of their last key storage request.</span>
+        <span class="doccomment">/// An opaque string representing stored keys in the backup.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Clients can compare it with  the etag value they received in the request of their last</span>
+        <span class="doccomment">/// key storage request.</span>
         <span class="kw">pub</span> <span class="ident">etag</span>: <span class="ident">String</span>,
 
         <span class="doccomment">/// The number of keys stored in the backup.</span>

@@ -45,6 +45,8 @@
 <span id="45">45</span>
 <span id="46">46</span>
 <span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/rooms/{roomId}/state](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-rooms-roomid-state)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -70,8 +72,10 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// If the user is a member of the room this will be the current state of the room as a</span>
-        <span class="doccomment">/// list of events. If the user has left the room then this will be the state of the</span>
-        <span class="doccomment">/// room when they left as a list of events.</span>
+        <span class="doccomment">/// list of events.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// If the user has left the room then this will be the state of the room when they left as</span>
+        <span class="doccomment">/// a list of events.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
         <span class="kw">pub</span> <span class="ident">room_state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }

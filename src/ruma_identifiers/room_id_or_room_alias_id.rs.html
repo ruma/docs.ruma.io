@@ -226,7 +226,6 @@
 <span id="226">226</span>
 <span id="227">227</span>
 <span id="228">228</span>
-<span id="229">229</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix identifiers for places where a room ID or room alias ID are used interchangeably.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -292,7 +291,6 @@
 
     <span class="doccomment">/// Turn this `RoomIdOrAliasId` into `Either&lt;RoomId, RoomAliasId&gt;`</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;either&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;either&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_either</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">either::Either</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">RoomAliasId</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">variant</span>() {
             <span class="ident">Variant::RoomId</span> <span class="op">=</span><span class="op">&gt;</span> {

@@ -84,7 +84,6 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
-<span id="87">87</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for the public room directory.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_public_rooms</span>;
@@ -134,8 +133,8 @@
 
     <span class="doccomment">/// The URL for the room&#39;s avatar, if one is set.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you activate the `compat` feature, this field being an empty string in JSON will give</span>
-    <span class="doccomment">/// you `None` here.</span>
+    <span class="doccomment">/// If you activate the `compat` feature, this field being an empty string in JSON will result</span>
+    <span class="doccomment">/// in `None` here during deserialization.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
@@ -145,7 +144,6 @@
 
     <span class="doccomment">/// The joining rule for the room.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">join_rule</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">JoinRule</span><span class="op">&gt;</span>,
 }

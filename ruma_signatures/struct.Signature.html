@@ -7,12 +7,12 @@ form <em>algorithm:version</em>, e.g. “ed25519:1”.</p>
 guidelines in the specification. Because it may be necessary to represent signatures with
 versions that don’t adhere to these guidelines, it’s possible to simply use the struct
 literal syntax to construct a <code>Signature</code> with an arbitrary key.</p>
-<h1 id="parameters" class="section-header"><a href="#parameters">Parameters</a></h1>
+<h5 id="parameters" class="section-header"><a href="#parameters">Parameters</a></h5>
 <ul>
 <li>id: A key identifier, e.g. “ed25519:1”.</li>
 <li>bytes: The digital signature, as a series of bytes.</li>
 </ul>
-<h1 id="errors" class="section-header"><a href="#errors">Errors</a></h1>
+<h5 id="errors" class="section-header"><a href="#errors">Errors</a></h5>
 <p>Returns an error if:</p>
 <ul>
 <li>The key ID specifies an unknown algorithm.</li>

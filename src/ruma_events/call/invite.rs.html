@@ -34,6 +34,9 @@
 <span id="34">34</span>
 <span id="35">35</span>
 <span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.call.invite` event.</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -52,12 +55,15 @@
     <span class="doccomment">/// A unique identifier for the call.</span>
     <span class="kw">pub</span> <span class="ident">call_id</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// The time in milliseconds that the invite is valid for. Once the invite age exceeds this</span>
-    <span class="doccomment">/// value, clients should discard it. They should also no longer show the call as awaiting an</span>
-    <span class="doccomment">/// answer in the UI.</span>
+    <span class="doccomment">/// The time in milliseconds that the invite is valid for.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Once the invite age exceeds this value, clients should discard it. They should also no</span>
+    <span class="doccomment">/// longer show the call as awaiting an answer in the UI.</span>
     <span class="kw">pub</span> <span class="ident">lifetime</span>: <span class="ident">UInt</span>,
 
-    <span class="doccomment">/// The session description object. The session description type must be *offer*.</span>
+    <span class="doccomment">/// The session description object.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The session description type must be *offer*.</span>
     <span class="kw">pub</span> <span class="ident">offer</span>: <span class="ident">SessionDescription</span>,
 
     <span class="doccomment">/// The version of the VoIP specification this messages adheres to.</span>

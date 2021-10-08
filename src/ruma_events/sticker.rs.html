@@ -31,6 +31,7 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
+<span id="34">34</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.sticker` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
@@ -46,15 +47,16 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.sticker&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StickerEventContent</span> {
-    <span class="doccomment">/// A textual representation or associated description of the sticker image. This could</span>
-    <span class="doccomment">/// be the alt text of the original image, or a message to accompany and further</span>
+    <span class="doccomment">/// A textual representation or associated description of the sticker image.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This could be the alt text of the original image, or a message to accompany and further</span>
     <span class="doccomment">/// describe the sticker.</span>
     <span class="kw">pub</span> <span class="ident">body</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// Metadata about the image referred to in `url` including a thumbnail representation.</span>
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="ident">ImageInfo</span>,
 
-    <span class="doccomment">/// The URL to the sticker image. This must be a valid `mxc://` URI.</span>
+    <span class="doccomment">/// The URL to the sticker image.</span>
     <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">MxcUri</span>,
 }
 

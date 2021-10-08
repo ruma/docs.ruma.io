@@ -182,8 +182,6 @@
 <span id="182">182</span>
 <span id="183">183</span>
 <span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for persistent data unit schemas</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The differences between the `RoomV1Pdu` schema and the `RoomV3Pdu` schema are</span>
@@ -230,7 +228,6 @@
     <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))))]</span>
     <span class="doccomment">/// The `server_name` of the homeserver that created this event.</span>
     <span class="kw">pub</span> <span class="ident">origin</span>: <span class="ident">String</span>,
 
@@ -290,7 +287,6 @@
     <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))))]</span>
     <span class="doccomment">/// The `server_name` of the homeserver that created this event.</span>
     <span class="kw">pub</span> <span class="ident">origin</span>: <span class="ident">String</span>,
 

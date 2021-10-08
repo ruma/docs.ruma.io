@@ -57,6 +57,8 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/version](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-version)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -105,7 +107,9 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Version of this implementation. The version format depends on the implementation.</span>
+    <span class="doccomment">/// Version of this implementation.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The version format depends on the implementation.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }

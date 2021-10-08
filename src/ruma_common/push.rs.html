@@ -1167,6 +1167,8 @@
 <span id="1167">1167</span>
 <span id="1168">1168</span>
 <span id="1169">1169</span>
+<span id="1170">1170</span>
+<span id="1171">1171</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [push notifications module][push].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [push]: https://matrix.org/docs/spec/client_server/r0.6.1#id89</span>
@@ -1561,7 +1563,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PusherData</span> {
-    <span class="doccomment">/// Required if the pusher&#39;s kind is http. The URL to use to send notifications to.</span>
+    <span class="doccomment">/// The URL to use to send notifications to.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Required if the pusher&#39;s kind is http.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 

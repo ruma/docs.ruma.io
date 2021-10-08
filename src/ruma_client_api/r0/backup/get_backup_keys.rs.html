@@ -44,6 +44,8 @@
 <span id="44">44</span>
 <span id="45">45</span>
 <span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/room_keys/keys](https://matrix.org/docs/spec/client_server/unstable#get-matrix-client-r0-room-keys-keys)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -64,7 +66,9 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// The backup version. Must be the current backup.</span>
+        <span class="doccomment">/// The backup version.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must be the current backup.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
     }

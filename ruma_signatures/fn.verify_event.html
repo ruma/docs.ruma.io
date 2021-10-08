@@ -6,7 +6,7 @@ event will be used.</p>
 <p>If the <code>Ok</code> variant is returned by this function, it will contain a <code>Verified</code> value which
 distinguishes an event with valid signatures and a matching content hash with an event with
 only valid signatures. See the documentation for <code>Verified</code> for details.</p>
-<h1 id="parameters" class="section-header"><a href="#parameters">Parameters</a></h1>
+<h2 id="parameters" class="section-header"><a href="#parameters">Parameters</a></h2>
 <ul>
 <li>public_key_map: A map from entity identifiers to a map from key identifiers to public keys.
 Generally, entity identifiers are server names—the host/IP/port of a homeserver (e.g.
@@ -15,7 +15,7 @@ Generally, entity identifiers are server names—the host/IP/port of a homeserve
 <li>object: The JSON object of the event that was signed.</li>
 <li>version: Room version of the given event</li>
 </ul>
-<h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
+<h2 id="examples" class="section-header"><a href="#examples">Examples</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">const</span> <span class="ident">PUBLIC_KEY</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;XGX0JRS2Af3be3knz2fBiRbApjm2Dh61gXDJA8kcJNI&quot;</span>;
 
 <span class="comment">// Deserialize an event from JSON.</span>

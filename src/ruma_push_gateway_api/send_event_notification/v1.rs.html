@@ -377,6 +377,8 @@
 <span id="377">377</span>
 <span id="378">378</span>
 <span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/push/v1/notify](https://matrix.org/docs/spec/push_gateway/r0.1.1#post-matrix-push-v1-notify)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -583,14 +585,16 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">pushkey_ts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecondsSinceUnixEpoch</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// A dictionary of additional pusher-specific data. For &#39;http&#39; pushers,</span>
-    <span class="doccomment">/// this is the data dictionary passed in at pusher creation minus the `url`</span>
-    <span class="doccomment">/// key.</span>
+    <span class="doccomment">/// A dictionary of additional pusher-specific data.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// For &#39;http&#39; pushers, this is the data dictionary passed in at pusher creation minus the</span>
+    <span class="doccomment">/// `url` key.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">data</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PusherData</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// A dictionary of customisations made to the way this notification is to</span>
-    <span class="doccomment">/// be presented. These are added by push rules.</span>
+    <span class="doccomment">/// A dictionary of customisations made to the way this notification is to be presented.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// These are added by push rules.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;tweak_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">tweaks</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Tweak</span><span class="op">&gt;</span>,
 }

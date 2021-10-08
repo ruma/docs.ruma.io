@@ -107,6 +107,8 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/media/r0/thumbnail/{serverName}/{mediaId}](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-media-r0-thumbnail-servername-mediaid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -138,13 +140,15 @@
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">method</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Method</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// The *desired* width of the thumbnail. The actual thumbnail may not match the size</span>
-        <span class="doccomment">/// specified.</span>
+        <span class="doccomment">/// The *desired* width of the thumbnail.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// The actual thumbnail may not match the size specified.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">width</span>: <span class="ident">UInt</span>,
 
-        <span class="doccomment">/// The *desired* height of the thumbnail. The actual thumbnail may not match the size</span>
-        <span class="doccomment">/// specified.</span>
+        <span class="doccomment">/// The *desired* height of the thumbnail.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// The actual thumbnail may not match the size specified.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">height</span>: <span class="ident">UInt</span>,
 

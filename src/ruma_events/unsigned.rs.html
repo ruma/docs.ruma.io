@@ -119,8 +119,6 @@
 <span id="119">119</span>
 <span id="120">120</span>
 <span id="121">121</span>
-<span id="122">122</span>
-<span id="123">123</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">js_int::Int</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -147,7 +145,6 @@
 
     <span class="doccomment">/// Server-compiled information from other events relating to this event.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relations&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relations</span><span class="op">&gt;</span>,
 }
@@ -209,7 +206,6 @@
     <span class="ident">transaction_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relations&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">relations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relations</span><span class="op">&gt;</span>,
 

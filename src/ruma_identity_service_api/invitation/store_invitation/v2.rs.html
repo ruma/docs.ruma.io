@@ -147,6 +147,9 @@
 <span id="147">147</span>
 <span id="148">148</span>
 <span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/store-invite](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-store-invite)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -213,15 +216,18 @@
     }
 
     <span class="ident">response</span>: {
-        <span class="doccomment">/// The generated token. Must be a string consisting of the characters `[0-9a-zA-Z.=_-]`.</span>
+        <span class="doccomment">/// The generated token.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// Its length must not exceed 255 characters and it must not be empty.</span>
+        <span class="doccomment">/// Must be a string consisting of the characters `[0-9a-zA-Z.=_-]`. Its length must not</span>
+        <span class="doccomment">/// exceed 255 characters and it must not be empty.</span>
         <span class="kw">pub</span> <span class="ident">token</span>: <span class="ident">String</span>,
 
         <span class="doccomment">/// A list of [server&#39;s long-term public key, generated ephemeral public key].</span>
         <span class="kw">pub</span> <span class="ident">public_keys</span>: <span class="ident">PublicKeys</span>,
 
-        <span class="doccomment">/// The generated (redacted) display_name. An example is `f...@b...`.</span>
+        <span class="doccomment">/// The generated (redacted) display_name.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// An example is `f...@b...`.</span>
         <span class="kw">pub</span> <span class="ident">display_name</span>: <span class="ident">String</span>,
     }
 }

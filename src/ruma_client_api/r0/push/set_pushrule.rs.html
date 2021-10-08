@@ -80,6 +80,10 @@
 <span id="80">80</span>
 <span id="81">81</span>
 <span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/r0/pushrules/{scope}/{kind}/{ruleId}](https://matrix.org/docs/spec/client_server/r0.6.1#put-matrix-client-r0-pushrules-scope-kind-ruleid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -124,12 +128,16 @@
         <span class="kw">pub</span> <span class="ident">actions</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Action</span>],
 
         <span class="doccomment">/// The conditions that must hold true for an event in order for a rule to be applied to an</span>
-        <span class="doccomment">/// event. A rule with no conditions always matches. Only applicable to underride and</span>
-        <span class="doccomment">/// override rules, empty Vec otherwise.</span>
+        <span class="doccomment">/// event.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// A rule with no conditions always matches. Only applicable to underride and override</span>
+        <span class="doccomment">/// rules, empty Vec otherwise.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">conditions</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">PushCondition</span>],
 
-        <span class="doccomment">/// The glob-style pattern to match against. Only applicable to content rules.</span>
+        <span class="doccomment">/// The glob-style pattern to match against.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Only applicable to content rules.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">pattern</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
     }

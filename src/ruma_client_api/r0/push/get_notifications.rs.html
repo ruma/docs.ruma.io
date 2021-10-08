@@ -103,6 +103,10 @@
 <span id="103">103</span>
 <span id="104">104</span>
 <span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/notifications](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-notifications)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -135,16 +139,20 @@
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">limit</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// Allows basic filtering of events returned. Supply &quot;highlight&quot; to return only events</span>
-        <span class="doccomment">/// where the notification had the &#39;highlight&#39; tweak set.</span>
+        <span class="doccomment">/// Allows basic filtering of events returned.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Supply &quot;highlight&quot; to return only events where the notification had the &#39;highlight&#39;</span>
+        <span class="doccomment">/// tweak set.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">only</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">response</span>: {
-        <span class="doccomment">/// The token to supply in the from param of the next /notifications request in order</span>
-        <span class="doccomment">/// to request more events. If this is absent, there are no more results.</span>
+        <span class="doccomment">/// The token to supply in the from param of the next /notifications request in order to</span>
+        <span class="doccomment">/// request more events.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// If this is absent, there are no more results.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">next_token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 

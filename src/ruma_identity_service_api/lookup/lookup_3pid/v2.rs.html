@@ -57,6 +57,9 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/lookup](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-lookup)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -85,15 +88,18 @@
         <span class="doccomment">/// make use of it.</span>
         <span class="kw">pub</span> <span class="ident">pepper</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
-        <span class="doccomment">/// The addresses to look up. The format of the entries here depend on the `algorithm`</span>
-        <span class="doccomment">/// used. Note that queries which have been incorrectly hashed or formatted will lead to no</span>
-        <span class="doccomment">/// matches.</span>
+        <span class="doccomment">/// The addresses to look up.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// The format of the entries here depend on the `algorithm` used. Note that queries which</span>
+        <span class="doccomment">/// have been incorrectly hashed or formatted will lead to no matches.</span>
         <span class="kw">pub</span> <span class="ident">addresses</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">String</span>],
     }
 
     <span class="ident">response</span>: {
-        <span class="doccomment">/// Any applicable mappings of `addresses` to Matrix User IDs. Addresses which do not have</span>
-        <span class="doccomment">/// associations will not be included, which can make this property be an empty object.</span>
+        <span class="doccomment">/// Any applicable mappings of `addresses` to Matrix User IDs.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Addresses which do not have associations will not be included, which can make this</span>
+        <span class="doccomment">/// property be an empty object.</span>
         <span class="kw">pub</span> <span class="ident">mappings</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">UserId</span><span class="op">&gt;</span>,
     }
 }

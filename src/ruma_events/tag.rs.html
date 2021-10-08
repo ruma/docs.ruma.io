@@ -221,6 +221,7 @@
 <span id="221">221</span>
 <span id="222">222</span>
 <span id="223">223</span>
+<span id="224">224</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.tag` event.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">error::Error</span>, <span class="ident">fmt</span>, <span class="ident">str::FromStr</span>};
@@ -298,8 +299,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TagName</span> {
-    <span class="doccomment">/// `m.favourite`: The user&#39;s favorite rooms. These should be shown with higher precedence</span>
-    <span class="doccomment">/// than other rooms.</span>
+    <span class="doccomment">/// `m.favourite`: The user&#39;s favorite rooms.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// These should be shown with higher precedence than other rooms.</span>
     <span class="ident">Favorite</span>,
 
     <span class="doccomment">/// `m.lowpriority`: These should be shown with lower precedence than others.</span>

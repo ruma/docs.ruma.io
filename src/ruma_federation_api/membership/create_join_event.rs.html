@@ -47,7 +47,6 @@
 <span id="47">47</span>
 <span id="48">48</span>
 <span id="49">49</span>
-<span id="50">50</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoint to send join events to remote homeservers.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v1</span>;
@@ -61,7 +60,6 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomState</span> {
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))))]</span>
     <span class="doccomment">/// The resident server&#39;s DNS name.</span>
     <span class="kw">pub</span> <span class="ident">origin</span>: <span class="ident">String</span>,
 

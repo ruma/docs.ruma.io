@@ -339,8 +339,8 @@
 
     <span class="doccomment">/// A content URI representing an icon for the third party protocol.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will give you an</span>
-    <span class="doccomment">/// empty string here.</span>
+    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will result in an</span>
+    <span class="doccomment">/// empty string here during deserialization.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>))]</span>
     <span class="kw">pub</span> <span class="ident">icon</span>: <span class="ident">String</span>,
 

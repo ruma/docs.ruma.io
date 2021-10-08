@@ -269,7 +269,6 @@
 <span id="269">269</span>
 <span id="270">270</span>
 <span id="271">271</span>
-<span id="272">272</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! A minimal [Matrix](https://matrix.org/) client library.</span>
@@ -380,7 +379,6 @@
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">isahc_crate</span> <span class="kw">as</span> <span class="ident">isahc</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client-api&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client-api&quot;</span>)))]</span>
 <span class="kw">mod</span> <span class="ident">client_api</span>;
 <span class="kw">mod</span> <span class="ident">error</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">http_client</span>;

@@ -57,6 +57,10 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/account/register](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-account-register)</span>
 
 <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
@@ -76,15 +80,18 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// An access token the consumer may use to verify the identity of the</span>
-        <span class="doccomment">/// person who generated the token. This is given to the federation API</span>
-        <span class="doccomment">/// GET /openid/userinfo to verify the user&#39;s identity.</span>
+        <span class="doccomment">/// An access token the consumer may use to verify the identity of the person who generated</span>
+        <span class="doccomment">/// the token.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// This is given to the federation API `GET /openid/userinfo` to verify the user&#39;s</span>
+        <span class="doccomment">/// identity.</span>
         <span class="kw">pub</span> <span class="ident">access_token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
         <span class="doccomment">/// The string `Bearer`.</span>
         <span class="kw">pub</span> <span class="ident">token_type</span>: <span class="ident">TokenType</span>,
 
-        <span class="doccomment">/// The homeserver domain the consumer should use when attempting to verify the user&#39;s identity.</span>
+        <span class="doccomment">/// The homeserver domain the consumer should use when attempting to verify the user&#39;s</span>
+        <span class="doccomment">/// identity.</span>
         <span class="kw">pub</span> <span class="ident">matrix_server_name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ServerName</span>,
 
         <span class="doccomment">/// The number of seconds before this token expires and a new one must be generated.</span>
@@ -93,7 +100,8 @@
     }
 
     <span class="ident">response</span>: {
-        <span class="doccomment">/// An opaque string representing the token to authenticate future requests to the identity server with.</span>
+        <span class="doccomment">/// An opaque string representing the token to authenticate future requests to the identity</span>
+        <span class="doccomment">/// server with.</span>
         <span class="kw">pub</span> <span class="ident">token</span>: <span class="ident">String</span>,
     }
 }

@@ -462,6 +462,10 @@
 <span id="462">462</span>
 <span id="463">463</span>
 <span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Edu type and variant content structs.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -571,7 +575,9 @@
     <span class="doccomment">/// The number of milliseconds that have elapsed since the user last did something.</span>
     <span class="kw">pub</span> <span class="ident">last_active_ago</span>: <span class="ident">UInt</span>,
 
-    <span class="doccomment">/// Whether or not the user is currently active. Defaults to false.</span>
+    <span class="doccomment">/// Whether or not the user is currently active.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Defaults to false.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
     <span class="kw">pub</span> <span class="ident">currently_active</span>: <span class="ident">bool</span>,
 }
@@ -670,15 +676,17 @@
     <span class="doccomment">/// The ID of the device whose details are changing.</span>
     <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>,
 
-    <span class="doccomment">/// The public human-readable name of this device. Will be absent if the device has no name.</span>
+    <span class="doccomment">/// The public human-readable name of this device.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Will be absent if the device has no name.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">device_display_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// An ID sent by the server for this update, unique for a given user_id.</span>
     <span class="kw">pub</span> <span class="ident">stream_id</span>: <span class="ident">UInt</span>,
 
-    <span class="doccomment">/// The stream_ids of any prior m.device_list_update EDUs sent for this user</span>
-    <span class="doccomment">/// which have not been referred to already in an EDU&#39;s prev_id field.</span>
+    <span class="doccomment">/// The stream_ids of any prior m.device_list_update EDUs sent for this user which have not</span>
+    <span class="doccomment">/// been referred to already in an EDU&#39;s prev_id field.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">prev_id</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 

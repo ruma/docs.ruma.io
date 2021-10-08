@@ -1264,18 +1264,6 @@
 <span id="1264">1264</span>
 <span id="1265">1265</span>
 <span id="1266">1266</span>
-<span id="1267">1267</span>
-<span id="1268">1268</span>
-<span id="1269">1269</span>
-<span id="1270">1270</span>
-<span id="1271">1271</span>
-<span id="1272">1272</span>
-<span id="1273">1273</span>
-<span id="1274">1274</span>
-<span id="1275">1275</span>
-<span id="1276">1276</span>
-<span id="1277">1277</span>
-<span id="1278">1278</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.message` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -1451,7 +1439,6 @@
 
     <span class="doccomment">/// A request to initiate a key verification.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="ident">VerificationRequest</span>(<span class="ident">KeyVerificationRequestEventContent</span>),
 
     <span class="doccomment">/// A custom message.</span>
@@ -1589,7 +1576,6 @@
 
     <span class="doccomment">/// An event that replaces another event.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="ident">Replacement</span>(<span class="ident">Replacement</span>),
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -1614,7 +1600,6 @@
 <span class="doccomment">/// The event this relation belongs to replaces another event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Replacement</span> {
     <span class="doccomment">/// The ID of the event being replacing.</span>
@@ -1724,7 +1709,6 @@
     <span class="doccomment">/// Returns an html emote message if some markdown formatting was detected, otherwise returns a</span>
     <span class="doccomment">/// plain-text emote.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="ident">FormattedBody::markdown</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
@@ -1930,7 +1914,6 @@
     <span class="doccomment">/// Returns an html notice if some markdown formatting was detected, otherwise returns a plain</span>
     <span class="doccomment">/// text notice.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="ident">FormattedBody::markdown</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
@@ -2059,7 +2042,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns `None` if no markdown formatting was found.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="ident">body</span>.<span class="ident">as_ref</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">html_body</span> <span class="op">=</span> <span class="ident">String::new</span>();
@@ -2099,7 +2081,6 @@
     <span class="doccomment">/// Returns an html message if some markdown formatting was detected, otherwise returns a plain</span>
     <span class="doccomment">/// text message.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="ident">FormattedBody::markdown</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
@@ -2152,13 +2133,11 @@
     <span class="kw">pub</span> <span class="ident">duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The height of the video in pixels.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;h&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;h&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The width of the video in pixels.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;w&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;w&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">width</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The mimetype of the video, e.g. &quot;video/mp4&quot;.</span>
@@ -2190,9 +2169,7 @@
     <span class="doccomment">/// This uses the unstable prefix in</span>
     <span class="doccomment">/// [MSC2448](https://github.com/matrix-org/matrix-doc/pull/2448).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;xyz.amorgan.blurhash&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;xyz.amorgan.blurhash&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">blurhash</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
@@ -2206,7 +2183,6 @@
 <span class="doccomment">/// The payload for a key verification request message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.request&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyVerificationRequestEventContent</span> {

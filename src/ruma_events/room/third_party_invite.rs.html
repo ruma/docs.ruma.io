@@ -87,22 +87,22 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomThirdPartyInviteEventContent</span> {
     <span class="doccomment">/// A user-readable string which represents the user who has been invited.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will give you an</span>
-    <span class="doccomment">/// empty string here.</span>
+    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will result in an</span>
+    <span class="doccomment">/// empty string here during deserialization.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>))]</span>
     <span class="kw">pub</span> <span class="ident">display_name</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// A URL which can be fetched to validate whether the key has been revoked.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will give you an</span>
-    <span class="doccomment">/// empty string here.</span>
+    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will result in an</span>
+    <span class="doccomment">/// empty string here during deserialization.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>))]</span>
     <span class="kw">pub</span> <span class="ident">key_validity_url</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// A Base64-encoded Ed25519 key with which the token must be signed.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will give you an</span>
-    <span class="doccomment">/// empty string here.</span>
+    <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will result in an</span>
+    <span class="doccomment">/// empty string here during deserialization.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>))]</span>
     <span class="kw">pub</span> <span class="ident">public_key</span>: <span class="ident">String</span>,
 

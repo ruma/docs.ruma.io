@@ -216,6 +216,8 @@
 <span id="216">216</span>
 <span id="217">217</span>
 <span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for push notifications.</span>
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">error::Error</span>, <span class="ident">fmt</span>};
 
@@ -239,8 +241,8 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">set_pushrule_actions</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">set_pushrule_enabled</span>;
 
-<span class="doccomment">/// Like `SimplePushRule`, but may represent any kind of push rule</span>
-<span class="doccomment">/// thanks to `pattern` and `conditions` being optional.</span>
+<span class="doccomment">/// Like `SimplePushRule`, but may represent any kind of push rule thanks to `pattern` and</span>
+<span class="doccomment">/// `conditions` being optional.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// To create an instance of this type, use one of its `From` implementations.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
@@ -259,13 +261,15 @@
     <span class="kw">pub</span> <span class="ident">rule_id</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The conditions that must hold true for an event in order for a rule to be applied to an</span>
-    <span class="doccomment">/// event. A rule with no conditions always matches.</span>
+    <span class="doccomment">/// event.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Only applicable to underride and override rules.</span>
+    <span class="doccomment">/// A rule with no conditions always matches. Only applicable to underride and override rules.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">conditions</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PushCondition</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// The glob-style pattern to match against. Only applicable to content rules.</span>
+    <span class="doccomment">/// The glob-style pattern to match against.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Only applicable to content rules.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">pattern</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }

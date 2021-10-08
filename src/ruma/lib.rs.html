@@ -168,11 +168,6 @@
 <span id="168">168</span>
 <span id="169">169</span>
 <span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! Types and traits for working with the [Matrix](https://matrix.org) protocol.</span>
@@ -267,19 +262,15 @@
 };
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_client</span> <span class="kw">as</span> <span class="ident">client</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;events&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;events&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_events</span> <span class="kw">as</span> <span class="ident">events</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;signatures&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;signatures&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_signatures</span> <span class="kw">as</span> <span class="ident">signatures</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;state-res&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;state-res&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_state_res</span> <span class="kw">as</span> <span class="ident">state_res</span>;
 
@@ -288,7 +279,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// [apis]: https://matrix.org/docs/spec/#matrix-apis</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;api&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;api&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">api</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_api</span>::<span class="kw-2">*</span>;
 

@@ -73,6 +73,9 @@
 <span id="73">73</span>
 <span id="74">74</span>
 <span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/user/devices/{userId}](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-user-devices-userid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -92,7 +95,9 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// The user ID to retrieve devices for. Must be a user local to the receiving homeserver.</span>
+        <span class="doccomment">/// The user ID to retrieve devices for.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must be a user local to the receiving homeserver.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">path</span>)]</span>
         <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
     }
@@ -101,12 +106,13 @@
         <span class="doccomment">/// The user ID devices were requested for.</span>
         <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
 
-        <span class="doccomment">/// A unique ID for a given user_id which describes the version of the returned device</span>
-        <span class="doccomment">/// list. This is matched with the `stream_id` field in `m.device_list_update` EDUs in</span>
-        <span class="doccomment">/// order to incrementally update the returned device_list.</span>
+        <span class="doccomment">/// A unique ID for a given user_id which describes the version of the returned device list.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// This is matched with the `stream_id` field in `m.device_list_update` EDUs in order to</span>
+        <span class="doccomment">/// incrementally update the returned device_list.</span>
         <span class="kw">pub</span> <span class="ident">stream_id</span>: <span class="ident">UInt</span>,
 
-        <span class="doccomment">/// The user&#39;s devices. May be empty.</span>
+        <span class="doccomment">/// The user&#39;s devices.</span>
         <span class="kw">pub</span> <span class="ident">devices</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserDevice</span><span class="op">&gt;</span>,
     }
 }

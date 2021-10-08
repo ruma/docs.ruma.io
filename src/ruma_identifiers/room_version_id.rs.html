@@ -381,9 +381,6 @@
 <span id="381">381</span>
 <span id="382">382</span>
 <span id="383">383</span>
-<span id="384">384</span>
-<span id="385">385</span>
-<span id="386">386</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room version identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cmp::Ordering</span>, <span class="ident">convert::TryFrom</span>, <span class="ident">str::FromStr</span>};
@@ -430,17 +427,14 @@
 
     <span class="doccomment">/// A version 7 room.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="ident">Version7</span>,
 
     <span class="doccomment">/// A version 8 room.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="ident">Version8</span>,
 
     <span class="doccomment">/// A version 9 room.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="ident">Version9</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>

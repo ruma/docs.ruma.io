@@ -87,8 +87,9 @@
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">path</span>)]</span>
         <span class="kw">pub</span> <span class="ident">room_id_or_alias</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomIdOrAliasId</span>,
 
-        <span class="doccomment">/// The servers to attempt to join the room through. One of the servers</span>
-        <span class="doccomment">/// must be participating in the room.</span>
+        <span class="doccomment">/// The servers to attempt to join the room through.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// One of the servers  must be participating in the room.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">server_name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">ServerNameBox</span>],
@@ -100,7 +101,6 @@
 
         <span class="doccomment">/// Optional reason for joining the room.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">reason</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
     }

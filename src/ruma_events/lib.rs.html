@@ -399,12 +399,6 @@
 <span id="399">399</span>
 <span id="400">400</span>
 <span id="401">401</span>
-<span id="402">402</span>
-<span id="403">403</span>
-<span id="404">404</span>
-<span id="405">405</span>
-<span id="406">406</span>
-<span id="407">407</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
@@ -569,33 +563,27 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ignored_user_list</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">key</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pdu&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pdu&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">pdu</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">policy</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">presence</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">push_rules</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">reaction</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">receipt</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">relation</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">room</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">room_key</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">room_key_request</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">secret</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">space</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">sticker</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">tag</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">typing</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::relation::Relations</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
     <span class="ident">enums</span>::<span class="kw-2">*</span>,

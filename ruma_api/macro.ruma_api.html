@@ -28,7 +28,7 @@ associated constant, single <code>Request</code> and <code>Response</code> struc
 implementations to convert the request into a <code>http::Request</code> and to create a response from
 a <code>http::Response</code> and vice versa.</p>
 <p>The details of each of the three sections of the macros are documented below.</p>
-<h2 id="metadata" class="section-header"><a href="#metadata">Metadata</a></h2>
+<h3 id="metadata" class="section-header"><a href="#metadata">Metadata</a></h3>
 <ul>
 <li><code>description</code>: A short description of what the endpoint does.</li>
 <li><code>method</code>: The HTTP method used for requests to the endpoint. It’s not necessary to import
@@ -43,7 +43,7 @@ parameter will be expected in the request struct (see below for details).</li>
 <li><code>rate_limited</code>: Whether or not the endpoint enforces rate limiting on requests.</li>
 <li><code>authentication</code>: What authentication scheme the endpoint uses.</li>
 </ul>
-<h2 id="request" class="section-header"><a href="#request">Request</a></h2>
+<h3 id="request" class="section-header"><a href="#request">Request</a></h3>
 <p>The request block contains normal struct field definitions. Doc comments and attributes are
 allowed as normal. There are also a few special attributes available to control how the
 struct is converted into an <code>http::Request</code>:</p>
@@ -61,7 +61,7 @@ type that implements <code>IntoIterator&lt;Item = (String, String)&gt;</code> (e
 </ul>
 <p>Any field that does not include one of these attributes will be part of the request’s JSON
 body.</p>
-<h2 id="response" class="section-header"><a href="#response">Response</a></h2>
+<h3 id="response" class="section-header"><a href="#response">Response</a></h3>
 <p>Like the request block, the response block consists of normal struct field definitions.
 Doc comments and attributes are allowed as normal.
 There is also a special attribute available to control how the struct is created from a
@@ -74,7 +74,7 @@ from <code>http::header</code>, e.g. <code>CONTENT_TYPE</code>.</li>
 </ul>
 <p>Any field that does not include the above attribute will be expected in the response’s JSON
 body.</p>
-<h2 id="newtype-bodies" class="section-header"><a href="#newtype-bodies">Newtype bodies</a></h2>
+<h3 id="newtype-bodies" class="section-header"><a href="#newtype-bodies">Newtype bodies</a></h3>
 <p>Both the request and response block also support “newtype bodies” by using the
 <code>#[ruma_api(body)]</code> attribute on a field. If present on a field, the entire request or
 response body will be treated as the value of the field. This allows you to treat the
@@ -84,7 +84,7 @@ have a newtype body field and normal body fields within the same struct.</p>
 <p>There is another kind of newtype body that is enabled with <code>#[ruma_api(raw_body)]</code>. It is
 used for endpoints in which the request or response body can be arbitrary bytes instead of
 a JSON objects. A field with <code>#[ruma_api(raw_body)]</code> needs to have the type <code>Vec&lt;u8&gt;</code>.</p>
-<h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
+<h2 id="examples" class="section-header"><a href="#examples">Examples</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">some_endpoint</span> {
     <span class="kw">use</span> <span class="ident">ruma_api_macros::ruma_api</span>;
 

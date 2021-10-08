@@ -162,8 +162,8 @@
 
     <span class="doccomment">/// The mxc avatar url of the user.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If you activate the `compat` feature, this field being an empty string in JSON will give</span>
-    <span class="doccomment">/// you `None` here.</span>
+    <span class="doccomment">/// If you activate the `compat` feature, this field being an empty string in JSON will result</span>
+    <span class="doccomment">/// in `None` here during deserialization.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,

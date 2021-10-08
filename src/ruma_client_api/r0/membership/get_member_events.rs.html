@@ -128,6 +128,11 @@
 <span id="128">128</span>
 <span id="129">129</span>
 <span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/rooms/{roomId}/members](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-rooms-roomid-members)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -150,21 +155,26 @@
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">path</span>)]</span>
         <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
 
-        <span class="doccomment">/// The point in time (pagination token) to return members for in the room. This token can</span>
-        <span class="doccomment">/// be obtained from a prev_batch token returned for each room by the sync API.</span>
+        <span class="doccomment">/// The point in time (pagination token) to return members for in the room.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// This token can be obtained from a prev_batch token returned for each room by the sync</span>
+        <span class="doccomment">/// API.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// The kind of memberships to filter for. Defaults to no filtering if unspecified. When</span>
-        <span class="doccomment">/// specified alongside not_membership, the two parameters create an &#39;or&#39; condition: either</span>
-        <span class="doccomment">/// the membership is the same as membership or is not the same as not_membership.</span>
+        <span class="doccomment">/// The kind of memberships to filter for.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Defaults to no filtering if unspecified. When specified alongside not_membership, the</span>
+        <span class="doccomment">/// two parameters create an &#39;or&#39; condition: either the membership is the same as membership</span>
+        <span class="doccomment">/// or is not the same as not_membership.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">membership</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipEventFilter</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// The kind of memberships to *exclude* from the results. Defaults to no filtering if</span>
-        <span class="doccomment">/// unspecified.</span>
+        <span class="doccomment">/// The kind of memberships to *exclude* from the results.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Defaults to no filtering if unspecified.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="kw">pub</span> <span class="ident">not_membership</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipEventFilter</span><span class="op">&gt;</span>,

@@ -90,6 +90,8 @@
 <span id="90">90</span>
 <span id="91">91</span>
 <span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v1/3pid/onbind](https://matrix.org/docs/spec/server_server/r0.1.4#put-matrix-federation-v1-3pid-onbind)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -151,7 +153,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThirdPartyInvite</span> {
-    <span class="doccomment">/// The type of third party invite issues. Currently only &quot;email&quot; is used.</span>
+    <span class="doccomment">/// The type of third party invite issues.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Currently only `Medium::Email` is used.</span>
     <span class="kw">pub</span> <span class="ident">medium</span>: <span class="ident">Medium</span>,
 
     <span class="doccomment">/// The third party identifier that received the invite.</span>

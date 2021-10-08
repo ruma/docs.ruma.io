@@ -274,6 +274,10 @@
 <span id="274">274</span>
 <span id="275">275</span>
 <span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Errors that can be sent from the homeserver.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>, <span class="ident">time::Duration</span>};
@@ -291,7 +295,9 @@
 <span class="doccomment">/// Separate module because it&#39;s a lot of code.</span>
 <span class="kw">mod</span> <span class="ident">kind_serde</span>;
 
-<span class="doccomment">/// An enum for the error kind. Items may contain additional information.</span>
+<span class="doccomment">/// An enum for the error kind.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Items may contain additional information.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ErrorKind</span> {
@@ -301,7 +307,9 @@
     <span class="doccomment">/// M_UNKNOWN_TOKEN</span>
     <span class="ident">UnknownToken</span> {
         <span class="doccomment">/// If this is `true`, the client can acquire a new access token by specifying the device</span>
-        <span class="doccomment">/// ID it is already using to the login API. For more information, see [the spec].</span>
+        <span class="doccomment">/// ID it is already using to the login API.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// For more information, see [the spec].</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// [the spec]: https://matrix.org/docs/spec/client_server/r0.6.1#soft-logout</span>
         <span class="ident">soft_logout</span>: <span class="ident">bool</span>,

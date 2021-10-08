@@ -148,6 +148,13 @@
 <span id="148">148</span>
 <span id="149">149</span>
 <span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for [encryption] related tasks.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [encryption]: https://matrix.org/docs/spec/client_server/r0.6.1#id76</span>
@@ -161,10 +168,14 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceKeys</span> {
-    <span class="doccomment">/// The ID of the user the device belongs to. Must match the user ID used when logging in.</span>
+    <span class="doccomment">/// The ID of the user the device belongs to.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Must match the user ID used when logging in.</span>
     <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
 
-    <span class="doccomment">/// The ID of the device these keys belong to. Must match the device ID used when logging in.</span>
+    <span class="doccomment">/// The ID of the device these keys belong to.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Must match the device ID used when logging in.</span>
     <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>,
 
     <span class="doccomment">/// The encryption algorithms supported by this device.</span>
@@ -263,17 +274,20 @@
     <span class="doccomment">/// What the key is used for.</span>
     <span class="kw">pub</span> <span class="ident">usage</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeyUsage</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// The public key. The object must have exactly one property.</span>
+    <span class="doccomment">/// The public key.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The object must have exactly one property.</span>
     <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Signatures of the key. Only optional for master key.</span>
+    <span class="doccomment">/// Signatures of the key.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Only optional for master key.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">CrossSigningKeySignatures</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">CrossSigningKey</span> {
-    <span class="doccomment">/// Creates a new `CrossSigningKey` with the given user ID, usage, keys and</span>
-    <span class="doccomment">/// signatures.</span>
+    <span class="doccomment">/// Creates a new `CrossSigningKey` with the given user ID, usage, keys and signatures.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">user_id</span>: <span class="ident">UserId</span>,
         <span class="ident">usage</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeyUsage</span><span class="op">&gt;</span>,

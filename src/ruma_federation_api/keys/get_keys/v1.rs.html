@@ -55,7 +55,6 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
-<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/federation/v1/user/keys/query](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-federation-v1-user-keys-query)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -77,8 +76,9 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// The keys to be downloaded. Gives all keys for a given user if the list of device ids is</span>
-        <span class="doccomment">/// empty.</span>
+        <span class="doccomment">/// The keys to be downloaded.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Gives all keys for a given user if the list of device ids is empty.</span>
         <span class="kw">pub</span> <span class="ident">device_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">DeviceIdBox</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
@@ -89,13 +89,11 @@
 
         <span class="doccomment">/// Information on the master cross-signing keys of the queried users.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">master_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">CrossSigningKey</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Information on the self-signing keys of the queried users.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">self_signing_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">CrossSigningKey</span><span class="op">&gt;</span>,
     }

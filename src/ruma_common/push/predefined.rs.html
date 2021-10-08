@@ -274,6 +274,7 @@
 <span id="274">274</span>
 <span id="275">275</span>
 <span id="276">276</span>
+<span id="277">277</span>
 </pre><pre class="rust"><code><span class="doccomment">///! Constructors for [predefined push rules].</span>
 <span class="doccomment">///!</span>
 <span class="doccomment">///! [predefined push rules]: https://matrix.org/docs/spec/client_server/r0.6.1#predefined-rules</span>
@@ -438,7 +439,6 @@
     <span class="doccomment">/// Matches emoji reactions to a message</span>
     <span class="doccomment">/// MSC2677: Annotations and Reactions</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reaction</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">actions</span>: <span class="macro">vec!</span>[<span class="ident">DontNotify</span>],
@@ -486,10 +486,11 @@
         }
     }
 
-    <span class="doccomment">/// Matches any encrypted event sent in a room with exactly two members. Unlike other push</span>
-    <span class="doccomment">/// rules, this rule cannot be matched against the content of the event by nature of it being</span>
-    <span class="doccomment">/// encrypted. This causes the rule to be an &quot;all or nothing&quot; match where it either matches all</span>
-    <span class="doccomment">/// events that are encrypted (in 1:1 rooms) or none.</span>
+    <span class="doccomment">/// Matches any encrypted event sent in a room with exactly two members.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Unlike other push rules, this rule cannot be matched against the content of the event by</span>
+    <span class="doccomment">/// nature of it being encrypted. This causes the rule to be an &quot;all or nothing&quot; match where it</span>
+    <span class="doccomment">/// either matches all events that are encrypted (in 1:1 rooms) or none.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted_room_one_to_one</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">rule_id</span>: <span class="string">&quot;.m.rules.encrypted_room_one_to_one&quot;</span>.<span class="ident">into</span>(),
@@ -536,10 +537,11 @@
         }
     }
 
-    <span class="doccomment">/// Matches all encrypted events. Unlike other push rules, this rule cannot be matched against</span>
-    <span class="doccomment">/// the content of the event by nature of it being encrypted. This causes the rule to be an</span>
-    <span class="doccomment">/// &quot;all or nothing&quot; match where it either matches all events that are encrypted (in group</span>
-    <span class="doccomment">/// rooms) or none.</span>
+    <span class="doccomment">/// Matches all encrypted events.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Unlike other push rules, this rule cannot be matched against the content of the event by</span>
+    <span class="doccomment">/// nature of it being encrypted. This causes the rule to be an &quot;all or nothing&quot; match where it</span>
+    <span class="doccomment">/// either matches all events that are encrypted (in group rooms) or none.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">rule_id</span>: <span class="string">&quot;.m.rules.encrypted&quot;</span>.<span class="ident">into</span>(),

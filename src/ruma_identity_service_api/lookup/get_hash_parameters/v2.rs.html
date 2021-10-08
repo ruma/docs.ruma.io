@@ -41,6 +41,8 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/identity/v2/hash_details](https://matrix.org/docs/spec/identity_service/r0.3.0#get-matrix-identity-v2-hash-details)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -66,7 +68,9 @@
         <span class="doccomment">/// Servers SHOULD rotate this string often.</span>
         <span class="kw">pub</span> <span class="ident">lookup_pepper</span>: <span class="ident">String</span>,
 
-        <span class="doccomment">/// The algorithms the server supports. Must contain at least `sha256`.</span>
+        <span class="doccomment">/// The algorithms the server supports.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Must contain at least `sha256`.</span>
         <span class="kw">pub</span> <span class="ident">algorithms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IdentifierHashingAlgorithm</span><span class="op">&gt;</span>,
     }
 }
