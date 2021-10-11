@@ -105,14 +105,14 @@
 
 <span class="kw">impl</span> <span class="ident">Request</span> {
     <span class="doccomment">/// Creates an empty `Request`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {}
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given `HomeserverInfo`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">homeserver</span>: <span class="ident">HomeserverInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">homeserver</span>: <span class="ident">HomeserverInfo</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">homeserver</span>, <span class="ident">identity_server</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -127,7 +127,7 @@
 
 <span class="kw">impl</span> <span class="ident">HomeserverInfo</span> {
     <span class="doccomment">/// Creates a new `HomeserverInfo` with the given `base_url`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">base_url</span> }
     }
 }
@@ -142,7 +142,7 @@
 
 <span class="kw">impl</span> <span class="ident">IdentityServerInfo</span> {
     <span class="doccomment">/// Creates an `IdentityServerInfo` with the given `base_url`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">base_url</span> }
     }
 }

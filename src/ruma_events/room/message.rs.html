@@ -1264,6 +1264,18 @@
 <span id="1264">1264</span>
 <span id="1265">1265</span>
 <span id="1266">1266</span>
+<span id="1267">1267</span>
+<span id="1268">1268</span>
+<span id="1269">1269</span>
+<span id="1270">1270</span>
+<span id="1271">1271</span>
+<span id="1272">1272</span>
+<span id="1273">1273</span>
+<span id="1274">1274</span>
+<span id="1275">1275</span>
+<span id="1276">1276</span>
+<span id="1277">1277</span>
+<span id="1278">1278</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.message` event.</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -1310,32 +1322,44 @@
 
 <span class="kw">impl</span> <span class="ident">RoomMessageEventContent</span> {
     <span class="doccomment">/// Create a `RoomMessageEventContent` with the given `MessageType`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">msgtype</span>: <span class="ident">MessageType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">msgtype</span>: <span class="ident">MessageType</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">msgtype</span>, <span class="ident">relates_to</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// A constructor to create a plain text message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent::plain</span>(<span class="ident">body</span>)))
     }
 
     <span class="doccomment">/// A constructor to create an html message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>)))
     }
 
+    <span class="doccomment">/// A constructor to create a markdown message.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent::markdown</span>(<span class="ident">body</span>)))
+    }
+
     <span class="doccomment">/// A constructor to create a plain text notice.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent::plain</span>(<span class="ident">body</span>)))
     }
 
     <span class="doccomment">/// A constructor to create an html notice.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>)))
     }
 
+    <span class="doccomment">/// A constructor to create a markdown notice.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent::markdown</span>(<span class="ident">body</span>)))
+    }
+
     <span class="doccomment">/// Creates a plain text reply to a message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_reply_plain</span>(<span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_reply_plain</span>(<span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">quoted</span> <span class="op">=</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>);
 
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{}\n\n{}&quot;</span>, <span class="ident">quoted</span>, <span class="ident">reply</span>.<span class="ident">into</span>());
@@ -1353,7 +1377,7 @@
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">html_reply</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">quoted</span> <span class="op">=</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>);
         <span class="kw">let</span> <span class="ident">quoted_html</span> <span class="op">=</span> <span class="ident">get_html_quote_fallback</span>(<span class="ident">original_message</span>);
 
@@ -1372,7 +1396,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_reply_plain</span>(
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">quoted</span> <span class="op">=</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>);
 
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{}\n\n{}&quot;</span>, <span class="ident">quoted</span>, <span class="ident">reply</span>.<span class="ident">into</span>());
@@ -1389,7 +1413,7 @@
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">html_reply</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">quoted</span> <span class="op">=</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>);
         <span class="kw">let</span> <span class="ident">quoted_html</span> <span class="op">=</span> <span class="ident">get_html_quote_fallback</span>(<span class="ident">original_message</span>);
 
@@ -1457,66 +1481,66 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns an error if the `msgtype` is known and serialization of `data` to the corresponding</span>
     <span class="doccomment">/// `MessageType` variant fails.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">msgtype</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">data</span>: <span class="ident">JsonObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">msgtype</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">data</span>: <span class="ident">JsonObject</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">fn</span> <span class="ident">deserialize_variant</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(
             <span class="ident">body</span>: <span class="ident">String</span>,
             <span class="kw-2">mut</span> <span class="ident">obj</span>: <span class="ident">JsonObject</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+        ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
             <span class="ident">obj</span>.<span class="ident">insert</span>(<span class="string">&quot;body&quot;</span>.<span class="ident">into</span>(), <span class="ident">body</span>.<span class="ident">into</span>());
             <span class="ident">serde_json::from_value</span>(<span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>))
         }
 
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">msgtype</span> {
-            <span class="string">&quot;m.audio&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.emote&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.file&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.image&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.location&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Location</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.notice&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.server_notice&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.text&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Text</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.video&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Video</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.audio&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.emote&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.file&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.image&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.location&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Location</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.notice&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.server_notice&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.text&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Text</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.video&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Video</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="string">&quot;m.key.verification.request&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="string">&quot;m.key.verification.request&quot;</span> =&gt; {
                 <span class="ident"><span class="self">Self</span>::VerificationRequest</span>(<span class="ident">deserialize_variant</span>(<span class="ident">body</span>, <span class="ident">data</span>)<span class="question-mark">?</span>)
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">CustomEventContent</span> { <span class="ident">msgtype</span>: <span class="ident">msgtype</span>.<span class="ident">to_owned</span>(), <span class="ident">body</span>, <span class="ident">data</span> }),
+            <span class="kw">_</span> =&gt; <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">CustomEventContent</span> { <span class="ident">msgtype</span>: <span class="ident">msgtype</span>.<span class="ident">to_owned</span>(), <span class="ident">body</span>, <span class="ident">data</span> }),
         })
     }
 
     <span class="doccomment">/// Returns a reference to the `msgtype` string.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">msgtype</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">msgtype</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.audio&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.emote&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::File</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.file&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Image</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.image&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Location</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.location&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.notice&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.server_notice&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Text</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.text&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Video</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.video&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.audio&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.emote&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::File</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.file&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::Image</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.image&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::Location</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.location&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.notice&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.server_notice&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::Text</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.text&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::Video</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.video&quot;</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::VerificationRequest</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;m.key.verification.request&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">c</span>.<span class="ident">msgtype</span>,
+            <span class="ident"><span class="self">Self</span>::VerificationRequest</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;m.key.verification.request&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">c</span>.<span class="ident">msgtype</span>,
         }
     }
 
     <span class="doccomment">/// Return a reference to the message body.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">body</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">MessageType::Audio</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::Emote</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::File</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::Image</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::Location</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::Notice</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::ServerNotice</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::Text</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::Video</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Audio</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Emote</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::File</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Image</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Location</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Notice</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::ServerNotice</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Text</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::Video</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
-            <span class="ident">MessageType::_Custom</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
+            <span class="ident">MessageType::_Custom</span>(<span class="ident">m</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">m</span>.<span class="ident">body</span>,
         }
     }
 
@@ -1527,36 +1551,36 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Prefer to use the public variants of `MessageType` where possible; this method is meant to</span>
     <span class="doccomment">/// be used for custom message types only.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonObject</span><span class="op">&gt;</span> {
-        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">JsonObject</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonObject</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) -&gt; <span class="ident">JsonObject</span> {
             <span class="kw">match</span> <span class="ident">serde_json::to_value</span>(<span class="ident">obj</span>).<span class="ident">expect</span>(<span class="string">&quot;message type serialization to succeed&quot;</span>) {
-                <span class="ident">JsonValue::Object</span>(<span class="kw-2">mut</span> <span class="ident">obj</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="ident">JsonValue::Object</span>(<span class="kw-2">mut</span> <span class="ident">obj</span>) =&gt; {
                     <span class="ident">obj</span>.<span class="ident">remove</span>(<span class="string">&quot;body&quot;</span>);
                     <span class="ident">obj</span>
                 }
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;all message types must serialize to objects&quot;</span>),
+                <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;all message types must serialize to objects&quot;</span>),
             }
         }
 
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::Location</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::Text</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::Video</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Location</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::ServerNotice</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Text</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Video</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::VerificationRequest</span>(<span class="ident">d</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Borrowed</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>.<span class="ident">data</span>),
+            <span class="ident"><span class="self">Self</span>::VerificationRequest</span>(<span class="ident">d</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) =&gt; <span class="ident">Cow::Borrowed</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>.<span class="ident">data</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">MessageType</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomMessageEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">msgtype</span>: <span class="ident">MessageType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">msgtype</span>: <span class="ident">MessageType</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">msgtype</span>)
     }
 }
@@ -1592,7 +1616,7 @@
 
 <span class="kw">impl</span> <span class="ident">InReplyTo</span> {
     <span class="doccomment">/// Creates a new `InReplyTo` with the given event ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span> }
     }
 }
@@ -1612,7 +1636,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Replacement</span> {
     <span class="doccomment">/// Creates a new `Replacement` with the given event ID and new content.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>, <span class="ident">new_content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomMessageEventContent</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>, <span class="ident">new_content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomMessageEventContent</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> }
     }
 }
@@ -1645,13 +1669,13 @@
 <span class="kw">impl</span> <span class="ident">AudioMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `RoomAudioMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">AudioInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">AudioInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">url</span>: <span class="prelude-val">Some</span>(<span class="ident">url</span>), <span class="ident">info</span>, <span class="ident">file</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomAudioMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">url</span>: <span class="prelude-val">None</span>, <span class="ident">info</span>: <span class="prelude-val">None</span>, <span class="ident">file</span>: <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)) }
     }
 }
@@ -1675,7 +1699,7 @@
 
 <span class="kw">impl</span> <span class="ident">AudioInfo</span> {
     <span class="doccomment">/// Creates an empty `AudioInfo`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
@@ -1695,12 +1719,12 @@
 
 <span class="kw">impl</span> <span class="ident">EmoteMessageEventContent</span> {
     <span class="doccomment">/// A convenience constructor to create a plain-text emote.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>: <span class="ident">body</span>.<span class="ident">into</span>(), <span class="ident">formatted</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// A convenience constructor to create an html emote message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="prelude-val">Some</span>(<span class="ident">FormattedBody::html</span>(<span class="ident">html_body</span>)), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
 
@@ -1709,7 +1733,7 @@
     <span class="doccomment">/// Returns an html emote message if some markdown formatting was detected, otherwise returns a</span>
     <span class="doccomment">/// plain-text emote.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="ident">FormattedBody::markdown</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
 }
@@ -1746,13 +1770,13 @@
 <span class="kw">impl</span> <span class="ident">FileMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `RoomFileMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">filename</span>: <span class="prelude-val">None</span>, <span class="ident">url</span>: <span class="prelude-val">Some</span>(<span class="ident">url</span>), <span class="ident">info</span>, <span class="ident">file</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomFileMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">filename</span>: <span class="prelude-val">None</span>, <span class="ident">url</span>: <span class="prelude-val">None</span>, <span class="ident">info</span>: <span class="prelude-val">None</span>, <span class="ident">file</span>: <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)) }
     }
 }
@@ -1788,7 +1812,7 @@
 
 <span class="kw">impl</span> <span class="ident">FileInfo</span> {
     <span class="doccomment">/// Creates an empty `FileInfo`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
@@ -1822,13 +1846,13 @@
 <span class="kw">impl</span> <span class="ident">ImageMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `RoomImageMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">url</span>: <span class="prelude-val">Some</span>(<span class="ident">url</span>), <span class="ident">info</span>, <span class="ident">file</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomImageMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">url</span>: <span class="prelude-val">None</span>, <span class="ident">info</span>: <span class="prelude-val">None</span>, <span class="ident">file</span>: <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)) }
     }
 }
@@ -1852,7 +1876,7 @@
 
 <span class="kw">impl</span> <span class="ident">LocationMessageEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomLocationMessageEventContent` with the given body and geo URI.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">geo_uri</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">geo_uri</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">geo_uri</span>, <span class="ident">info</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -1880,7 +1904,7 @@
 
 <span class="kw">impl</span> <span class="ident">LocationInfo</span> {
     <span class="doccomment">/// Creates an empty `LocationInfo`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
@@ -1900,12 +1924,12 @@
 
 <span class="kw">impl</span> <span class="ident">NoticeMessageEventContent</span> {
     <span class="doccomment">/// A convenience constructor to create a plain text notice.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>: <span class="ident">body</span>.<span class="ident">into</span>(), <span class="ident">formatted</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// A convenience constructor to create an html notice.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="prelude-val">Some</span>(<span class="ident">FormattedBody::html</span>(<span class="ident">html_body</span>)), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
 
@@ -1914,7 +1938,7 @@
     <span class="doccomment">/// Returns an html notice if some markdown formatting was detected, otherwise returns a plain</span>
     <span class="doccomment">/// text notice.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="ident">FormattedBody::markdown</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
 }
@@ -1945,7 +1969,7 @@
 
 <span class="kw">impl</span> <span class="ident">ServerNoticeMessageEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomServerNoticeMessageEventContent` with the given body and notice type.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">server_notice_type</span>: <span class="ident">ServerNoticeType</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">server_notice_type</span>: <span class="ident">ServerNoticeType</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">server_notice_type</span>, <span class="ident">admin_contact</span>: <span class="prelude-val">None</span>, <span class="ident">limit_type</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -1967,7 +1991,7 @@
 
 <span class="kw">impl</span> <span class="ident">ServerNoticeType</span> {
     <span class="doccomment">/// Creates a string slice from this `ServerNoticeType`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -1992,7 +2016,7 @@
 
 <span class="kw">impl</span> <span class="ident">LimitType</span> {
     <span class="doccomment">/// Creates a string slice from this `LimitType`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -2014,7 +2038,7 @@
 
 <span class="kw">impl</span> <span class="ident">MessageFormat</span> {
     <span class="doccomment">/// Creates a string slice from this `MessageFormat`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -2034,7 +2058,7 @@
 
 <span class="kw">impl</span> <span class="ident">FormattedBody</span> {
     <span class="doccomment">/// Creates a new HTML-formatted message body.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">format</span>: <span class="ident">MessageFormat::Html</span>, <span class="ident">body</span>: <span class="ident">body</span>.<span class="ident">into</span>() }
     }
 
@@ -2042,7 +2066,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns `None` if no markdown formatting was found.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="ident">body</span>.<span class="ident">as_ref</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">html_body</span> <span class="op">=</span> <span class="ident">String::new</span>();
 
@@ -2067,12 +2091,12 @@
 
 <span class="kw">impl</span> <span class="ident">TextMessageEventContent</span> {
     <span class="doccomment">/// A convenience constructor to create a plain text message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>: <span class="ident">body</span>.<span class="ident">into</span>(), <span class="ident">formatted</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// A convenience constructor to create an html message.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="prelude-val">Some</span>(<span class="ident">FormattedBody::html</span>(<span class="ident">html_body</span>)), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
 
@@ -2081,7 +2105,7 @@
     <span class="doccomment">/// Returns an html message if some markdown formatting was detected, otherwise returns a plain</span>
     <span class="doccomment">/// text message.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">formatted</span>: <span class="ident">FormattedBody::markdown</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>), ..<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">body</span>) }
     }
 }
@@ -2113,13 +2137,13 @@
 <span class="kw">impl</span> <span class="ident">VideoMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `RoomVideoMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">url</span>: <span class="prelude-val">Some</span>(<span class="ident">url</span>), <span class="ident">info</span>, <span class="ident">file</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomVideoMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">url</span>: <span class="prelude-val">None</span>, <span class="ident">info</span>: <span class="prelude-val">None</span>, <span class="ident">file</span>: <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)) }
     }
 }
@@ -2175,7 +2199,7 @@
 
 <span class="kw">impl</span> <span class="ident">VideoInfo</span> {
     <span class="doccomment">/// Creates an empty `VideoInfo`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
@@ -2213,7 +2237,7 @@
         <span class="ident">methods</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">VerificationMethod</span><span class="op">&gt;</span>,
         <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
         <span class="ident">to</span>: <span class="ident">UserId</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">methods</span>, <span class="ident">from_device</span>, <span class="ident">to</span> }
     }
 }
@@ -2233,40 +2257,40 @@
     <span class="ident">data</span>: <span class="ident">JsonObject</span>,
 }
 
-<span class="kw">fn</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">fn</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) -&gt; <span class="ident">String</span> {
     <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">original_message</span>.<span class="ident">content</span>.<span class="ident">msgtype</span> {
-        <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent an audio file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
-        <span class="ident">MessageType::Emote</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Emote</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; * &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
-        <span class="ident">MessageType::File</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::File</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent a file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
-        <span class="ident">MessageType::Image</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Image</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent an image.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
-        <span class="ident">MessageType::Location</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Location</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
-        <span class="ident">MessageType::Notice</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Notice</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
-        <span class="ident">MessageType::ServerNotice</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::ServerNotice</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
-        <span class="ident">MessageType::Text</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Text</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
-        <span class="ident">MessageType::Video</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Video</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent a video.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
-        <span class="ident">MessageType::_Custom</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::_Custom</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
     }
@@ -2274,9 +2298,9 @@
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::nonstandard_macro_braces</span>)]</span>
-<span class="kw">fn</span> <span class="ident">get_html_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">String</span> {
+<span class="kw">fn</span> <span class="ident">get_html_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) -&gt; <span class="ident">String</span> {
     <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">original_message</span>.<span class="ident">content</span>.<span class="ident">msgtype</span> {
-        <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2293,7 +2317,7 @@
                 <span class="ident">sender</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">sender</span>,
             )
         }
-        <span class="ident">MessageType::Emote</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Emote</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2311,7 +2335,7 @@
                 <span class="ident">body</span> <span class="op">=</span> <span class="ident">formatted_or_plain_body</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">formatted</span>, <span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">body</span>),
             )
         }
-        <span class="ident">MessageType::File</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::File</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2328,7 +2352,7 @@
                 <span class="ident">sender</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">sender</span>,
             )
         }
-        <span class="ident">MessageType::Image</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Image</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2345,7 +2369,7 @@
                 <span class="ident">sender</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">sender</span>,
             )
         }
-        <span class="ident">MessageType::Location</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Location</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2362,7 +2386,7 @@
                 <span class="ident">sender</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">sender</span>,
             )
         }
-        <span class="ident">MessageType::Notice</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Notice</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2380,7 +2404,7 @@
                 <span class="ident">body</span> <span class="op">=</span> <span class="ident">formatted_or_plain_body</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">formatted</span>, <span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">body</span>),
             )
         }
-        <span class="ident">MessageType::ServerNotice</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::ServerNotice</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2398,7 +2422,7 @@
                 <span class="ident">body</span> <span class="op">=</span> <span class="ident">content</span>.<span class="ident">body</span>,
             )
         }
-        <span class="ident">MessageType::Text</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Text</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2416,7 +2440,7 @@
                 <span class="ident">body</span> <span class="op">=</span> <span class="ident">formatted_or_plain_body</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">formatted</span>, <span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">body</span>),
             )
         }
-        <span class="ident">MessageType::Video</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::Video</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2433,7 +2457,7 @@
                 <span class="ident">sender</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">sender</span>,
             )
         }
-        <span class="ident">MessageType::_Custom</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::_Custom</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2452,7 +2476,7 @@
             )
         }
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">content</span>) <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">content</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
                 <span class="string">&quot;
                 &lt;mx-reply&gt;
@@ -2473,7 +2497,7 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">formatted_or_plain_body</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">formatted</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FormattedBody</span><span class="op">&gt;</span>, <span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
+<span class="kw">fn</span> <span class="ident">formatted_or_plain_body</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">formatted</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FormattedBody</span><span class="op">&gt;</span>, <span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">formatted_body</span>) <span class="op">=</span> <span class="ident">formatted</span> {
         <span class="kw-2">&amp;</span><span class="ident">formatted_body</span>.<span class="ident">body</span>
     } <span class="kw">else</span> {
@@ -2510,7 +2534,7 @@
             <span class="ident">RoomMessageEventContent</span> {
                 <span class="ident">msgtype</span>: <span class="ident">MessageType::Text</span>(<span class="kw">_</span>),
                 <span class="ident">relates_to</span>: <span class="prelude-val">Some</span>(<span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo</span> { <span class="ident">event_id</span> } }),
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ev_id</span>
+            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">ev_id</span>
         );
     }
 

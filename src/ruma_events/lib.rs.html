@@ -600,10 +600,10 @@
 <span class="doccomment">/// Implementing this trait allows content types to be serialized as well as deserialized.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">EventContent</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">Serialize</span> {
     <span class="doccomment">/// A matrix event identifier, like `m.room.message`.</span>
-    <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span>;
+    <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span>;
 
     <span class="doccomment">/// Constructs the given event content.</span>
-    <span class="kw">fn</span> <span class="ident">from_parts</span>(<span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="ident">RawJsonValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">from_parts</span>(<span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="ident">RawJsonValue</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// Trait to define the behavior of redacting an event.</span>
@@ -615,7 +615,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// A small number of events have room-version specific redaction behavior, so a version has to</span>
     <span class="doccomment">/// be specified.</span>
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span>;
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) -&gt; <span class="ident"><span class="self">Self</span>::Redacted</span>;
 }
 
 <span class="doccomment">/// Trait to define the behavior of redact an event&#39;s content object.</span>
@@ -629,17 +629,17 @@
     <span class="doccomment">/// be specified.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Where applicable, it is preferred to use [`Redact::redact`] on the outer event.</span>
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span>;
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) -&gt; <span class="ident"><span class="self">Self</span>::Redacted</span>;
 }
 
 <span class="doccomment">/// Extension trait for [`Raw&lt;_&gt;`][ruma_serde::Raw].</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RawExt</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">EventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Try to deserialize the JSON as an event&#39;s content.</span>
-    <span class="kw">fn</span> <span class="ident">deserialize_content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">deserialize_content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">EventContent</span><span class="op">&gt;</span> <span class="ident">RawExt</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize_content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize_content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="ident">T::from_parts</span>(<span class="ident">event_type</span>, <span class="self">self</span>.<span class="ident">json</span>())
     }
 }
@@ -674,17 +674,17 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If called for anything but &quot;empty&quot; redacted content this will error.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">empty</span>(<span class="ident">_event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">empty</span>(<span class="ident">_event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="prelude-val">Err</span>(<span class="ident">serde::de::Error::custom</span>(<span class="string">&quot;this event is not redacted&quot;</span>))
     }
 
     <span class="doccomment">/// Determines if the redacted event content needs to serialize fields.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">has_serialize_fields</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span>;
+    <span class="kw">fn</span> <span class="ident">has_serialize_fields</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span>;
 
     <span class="doccomment">/// Determines if the redacted event content needs to deserialize fields.</span>
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">has_deserialize_fields</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HasDeserializeFields</span>;
+    <span class="kw">fn</span> <span class="ident">has_deserialize_fields</span>() -&gt; <span class="ident">HasDeserializeFields</span>;
 }
 
 <span class="doccomment">/// Marker trait for the content of a redacted message event.</span>
@@ -793,7 +793,7 @@
 
 <span class="doccomment">/// Helper function for `serde_json::value::RawValue` deserialization.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_raw_json_value</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RawJsonValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_raw_json_value</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RawJsonValue</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">T</span>: <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
     <span class="ident">E</span>: <span class="ident">de::Error</span>,

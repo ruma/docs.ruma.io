@@ -94,19 +94,19 @@
 
 <span class="kw">impl</span> <span class="ident">Request</span> {
     <span class="doccomment">/// Creates a new `Request` with the given auth type and session ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">auth_type</span>: <span class="ident">String</span>, <span class="ident">session</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">auth_type</span>: <span class="ident">String</span>, <span class="ident">session</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">auth_type</span>, <span class="ident">session</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given HTML body.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">redirect_url</span>: <span class="prelude-val">None</span>, <span class="ident">body</span> }
     }
 
     <span class="doccomment">/// Creates a new `Response` with the given redirect URL and an empty body.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">redirect</span>(<span class="ident">url</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">redirect</span>(<span class="ident">url</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">redirect_url</span>: <span class="prelude-val">Some</span>(<span class="ident">url</span>), <span class="ident">body</span>: <span class="ident">Vec::new</span>() }
     }
 }

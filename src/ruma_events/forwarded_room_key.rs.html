@@ -178,7 +178,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ToDeviceForwardedRoomKeyEventContentInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ToDeviceForwardedRoomKeyEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">ToDeviceForwardedRoomKeyEventContentInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">ToDeviceForwardedRoomKeyEventContentInit</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">algorithm</span>: <span class="ident">init</span>.<span class="ident">algorithm</span>,
             <span class="ident">room_id</span>: <span class="ident">init</span>.<span class="ident">room_id</span>,

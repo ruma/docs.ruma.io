@@ -193,7 +193,7 @@
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationCancelEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationCancelEventContent` with the given transaction ID,</span>
     <span class="doccomment">/// reason and code.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">reason</span>, <span class="ident">code</span> }
     }
 }
@@ -222,7 +222,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">KeyVerificationCancelEventContent</span> {
     <span class="doccomment">/// Creates a new `KeyVerificationCancelEventContent` with the given reason, code and relation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">reason</span>, <span class="ident">code</span>, <span class="ident">relates_to</span> }
     }
 }
@@ -289,7 +289,7 @@
 
 <span class="kw">impl</span> <span class="ident">CancelCode</span> {
     <span class="doccomment">/// Creates a string slice from this `CancelCode`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }

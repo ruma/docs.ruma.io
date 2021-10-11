@@ -60,7 +60,7 @@
 
 <span class="kw">impl</span> <span class="ident">CallAnswerEventContent</span> {
     <span class="doccomment">/// Creates an `AnswerEventContent` with the given answer, call ID and VoIP version.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">answer</span>: <span class="ident">SessionDescription</span>, <span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">answer</span>: <span class="ident">SessionDescription</span>, <span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">answer</span>, <span class="ident">call_id</span>, <span class="ident">version</span> }
     }
 }

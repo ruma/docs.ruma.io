@@ -143,7 +143,7 @@
         <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
         <span class="ident">txn_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
         <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
             <span class="ident">room_id</span>,
             <span class="ident">txn_id</span>,
@@ -159,14 +159,14 @@
         <span class="ident">txn_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
         <span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
         <span class="ident">body</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyMessageEventContent</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">event_type</span>, <span class="ident">txn_id</span>, <span class="ident">body</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given event id.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span> }
     }
 }

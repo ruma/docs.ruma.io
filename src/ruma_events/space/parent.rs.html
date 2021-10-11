@@ -101,7 +101,7 @@
 
 <span class="kw">impl</span> <span class="ident">SpaceParentEventContent</span> {
     <span class="doccomment">/// Creates a new `ParentEventContent` with the given canonical flag.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">canonical</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">canonical</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">via</span>: <span class="prelude-val">None</span>, <span class="ident">canonical</span> }
     }
 }

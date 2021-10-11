@@ -137,14 +137,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given user ID, room ID and typing state.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">state</span>: <span class="ident">Typing</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">state</span>: <span class="ident">Typing</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">room_id</span>, <span class="ident">state</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates an empty `Response`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {}
     }
 }
@@ -174,25 +174,25 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Typing</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TypingInner</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">typing</span>: <span class="ident">Typing</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">typing</span>: <span class="ident">Typing</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">typing</span> {
-            <span class="ident">Typing::No</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span> { <span class="ident">typing</span>: <span class="bool-val">false</span>, <span class="ident">timeout</span>: <span class="prelude-val">None</span> },
-            <span class="ident">Typing::Yes</span>(<span class="ident">time</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">Self</span> { <span class="ident">typing</span>: <span class="bool-val">true</span>, <span class="ident">timeout</span>: <span class="prelude-val">Some</span>(<span class="ident">time</span>) },
+            <span class="ident">Typing::No</span> =&gt; <span class="self">Self</span> { <span class="ident">typing</span>: <span class="bool-val">false</span>, <span class="ident">timeout</span>: <span class="prelude-val">None</span> },
+            <span class="ident">Typing::Yes</span>(<span class="ident">time</span>) =&gt; <span class="self">Self</span> { <span class="ident">typing</span>: <span class="bool-val">true</span>, <span class="ident">timeout</span>: <span class="prelude-val">Some</span>(<span class="ident">time</span>) },
         }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Typing</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
         <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">TypingInner::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
 
         <span class="kw">match</span> (<span class="ident">inner</span>.<span class="ident">typing</span>, <span class="ident">inner</span>.<span class="ident">timeout</span>) {
-            (<span class="bool-val">false</span>, <span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::No</span>),
-            (<span class="bool-val">true</span>, <span class="prelude-val">Some</span>(<span class="ident">time</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::Yes</span>(<span class="ident">time</span>)),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">D::Error::missing_field</span>(<span class="string">&quot;timeout&quot;</span>)),
+            (<span class="bool-val">false</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::No</span>),
+            (<span class="bool-val">true</span>, <span class="prelude-val">Some</span>(<span class="ident">time</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::Yes</span>(<span class="ident">time</span>)),
+            <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">D::Error::missing_field</span>(<span class="string">&quot;timeout&quot;</span>)),
         }
     }
 }

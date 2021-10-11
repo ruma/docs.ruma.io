@@ -95,7 +95,7 @@
 
 <span class="kw">impl</span> <span class="ident">IgnoredUserListEventContent</span> {
     <span class="doccomment">/// Creates a new `IgnoredUserListEventContent` from the given user IDs.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ignored_users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">ignored_users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">ignored_users</span> }
     }
 }
@@ -148,7 +148,7 @@
                         <span class="ident">ignored_users</span>
                     },
                 })
-         <span class="kw">if</span> <span class="ident">ignored_users</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>)]
+         <span class="kw">if</span> <span class="ident">ignored_users</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>)]
         );
     }
 }

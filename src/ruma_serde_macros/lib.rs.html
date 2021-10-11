@@ -238,19 +238,19 @@ struct IncomingMyType {
 
 */</span>
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">Outgoing</span>, <span class="ident">attributes</span>(<span class="ident">incoming_derive</span>))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_outgoing</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_outgoing</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="ident">expand_derive_outgoing</span>(<span class="ident">input</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>).<span class="ident">into</span>()
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">AsRefStr</span>, <span class="ident">attributes</span>(<span class="ident">ruma_enum</span>))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_enum_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_enum_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">ItemEnum</span>);
     <span class="ident">expand_enum_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>).<span class="ident">into</span>()
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">FromString</span>, <span class="ident">attributes</span>(<span class="ident">ruma_enum</span>))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_enum_from_string</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_enum_from_string</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">ItemEnum</span>);
     <span class="ident">expand_enum_from_string</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>).<span class="ident">into</span>()
 }
@@ -259,19 +259,19 @@ struct IncomingMyType {
 <span class="comment">//        generics in the future). They probably shouldn&#39;t use `DeriveInput`.</span>
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">DisplayAsRefStr</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_display_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_display_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="ident">expand_display_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>.<span class="ident">ident</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>).<span class="ident">into</span>()
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">SerializeAsRefStr</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_serialize_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_serialize_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="ident">expand_serialize_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>.<span class="ident">ident</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>).<span class="ident">into</span>()
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">DeserializeFromCowStr</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_deserialize_from_cow_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_deserialize_from_cow_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="ident">expand_deserialize_from_cow_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>.<span class="ident">ident</span>)
         .<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>)
@@ -279,7 +279,7 @@ struct IncomingMyType {
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">PartialOrdAsRefStr</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_partial_ord_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_partial_ord_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="ident">expand_partial_ord_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>.<span class="ident">ident</span>)
         .<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>)
@@ -287,13 +287,13 @@ struct IncomingMyType {
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">OrdAsRefStr</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_ord_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_ord_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="ident">expand_ord_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>.<span class="ident">ident</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>).<span class="ident">into</span>()
 }
 
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">PartialEqAsRefStr</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_partial_eq_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_partial_eq_as_ref_str</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="kw">let</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">parse_macro_input!</span>(<span class="ident">input</span> <span class="kw">as</span> <span class="ident">DeriveInput</span>);
     <span class="ident">expand_partial_eq_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>.<span class="ident">ident</span>).<span class="ident">unwrap_or_else</span>(<span class="ident">syn::Error::into_compile_error</span>).<span class="ident">into</span>()
 }
@@ -301,8 +301,8 @@ struct IncomingMyType {
 <span class="doccomment">/// Shorthand for the derives `AsRefStr`, `FromString`, `DisplayAsRefStr`, `SerializeAsRefStr` and</span>
 <span class="doccomment">/// `DeserializeFromCowStr`.</span>
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">StringEnum</span>, <span class="ident">attributes</span>(<span class="ident">ruma_enum</span>))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_string_enum</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
-    <span class="kw">fn</span> <span class="ident">expand_all</span>(<span class="ident">input</span>: <span class="ident">ItemEnum</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">syn::Result</span><span class="op">&lt;</span><span class="ident">proc_macro2::TokenStream</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">derive_string_enum</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
+    <span class="kw">fn</span> <span class="ident">expand_all</span>(<span class="ident">input</span>: <span class="ident">ItemEnum</span>) -&gt; <span class="ident">syn::Result</span><span class="op">&lt;</span><span class="ident">proc_macro2::TokenStream</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">as_ref_str_impl</span> <span class="op">=</span> <span class="ident">expand_enum_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">from_string_impl</span> <span class="op">=</span> <span class="ident">expand_enum_from_string</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">display_impl</span> <span class="op">=</span> <span class="ident">expand_display_as_ref_str</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>.<span class="ident">ident</span>)<span class="question-mark">?</span>;
@@ -327,7 +327,7 @@ struct IncomingMyType {
 <span class="doccomment">/// is an enum) variants fields.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">proc_macro_derive</span>(<span class="ident">_FakeDeriveSerde</span>, <span class="ident">attributes</span>(<span class="ident">serde</span>))]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fake_derive_serde</span>(<span class="ident">_input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fake_derive_serde</span>(<span class="ident">_input</span>: <span class="ident">TokenStream</span>) -&gt; <span class="ident">TokenStream</span> {
     <span class="ident">TokenStream::new</span>()
 }
 </code></pre></div>

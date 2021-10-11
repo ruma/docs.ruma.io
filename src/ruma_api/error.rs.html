@@ -286,7 +286,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">MatrixError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;[{}] &quot;</span>, <span class="self">self</span>.<span class="ident">status_code</span>.<span class="ident">as_u16</span>())<span class="question-mark">?</span>;
         <span class="ident">fmt::Display::fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">body</span>, <span class="ident">f</span>)
     }
@@ -297,7 +297,7 @@
 <span class="kw">impl</span> <span class="ident">OutgoingResponse</span> <span class="kw">for</span> <span class="ident">MatrixError</span> {
     <span class="kw">fn</span> <span class="ident">try_into_http_response</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Default</span> <span class="op">+</span> <span class="ident">BufMut</span><span class="op">&gt;</span>(
         <span class="self">self</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">IntoHttpError</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">IntoHttpError</span><span class="op">&gt;</span> {
         <span class="ident">http::Response::builder</span>()
             .<span class="ident">header</span>(<span class="ident">http::header::CONTENT_TYPE</span>, <span class="string">&quot;application/json&quot;</span>)
             .<span class="ident">status</span>(<span class="self">self</span>.<span class="ident">status_code</span>)
@@ -309,7 +309,7 @@
 <span class="kw">impl</span> <span class="ident">EndpointError</span> <span class="kw">for</span> <span class="ident">MatrixError</span> {
     <span class="kw">fn</span> <span class="ident">try_from_http_response</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">response</span>: <span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ResponseDeserializationError</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ResponseDeserializationError</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
             <span class="ident">status_code</span>: <span class="ident">response</span>.<span class="ident">status</span>(),
             <span class="ident">body</span>: <span class="ident">from_json_slice</span>(<span class="ident">response</span>.<span class="ident">body</span>().<span class="ident">as_ref</span>())<span class="question-mark">?</span>,
@@ -368,7 +368,7 @@
 <span class="kw">where</span>
     <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">RequestDeserializationError</span><span class="op">&gt;</span>,
 {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::Deserialization</span>(<span class="ident">err</span>.<span class="ident">into</span>())
     }
 }
@@ -384,7 +384,7 @@
 <span class="kw">where</span>
     <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">DeserializationError</span><span class="op">&gt;</span>,
 {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">inner</span>: <span class="ident">err</span>.<span class="ident">into</span>() }
     }
 }
@@ -401,16 +401,16 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">fmt::Display</span><span class="op">&gt;</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Deserialization</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;deserialization failed: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident"><span class="self">Self</span>::Http</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;the server returned an error: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident"><span class="self">Self</span>::Deserialization</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;deserialization failed: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident"><span class="self">Self</span>::Http</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;the server returned an error: {}&quot;</span>, <span class="ident">err</span>),
         }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::Http</span>(<span class="ident">err</span>)
     }
 }
@@ -419,7 +419,7 @@
 <span class="kw">where</span>
     <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">ResponseDeserializationError</span><span class="op">&gt;</span>,
 {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::Deserialization</span>(<span class="ident">err</span>.<span class="ident">into</span>())
     }
 }
@@ -436,13 +436,13 @@
 <span class="kw">where</span>
     <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">DeserializationError</span><span class="op">&gt;</span>,
 {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">inner</span>: <span class="ident">err</span>.<span class="ident">into</span>() }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">ResponseDeserializationError</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="ident">fmt::Display::fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inner</span>, <span class="ident">f</span>)
     }
 }
@@ -462,10 +462,10 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">fmt::Display</span><span class="op">&gt;</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">ServerError::Known</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">fmt::Display::fmt</span>(<span class="ident">e</span>, <span class="ident">f</span>),
-            <span class="ident">ServerError::Unknown</span>(<span class="ident">res_err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">fmt::Display::fmt</span>(<span class="ident">res_err</span>, <span class="ident">f</span>),
+            <span class="ident">ServerError::Known</span>(<span class="ident">e</span>) =&gt; <span class="ident">fmt::Display::fmt</span>(<span class="ident">e</span>, <span class="ident">f</span>),
+            <span class="ident">ServerError::Unknown</span>(<span class="ident">res_err</span>) =&gt; <span class="ident">fmt::Display::fmt</span>(<span class="ident">res_err</span>, <span class="ident">f</span>),
         }
     }
 }
@@ -499,13 +499,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">std::convert::Infallible</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeserializationError</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">std::convert::Infallible</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">std::convert::Infallible</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">err</span> {}
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">http::header::ToStrError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeserializationError</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">http::header::ToStrError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">http::header::ToStrError</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::Header</span>(<span class="ident">HeaderDeserializationError::ToStrError</span>(<span class="ident">err</span>))
     }
 }

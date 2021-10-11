@@ -275,7 +275,7 @@
             <span class="comment">// cause T&#39;s Drop implementation to run if it has one (which would</span>
             <span class="comment">// free resources that will now be owned by the first vec element),</span>
             <span class="comment">// we instead use ptr::write to set self to Self::Vec.</span>
-            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) =&gt; {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">Vec::with_capacity</span>(<span class="number">2</span>);
                 <span class="comment">// Safety: since the vec is pre-allocated, push can&#39;t panic, so</span>
                 <span class="comment">//   there is no opportunity for outside code to observe an</span>
@@ -287,18 +287,18 @@
                     <span class="ident">ptr::write</span>(<span class="self">self</span>, <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>))
                 }
             }
-            <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">vec</span>.<span class="ident">push</span>(<span class="ident">new_val</span>),
+            <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>) =&gt; <span class="ident">vec</span>.<span class="ident">push</span>(<span class="ident">new_val</span>),
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">deserialize_val</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize_val</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
         <span class="ident">E</span>: <span class="ident">de::Error</span>,
     {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>(<span class="ident">val</span>),
-            <span class="ident">ValOrVec::Vec</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">de::Error::custom</span>(<span class="string">&quot;unsupported value&quot;</span>)),
+            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) =&gt; <span class="ident">f</span>(<span class="ident">val</span>),
+            <span class="ident">ValOrVec::Vec</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<span class="ident">de::Error::custom</span>(<span class="string">&quot;unsupported value&quot;</span>)),
         }
     }
 }
@@ -307,7 +307,7 @@
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span>;
     <span class="kw">type</span> <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">IntoIter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::IntoIter</span> {
+    <span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::IntoIter</span> {
         <span class="ident">IntoIter::new</span>(<span class="self">self</span>)
     }
 }
@@ -318,10 +318,10 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">IntoIter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">vv</span>: <span class="ident">ValOrVec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">vv</span>: <span class="ident">ValOrVec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">vv</span> {
-            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">IntoIter::Val</span>(<span class="ident">iter::once</span>(<span class="ident">val</span>)),
-            <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">IntoIter::Vec</span>(<span class="ident">vec</span>.<span class="ident">into_iter</span>()),
+            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) =&gt; <span class="ident">IntoIter::Val</span>(<span class="ident">iter::once</span>(<span class="ident">val</span>)),
+            <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>) =&gt; <span class="ident">IntoIter::Vec</span>(<span class="ident">vec</span>.<span class="ident">into_iter</span>()),
         }
     }
 }
@@ -329,10 +329,10 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">IntoIter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span>;
 
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">IntoIter::Val</span>(<span class="ident">iter</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">iter</span>.<span class="ident">next</span>(),
-            <span class="ident">IntoIter::Vec</span>(<span class="ident">iter</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">iter</span>.<span class="ident">next</span>(),
+            <span class="ident">IntoIter::Val</span>(<span class="ident">iter</span>) =&gt; <span class="ident">iter</span>.<span class="ident">next</span>(),
+            <span class="ident">IntoIter::Vec</span>(<span class="ident">iter</span>) =&gt; <span class="ident">iter</span>.<span class="ident">next</span>(),
         }
     }
 }
@@ -343,15 +343,15 @@
 {
     <span class="kw">type</span> <span class="ident">Deserializer</span> <span class="op">=</span> <span class="self">Self</span>;
 
-    <span class="kw">fn</span> <span class="ident">into_deserializer</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Deserializer</span> {
+    <span class="kw">fn</span> <span class="ident">into_deserializer</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::Deserializer</span> {
         <span class="self">self</span>
     }
 }
 
 <span class="macro">macro_rules!</span> <span class="ident">forward_to_part</span> {
-    ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method</span>:<span class="ident">ident</span>,)<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> {
+    ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method</span>:<span class="ident">ident</span>,)<span class="kw-2">*</span>) =&gt; {
         $(
-            <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">method</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+            <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">method</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
                 <span class="kw">where</span> <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>
             {
                 <span class="self">self</span>.<span class="ident">deserialize_val</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">val</span><span class="op">|</span> <span class="ident">val</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method</span>(<span class="ident">visitor</span>))
@@ -366,17 +366,17 @@
 {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
 
-    <span class="kw">fn</span> <span class="ident">deserialize_any</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize_any</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">val</span>.<span class="ident">deserialize_any</span>(<span class="ident">visitor</span>),
-            <span class="ident">ValOrVec::Vec</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">deserialize_seq</span>(<span class="ident">visitor</span>),
+            <span class="ident">ValOrVec::Val</span>(<span class="ident">val</span>) =&gt; <span class="ident">val</span>.<span class="ident">deserialize_any</span>(<span class="ident">visitor</span>),
+            <span class="ident">ValOrVec::Vec</span>(<span class="kw">_</span>) =&gt; <span class="self">self</span>.<span class="ident">deserialize_seq</span>(<span class="ident">visitor</span>),
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">deserialize_seq</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize_seq</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -388,14 +388,14 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
         <span class="ident">variants</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>],
         <span class="ident">visitor</span>: <span class="ident">V</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
         <span class="self">self</span>.<span class="ident">deserialize_val</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">val</span><span class="op">|</span> <span class="ident">val</span>.<span class="ident">deserialize_enum</span>(<span class="ident">name</span>, <span class="ident">variants</span>, <span class="ident">visitor</span>))
     }
 
-    <span class="kw">fn</span> <span class="ident">deserialize_tuple</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">len</span>: <span class="ident">usize</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize_tuple</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">len</span>: <span class="ident">usize</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -407,7 +407,7 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
         <span class="ident">fields</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>],
         <span class="ident">visitor</span>: <span class="ident">V</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -418,7 +418,7 @@
         <span class="self">self</span>,
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
         <span class="ident">visitor</span>: <span class="ident">V</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -430,7 +430,7 @@
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
         <span class="ident">len</span>: <span class="ident">usize</span>,
         <span class="ident">visitor</span>: <span class="ident">V</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -441,14 +441,14 @@
         <span class="self">self</span>,
         <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
         <span class="ident">visitor</span>: <span class="ident">V</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
         <span class="self">self</span>.<span class="ident">deserialize_val</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">val</span><span class="op">|</span> <span class="ident">val</span>.<span class="ident">deserialize_newtype_struct</span>(<span class="ident">name</span>, <span class="ident">visitor</span>))
     }
 
-    <span class="kw">fn</span> <span class="ident">deserialize_ignored_any</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize_ignored_any</span><span class="op">&lt;</span><span class="ident">V</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">visitor</span>: <span class="ident">V</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">V::Value</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">V</span>: <span class="ident">de::Visitor</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -492,7 +492,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">ValOrVec::Val</span>(<span class="ident">Cow::Borrowed</span>(<span class="string">&quot;a&quot;</span>));
         <span class="ident">x</span>.<span class="ident">push</span>(<span class="ident">Cow::Borrowed</span>(<span class="string">&quot;b&quot;</span>));
         <span class="ident">x</span>.<span class="ident">push</span>(<span class="ident">Cow::Borrowed</span>(<span class="string">&quot;c&quot;</span>));
-        <span class="macro">assert_matches!</span>(<span class="ident">x</span>, <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) <span class="kw">if</span> <span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]);
+        <span class="macro">assert_matches!</span>(<span class="ident">x</span>, <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) <span class="kw">if</span> <span class="ident">v</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -502,7 +502,7 @@
         <span class="ident">x</span>.<span class="ident">push</span>(<span class="ident">Cow::from</span>(<span class="string">&quot;c&quot;</span>.<span class="ident">to_owned</span>()));
         <span class="macro">assert_matches!</span>(
             <span class="ident">x</span>,
-            <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) <span class="kw">if</span> <span class="ident">v</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;b&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;c&quot;</span>.<span class="ident">to_owned</span>()]
+            <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) <span class="kw">if</span> <span class="ident">v</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;b&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;c&quot;</span>.<span class="ident">to_owned</span>()]
         );
     }
 }

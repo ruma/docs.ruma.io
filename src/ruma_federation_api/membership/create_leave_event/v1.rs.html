@@ -256,7 +256,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">RequestInit</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` from `RequestInit`.</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">RequestInit</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">RequestInit</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">RequestInit</span> {
             <span class="ident">room_id</span>,
             <span class="ident">event_id</span>,
@@ -284,7 +284,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates an empty `Response`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">empty</span>: <span class="ident">Empty</span> {} }
     }
 }
@@ -296,7 +296,7 @@
 
 <span class="kw">impl</span> <span class="ident">Empty</span> {
     <span class="doccomment">/// Create a new `Empty`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {}
     }
 }

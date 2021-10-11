@@ -456,14 +456,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given login info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">login_info</span>: <span class="ident">LoginInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">login_info</span>: <span class="ident">LoginInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">login_info</span>, <span class="ident">device_id</span>: <span class="prelude-val">None</span>, <span class="ident">initial_device_display_name</span>: <span class="prelude-val">None</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given user ID, access token and device ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">access_token</span>: <span class="ident">String</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">access_token</span>: <span class="ident">String</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">access_token</span>, <span class="ident">home_server</span>: <span class="prelude-val">None</span>, <span class="ident">device_id</span>, <span class="ident">well_known</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -498,11 +498,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns an error if the `login_type` is known and serialization of `data` to the</span>
     <span class="doccomment">/// corresponding `IncomingLoginInfo` variant fails.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">login_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">data</span>: <span class="ident">JsonObject</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">login_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">data</span>: <span class="ident">JsonObject</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">login_type</span> {
-            <span class="string">&quot;m.login.password&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">serde_json::from_value</span>(<span class="ident">JsonValue::Object</span>(<span class="ident">data</span>))<span class="question-mark">?</span>),
-            <span class="string">&quot;m.login.token&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">serde_json::from_value</span>(<span class="ident">JsonValue::Object</span>(<span class="ident">data</span>))<span class="question-mark">?</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">IncomingCustomLoginInfo</span> {
+            <span class="string">&quot;m.login.password&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">serde_json::from_value</span>(<span class="ident">JsonValue::Object</span>(<span class="ident">data</span>))<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.token&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">serde_json::from_value</span>(<span class="ident">JsonValue::Object</span>(<span class="ident">data</span>))<span class="question-mark">?</span>),
+            <span class="kw">_</span> =&gt; <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">IncomingCustomLoginInfo</span> {
                 <span class="ident">login_type</span>: <span class="ident">login_type</span>.<span class="ident">into</span>(),
                 <span class="ident">extra</span>: <span class="ident">data</span>,
             }),
@@ -510,11 +510,11 @@
     }
 
     <span class="doccomment">/// Convert `IncomingLoginInfo` to `LoginInfo`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">LoginInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">LoginInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LoginInfo::Password</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">LoginInfo::Token</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">a</span>) =&gt; <span class="ident">LoginInfo::Password</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">a</span>) =&gt; <span class="ident">LoginInfo::Token</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">a</span>) =&gt; {
                 <span class="ident">LoginInfo::_Custom</span>(<span class="ident">CustomLoginInfo</span> { <span class="ident">login_type</span>: <span class="kw-2">&amp;</span><span class="ident">a</span>.<span class="ident">login_type</span>, <span class="ident">extra</span>: <span class="kw-2">&amp;</span><span class="ident">a</span>.<span class="ident">extra</span> })
             }
         }
@@ -522,13 +522,13 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IncomingLoginInfo</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
         <span class="kw">fn</span> <span class="ident">from_raw_json_value</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span>, <span class="ident">E</span>: <span class="ident">de::Error</span><span class="op">&gt;</span>(
             <span class="ident">raw</span>: <span class="kw-2">&amp;</span><span class="ident">RawJsonValue</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+        ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
             <span class="ident">serde_json::from_str</span>(<span class="ident">raw</span>.<span class="ident">get</span>()).<span class="ident">map_err</span>(<span class="ident">E::custom</span>)
         }
 
@@ -545,9 +545,9 @@
             .<span class="ident">login_type</span>;
 
         <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">login_type</span> {
-            <span class="string">&quot;m.login.password&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Password</span>),
-            <span class="string">&quot;m.login.token&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Token</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>),
+            <span class="string">&quot;m.login.password&quot;</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Password</span>),
+            <span class="string">&quot;m.login.token&quot;</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Token</span>),
+            <span class="kw">_</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>),
         }
     }
 }
@@ -566,14 +566,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Password</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Password` with the given identifier and password.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">identifier</span>: <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">identifier</span>: <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">identifier</span>, <span class="ident">password</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingPassword</span> {
     <span class="doccomment">/// Convert `IncomingPassword` to `Password`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Password</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Password</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">Password</span> { <span class="ident">identifier</span>: <span class="self">self</span>.<span class="ident">identifier</span>.<span class="ident">to_outgoing</span>(), <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">password</span> }
     }
 }
@@ -589,14 +589,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Token</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Token` with the given token.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">token</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingToken</span> {
     <span class="doccomment">/// Convert `IncomingToken` to `Token`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Token</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Token</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">Token</span> { <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">token</span> }
     }
 }
@@ -640,7 +640,7 @@
 
 <span class="kw">impl</span> <span class="ident">DiscoveryInfo</span> {
     <span class="doccomment">/// Create a new `DiscoveryInfo` with the given homeserver.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">homeserver</span>: <span class="ident">HomeserverInfo</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">homeserver</span>: <span class="ident">HomeserverInfo</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">homeserver</span>, <span class="ident">identity_server</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -655,7 +655,7 @@
 
 <span class="kw">impl</span> <span class="ident">HomeserverInfo</span> {
     <span class="doccomment">/// Create a new `HomeserverInfo` with the given base url.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">base_url</span> }
     }
 }
@@ -670,7 +670,7 @@
 
 <span class="kw">impl</span> <span class="ident">IdentityServerInfo</span> {
     <span class="doccomment">/// Create a new `IdentityServerInfo` with the given base url.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">base_url</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">base_url</span> }
     }
 }
@@ -696,7 +696,7 @@
             }))
             .<span class="ident">unwrap</span>(),
             <span class="ident">IncomingLoginInfo::Password</span>(<span class="ident">IncomingPassword</span> { <span class="ident">identifier</span>: <span class="ident">IncomingUserIdentifier::MatrixId</span>(<span class="ident">user</span>), <span class="ident">password</span> })
-            <span class="kw">if</span> <span class="ident">user</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;cheeky_monkey&quot;</span> <span class="op">&amp;&amp;</span> <span class="ident">password</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;ilovebananas&quot;</span>
+            <span class="kw">if</span> <span class="ident">user</span> <span class="op">==</span> <span class="string">&quot;cheeky_monkey&quot;</span> <span class="op">&amp;&amp;</span> <span class="ident">password</span> <span class="op">==</span> <span class="string">&quot;ilovebananas&quot;</span>
         );
 
         <span class="macro">assert_matches!</span>(
@@ -706,7 +706,7 @@
             }))
             .<span class="ident">unwrap</span>(),
             <span class="ident">IncomingLoginInfo::Token</span>(<span class="ident">IncomingToken</span> { <span class="ident">token</span> })
-            <span class="kw">if</span> <span class="ident">token</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;1234567890abcdef&quot;</span>
+            <span class="kw">if</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;1234567890abcdef&quot;</span>
         );
     }
 

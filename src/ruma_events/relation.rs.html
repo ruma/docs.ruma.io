@@ -105,7 +105,7 @@
         <span class="ident">key</span>: <span class="ident">String</span>,
         <span class="ident">origin_server_ts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MilliSecondsSinceUnixEpoch</span><span class="op">&gt;</span>,
         <span class="ident">count</span>: <span class="ident">UInt</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key</span>, <span class="ident">origin_server_ts</span>, <span class="ident">count</span> }
     }
 }
@@ -134,7 +134,7 @@
 
 <span class="kw">impl</span> <span class="ident">AnnotationChunk</span> {
     <span class="doccomment">/// Creates a new `AnnotationChunk` with the given chunk and next batch token.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BundledAnnotation</span><span class="op">&gt;</span>, <span class="ident">next_batch</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BundledAnnotation</span><span class="op">&gt;</span>, <span class="ident">next_batch</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">chunk</span>, <span class="ident">next_batch</span> }
     }
 }
@@ -150,7 +150,7 @@
 
 <span class="kw">impl</span> <span class="ident">Relations</span> {
     <span class="doccomment">/// Creates a new `Relations` with the given annotation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">annotation</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AnnotationChunk</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">annotation</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AnnotationChunk</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">annotation</span> }
     }
 }

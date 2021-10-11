@@ -40,7 +40,7 @@
 <span class="kw">impl</span> <span class="ident">DeviceId</span> {
     <span class="doccomment">/// Generates a random `DeviceId`, suitable for assignment to a new device.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="ident">generate_localpart</span>(<span class="number">8</span>))
     }
 }

@@ -525,7 +525,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Edu</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">de::Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -533,12 +533,12 @@
         <span class="kw">let</span> <span class="ident">EduDeHelper</span> { <span class="ident">edu_type</span>, <span class="ident">content</span> } <span class="op">=</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">edu_type</span>.<span class="ident">as_ref</span>() {
-            <span class="string">&quot;m.presence&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Presence</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.receipt&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Receipt</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.typing&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Typing</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.device_list_update&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::DeviceListUpdate</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.direct_to_device&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::DirectToDevice</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.presence&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Presence</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.receipt&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Receipt</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.typing&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Typing</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.device_list_update&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::DeviceListUpdate</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.direct_to_device&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::DirectToDevice</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
+            <span class="kw">_</span> =&gt; <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>),
         })
     }
 }
@@ -553,7 +553,7 @@
 
 <span class="kw">impl</span> <span class="ident">PresenceContent</span> {
     <span class="doccomment">/// Creates a new `PresenceContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">push</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PresenceUpdate</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">push</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PresenceUpdate</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">push</span> }
     }
 }
@@ -584,7 +584,7 @@
 
 <span class="kw">impl</span> <span class="ident">PresenceUpdate</span> {
     <span class="doccomment">/// Creates a new `PresenceUpdate` with the given `user_id`, `presence` and `last_activity`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">presence</span>: <span class="ident">PresenceState</span>, <span class="ident">last_activity</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">presence</span>: <span class="ident">PresenceState</span>, <span class="ident">last_activity</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">presence</span>,
@@ -606,7 +606,7 @@
 
 <span class="kw">impl</span> <span class="ident">ReceiptContent</span> {
     <span class="doccomment">/// Creates a new `ReceiptContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">receipts</span> }
     }
 }
@@ -622,7 +622,7 @@
 
 <span class="kw">impl</span> <span class="ident">ReceiptMap</span> {
     <span class="doccomment">/// Creates a new `ReceiptMap`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">read</span> }
     }
 }
@@ -640,7 +640,7 @@
 
 <span class="kw">impl</span> <span class="ident">ReceiptData</span> {
     <span class="doccomment">/// Creates a new `ReceiptData`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data</span>: <span class="ident">Receipt</span>, <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data</span>: <span class="ident">Receipt</span>, <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">data</span>, <span class="ident">event_ids</span> }
     }
 }
@@ -661,7 +661,7 @@
 
 <span class="kw">impl</span> <span class="ident">TypingContent</span> {
     <span class="doccomment">/// Creates a new `TypingContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">typing</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">typing</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">typing</span> }
     }
 }
@@ -702,7 +702,7 @@
 <span class="kw">impl</span> <span class="ident">DeviceListUpdateContent</span> {
     <span class="doccomment">/// Create a new `DeviceListUpdateContent` with the given `user_id`, `device_id` and</span>
     <span class="doccomment">/// `stream_id`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">device_id</span>,
@@ -738,7 +738,7 @@
 
 <span class="kw">impl</span> <span class="ident">DirectDeviceContent</span> {
     <span class="doccomment">/// Creates a new `DirectDeviceContent` with the given `sender, `ev_type` and `message_id`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sender</span>: <span class="ident">UserId</span>, <span class="ident">ev_type</span>: <span class="ident">EventType</span>, <span class="ident">message_id</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sender</span>: <span class="ident">UserId</span>, <span class="ident">ev_type</span>: <span class="ident">EventType</span>, <span class="ident">message_id</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sender</span>, <span class="ident">ev_type</span>, <span class="ident">message_id</span>, <span class="ident">messages</span>: <span class="ident">DirectDeviceMessages::new</span>() }
     }
 }
@@ -799,12 +799,12 @@
                 <span class="ident">prev_id</span>,
                 <span class="ident">deleted</span>,
                 <span class="ident">keys</span>
-            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;QBUAZIFURK&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">device_display_name</span>.<span class="ident">as_deref</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;Mobile&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">stream_id</span> <span class="op">=</span><span class="op">=</span> <span class="macro">uint!</span>(<span class="number">6</span>)
+            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">==</span> <span class="string">&quot;@john:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">==</span> <span class="string">&quot;QBUAZIFURK&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">device_display_name</span>.<span class="ident">as_deref</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="string">&quot;Mobile&quot;</span>)
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">stream_id</span> <span class="op">==</span> <span class="macro">uint!</span>(<span class="number">6</span>)
                 <span class="op">&amp;&amp;</span> <span class="ident">prev_id</span>.<span class="ident">is_empty</span>()
-                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">deleted</span> <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="bool-val">false</span>)
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">deleted</span> <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="bool-val">false</span>)
                 <span class="op">&amp;&amp;</span> <span class="ident">keys</span>.<span class="ident">is_some</span>()
         );
 
@@ -833,10 +833,10 @@
                 <span class="ident">prev_id</span>,
                 <span class="ident">deleted</span>,
                 <span class="ident">keys</span>
-            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;QBUAZIFURK&quot;</span>
+            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">==</span> <span class="string">&quot;@john:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">==</span> <span class="string">&quot;QBUAZIFURK&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">device_display_name</span>.<span class="ident">is_none</span>()
-                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">stream_id</span> <span class="op">=</span><span class="op">=</span> <span class="macro">uint!</span>(<span class="number">6</span>)
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">stream_id</span> <span class="op">==</span> <span class="macro">uint!</span>(<span class="number">6</span>)
                 <span class="op">&amp;&amp;</span> <span class="ident">prev_id</span>.<span class="ident">is_empty</span>()
                 <span class="op">&amp;&amp;</span> <span class="ident">deleted</span>.<span class="ident">is_none</span>()
                 <span class="op">&amp;&amp;</span> <span class="ident">keys</span>.<span class="ident">is_none</span>()
@@ -891,8 +891,8 @@
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
             <span class="ident">Edu::Typing</span>(<span class="ident">TypingContent</span> {
                 <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">typing</span>
-            }) <span class="kw">if</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!somewhere:matrix.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:matrix.org&quot;</span>
+            }) <span class="kw">if</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!somewhere:matrix.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">user_id</span> <span class="op">==</span> <span class="string">&quot;@john:matrix.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">typing</span>
         );
 
@@ -925,9 +925,9 @@
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
             <span class="ident">Edu::DirectToDevice</span>(<span class="ident">DirectDeviceContent</span> {
                 <span class="ident">sender</span>, <span class="ident">ev_type</span>, <span class="ident">message_id</span>, <span class="ident">messages</span>
-            }) <span class="kw">if</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@john:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">ev_type</span> <span class="op">=</span><span class="op">=</span> <span class="ident">EventType::RoomKeyRequest</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">message_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;hiezohf6Hoo7kaev&quot;</span>
+            }) <span class="kw">if</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@john:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">ev_type</span> <span class="op">==</span> <span class="ident">EventType::RoomKeyRequest</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">message_id</span> <span class="op">==</span> <span class="string">&quot;hiezohf6Hoo7kaev&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">messages</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@alice:example.org&quot;</span>)).<span class="ident">is_some</span>()
         );
 

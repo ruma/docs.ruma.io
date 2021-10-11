@@ -265,7 +265,7 @@
 
 <span class="kw">impl</span> <span class="ident">Capabilities</span> {
     <span class="doccomment">/// Creates empty `Capabilities`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
@@ -273,15 +273,15 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Prefer to use the public fields of `Capabilities` where possible; this method is meant to be</span>
     <span class="doccomment">/// used for unsupported capabilities only.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">capability</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">cap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">JsonValue</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">capability</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">cap</span>: <span class="kw-2">&amp;</span><span class="ident">T</span>) -&gt; <span class="ident">JsonValue</span> {
             <span class="ident">to_json_value</span>(<span class="ident">cap</span>).<span class="ident">expect</span>(<span class="string">&quot;capability serialization to succeed&quot;</span>)
         }
 
         <span class="kw">match</span> <span class="ident">capability</span> {
-            <span class="string">&quot;m.change_password&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">change_password</span>))),
-            <span class="string">&quot;m.room_versions&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">room_versions</span>))),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">custom_capabilities</span>.<span class="ident">get</span>(<span class="ident">capability</span>).<span class="ident">map</span>(<span class="ident">Cow::Borrowed</span>),
+            <span class="string">&quot;m.change_password&quot;</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">change_password</span>))),
+            <span class="string">&quot;m.room_versions&quot;</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">room_versions</span>))),
+            <span class="kw">_</span> =&gt; <span class="self">self</span>.<span class="ident">custom_capabilities</span>.<span class="ident">get</span>(<span class="ident">capability</span>).<span class="ident">map</span>(<span class="ident">Cow::Borrowed</span>),
         }
     }
 
@@ -290,11 +290,11 @@
     <span class="doccomment">/// Prefer to use the public fields of `Capabilities` where possible; this method is meant to be</span>
     <span class="doccomment">/// used for unsupported capabilities only and does not allow setting arbitrary data for</span>
     <span class="doccomment">/// supported ones.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">capability</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">JsonValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">capability</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">value</span>: <span class="ident">JsonValue</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">capability</span> {
-            <span class="string">&quot;m.change_password&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">change_password</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">value</span>)<span class="question-mark">?</span>,
-            <span class="string">&quot;m.room_versions&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">room_versions</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">value</span>)<span class="question-mark">?</span>,
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="string">&quot;m.change_password&quot;</span> =&gt; <span class="self">self</span>.<span class="ident">change_password</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">value</span>)<span class="question-mark">?</span>,
+            <span class="string">&quot;m.room_versions&quot;</span> =&gt; <span class="self">self</span>.<span class="ident">room_versions</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">value</span>)<span class="question-mark">?</span>,
+            <span class="kw">_</span> =&gt; {
                 <span class="self">self</span>.<span class="ident">custom_capabilities</span>.<span class="ident">insert</span>(<span class="ident">capability</span>.<span class="ident">to_owned</span>(), <span class="ident">value</span>);
             }
         }
@@ -303,7 +303,7 @@
     }
 
     <span class="doccomment">/// Returns an iterator over the capabilities.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">CapabilitiesIter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">CapabilitiesIter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">CapabilitiesIter::new</span>(<span class="self">self</span>)
     }
 }
@@ -312,7 +312,7 @@
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">CapabilityRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>;
     <span class="kw">type</span> <span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">CapabilitiesIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::IntoIter</span> {
+    <span class="kw">fn</span> <span class="ident">into_iter</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::IntoIter</span> {
         <span class="self">self</span>.<span class="ident">iter</span>()
     }
 }
@@ -327,18 +327,18 @@
 
 <span class="kw">impl</span> <span class="ident">ChangePasswordCapability</span> {
     <span class="doccomment">/// Creates a new `ChangePasswordCapability` with the given enabled flag.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">enabled</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">enabled</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">enabled</span> }
     }
 
     <span class="doccomment">/// Returns whether all fields have their default value.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">enabled</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">ChangePasswordCapability</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">enabled</span>: <span class="bool-val">true</span> }
     }
 }
@@ -360,27 +360,27 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">default</span>: <span class="ident">RoomVersionId</span>,
         <span class="ident">available</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomVersionId</span>, <span class="ident">RoomVersionStability</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">default</span>, <span class="ident">available</span> }
     }
 
     <span class="doccomment">/// Returns whether all fields have their default value.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">default</span> <span class="op">=</span><span class="op">=</span> <span class="ident">RoomVersionId::Version1</span>
-            <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">available</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">1</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">default</span> <span class="op">==</span> <span class="ident">RoomVersionId::Version1</span>
+            <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">available</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span>
             <span class="op">&amp;&amp;</span> <span class="self">self</span>
                 .<span class="ident">available</span>
                 .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version1</span>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">stability</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">stability</span> <span class="op">=</span><span class="op">=</span> <span class="ident">RoomVersionStability::Stable</span>)
+                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">stability</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">stability</span> <span class="op">==</span> <span class="ident">RoomVersionStability::Stable</span>)
                 .<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>)
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">RoomVersionsCapability</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">default</span>: <span class="ident">RoomVersionId::Version1</span>,
-            <span class="ident">available</span>: <span class="macro">btreemap!</span> { <span class="ident">RoomVersionId::Version1</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">RoomVersionStability::Stable</span> },
+            <span class="ident">available</span>: <span class="macro">btreemap!</span> { <span class="ident">RoomVersionId::Version1</span> =&gt; <span class="ident">RoomVersionStability::Stable</span> },
         }
     }
 }
@@ -405,7 +405,7 @@
 
 <span class="kw">impl</span> <span class="ident">RoomVersionStability</span> {
     <span class="doccomment">/// Creates a string slice from this `RoomVersionStability`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -419,7 +419,7 @@
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Capabilities</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">capabilities_iter</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">capabilities_iter</span>() -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">caps</span> <span class="op">=</span> <span class="ident">Capabilities::new</span>();
         <span class="kw">let</span> <span class="ident">custom_cap</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;key&quot;</span>: <span class="string">&quot;value&quot;</span>,

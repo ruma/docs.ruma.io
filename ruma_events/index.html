@@ -81,7 +81,7 @@ would work.</p>
             <span class="ident">relates_to</span>: <span class="ident">RelatesTo::Annotation</span> { <span class="ident">key</span>, .. },
         },
         ..
-    }) <span class="kw">if</span> <span class="ident">key</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;👍&quot;</span>
+    }) <span class="kw">if</span> <span class="ident">key</span> <span class="op">==</span> <span class="string">&quot;👍&quot;</span>
 );</code></pre></div>
 <h2 id="serialization-and-deserialization" class="section-header"><a href="#serialization-and-deserialization">Serialization and deserialization</a></h2>
 <p>All concrete event types in ruma-events can be serialized via the <code>Serialize</code> trait from

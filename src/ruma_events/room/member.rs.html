@@ -759,7 +759,7 @@
 
 <span class="kw">impl</span> <span class="ident">RoomMemberEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomMemberEventContent` with the given membership state.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">membership</span>: <span class="ident">MembershipState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">membership</span>: <span class="ident">MembershipState</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">membership</span>,
             <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
@@ -803,7 +803,7 @@
 
 <span class="kw">impl</span> <span class="ident">MembershipState</span> {
     <span class="doccomment">/// Creates a string slice from this `MembershipState`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -824,7 +824,7 @@
 
 <span class="kw">impl</span> <span class="ident">ThirdPartyInvite</span> {
     <span class="doccomment">/// Creates a new `ThirdPartyInvite` with the given display name and signed content.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">display_name</span>: <span class="ident">String</span>, <span class="ident">signed</span>: <span class="ident">SignedContent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">display_name</span>: <span class="ident">String</span>, <span class="ident">signed</span>: <span class="ident">SignedContent</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">display_name</span>, <span class="ident">signed</span> }
     }
 }
@@ -853,7 +853,7 @@
         <span class="ident">mxid</span>: <span class="ident">UserId</span>,
         <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">token</span>: <span class="ident">String</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">mxid</span>, <span class="ident">signatures</span>, <span class="ident">token</span> }
     }
 }
@@ -915,7 +915,7 @@
     <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span>,
     <span class="ident">sender</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>,
     <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MembershipChange</span> {
+) -&gt; <span class="ident">MembershipChange</span> {
     <span class="kw">use</span> <span class="ident">MembershipChange</span> <span class="kw">as</span> <span class="ident">Ch</span>;
     <span class="kw">use</span> <span class="ident">MembershipState</span> <span class="kw">as</span> <span class="ident">St</span>;
 
@@ -936,32 +936,32 @@
     };
 
     <span class="kw">match</span> (<span class="kw-2">&amp;</span><span class="ident">prev_content</span>.<span class="ident">membership</span>, <span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">membership</span>) {
-        (<span class="ident">St::Invite</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Leave</span>, <span class="ident">St::Leave</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Ban</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::None</span>,
-        (<span class="ident">St::Invite</span>, <span class="ident">St::Join</span>) <span class="op">|</span> (<span class="ident">St::Leave</span>, <span class="ident">St::Join</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::Joined</span>,
-        (<span class="ident">St::Invite</span>, <span class="ident">St::Leave</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="kw">if</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="ident">state_key</span> {
+        (<span class="ident">St::Invite</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Leave</span>, <span class="ident">St::Leave</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Ban</span>) =&gt; <span class="ident">Ch::None</span>,
+        (<span class="ident">St::Invite</span>, <span class="ident">St::Join</span>) <span class="op">|</span> (<span class="ident">St::Leave</span>, <span class="ident">St::Join</span>) =&gt; <span class="ident">Ch::Joined</span>,
+        (<span class="ident">St::Invite</span>, <span class="ident">St::Leave</span>) =&gt; {
+            <span class="kw">if</span> <span class="ident">sender</span> <span class="op">==</span> <span class="ident">state_key</span> {
                 <span class="ident">Ch::InvitationRevoked</span>
             } <span class="kw">else</span> {
                 <span class="ident">Ch::InvitationRejected</span>
             }
         }
-        (<span class="ident">St::Invite</span>, <span class="ident">St::Ban</span>) <span class="op">|</span> (<span class="ident">St::Leave</span>, <span class="ident">St::Ban</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::Banned</span>,
-        (<span class="ident">St::Join</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Join</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::Error</span>,
-        (<span class="ident">St::Join</span>, <span class="ident">St::Join</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::ProfileChanged</span> {
+        (<span class="ident">St::Invite</span>, <span class="ident">St::Ban</span>) <span class="op">|</span> (<span class="ident">St::Leave</span>, <span class="ident">St::Ban</span>) =&gt; <span class="ident">Ch::Banned</span>,
+        (<span class="ident">St::Join</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Join</span>) =&gt; <span class="ident">Ch::Error</span>,
+        (<span class="ident">St::Join</span>, <span class="ident">St::Join</span>) =&gt; <span class="ident">Ch::ProfileChanged</span> {
             <span class="ident">displayname_changed</span>: <span class="ident">prev_content</span>.<span class="ident">displayname</span> <span class="op">!</span><span class="op">=</span> <span class="ident">content</span>.<span class="ident">displayname</span>,
             <span class="ident">avatar_url_changed</span>: <span class="ident">prev_content</span>.<span class="ident">avatar_url</span> <span class="op">!</span><span class="op">=</span> <span class="ident">content</span>.<span class="ident">avatar_url</span>,
         },
-        (<span class="ident">St::Join</span>, <span class="ident">St::Leave</span>) <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="kw">if</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="ident">state_key</span> {
+        (<span class="ident">St::Join</span>, <span class="ident">St::Leave</span>) =&gt; {
+            <span class="kw">if</span> <span class="ident">sender</span> <span class="op">==</span> <span class="ident">state_key</span> {
                 <span class="ident">Ch::Left</span>
             } <span class="kw">else</span> {
                 <span class="ident">Ch::Kicked</span>
             }
         }
-        (<span class="ident">St::Join</span>, <span class="ident">St::Ban</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::KickedAndBanned</span>,
-        (<span class="ident">St::Leave</span>, <span class="ident">St::Invite</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::Invited</span>,
-        (<span class="ident">St::Ban</span>, <span class="ident">St::Leave</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::Unbanned</span>,
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Ch::NotImplemented</span>,
+        (<span class="ident">St::Join</span>, <span class="ident">St::Ban</span>) =&gt; <span class="ident">Ch::KickedAndBanned</span>,
+        (<span class="ident">St::Leave</span>, <span class="ident">St::Invite</span>) =&gt; <span class="ident">Ch::Invited</span>,
+        (<span class="ident">St::Ban</span>, <span class="ident">St::Leave</span>) =&gt; <span class="ident">Ch::Unbanned</span>,
+        <span class="kw">_</span> =&gt; <span class="ident">Ch::NotImplemented</span>,
     }
 }
 
@@ -971,7 +971,7 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://matrix.org/docs/spec/client_server/r0.6.1#m-room-member</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
         <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
@@ -982,7 +982,7 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://matrix.org/docs/spec/client_server/r0.6.1#m-room-member</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
         <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
@@ -993,7 +993,7 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://matrix.org/docs/spec/client_server/r0.6.1#m-room-member</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
         <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="prelude-val">None</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
@@ -1042,11 +1042,11 @@
                 <span class="ident">state_key</span>,
                 <span class="ident">unsigned</span>,
                 <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;$h29iv0s8:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>))
-                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!n8f893n9:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@carl:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;example.com&quot;</span>
+            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$h29iv0s8:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>))
+                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!n8f893n9:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@carl:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;example.com&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
         );
     }
@@ -1093,11 +1093,11 @@
                     <span class="ident">third_party_invite</span>: <span class="prelude-val">None</span>,
                     ..
                 }),
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;$h29iv0s8:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>))
-                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!n8f893n9:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@carl:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;example.com&quot;</span>
+            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$h29iv0s8:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>))
+                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!n8f893n9:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@carl:example.com&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;example.com&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
         );
     }
@@ -1152,21 +1152,21 @@
                 <span class="ident">state_key</span>,
                 <span class="ident">unsigned</span>,
                 <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
-            } <span class="kw">if</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;Alice Margatroid&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;alice&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">=</span><span class="op">=</span> <span class="macro">btreemap!</span> {
-                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">btreemap!</span> {
-                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
+            } <span class="kw">if</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">==</span> <span class="macro">btreemap!</span> {
+                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) =&gt; <span class="macro">btreemap!</span> {
+                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
                     }
                 }
-                <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;abc123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
-                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;abc123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
+                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
         )
     }
@@ -1231,22 +1231,22 @@
                     }),
                     ..
                 }),
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
-                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
+            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
+                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
-                <span class="op">&amp;&amp;</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;Alice Margatroid&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;alice&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">=</span><span class="op">=</span> <span class="macro">btreemap!</span> {
-                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">btreemap!</span> {
-                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
+                <span class="op">&amp;&amp;</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">==</span> <span class="macro">btreemap!</span> {
+                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) =&gt; <span class="macro">btreemap!</span> {
+                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
                     }
                 }
-                <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;abc123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;abc123&quot;</span>
         );
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
@@ -1306,21 +1306,21 @@
                     }),
                     ..
                 }),
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
-                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
+            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
+                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
-                <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;Alice Margatroid&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;alice&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">=</span><span class="op">=</span> <span class="macro">btreemap!</span> {
-                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">btreemap!</span> {
-                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
+                <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">==</span> <span class="macro">btreemap!</span> {
+                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) =&gt; <span class="macro">btreemap!</span> {
+                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
                     }
                 }
-                <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;abc123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;abc123&quot;</span>
         );
     }
 }

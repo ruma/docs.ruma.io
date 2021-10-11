@@ -88,17 +88,17 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">CapabilityRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Get name of the capability.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">name</span>
     }
 
     <span class="doccomment">/// Get value of the capability.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">value</span> {
             <span class="comment">// unknown capability from btreemap iterator</span>
-            <span class="prelude-val">Some</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Borrowed</span>(<span class="ident">val</span>),
+            <span class="prelude-val">Some</span>(<span class="ident">val</span>) =&gt; <span class="ident">Cow::Borrowed</span>(<span class="ident">val</span>),
             <span class="comment">// O(1) lookup of known capability</span>
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">caps</span>.<span class="ident">get</span>(<span class="self">self</span>.<span class="ident">name</span>).<span class="ident">unwrap</span>(),
+            <span class="prelude-val">None</span> =&gt; <span class="self">self</span>.<span class="ident">caps</span>.<span class="ident">get</span>(<span class="self">self</span>.<span class="ident">name</span>).<span class="ident">unwrap</span>(),
         }
     }
 }
@@ -116,7 +116,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">CapabilitiesIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new CapabilitiesIter</span>
-    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">caps</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Capabilities</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">caps</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Capabilities</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">caps</span>, <span class="ident">pos</span>: <span class="number">0</span>, <span class="ident">custom_caps_iterator</span>: <span class="ident">caps</span>.<span class="ident">custom_capabilities</span>.<span class="ident">iter</span>() }
     }
 }
@@ -124,17 +124,17 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">CapabilitiesIter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">CapabilityRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">pos</span> {
-            <span class="number">0</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="number">0</span> =&gt; {
                 <span class="self">self</span>.<span class="ident">pos</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                 <span class="prelude-val">Some</span>(<span class="ident">CapabilityRef</span> { <span class="ident">name</span>: <span class="string">&quot;m.change_password&quot;</span>, <span class="ident">value</span>: <span class="prelude-val">None</span>, <span class="ident">caps</span>: <span class="self">self</span>.<span class="ident">caps</span> })
             }
-            <span class="number">1</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="number">1</span> =&gt; {
                 <span class="self">self</span>.<span class="ident">pos</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                 <span class="prelude-val">Some</span>(<span class="ident">CapabilityRef</span> { <span class="ident">name</span>: <span class="string">&quot;m.room_versions&quot;</span>, <span class="ident">value</span>: <span class="prelude-val">None</span>, <span class="ident">caps</span>: <span class="self">self</span>.<span class="ident">caps</span> })
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">custom_caps_iterator</span>.<span class="ident">next</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">name</span>, <span class="ident">value</span>)<span class="op">|</span> <span class="ident">CapabilityRef</span> {
+            <span class="kw">_</span> =&gt; <span class="self">self</span>.<span class="ident">custom_caps_iterator</span>.<span class="ident">next</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">name</span>, <span class="ident">value</span>)<span class="op">|</span> <span class="ident">CapabilityRef</span> {
                 <span class="ident">name</span>,
                 <span class="ident">value</span>: <span class="prelude-val">Some</span>(<span class="ident">value</span>),
                 <span class="ident">caps</span>: <span class="self">self</span>.<span class="ident">caps</span>,

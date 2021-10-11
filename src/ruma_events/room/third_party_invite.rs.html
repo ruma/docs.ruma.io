@@ -114,7 +114,7 @@
 <span class="kw">impl</span> <span class="ident">RoomThirdPartyInviteEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomThirdPartyInviteEventContent` with the given display name, key validity</span>
     <span class="doccomment">/// url and public key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">display_name</span>: <span class="ident">String</span>, <span class="ident">key_validity_url</span>: <span class="ident">String</span>, <span class="ident">public_key</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">display_name</span>: <span class="ident">String</span>, <span class="ident">key_validity_url</span>: <span class="ident">String</span>, <span class="ident">public_key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">display_name</span>, <span class="ident">key_validity_url</span>, <span class="ident">public_key</span>, <span class="ident">public_keys</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -136,7 +136,7 @@
 
 <span class="kw">impl</span> <span class="ident">PublicKey</span> {
     <span class="doccomment">/// Creates a new `PublicKey` with the given base64-encoded ed25519 key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">public_key</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">public_key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key_validity_url</span>: <span class="prelude-val">None</span>, <span class="ident">public_key</span> }
     }
 }

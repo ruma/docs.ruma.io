@@ -117,14 +117,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given user ID and filter ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">filter_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">filter_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">filter_id</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given filter definition.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">filter</span>: <span class="ident">IncomingFilterDefinition</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">filter</span>: <span class="ident">IncomingFilterDefinition</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">filter</span> }
     }
 }
@@ -156,7 +156,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident"><span class="kw">super</span>::Response::new</span>(<span class="ident">IncomingFilterDefinition::default</span>())
                 .<span class="ident">try_into_http_response</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(),
-            <span class="prelude-val">Ok</span>(<span class="ident">res</span>) <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">body</span>() <span class="op">=</span><span class="op">=</span> <span class="string">b&quot;{}&quot;</span>
+            <span class="prelude-val">Ok</span>(<span class="ident">res</span>) <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">body</span>() <span class="op">==</span> <span class="string">b&quot;{}&quot;</span>
         );
     }
 }

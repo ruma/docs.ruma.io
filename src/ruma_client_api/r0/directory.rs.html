@@ -154,7 +154,7 @@
     <span class="doccomment">/// All other fields will be propagated with default values (an empty list of aliases, `None`</span>
     <span class="doccomment">/// for all `Option`al fields and `false` for all boolean fields), which should be overridden;</span>
     <span class="doccomment">/// the `assign!` macro from the `assign` crate can simplify this.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">room_id</span>,
             <span class="ident">aliases</span>: <span class="ident">Vec::new</span>(),

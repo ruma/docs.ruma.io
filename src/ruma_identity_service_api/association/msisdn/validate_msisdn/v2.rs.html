@@ -77,14 +77,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Create a new `Request` with the given session ID, client secret and token.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">SessionId</span>, <span class="ident">client_secret</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ClientSecret</span>, <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">SessionId</span>, <span class="ident">client_secret</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ClientSecret</span>, <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sid</span>, <span class="ident">client_secret</span>, <span class="ident">token</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Create a new `Response` with the success status.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">success</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">success</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">success</span> }
     }
 }

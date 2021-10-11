@@ -105,14 +105,14 @@
         <span class="ident">sender</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ThirdPartyInvite</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">kind</span>: <span class="ident">EventType::RoomMember</span>, <span class="ident">sender</span>, <span class="ident">state_key</span>, <span class="ident">content</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {}
     }
 }

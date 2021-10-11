@@ -80,7 +80,7 @@
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationKeyEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationKeyEventContent` with the given transaction ID and</span>
     <span class="doccomment">/// key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">key</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">key</span> }
     }
 }
@@ -104,7 +104,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">KeyVerificationKeyEventContent</span> {
     <span class="doccomment">/// Creates a new `KeyVerificationKeyEventContent` with the given key and relation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">String</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">String</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key</span>, <span class="ident">relates_to</span> }
     }
 }

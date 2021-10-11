@@ -151,7 +151,7 @@
 
 <span class="kw">impl</span> <span class="ident">Unsigned</span> {
     <span class="doccomment">/// Create a new `Unsigned` with fields set to `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 
@@ -160,7 +160,7 @@
     <span class="doccomment">/// This method is used to determine whether to skip serializing the `unsigned` field in room</span>
     <span class="doccomment">/// events. Do not use it to determine whether an incoming `unsigned` field was present - it</span>
     <span class="doccomment">/// could still have been present but contained none of the known fields.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">age</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">is_none</span>()
     }
 }
@@ -176,12 +176,12 @@
 
 <span class="kw">impl</span> <span class="ident">RedactedUnsigned</span> {
     <span class="doccomment">/// Create a new `RedactedUnsigned` with field set to `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 
     <span class="doccomment">/// Create a new `RedactedUnsigned` with the given redacted because.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_because</span>(<span class="ident">redacted_because</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRoomRedactionEvent</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_because</span>(<span class="ident">redacted_because</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SyncRoomRedactionEvent</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">redacted_because</span>: <span class="prelude-val">Some</span>(<span class="ident">redacted_because</span>) }
     }
 
@@ -190,7 +190,7 @@
     <span class="doccomment">/// This method is used to determine whether to skip serializing the `unsigned` field in</span>
     <span class="doccomment">/// redacted room events. Do not use it to determine whether an incoming `unsigned` field</span>
     <span class="doccomment">/// was present - it could still have been present but contained none of the known fields.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">redacted_because</span>.<span class="ident">is_none</span>()
     }
 }
@@ -214,7 +214,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">UnsignedWithPrevContent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Unsigned</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">u</span>: <span class="ident">UnsignedWithPrevContent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">u</span>: <span class="ident">UnsignedWithPrevContent</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">age</span>: <span class="ident">u</span>.<span class="ident">age</span>,
             <span class="ident">transaction_id</span>: <span class="ident">u</span>.<span class="ident">transaction_id</span>,
@@ -236,7 +236,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">RedactedUnsignedWithPrevContent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RedactedUnsigned</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">u</span>: <span class="ident">RedactedUnsignedWithPrevContent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">u</span>: <span class="ident">RedactedUnsignedWithPrevContent</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">redacted_because</span>: <span class="ident">u</span>.<span class="ident">redacted_because</span> }
     }
 }

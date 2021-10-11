@@ -92,7 +92,7 @@
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_http_request</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">BytesMut</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span>, <span class="ident">hyper::Error</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span>, <span class="ident">hyper::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">head</span>, <span class="ident">body</span>) <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">request</span>(<span class="ident">req</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">body</span><span class="op">|</span> <span class="ident">hyper::body::Body::from</span>(<span class="ident">body</span>.<span class="ident">freeze</span>())))
             .<span class="kw">await</span><span class="question-mark">?</span>
@@ -107,14 +107,14 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">DefaultConstructibleHttpClient</span> <span class="kw">for</span> <span class="ident">Hyper</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">hyper::Client::new</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-native-tls&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">DefaultConstructibleHttpClient</span> <span class="kw">for</span> <span class="ident">HyperNativeTls</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">hyper::Client::builder</span>().<span class="ident">build</span>(<span class="ident">hyper_tls::HttpsConnector::new</span>())
     }
 }

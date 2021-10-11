@@ -590,7 +590,7 @@
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationStartEventContent` with the given device ID,</span>
     <span class="doccomment">/// transaction ID and method specific content.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">method</span>: <span class="ident">StartMethod</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">method</span>: <span class="ident">StartMethod</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">from_device</span>, <span class="ident">transaction_id</span>, <span class="ident">method</span> }
     }
 }
@@ -619,7 +619,7 @@
 <span class="kw">impl</span> <span class="ident">KeyVerificationStartEventContent</span> {
     <span class="doccomment">/// Creates a new `KeyVerificationStartEventContent` with the given device ID, method and</span>
     <span class="doccomment">/// relation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">method</span>: <span class="ident">StartMethod</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">method</span>: <span class="ident">StartMethod</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">from_device</span>, <span class="ident">method</span>, <span class="ident">relates_to</span> }
     }
 }
@@ -673,7 +673,7 @@
     <span class="doccomment">/// Create a new `ReciprocateV1Content` with the given shared secret.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The shared secret needs to come from the scanned QR code, encoded using unpadded base64.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">secret</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">secret</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">secret</span> }
     }
 }
@@ -737,7 +737,7 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SasV1ContentInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SasV1Content</span> {
     <span class="doccomment">/// Creates a new `SasV1Content` from the given init struct.</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">SasV1ContentInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">SasV1ContentInit</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">key_agreement_protocols</span>: <span class="ident">init</span>.<span class="ident">key_agreement_protocols</span>,
             <span class="ident">hashes</span>: <span class="ident">init</span>.<span class="ident">hashes</span>,
@@ -936,12 +936,12 @@
                     <span class="ident">message_authentication_codes</span>,
                     <span class="ident">short_authentication_string</span>,
                 })
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
+            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
         );
 
         <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>);
@@ -974,13 +974,13 @@
                         <span class="ident">short_authentication_string</span>,
                     })
                 }
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
+            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
+                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
         );
 
         <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>);
@@ -1005,11 +1005,11 @@
                     <span class="ident">transaction_id</span>,
                     <span class="ident">method</span>: <span class="ident">StartMethod::_Custom</span>(<span class="ident">_CustomContent</span> { <span class="ident">method</span>, <span class="ident">data</span> })
                 }
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">method</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;m.sas.custom&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">data</span>.<span class="ident">get</span>(<span class="string">&quot;test&quot;</span>).<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">JsonValue::from</span>(<span class="string">&quot;field&quot;</span>)
+            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
+                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">method</span> <span class="op">==</span> <span class="string">&quot;m.sas.custom&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">data</span>.<span class="ident">get</span>(<span class="string">&quot;test&quot;</span>).<span class="ident">unwrap</span>() <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">JsonValue::from</span>(<span class="string">&quot;field&quot;</span>)
         );
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
@@ -1034,10 +1034,10 @@
                         <span class="ident">transaction_id</span>,
                         <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content</span> { <span class="ident">secret</span> }),
                     }
-                } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;123&quot;</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                    <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;456&quot;</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">secret</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;It&#39;s a secret to everybody&quot;</span>
+                } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
+                    <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
+                    <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
+                    <span class="op">&amp;&amp;</span> <span class="ident">secret</span> <span class="op">==</span> <span class="string">&quot;It&#39;s a secret to everybody&quot;</span>
             );
         }
     }
@@ -1072,12 +1072,12 @@
                     <span class="ident">message_authentication_codes</span>,
                     <span class="ident">short_authentication_string</span>,
                 })
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">id</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
+            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">id</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
+                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
         );
 
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
@@ -1096,9 +1096,9 @@
                 <span class="ident">from_device</span>,
                 <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span> },
                 <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content</span> { <span class="ident">secret</span> }),
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">id</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">secret</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;It&#39;s a secret to everybody&quot;</span>
+            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">id</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">secret</span> <span class="op">==</span> <span class="string">&quot;It&#39;s a secret to everybody&quot;</span>
         );
     }
 }

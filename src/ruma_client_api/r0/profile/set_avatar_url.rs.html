@@ -161,7 +161,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given user ID and avatar URL.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MxcUri</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MxcUri</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">avatar_url</span>,
@@ -173,7 +173,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates an empty `Response`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {}
     }
 }
@@ -194,7 +194,7 @@
                     .<span class="ident">uri</span>(<span class="string">&quot;https://bar.org/_matrix/client/r0/profile/@foo:bar.org/avatar_url&quot;</span>)
                     .<span class="ident">body</span>(<span class="kw-2">&amp;</span>[] <span class="kw">as</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]).<span class="ident">unwrap</span>(),
             ).<span class="ident">unwrap</span>(),
-            <span class="ident">IncomingRequest</span> { <span class="ident">user_id</span>, <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>, .. } <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@foo:bar.org&quot;</span>
+            <span class="ident">IncomingRequest</span> { <span class="ident">user_id</span>, <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>, .. } <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">==</span> <span class="string">&quot;@foo:bar.org&quot;</span>
         );
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
@@ -206,7 +206,7 @@
                     .<span class="ident">body</span>(<span class="ident">serde_json::to_vec</span>(<span class="kw-2">&amp;</span><span class="macro">serde_json::json!</span>({ <span class="string">&quot;avatar_url&quot;</span>: <span class="string">&quot;&quot;</span> })).<span class="ident">unwrap</span>())
                     .<span class="ident">unwrap</span>(),
             ).<span class="ident">unwrap</span>(),
-            <span class="ident">IncomingRequest</span> { <span class="ident">user_id</span>, <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>, .. } <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@foo:bar.org&quot;</span>
+            <span class="ident">IncomingRequest</span> { <span class="ident">user_id</span>, <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>, .. } <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">==</span> <span class="string">&quot;@foo:bar.org&quot;</span>
         );
     }
 }

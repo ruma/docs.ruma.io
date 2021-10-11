@@ -100,13 +100,13 @@
     <span class="doccomment">/// Creates a new `ReactionEventContent` from the given relation.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can also construct a `ReactionEventContent` from a relation using `From` / `Into`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">relates_to</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ReactionEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">relates_to</span>)
     }
 }
@@ -126,7 +126,7 @@
 
 <span class="kw">impl</span> <span class="ident">Relation</span> {
     <span class="doccomment">/// Creates a new `Relation` with the given event ID and emoji.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>, <span class="ident">emoji</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>, <span class="ident">emoji</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">emoji</span> }
     }
 }
@@ -154,7 +154,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ReactionEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
             <span class="ident">ReactionEventContent</span> { <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span>, <span class="ident">emoji</span> } }
-            <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">ev_id</span> <span class="op">&amp;&amp;</span> <span class="ident">emoji</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;🦛&quot;</span>
+            <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">ev_id</span> <span class="op">&amp;&amp;</span> <span class="ident">emoji</span> <span class="op">==</span> <span class="string">&quot;🦛&quot;</span>
         );
     }
 }

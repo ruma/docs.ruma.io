@@ -119,7 +119,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given user id.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span> }
     }
 }
@@ -128,7 +128,7 @@
     <span class="doccomment">/// Creates a new `Response` with the given user id and stream id.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The device list will be empty.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">stream_id</span>, <span class="ident">devices</span>: <span class="ident">Vec::new</span>() }
     }
 }
@@ -150,7 +150,7 @@
 
 <span class="kw">impl</span> <span class="ident">UserDevice</span> {
     <span class="doccomment">/// Creates a new `UserDevice` with the given device id and keys.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">keys</span>: <span class="ident">DeviceKeys</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">keys</span>: <span class="ident">DeviceKeys</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">device_id</span>, <span class="ident">keys</span>, <span class="ident">device_display_name</span>: <span class="prelude-val">None</span> }
     }
 }

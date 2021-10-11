@@ -1234,14 +1234,14 @@
 
 <span class="kw">impl</span> <span class="ident">Ruleset</span> {
     <span class="doccomment">/// Creates an empty `Ruleset`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Creates a borrowing iterator over all push rules in this `Ruleset`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// For an owning iterator, use `.into_iter()`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RulesetIter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RulesetIter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">into_iter</span>()
     }
 
@@ -1250,13 +1250,13 @@
     <span class="doccomment">/// Returns `true` if the new rule was correctly added, and `false`</span>
     <span class="doccomment">/// if a rule with the same `rule_id` is already present for this kind</span>
     <span class="doccomment">/// of rule.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">rule</span>: <span class="ident">AnyPushRule</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">rule</span>: <span class="ident">AnyPushRule</span>) -&gt; <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="ident">rule</span> {
-            <span class="ident">AnyPushRule::Override</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">override_</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
-            <span class="ident">AnyPushRule::Underride</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">underride</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
-            <span class="ident">AnyPushRule::Content</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">content</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
-            <span class="ident">AnyPushRule::Room</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">room</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
-            <span class="ident">AnyPushRule::Sender</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">sender</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
+            <span class="ident">AnyPushRule::Override</span>(<span class="ident">r</span>) =&gt; <span class="self">self</span>.<span class="ident">override_</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
+            <span class="ident">AnyPushRule::Underride</span>(<span class="ident">r</span>) =&gt; <span class="self">self</span>.<span class="ident">underride</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
+            <span class="ident">AnyPushRule::Content</span>(<span class="ident">r</span>) =&gt; <span class="self">self</span>.<span class="ident">content</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
+            <span class="ident">AnyPushRule::Room</span>(<span class="ident">r</span>) =&gt; <span class="self">self</span>.<span class="ident">room</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
+            <span class="ident">AnyPushRule::Sender</span>(<span class="ident">r</span>) =&gt; <span class="self">self</span>.<span class="ident">sender</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
         }
     }
 
@@ -1270,7 +1270,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AnyPushRuleRef</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AnyPushRuleRef</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Serialize</span>,
     {
@@ -1286,7 +1286,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// * `event` - The raw JSON of a room message event.</span>
     <span class="doccomment">/// * `context` - The context of the message and room at the time of the event.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_actions</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Action</span>]
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_actions</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Action</span>]
     <span class="kw">where</span>
         <span class="ident">T</span>: <span class="ident">Serialize</span>,
     {
@@ -1339,7 +1339,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SimplePushRuleInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SimplePushRule</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">SimplePushRuleInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">SimplePushRuleInit</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">SimplePushRuleInit</span> { <span class="ident">actions</span>, <span class="ident">default</span>, <span class="ident">enabled</span>, <span class="ident">rule_id</span> } <span class="op">=</span> <span class="ident">init</span>;
         <span class="self">Self</span> { <span class="ident">actions</span>, <span class="ident">default</span>, <span class="ident">enabled</span>, <span class="ident">rule_id</span> }
     }
@@ -1355,16 +1355,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">SimplePushRule</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">rule_id</span>
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">rule_id</span> <span class="op">==</span> <span class="ident">other</span>.<span class="ident">rule_id</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Eq</span> <span class="kw">for</span> <span class="ident">SimplePushRule</span> {}
 
 <span class="kw">impl</span> <span class="ident">Equivalent</span><span class="op">&lt;</span><span class="ident">SimplePushRule</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">str</span> {
-    <span class="kw">fn</span> <span class="ident">equivalent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">SimplePushRule</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span> <span class="op">=</span><span class="op">=</span> <span class="ident">key</span>.<span class="ident">rule_id</span>
+    <span class="kw">fn</span> <span class="ident">equivalent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">SimplePushRule</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span> <span class="op">==</span> <span class="ident">key</span>.<span class="ident">rule_id</span>
     }
 }
 
@@ -1403,7 +1403,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// * `event` - The flattened JSON representation of a room message event.</span>
     <span class="doccomment">/// * `context` - The context of the room at the time of the event.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">applies</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">FlattenedJson</span>, <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">applies</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">FlattenedJson</span>, <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">enabled</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">conditions</span>.<span class="ident">iter</span>().<span class="ident">all</span>(<span class="op">|</span><span class="ident">cond</span><span class="op">|</span> <span class="ident">cond</span>.<span class="ident">applies</span>(<span class="ident">event</span>, <span class="ident">context</span>))
     }
 }
@@ -1435,7 +1435,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ConditionalPushRuleInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ConditionalPushRule</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">ConditionalPushRuleInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">ConditionalPushRuleInit</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">ConditionalPushRuleInit</span> { <span class="ident">actions</span>, <span class="ident">default</span>, <span class="ident">enabled</span>, <span class="ident">rule_id</span>, <span class="ident">conditions</span> } <span class="op">=</span> <span class="ident">init</span>;
         <span class="self">Self</span> { <span class="ident">actions</span>, <span class="ident">default</span>, <span class="ident">enabled</span>, <span class="ident">rule_id</span>, <span class="ident">conditions</span> }
     }
@@ -1451,16 +1451,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">ConditionalPushRule</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">rule_id</span>
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">rule_id</span> <span class="op">==</span> <span class="ident">other</span>.<span class="ident">rule_id</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Eq</span> <span class="kw">for</span> <span class="ident">ConditionalPushRule</span> {}
 
 <span class="kw">impl</span> <span class="ident">Equivalent</span><span class="op">&lt;</span><span class="ident">ConditionalPushRule</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">str</span> {
-    <span class="kw">fn</span> <span class="ident">equivalent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">ConditionalPushRule</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span> <span class="op">=</span><span class="op">=</span> <span class="ident">key</span>.<span class="ident">rule_id</span>
+    <span class="kw">fn</span> <span class="ident">equivalent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">ConditionalPushRule</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span> <span class="op">==</span> <span class="ident">key</span>.<span class="ident">rule_id</span>
     }
 }
 
@@ -1501,7 +1501,7 @@
         <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">FlattenedJson</span>,
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    ) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">enabled</span> <span class="op">&amp;&amp;</span> <span class="ident">condition::check_event_match</span>(<span class="ident">event</span>, <span class="ident">key</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pattern</span>, <span class="ident">context</span>)
     }
 }
@@ -1530,7 +1530,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">PatternedPushRuleInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PatternedPushRule</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">PatternedPushRuleInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">PatternedPushRuleInit</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">PatternedPushRuleInit</span> { <span class="ident">actions</span>, <span class="ident">default</span>, <span class="ident">enabled</span>, <span class="ident">rule_id</span>, <span class="ident">pattern</span> } <span class="op">=</span> <span class="ident">init</span>;
         <span class="self">Self</span> { <span class="ident">actions</span>, <span class="ident">default</span>, <span class="ident">enabled</span>, <span class="ident">rule_id</span>, <span class="ident">pattern</span> }
     }
@@ -1546,16 +1546,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PartialEq</span> <span class="kw">for</span> <span class="ident">PatternedPushRule</span> {
-    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">other</span>.<span class="ident">rule_id</span>
+    <span class="kw">fn</span> <span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">rule_id</span> <span class="op">==</span> <span class="ident">other</span>.<span class="ident">rule_id</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Eq</span> <span class="kw">for</span> <span class="ident">PatternedPushRule</span> {}
 
 <span class="kw">impl</span> <span class="ident">Equivalent</span><span class="op">&lt;</span><span class="ident">PatternedPushRule</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">str</span> {
-    <span class="kw">fn</span> <span class="ident">equivalent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">PatternedPushRule</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span> <span class="op">=</span><span class="op">=</span> <span class="ident">key</span>.<span class="ident">rule_id</span>
+    <span class="kw">fn</span> <span class="ident">equivalent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">PatternedPushRule</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span> <span class="op">==</span> <span class="ident">key</span>.<span class="ident">rule_id</span>
     }
 }
 
@@ -1576,7 +1576,7 @@
 
 <span class="kw">impl</span> <span class="ident">PusherData</span> {
     <span class="doccomment">/// Creates an empty `PusherData`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 }
@@ -1601,7 +1601,7 @@
 
 <span class="kw">impl</span> <span class="ident">PushFormat</span> {
     <span class="doccomment">/// Creates a string slice from this `PushFormat`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -1627,7 +1627,7 @@
         <span class="ident">AnyPushRule</span>, <span class="ident">ConditionalPushRule</span>, <span class="ident">PatternedPushRule</span>, <span class="ident">Ruleset</span>, <span class="ident">SimplePushRule</span>,
     };
 
-    <span class="kw">fn</span> <span class="ident">example_ruleset</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Ruleset</span> {
+    <span class="kw">fn</span> <span class="ident">example_ruleset</span>() -&gt; <span class="ident">Ruleset</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">Ruleset::new</span>();
 
         <span class="ident">set</span>.<span class="ident">add</span>(<span class="ident">AnyPushRule::Override</span>(<span class="ident">ConditionalPushRule</span> {
@@ -1718,7 +1718,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Override</span>(<span class="ident">ConditionalPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;.m.rule.call&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;.m.rule.call&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">rule_opt</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>();
@@ -1726,7 +1726,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Override</span>(<span class="ident">ConditionalPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!roomid:matrix.org&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;!roomid:matrix.org&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">rule_opt</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>();
@@ -1734,7 +1734,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Override</span>(<span class="ident">ConditionalPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;.m.rule.suppress_notices&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;.m.rule.suppress_notices&quot;</span>
         );
 
         <span class="macro">assert!</span>(<span class="ident">iter</span>.<span class="ident">next</span>().<span class="ident">is_none</span>());
@@ -1988,12 +1988,12 @@
                 <span class="ident">pattern</span>,
                 <span class="ident">rule_id</span>,
             }
-            <span class="kw">if</span> <span class="ident">pattern</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;user_id&quot;</span> <span class="op">&amp;&amp;</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;.m.rule.contains_user_name&quot;</span>
+            <span class="kw">if</span> <span class="ident">pattern</span> <span class="op">==</span> <span class="string">&quot;user_id&quot;</span> <span class="op">&amp;&amp;</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;.m.rule.contains_user_name&quot;</span>
         );
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">rule</span>.<span class="ident">actions</span>.<span class="ident">iter</span>();
         <span class="macro">assert_matches!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="ident">Action::Notify</span>));
-        <span class="macro">assert_matches!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="ident">Action::SetTweak</span>(<span class="ident">Tweak::Sound</span>(<span class="ident">sound</span>))) <span class="kw">if</span> <span class="ident">sound</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;default&quot;</span>);
+        <span class="macro">assert_matches!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="ident">Action::SetTweak</span>(<span class="ident">Tweak::Sound</span>(<span class="ident">sound</span>))) <span class="kw">if</span> <span class="ident">sound</span> <span class="op">==</span> <span class="string">&quot;default&quot;</span>);
         <span class="macro">assert_matches!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">Some</span>(<span class="ident">Action::SetTweak</span>(<span class="ident">Tweak::Highlight</span>(<span class="bool-val">true</span>))));
         <span class="macro">assert_matches!</span>(<span class="ident">iter</span>.<span class="ident">next</span>(), <span class="prelude-val">None</span>);
     }
@@ -2061,7 +2061,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Override</span>(<span class="ident">ConditionalPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!roomid:server.name&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;!roomid:server.name&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">rule_opt</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>();
@@ -2069,7 +2069,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Override</span>(<span class="ident">ConditionalPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;.m.rule.call&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;.m.rule.call&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">rule_opt</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>();
@@ -2077,7 +2077,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Content</span>(<span class="ident">PatternedPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;.m.rule.contains_user_name&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;.m.rule.contains_user_name&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">rule_opt</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>();
@@ -2085,7 +2085,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Content</span>(<span class="ident">PatternedPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;ruma&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;ruma&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">rule_opt</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>();
@@ -2093,7 +2093,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Room</span>(<span class="ident">SimplePushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;!roomid:server.name&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;!roomid:server.name&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">rule_opt</span> <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>();
@@ -2101,7 +2101,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">rule_opt</span>.<span class="ident">unwrap</span>(),
             <span class="ident">AnyPushRule::Underride</span>(<span class="ident">ConditionalPushRule</span> { <span class="ident">rule_id</span>, .. })
-            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;.m.rule.room_one_to_one&quot;</span>
+            <span class="kw">if</span> <span class="ident">rule_id</span> <span class="op">==</span> <span class="string">&quot;.m.rule.room_one_to_one&quot;</span>
         );
 
         <span class="macro">assert!</span>(<span class="ident">iter</span>.<span class="ident">next</span>().<span class="ident">is_none</span>());
@@ -2296,7 +2296,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">test_set</span>.<span class="ident">get_actions</span>(<span class="kw-2">&amp;</span><span class="ident">message</span>, <span class="ident">context_one_to_one</span>),
             [<span class="ident">Action::SetTweak</span>(<span class="ident">Tweak::Sound</span>(<span class="ident">sound</span>))]
-            <span class="kw">if</span> <span class="ident">sound</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;content&quot;</span>
+            <span class="kw">if</span> <span class="ident">sound</span> <span class="op">==</span> <span class="string">&quot;content&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">three_conditions</span> <span class="op">=</span> <span class="ident">AnyPushRule::Override</span>(<span class="ident">ConditionalPushRule</span> {
@@ -2318,7 +2318,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">set</span>.<span class="ident">get_actions</span>(<span class="kw-2">&amp;</span><span class="ident">message</span>, <span class="ident">context_one_to_one</span>),
             [<span class="ident">Action::SetTweak</span>(<span class="ident">Tweak::Sound</span>(<span class="ident">sound</span>))]
-            <span class="kw">if</span> <span class="ident">sound</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;content&quot;</span>
+            <span class="kw">if</span> <span class="ident">sound</span> <span class="op">==</span> <span class="string">&quot;content&quot;</span>
         );
 
         <span class="kw">let</span> <span class="ident">new_message</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">JsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span>(
@@ -2336,7 +2336,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="ident">set</span>.<span class="ident">get_actions</span>(<span class="kw-2">&amp;</span><span class="ident">new_message</span>, <span class="ident">context_one_to_one</span>),
             [<span class="ident">Action::SetTweak</span>(<span class="ident">Tweak::Sound</span>(<span class="ident">sound</span>))]
-            <span class="kw">if</span> <span class="ident">sound</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;three&quot;</span>
+            <span class="kw">if</span> <span class="ident">sound</span> <span class="op">==</span> <span class="string">&quot;three&quot;</span>
         );
     }
 }

@@ -86,7 +86,7 @@
 
 <span class="kw">impl</span> <span class="ident">RoomPinnedEventsEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomPinnedEventsEventContent` with the given events.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">pinned</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">pinned</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">pinned</span> }
     }
 }

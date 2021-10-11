@@ -160,10 +160,10 @@
 }
 
 <span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">Error</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">Error::IntConvert</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;number found is not a valid `js_int::Int`&quot;</span>),
-            <span class="ident">Error::SerDe</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;serde Error: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">Error::IntConvert</span> =&gt; <span class="ident">f</span>.<span class="ident">write_str</span>(<span class="string">&quot;number found is not a valid `js_int::Int`&quot;</span>),
+            <span class="ident">Error::SerDe</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;serde Error: {}&quot;</span>, <span class="ident">err</span>),
         }
     }
 }
@@ -173,12 +173,12 @@
 <span class="doccomment">/// Fallible conversion from a `serde_json::Map` to a `CanonicalJsonObject`.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_from_json_map</span>(
     <span class="ident">json</span>: <span class="ident">serde_json::Map</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CanonicalJsonObject</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CanonicalJsonObject</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
     <span class="ident">json</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="ident">v</span>)<span class="op">|</span> <span class="prelude-val">Ok</span>((<span class="ident">k</span>, <span class="ident">v</span>.<span class="ident">try_into</span>()<span class="question-mark">?</span>))).<span class="ident">collect</span>()
 }
 
 <span class="doccomment">/// Fallible conversion from any value that impl&#39;s `Serialize` to a `CanonicalJsonValue`.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_canonical_value</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">value</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">value::CanonicalJsonValue</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_canonical_value</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">value</span>: <span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">value::CanonicalJsonValue</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
     <span class="ident">serde_json::to_value</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="ident">Error::SerDe</span>)<span class="question-mark">?</span>.<span class="ident">try_into</span>()
 }
 

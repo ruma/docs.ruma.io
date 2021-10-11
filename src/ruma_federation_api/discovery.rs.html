@@ -108,7 +108,7 @@
 
 <span class="kw">impl</span> <span class="ident">VerifyKey</span> {
     <span class="doccomment">/// Creates a new `VerifyKey` from the given key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key</span> }
     }
 }
@@ -126,7 +126,7 @@
 
 <span class="kw">impl</span> <span class="ident">OldVerifyKey</span> {
     <span class="doccomment">/// Creates a new `OldVerifyKey` with the given expiry time and key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">expired_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">key</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">expired_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">expired_ts</span>, <span class="ident">key</span> }
     }
 }
@@ -160,7 +160,7 @@
     <span class="doccomment">/// Creates a new `ServerSigningKeys` with the given server name and validity timestamp.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All other fields will be empty.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="ident">ServerNameBox</span>, <span class="ident">valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="ident">ServerNameBox</span>, <span class="ident">valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">server_name</span>,
             <span class="ident">verify_keys</span>: <span class="ident">BTreeMap::new</span>(),

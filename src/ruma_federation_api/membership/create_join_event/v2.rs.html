@@ -97,14 +97,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` from the given room ID, event ID and PDU.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>, <span class="ident">pdu</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RawJsonValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>, <span class="ident">pdu</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RawJsonValue</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">event_id</span>, <span class="ident">pdu</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given room state.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_state</span>: <span class="ident">RoomState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_state</span>: <span class="ident">RoomState</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_state</span> }
     }
 }

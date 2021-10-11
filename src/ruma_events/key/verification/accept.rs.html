@@ -453,7 +453,7 @@
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationAcceptEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationAcceptEventContent` with the given transaction ID and</span>
     <span class="doccomment">/// method-specific content.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">method</span>: <span class="ident">AcceptMethod</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">method</span>: <span class="ident">AcceptMethod</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">method</span> }
     }
 }
@@ -479,7 +479,7 @@
 <span class="kw">impl</span> <span class="ident">KeyVerificationAcceptEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationAcceptEventContent` with the given method-specific</span>
     <span class="doccomment">/// content and relation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">method</span>: <span class="ident">AcceptMethod</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">method</span>: <span class="ident">AcceptMethod</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">method</span>, <span class="ident">relates_to</span> }
     }
 }
@@ -570,7 +570,7 @@
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SasV1ContentInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SasV1Content</span> {
     <span class="doccomment">/// Creates a new `SasV1Content` from the given init struct.</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">SasV1ContentInit</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">SasV1ContentInit</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">SasV1Content</span> {
             <span class="ident">hash</span>: <span class="ident">init</span>.<span class="ident">hash</span>,
             <span class="ident">key_agreement_protocol</span>: <span class="ident">init</span>.<span class="ident">key_agreement_protocol</span>,
@@ -721,12 +721,12 @@
                     <span class="ident">message_authentication_code</span>,
                     <span class="ident">short_authentication_string</span>,
                 })
-            } <span class="kw">if</span> <span class="ident">commitment</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;test_commitment&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hash</span> <span class="op">=</span><span class="op">=</span> <span class="ident">HashAlgorithm::Sha256</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocol</span> <span class="op">=</span><span class="op">=</span> <span class="ident">KeyAgreementProtocol::Curve25519</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_code</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
+            } <span class="kw">if</span> <span class="ident">commitment</span> <span class="op">==</span> <span class="string">&quot;test_commitment&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">hash</span> <span class="op">==</span> <span class="ident">HashAlgorithm::Sha256</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocol</span> <span class="op">==</span> <span class="ident">KeyAgreementProtocol::Curve25519</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_code</span> <span class="op">==</span> <span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
         );
 
         <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>);
@@ -759,13 +759,13 @@
                         <span class="ident">short_authentication_string</span>,
                     })
                 }
-            } <span class="kw">if</span> <span class="ident">commitment</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;test_commitment&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hash</span> <span class="op">=</span><span class="op">=</span> <span class="ident">HashAlgorithm::Sha256</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocol</span> <span class="op">=</span><span class="op">=</span> <span class="ident">KeyAgreementProtocol::Curve25519</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_code</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
+            } <span class="kw">if</span> <span class="ident">commitment</span> <span class="op">==</span> <span class="string">&quot;test_commitment&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
+                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">hash</span> <span class="op">==</span> <span class="ident">HashAlgorithm::Sha256</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocol</span> <span class="op">==</span> <span class="ident">KeyAgreementProtocol::Curve25519</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_code</span> <span class="op">==</span> <span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
         );
 
         <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>);
@@ -792,10 +792,10 @@
                         <span class="ident">data</span>,
                     })
                 }
-            } <span class="kw">if</span> <span class="ident">transaction_id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">method</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;m.sas.custom&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">data</span>.<span class="ident">get</span>(<span class="string">&quot;test&quot;</span>).<span class="ident">unwrap</span>() <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">JsonValue::from</span>(<span class="string">&quot;field&quot;</span>)
+            } <span class="kw">if</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
+                <span class="op">&amp;&amp;</span> <span class="ident">method</span> <span class="op">==</span> <span class="string">&quot;m.sas.custom&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">data</span>.<span class="ident">get</span>(<span class="string">&quot;test&quot;</span>).<span class="ident">unwrap</span>() <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">JsonValue::from</span>(<span class="string">&quot;field&quot;</span>)
         );
     }
 
@@ -831,12 +831,12 @@
                     <span class="ident">message_authentication_code</span>,
                     <span class="ident">short_authentication_string</span>,
                 })
-            } <span class="kw">if</span> <span class="ident">commitment</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;test_commitment&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">=</span><span class="op">=</span> <span class="ident">id</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hash</span> <span class="op">=</span><span class="op">=</span> <span class="ident">HashAlgorithm::Sha256</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocol</span> <span class="op">=</span><span class="op">=</span> <span class="ident">KeyAgreementProtocol::Curve25519</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_code</span> <span class="op">=</span><span class="op">=</span> <span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">=</span><span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
+            } <span class="kw">if</span> <span class="ident">commitment</span> <span class="op">==</span> <span class="string">&quot;test_commitment&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">id</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">hash</span> <span class="op">==</span> <span class="ident">HashAlgorithm::Sha256</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocol</span> <span class="op">==</span> <span class="ident">KeyAgreementProtocol::Curve25519</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_code</span> <span class="op">==</span> <span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
         );
     }
 }

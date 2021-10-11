@@ -257,13 +257,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// You can also construct a `PushRulesEventContent` from a global ruleset using `From` /</span>
     <span class="doccomment">/// `Into`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">global</span>: <span class="ident">Ruleset</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">global</span>: <span class="ident">Ruleset</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">global</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Ruleset</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PushRulesEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">global</span>: <span class="ident">Ruleset</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">global</span>: <span class="ident">Ruleset</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">global</span>)
     }
 }

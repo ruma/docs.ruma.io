@@ -64,27 +64,27 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident"><span class="kw">super</span>::UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident"><span class="kw">super</span>::UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident"><span class="kw">super</span>::UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::UserIdentifier</span> <span class="kw">as</span> <span class="ident">SuperId</span>;
         <span class="kw">use</span> <span class="ident">UserIdentifier</span> <span class="kw">as</span> <span class="ident">SerdeId</span>;
 
         <span class="kw">match</span> <span class="ident">id</span> {
-            <span class="ident">SuperId::MatrixId</span>(<span class="ident">user</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SerdeId::MatrixId</span> { <span class="ident">user</span> },
-            <span class="ident">SuperId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SerdeId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> },
-            <span class="ident">SuperId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SerdeId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> },
+            <span class="ident">SuperId::MatrixId</span>(<span class="ident">user</span>) =&gt; <span class="ident">SerdeId::MatrixId</span> { <span class="ident">user</span> },
+            <span class="ident">SuperId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> } =&gt; <span class="ident">SerdeId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> },
+            <span class="ident">SuperId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> } =&gt; <span class="ident">SerdeId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> },
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">IncomingUserIdentifier</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident"><span class="kw">super</span>::IncomingUserIdentifier</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">IncomingUserIdentifier</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="kw">super</span>::IncomingUserIdentifier</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">IncomingUserIdentifier</span>) -&gt; <span class="ident"><span class="kw">super</span>::IncomingUserIdentifier</span> {
         <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::IncomingUserIdentifier</span> <span class="kw">as</span> <span class="ident">SuperId</span>;
         <span class="kw">use</span> <span class="ident">IncomingUserIdentifier</span> <span class="kw">as</span> <span class="ident">SerdeId</span>;
 
         <span class="kw">match</span> <span class="ident">id</span> {
-            <span class="ident">SerdeId::MatrixId</span> { <span class="ident">user</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SuperId::MatrixId</span>(<span class="ident">user</span>),
-            <span class="ident">SerdeId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SuperId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> },
-            <span class="ident">SerdeId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">SuperId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> },
+            <span class="ident">SerdeId::MatrixId</span> { <span class="ident">user</span> } =&gt; <span class="ident">SuperId::MatrixId</span>(<span class="ident">user</span>),
+            <span class="ident">SerdeId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> } =&gt; <span class="ident">SuperId::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> },
+            <span class="ident">SerdeId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> } =&gt; <span class="ident">SuperId::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> },
         }
     }
 }

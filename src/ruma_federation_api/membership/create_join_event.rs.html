@@ -73,7 +73,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">RoomState</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>()
     }
 }
@@ -83,7 +83,7 @@
     <span class="doccomment">/// Creates an empty `RoomState` with the given `origin`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method doesn&#39;t take any parameters.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">origin</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">origin</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">origin</span>, <span class="ident">auth_chain</span>: <span class="ident">Vec::new</span>(), <span class="ident">state</span>: <span class="ident">Vec::new</span>() }
     }
 
@@ -92,7 +92,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Without the `unstable-pre-spec` feature, this method takes a parameter for the origin</span>
     <span class="doccomment">/// server.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">auth_chain</span>: <span class="ident">Vec::new</span>(), <span class="ident">state</span>: <span class="ident">Vec::new</span>() }
     }
 }

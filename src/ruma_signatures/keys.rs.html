@@ -241,7 +241,7 @@
     <span class="doccomment">/// # Parameters</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// * message: An arbitrary series of bytes to sign.</span>
-    <span class="kw">fn</span> <span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Signature</span>;
+    <span class="kw">fn</span> <span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">Signature</span>;
 }
 
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ED25519_OID</span>: <span class="ident">ObjectIdentifier</span> <span class="op">=</span> <span class="ident">ObjectIdentifier::new</span>(<span class="string">&quot;1.3.101.112&quot;</span>);
@@ -263,7 +263,7 @@
         <span class="ident">privkey</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
         <span class="ident">pubkey</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
         <span class="ident">version</span>: <span class="ident">String</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">oid</span> <span class="op">!</span><span class="op">=</span> <span class="ident">ED25519_OID</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ParseError::Oid</span> { <span class="ident">expected</span>: <span class="ident">ED25519_OID</span>, <span class="ident">found</span>: <span class="ident">oid</span> }.<span class="ident">into</span>());
         }
@@ -309,19 +309,19 @@
     <span class="doccomment">/// Returns an error when the PKCS#8 document had a public key, but it doesn&#39;t match the one</span>
     <span class="doccomment">/// generated from the private key. This is a fallback and extra validation against</span>
     <span class="doccomment">/// corruption or</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">document</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">document</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">version</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">oak</span> <span class="op">=</span> <span class="ident">PrivateKeyInfo::from_der</span>(<span class="ident">document</span>).<span class="ident">map_err</span>(<span class="ident">Error::DerParse</span>)<span class="question-mark">?</span>;
 
         <span class="ident"><span class="self">Self</span>::from_pkcs8_oak</span>(<span class="ident">oak</span>, <span class="ident">version</span>)
     }
 
     <span class="doccomment">/// Constructs a key pair from [`pkcs8::PrivateKeyInfo`].</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8_oak</span>(<span class="ident">oak</span>: <span class="ident">PrivateKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8_oak</span>(<span class="ident">oak</span>: <span class="ident">PrivateKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">version</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">oak</span>.<span class="ident">algorithm</span>.<span class="ident">oid</span>, <span class="ident">oak</span>.<span class="ident">private_key</span>, <span class="ident">oak</span>.<span class="ident">public_key</span>, <span class="ident">version</span>)
     }
 
     <span class="doccomment">/// Constructs a key pair from [`pkcs8::PrivateKeyInfo`].</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8_pki</span>(<span class="ident">oak</span>: <span class="ident">PrivateKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">version</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8_pki</span>(<span class="ident">oak</span>: <span class="ident">PrivateKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">version</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">oak</span>.<span class="ident">algorithm</span>.<span class="ident">oid</span>, <span class="ident">oak</span>.<span class="ident">private_key</span>, <span class="prelude-val">None</span>, <span class="ident">version</span>)
     }
 
@@ -329,8 +329,8 @@
     <span class="doccomment">/// so convert it if it is wrongly formatted.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// See [RFC 8310 10.3](https://datatracker.ietf.org/doc/html/rfc8410#section-10.3) for more details</span>
-    <span class="kw">fn</span> <span class="ident">correct_privkey_from_octolet</span>(<span class="ident">key</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
-        <span class="kw">if</span> <span class="ident">key</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">34</span> <span class="op">&amp;&amp;</span> <span class="ident">key</span>[..<span class="number">2</span>] <span class="op">=</span><span class="op">=</span> [<span class="number">0x04</span>, <span class="number">0x20</span>] {
+    <span class="kw">fn</span> <span class="ident">correct_privkey_from_octolet</span>(<span class="ident">key</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+        <span class="kw">if</span> <span class="ident">key</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">34</span> <span class="op">&amp;&amp;</span> <span class="ident">key</span>[..<span class="number">2</span>] <span class="op">==</span> [<span class="number">0x04</span>, <span class="number">0x20</span>] {
             <span class="kw-2">&amp;</span><span class="ident">key</span>[<span class="number">2</span>..]
         } <span class="kw">else</span> {
             <span class="ident">key</span>
@@ -346,7 +346,7 @@
     <span class="doccomment">/// # Errors</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns an error if the generation failed.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">secret</span> <span class="op">=</span> <span class="ident">SecretKey::generate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">rand::rngs::OsRng</span>);
 
         <span class="kw">let</span> <span class="ident">public</span> <span class="op">=</span> <span class="ident">PublicKey::from</span>(<span class="kw-2">&amp;</span><span class="ident">secret</span>);
@@ -367,18 +367,18 @@
     }
 
     <span class="doccomment">/// Returns the version string for this keypair.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">version</span>
     }
 
     <span class="doccomment">/// Returns the public key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">public_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">public_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
         <span class="self">self</span>.<span class="ident">pubkey</span>.<span class="ident">as_ref</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">KeyPair</span> <span class="kw">for</span> <span class="ident">Ed25519KeyPair</span> {
-    <span class="kw">fn</span> <span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Signature</span> {
+    <span class="kw">fn</span> <span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">Signature</span> {
         <span class="ident">Signature</span> {
             <span class="ident">algorithm</span>: <span class="ident">Algorithm::Ed25519</span>,
             <span class="ident">signature</span>: <span class="self">self</span>.<span class="ident">extended_privkey</span>.<span class="ident">sign</span>(<span class="ident">message</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pubkey</span>).<span class="ident">as_ref</span>().<span class="ident">to_vec</span>(),
@@ -388,7 +388,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">Ed25519KeyPair</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FmtResult</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">formatter</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">FmtResult</span> {
         <span class="ident">formatter</span>
             .<span class="ident">debug_struct</span>(<span class="string">&quot;Ed25519KeyPair&quot;</span>)
             .<span class="ident">field</span>(<span class="string">&quot;public_key&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pubkey</span>.<span class="ident">as_bytes</span>())

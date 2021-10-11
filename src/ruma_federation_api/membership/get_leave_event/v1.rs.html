@@ -101,7 +101,7 @@
     <span class="doccomment">/// Creates a new `Request` with:</span>
     <span class="doccomment">/// * the room ID that is about to be left.</span>
     <span class="doccomment">/// * the user ID the leave event will be for.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">user_id</span> }
     }
 }
@@ -110,7 +110,7 @@
     <span class="doccomment">/// Creates a new `Response` with:</span>
     <span class="doccomment">/// * the version of the room where the server is trying to leave.</span>
     <span class="doccomment">/// * an unsigned template event.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomVersionId</span><span class="op">&gt;</span>, <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomVersionId</span><span class="op">&gt;</span>, <span class="ident">event</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_version</span>, <span class="ident">event</span> }
     }
 }

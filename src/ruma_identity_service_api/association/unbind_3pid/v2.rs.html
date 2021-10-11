@@ -138,14 +138,14 @@
         <span class="ident">threepid_ownership_proof</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ThreePidOwnershipProof</span><span class="op">&gt;</span>,
         <span class="ident">mxid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         <span class="ident">threepid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ThirdPartyId</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">threepid_ownership_proof</span>, <span class="ident">mxid</span>, <span class="ident">threepid</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates an empty `Response`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {}
     }
 }
@@ -163,7 +163,7 @@
 
 <span class="kw">impl</span> <span class="ident">ThirdPartyId</span> {
     <span class="doccomment">/// Creates a new `ThirdPartyId` with the given medium and address.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">medium</span>: <span class="ident">Medium</span>, <span class="ident">address</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">medium</span>: <span class="ident">Medium</span>, <span class="ident">address</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">medium</span>, <span class="ident">address</span> }
     }
 }
@@ -184,7 +184,7 @@
 
 <span class="kw">impl</span> <span class="ident">ThreePidOwnershipProof</span> {
     <span class="doccomment">/// Creates a new `ThreePidOwnershipProof` with the given session ID and client secret.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sid</span>: <span class="ident">SessionIdBox</span>, <span class="ident">client_secret</span>: <span class="ident">ClientSecretBox</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sid</span>: <span class="ident">SessionIdBox</span>, <span class="ident">client_secret</span>: <span class="ident">ClientSecretBox</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sid</span>, <span class="ident">client_secret</span> }
     }
 }

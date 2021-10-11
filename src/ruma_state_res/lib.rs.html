@@ -1319,8 +1319,8 @@
     <span class="ident">room_version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>,
     <span class="ident">state_sets</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">IntoIter</span> <span class="op">=</span> <span class="ident">SSI</span><span class="op">&gt;</span>,
     <span class="ident">auth_chain_sets</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">E</span>: <span class="ident">Event</span> <span class="op">+</span> <span class="ident">Clone</span>,
     <span class="ident">SSI</span>: <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Clone</span>,
@@ -1424,7 +1424,7 @@
 <span class="doccomment">/// of the other have this is a conflicting event.</span>
 <span class="kw">fn</span> <span class="ident">separate</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
     <span class="ident">state_sets_iter</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Clone</span>,
-) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>) {
+) -&gt; (<span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>) {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">unconflicted_state</span> <span class="op">=</span> <span class="ident">StateMap::new</span>();
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">conflicted_state</span> <span class="op">=</span> <span class="ident">StateMap::new</span>();
 
@@ -1448,7 +1448,7 @@
 }
 
 <span class="doccomment">/// Returns a Vec of deduped EventIds that appear in some chains but not others.</span>
-<span class="kw">fn</span> <span class="ident">get_auth_chain_diff</span>(<span class="ident">auth_chain_sets</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">EventId</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">get_auth_chain_diff</span>(<span class="ident">auth_chain_sets</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">EventId</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">num_sets</span> <span class="op">=</span> <span class="ident">auth_chain_sets</span>.<span class="ident">len</span>();
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">id_counts</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident">usize</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
@@ -1469,8 +1469,8 @@
 <span class="kw">fn</span> <span class="ident">reverse_topological_power_sort</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(
     <span class="ident">events_to_sort</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
     <span class="ident">auth_diff</span>: <span class="kw-2">&amp;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
-    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="macro">debug!</span>(<span class="string">&quot;reverse topological sort of power events&quot;</span>);
 
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">graph</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
@@ -1515,9 +1515,9 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lexicographical_topological_sort</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
     <span class="ident">graph</span>: <span class="kw-2">&amp;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">key_fn</span>: <span class="ident">F</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>
 <span class="kw">where</span>
-    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Int</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">EventId</span>)<span class="op">&gt;</span>,
+    <span class="ident">F</span>: <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Int</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">EventId</span>)<span class="op">&gt;</span>,
 {
     <span class="macro">info!</span>(<span class="string">&quot;starting lexicographical topological sort&quot;</span>);
     <span class="comment">// NOTE: an event that has no incoming edges happened most recently,</span>
@@ -1595,8 +1595,8 @@
 <span class="doccomment">/// Find the power level for the sender of `event_id` or return a default value of zero.</span>
 <span class="kw">fn</span> <span class="ident">get_power_level_for_sender</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(
     <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="ident">EventId</span>,
-    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">Int</span><span class="op">&gt;</span> {
+    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">Int</span><span class="op">&gt;</span> {
     <span class="macro">info!</span>(<span class="string">&quot;fetch event ({}) senders power level&quot;</span>, <span class="ident">event_id</span>);
 
     <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">fetch_event</span>(<span class="ident">event_id</span>);
@@ -1612,8 +1612,8 @@
     }
 
     <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">PowerLevelsContentFields</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">pl</span> {
-        <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="macro">int!</span>(<span class="number">0</span>)),
-        <span class="prelude-val">Some</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_json_str</span>(<span class="ident">ev</span>.<span class="ident">content</span>().<span class="ident">get</span>())<span class="question-mark">?</span>,
+        <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="macro">int!</span>(<span class="number">0</span>)),
+        <span class="prelude-val">Some</span>(<span class="ident">ev</span>) =&gt; <span class="ident">from_json_str</span>(<span class="ident">ev</span>.<span class="ident">content</span>().<span class="ident">get</span>())<span class="question-mark">?</span>,
     };
 
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">ev</span>) <span class="op">=</span> <span class="ident">event</span> {
@@ -1639,8 +1639,8 @@
     <span class="ident">room_version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersion</span>,
     <span class="ident">events_to_check</span>: <span class="kw-2">&amp;</span>[<span class="ident">EventId</span>],
     <span class="ident">unconflicted_state</span>: <span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
-    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="macro">info!</span>(<span class="string">&quot;starting iterative auth check&quot;</span>);
 
     <span class="macro">debug!</span>(<span class="string">&quot;performing auth checks on {:?}&quot;</span>, <span class="ident">events_to_check</span>);
@@ -1698,7 +1698,7 @@
         <span class="comment">// The key for this is (eventType + a state_key of the signed token not sender) so</span>
         <span class="comment">// search for it</span>
         <span class="kw">let</span> <span class="ident">current_third_party</span> <span class="op">=</span> <span class="ident">auth_events</span>.<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">pdu</span>)<span class="op">|</span> {
-            (<span class="kw-2">*</span><span class="ident">pdu</span>.<span class="ident">event_type</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">EventType::RoomThirdPartyInvite</span>).<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> {
+            (<span class="kw-2">*</span><span class="ident">pdu</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">EventType::RoomThirdPartyInvite</span>).<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> {
                 <span class="comment">// TODO no clone, auth_events is borrowed while moved</span>
                 <span class="ident">pdu</span>.<span class="ident">clone</span>()
             })
@@ -1736,8 +1736,8 @@
 <span class="kw">fn</span> <span class="ident">mainline_sort</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(
     <span class="ident">to_sort</span>: <span class="kw-2">&amp;</span>[<span class="ident">EventId</span>],
     <span class="ident">resolved_power_level</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
-    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="macro">debug!</span>(<span class="string">&quot;mainline sort of events&quot;</span>);
 
     <span class="comment">// There are no EventId&#39;s to sort, bail.</span>
@@ -1802,8 +1802,8 @@
 <span class="kw">fn</span> <span class="ident">get_mainline_depth</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(
     <span class="kw-2">mut</span> <span class="ident">event</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
     <span class="ident">mainline_map</span>: <span class="kw-2">&amp;</span><span class="ident">EventMap</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
-    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">sort_ev</span>) <span class="op">=</span> <span class="ident">event</span> {
         <span class="macro">debug!</span>(<span class="string">&quot;mainline event_id {}&quot;</span>, <span class="ident">sort_ev</span>.<span class="ident">event_id</span>());
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">sort_ev</span>.<span class="ident">event_id</span>();
@@ -1829,7 +1829,7 @@
     <span class="ident">graph</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">event_id</span>: <span class="ident">EventId</span>,
     <span class="ident">auth_diff</span>: <span class="kw-2">&amp;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
-    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
+    <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
 ) {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">event_id</span>];
     <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">eid</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">pop</span>() {
@@ -1848,23 +1848,23 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">is_power_event_id</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(<span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="ident">EventId</span>, <span class="ident">fetch</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">is_power_event_id</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(<span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="ident">EventId</span>, <span class="ident">fetch</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">match</span> <span class="ident">fetch</span>(<span class="ident">event_id</span>).<span class="ident">as_ref</span>() {
-        <span class="prelude-val">Some</span>(<span class="ident">state</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">is_power_event</span>(<span class="ident">state</span>),
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+        <span class="prelude-val">Some</span>(<span class="ident">state</span>) =&gt; <span class="ident">is_power_event</span>(<span class="ident">state</span>),
+        <span class="kw">_</span> =&gt; <span class="bool-val">false</span>,
     }
 }
 
-<span class="kw">fn</span> <span class="ident">is_type_and_key</span>(<span class="ident">ev</span>: <span class="kw">impl</span> <span class="ident">Event</span>, <span class="ident">ev_type</span>: <span class="kw-2">&amp;</span><span class="ident">EventType</span>, <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="ident">ev</span>.<span class="ident">event_type</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">ev_type</span> <span class="op">&amp;&amp;</span> <span class="ident">ev</span>.<span class="ident">state_key</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">state_key</span>)
+<span class="kw">fn</span> <span class="ident">is_type_and_key</span>(<span class="ident">ev</span>: <span class="kw">impl</span> <span class="ident">Event</span>, <span class="ident">ev_type</span>: <span class="kw-2">&amp;</span><span class="ident">EventType</span>, <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
+    <span class="ident">ev</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">ev_type</span> <span class="op">&amp;&amp;</span> <span class="ident">ev</span>.<span class="ident">state_key</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="ident">state_key</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">is_power_event</span>(<span class="ident">event</span>: <span class="kw">impl</span> <span class="ident">Event</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">is_power_event</span>(<span class="ident">event</span>: <span class="kw">impl</span> <span class="ident">Event</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">match</span> <span class="ident">event</span>.<span class="ident">event_type</span>() {
-        <span class="ident">EventType::RoomPowerLevels</span> <span class="op">|</span> <span class="ident">EventType::RoomJoinRules</span> <span class="op">|</span> <span class="ident">EventType::RoomCreate</span> <span class="op">=</span><span class="op">&gt;</span> {
-            <span class="ident">event</span>.<span class="ident">state_key</span>() <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>)
+        <span class="ident">EventType::RoomPowerLevels</span> <span class="op">|</span> <span class="ident">EventType::RoomJoinRules</span> <span class="op">|</span> <span class="ident">EventType::RoomCreate</span> =&gt; {
+            <span class="ident">event</span>.<span class="ident">state_key</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>)
         }
-        <span class="ident">EventType::RoomMember</span> <span class="op">=</span><span class="op">&gt;</span> {
+        <span class="ident">EventType::RoomMember</span> =&gt; {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span>(<span class="ident">event</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
                 <span class="kw">if</span> [<span class="ident">MembershipState::Leave</span>, <span class="ident">MembershipState::Ban</span>].<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">membership</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>.<span class="ident">sender</span>().<span class="ident">as_str</span>()) <span class="op">!</span><span class="op">=</span> <span class="ident">event</span>.<span class="ident">state_key</span>();
@@ -1873,7 +1873,7 @@
 
             <span class="bool-val">false</span>
         }
-        <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
+        <span class="kw">_</span> =&gt; <span class="bool-val">false</span>,
     }
 }
 
@@ -2303,8 +2303,8 @@
                 .<span class="ident">collect</span>(),
             <span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">ev_map</span>.<span class="ident">get</span>(<span class="ident">id</span>).<span class="ident">map</span>(<span class="ident">Arc::clone</span>),
         ) {
-            <span class="prelude-val">Ok</span>(<span class="ident">state</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">state</span>,
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>),
+            <span class="prelude-val">Ok</span>(<span class="ident">state</span>) =&gt; <span class="ident">state</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>),
         };
 
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>, <span class="ident">resolved</span>)
@@ -2316,11 +2316,11 @@
             <span class="ident">tracing::subscriber::set_default</span>(<span class="ident">tracing_subscriber::fmt</span>().<span class="ident">with_test_writer</span>().<span class="ident">finish</span>());
 
         <span class="kw">let</span> <span class="ident">graph</span> <span class="op">=</span> <span class="macro">hashmap!</span> {
-            <span class="ident">event_id</span>(<span class="string">&quot;l&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
-            <span class="ident">event_id</span>(<span class="string">&quot;m&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;n&quot;</span>), <span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
-            <span class="ident">event_id</span>(<span class="string">&quot;n&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
-            <span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">hashset!</span>[], <span class="comment">// &quot;o&quot; has zero outgoing edges but 4 incoming edges</span>
-            <span class="ident">event_id</span>(<span class="string">&quot;p&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
+            <span class="ident">event_id</span>(<span class="string">&quot;l&quot;</span>) =&gt; <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
+            <span class="ident">event_id</span>(<span class="string">&quot;m&quot;</span>) =&gt; <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;n&quot;</span>), <span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
+            <span class="ident">event_id</span>(<span class="string">&quot;n&quot;</span>) =&gt; <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
+            <span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>) =&gt; <span class="macro">hashset!</span>[], <span class="comment">// &quot;o&quot; has zero outgoing edges but 4 incoming edges</span>
+            <span class="ident">event_id</span>(<span class="string">&quot;p&quot;</span>) =&gt; <span class="macro">hashset!</span>[<span class="ident">event_id</span>(<span class="string">&quot;o&quot;</span>)],
         };
 
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::lexicographical_topological_sort</span>(<span class="kw-2">&amp;</span><span class="ident">graph</span>, <span class="op">|</span><span class="ident">id</span><span class="op">|</span> {
@@ -2407,8 +2407,8 @@
                 .<span class="ident">collect</span>(),
             <span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">ev_map</span>.<span class="ident">get</span>(<span class="ident">id</span>).<span class="ident">map</span>(<span class="ident">Arc::clone</span>),
         ) {
-            <span class="prelude-val">Ok</span>(<span class="ident">state</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">state</span>,
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>),
+            <span class="prelude-val">Ok</span>(<span class="ident">state</span>) =&gt; <span class="ident">state</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>),
         };
 
         <span class="macro">debug!</span>(
@@ -2431,7 +2431,7 @@
 
         <span class="kw">for</span> <span class="ident">id</span> <span class="kw">in</span> <span class="ident">expected</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">event_id</span>(<span class="ident">i</span>)) {
             <span class="comment">// make sure our resolved events are equal to the expected list</span>
-            <span class="macro">assert!</span>(<span class="ident">resolved</span>.<span class="ident">values</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">eid</span><span class="op">|</span> <span class="ident">eid</span> <span class="op">=</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">id</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">init</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>), <span class="string">&quot;{}&quot;</span>, <span class="ident">id</span>)
+            <span class="macro">assert!</span>(<span class="ident">resolved</span>.<span class="ident">values</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">eid</span><span class="op">|</span> <span class="ident">eid</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">id</span>) <span class="op">|</span><span class="op">|</span> <span class="ident">init</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>), <span class="string">&quot;{}&quot;</span>, <span class="ident">id</span>)
         }
         <span class="macro">assert_eq!</span>(<span class="ident">expected</span>.<span class="ident">len</span>(), <span class="ident">resolved</span>.<span class="ident">len</span>())
     }
@@ -2451,7 +2451,7 @@
     }
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">BAN_STATE_SET</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">BAN_STATE_SET</span>() -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">vec!</span>[
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;PA&quot;</span>,
@@ -2496,7 +2496,7 @@
     }
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">JOIN_RULE</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">JOIN_RULE</span>() -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">vec!</span>[
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;JR&quot;</span>,

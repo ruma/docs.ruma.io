@@ -72,7 +72,7 @@
 
 <span class="kw">impl</span> <span class="ident">RoomEncryptionEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomEncryptionEventContent` with the given algorithm.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">algorithm</span>, <span class="ident">rotation_period_ms</span>: <span class="prelude-val">None</span>, <span class="ident">rotation_period_msgs</span>: <span class="prelude-val">None</span> }
     }
 }

@@ -136,7 +136,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method takes no parameters.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">url</span>: <span class="ident">MxcUri</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">url</span>: <span class="ident">MxcUri</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">info</span>: <span class="prelude-val">None</span>, <span class="ident">url</span> }
     }
 
@@ -144,7 +144,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method takes an `MxcUri`.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
@@ -188,7 +188,7 @@
 
 <span class="kw">impl</span> <span class="ident">ImageInfo</span> {
     <span class="doccomment">/// Create a new `ImageInfo` with all fields set to `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }

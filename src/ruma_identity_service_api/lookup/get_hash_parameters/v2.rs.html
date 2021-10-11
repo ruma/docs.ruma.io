@@ -77,14 +77,14 @@
 
 <span class="kw">impl</span> <span class="ident">Request</span> {
     <span class="doccomment">/// Creates an empty `Request`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {}
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Create a new `Response` using the given pepper and `Vec` of algorithms.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">lookup_pepper</span>: <span class="ident">String</span>, <span class="ident">algorithms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IdentifierHashingAlgorithm</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">lookup_pepper</span>: <span class="ident">String</span>, <span class="ident">algorithms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IdentifierHashingAlgorithm</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">lookup_pepper</span>, <span class="ident">algorithms</span> }
     }
 }

@@ -241,7 +241,7 @@
 
 <span class="kw">impl</span> <span class="ident">PresenceEventContent</span> {
     <span class="doccomment">/// Creates a new `PresenceEventContent` with the given state.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">presence</span>: <span class="ident">PresenceState</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">presence</span>: <span class="ident">PresenceState</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
             <span class="ident">currently_active</span>: <span class="prelude-val">None</span>,
@@ -323,10 +323,10 @@
                     <span class="ident">status_msg</span>: <span class="prelude-val">Some</span>(<span class="ident">status_msg</span>),
                 },
                 <span class="ident">sender</span>,
-            } <span class="kw">if</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">=</span><span class="op">=</span> <span class="string">&quot;mxc://localhost/wefuiwegh8742w&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">status_msg</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;Making cupcakes&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@example:localhost&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">last_active_ago</span> <span class="op">=</span><span class="op">=</span> <span class="macro">uint!</span>(<span class="number">2_478_593</span>)
+            } <span class="kw">if</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">==</span> <span class="string">&quot;mxc://localhost/wefuiwegh8742w&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">status_msg</span> <span class="op">==</span> <span class="string">&quot;Making cupcakes&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@example:localhost&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">last_active_ago</span> <span class="op">==</span> <span class="macro">uint!</span>(<span class="number">2_478_593</span>)
         );
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
@@ -352,9 +352,9 @@
                     <span class="ident">status_msg</span>: <span class="prelude-val">Some</span>(<span class="ident">status_msg</span>),
                 },
                 <span class="ident">sender</span>,
-            } <span class="kw">if</span> <span class="ident">status_msg</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;Making cupcakes&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;@example:localhost&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">last_active_ago</span> <span class="op">=</span><span class="op">=</span> <span class="macro">uint!</span>(<span class="number">2_478_593</span>)
+            } <span class="kw">if</span> <span class="ident">status_msg</span> <span class="op">==</span> <span class="string">&quot;Making cupcakes&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@example:localhost&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">last_active_ago</span> <span class="op">==</span> <span class="macro">uint!</span>(<span class="number">2_478_593</span>)
         );
     }
 }

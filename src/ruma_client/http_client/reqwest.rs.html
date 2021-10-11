@@ -56,7 +56,7 @@
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_http_request</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">BytesMut</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span>, <span class="ident">reqwest::Error</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">Bytes</span><span class="op">&gt;</span>, <span class="ident">reqwest::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">req</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">body</span><span class="op">|</span> <span class="ident">body</span>.<span class="ident">freeze</span>()).<span class="ident">try_into</span>()<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">execute</span>(<span class="ident">req</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -72,7 +72,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">DefaultConstructibleHttpClient</span> <span class="kw">for</span> <span class="ident">Reqwest</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">reqwest::Client::new</span>()
     }
 }

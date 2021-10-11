@@ -72,7 +72,7 @@
 
 <span class="kw">impl</span> <span class="ident">CallInviteEventContent</span> {
     <span class="doccomment">/// Creates a new `InviteEventContent` with the given call ID, lifetime and VoIP version.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">lifetime</span>: <span class="ident">UInt</span>, <span class="ident">offer</span>: <span class="ident">SessionDescription</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">lifetime</span>: <span class="ident">UInt</span>, <span class="ident">offer</span>: <span class="ident">SessionDescription</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">call_id</span>, <span class="ident">lifetime</span>, <span class="ident">offer</span>, <span class="ident">version</span> }
     }
 }

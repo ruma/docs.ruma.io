@@ -922,41 +922,41 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">AuthData</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `AuthData::FallbackAcknowledgement` with the given session key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fallback_acknowledgement</span>(<span class="ident">session</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">fallback_acknowledgement</span>(<span class="ident">session</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="ident">FallbackAcknowledgement::new</span>(<span class="ident">session</span>))
     }
 
     <span class="doccomment">/// Returns the value of the `type` field, if it exists.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuthType</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuthType</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Password</span>),
-            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::ReCaptcha</span>),
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Token</span>),
-            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::OAuth2</span>),
-            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::EmailIdentity</span>),
-            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Msisdn</span>),
-            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Dummy</span>),
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Password</span>),
+            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::ReCaptcha</span>),
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Token</span>),
+            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::OAuth2</span>),
+            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::EmailIdentity</span>),
+            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Msisdn</span>),
+            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Dummy</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::RegistrationToken</span>),
-            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::_Custom</span>(<span class="ident">c</span>.<span class="ident">auth_type</span>.<span class="ident">to_owned</span>())),
+            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::RegistrationToken</span>),
+            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::_Custom</span>(<span class="ident">c</span>.<span class="ident">auth_type</span>.<span class="ident">to_owned</span>())),
         }
     }
 
     <span class="doccomment">/// Returns the value of the `session` field, if it exists.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
-            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
-            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
-            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
-            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
-            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
-            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">x</span>.<span class="ident">session</span>),
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
+            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="ident">x</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">x</span>.<span class="ident">session</span>),
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>,
         }
     }
 
@@ -967,42 +967,42 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Prefer to use the public variants of `AuthData` where possible; this method is meant to be</span>
     <span class="doccomment">/// used for custom auth types only.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonObject</span><span class="op">&gt;</span> {
-        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">JsonObject</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonObject</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="ident">T</span>) -&gt; <span class="ident">JsonObject</span> {
             <span class="kw">match</span> <span class="ident">serde_json::to_value</span>(<span class="ident">obj</span>).<span class="ident">expect</span>(<span class="string">&quot;auth data serialization to succeed&quot;</span>) {
-                <span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">obj</span>,
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;all auth data variants must serialize to objects&quot;</span>),
+                <span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>) =&gt; <span class="ident">obj</span>,
+                <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;all auth data variants must serialize to objects&quot;</span>),
             }
         }
 
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Password</span> {
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Password</span> {
                 <span class="ident">identifier</span>: <span class="ident">x</span>.<span class="ident">identifier</span>.<span class="ident">clone</span>(),
                 <span class="ident">password</span>: <span class="ident">x</span>.<span class="ident">password</span>,
                 <span class="ident">session</span>: <span class="prelude-val">None</span>,
             })),
-            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) =&gt; {
                 <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">ReCaptcha</span> { <span class="ident">response</span>: <span class="ident">x</span>.<span class="ident">response</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }))
             }
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) =&gt; {
                 <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Token</span> { <span class="ident">token</span>: <span class="ident">x</span>.<span class="ident">token</span>, <span class="ident">txn_id</span>: <span class="ident">x</span>.<span class="ident">txn_id</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }))
             }
-            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">OAuth2</span> { <span class="ident">uri</span>: <span class="ident">x</span>.<span class="ident">uri</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> })),
-            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">EmailIdentity</span> {
+            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">OAuth2</span> { <span class="ident">uri</span>: <span class="ident">x</span>.<span class="ident">uri</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> })),
+            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">EmailIdentity</span> {
                 <span class="ident">thirdparty_id_creds</span>: <span class="ident">x</span>.<span class="ident">thirdparty_id_creds</span>,
                 <span class="ident">session</span>: <span class="prelude-val">None</span>,
             })),
-            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Msisdn</span> {
+            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Msisdn</span> {
                 <span class="ident">thirdparty_id_creds</span>: <span class="ident">x</span>.<span class="ident">thirdparty_id_creds</span>,
                 <span class="ident">session</span>: <span class="prelude-val">None</span>,
             })),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) =&gt; {
                 <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">RegistrationToken</span> { <span class="ident">token</span>: <span class="ident">x</span>.<span class="ident">token</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }))
             }
             <span class="comment">// Dummy and fallback acknowledgement have no associated data</span>
-            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">JsonObject::default</span>()),
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Borrowed</span>(<span class="ident">c</span>.<span class="ident">extra</span>),
+            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">JsonObject::default</span>()),
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) =&gt; <span class="ident">Cow::Borrowed</span>(<span class="ident">c</span>.<span class="ident">extra</span>),
         }
     }
 }
@@ -1022,11 +1022,11 @@
         <span class="ident">auth_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">session</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">data</span>: <span class="ident">JsonObject</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">fn</span> <span class="ident">deserialize_variant</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span><span class="op">&gt;</span>(
             <span class="ident">session</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
             <span class="kw-2">mut</span> <span class="ident">obj</span>: <span class="ident">JsonObject</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+        ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">session</span>) <span class="op">=</span> <span class="ident">session</span> {
                 <span class="ident">obj</span>.<span class="ident">insert</span>(<span class="string">&quot;session&quot;</span>.<span class="ident">into</span>(), <span class="ident">session</span>.<span class="ident">into</span>());
             }
@@ -1034,18 +1034,18 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">auth_type</span> {
-            <span class="string">&quot;m.login.password&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.login.recaptcha&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.login.token&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.login.oauth2&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.login.email.identity&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.login.msisdn&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
-            <span class="string">&quot;m.login.dummy&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.password&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.recaptcha&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.token&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.oauth2&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.email.identity&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.msisdn&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
+            <span class="string">&quot;m.login.dummy&quot;</span> =&gt; <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="string">&quot;org.matrix.msc3231.login.registration_token&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="string">&quot;org.matrix.msc3231.login.registration_token&quot;</span> =&gt; {
                 <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">deserialize_variant</span>(<span class="ident">session</span>, <span class="ident">data</span>)<span class="question-mark">?</span>)
             }
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">IncomingCustomAuthData</span> {
+            <span class="kw">_</span> =&gt; <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">IncomingCustomAuthData</span> {
                 <span class="ident">auth_type</span>: <span class="ident">auth_type</span>.<span class="ident">into</span>(),
                 <span class="ident">session</span>,
                 <span class="ident">extra</span>: <span class="ident">data</span>,
@@ -1054,36 +1054,36 @@
     }
 
     <span class="doccomment">/// Returns the value of the `type` field, if it exists.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuthType</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuthType</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Password</span>),
-            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::ReCaptcha</span>),
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Token</span>),
-            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::OAuth2</span>),
-            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::EmailIdentity</span>),
-            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Msisdn</span>),
-            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::Dummy</span>),
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Password</span>),
+            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::ReCaptcha</span>),
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Token</span>),
+            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::OAuth2</span>),
+            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::EmailIdentity</span>),
+            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Msisdn</span>),
+            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::Dummy</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::RegistrationToken</span>),
-            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">AuthType::_Custom</span>(<span class="ident">c</span>.<span class="ident">auth_type</span>.<span class="ident">clone</span>())),
+            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::RegistrationToken</span>),
+            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">AuthType::_Custom</span>(<span class="ident">c</span>.<span class="ident">auth_type</span>.<span class="ident">clone</span>())),
         }
     }
 
     <span class="doccomment">/// Returns the value of the `session` field, if it exists.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
-            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
-            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
-            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
-            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
-            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
-            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">session</span>),
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
+            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="ident">x</span>) =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">session</span>),
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
         }
     }
 
@@ -1094,59 +1094,59 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Prefer to use the public variants of `AuthData` where possible; this method is meant to be</span>
     <span class="doccomment">/// used for custom auth types only.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonObject</span><span class="op">&gt;</span> {
-        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">JsonObject</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span>, <span class="ident">JsonObject</span><span class="op">&gt;</span> {
+        <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(<span class="ident">obj</span>: <span class="ident">T</span>) -&gt; <span class="ident">JsonObject</span> {
             <span class="kw">match</span> <span class="ident">serde_json::to_value</span>(<span class="ident">obj</span>).<span class="ident">expect</span>(<span class="string">&quot;auth data serialization to succeed&quot;</span>) {
-                <span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">obj</span>,
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic!</span>(<span class="string">&quot;all auth data variants must serialize to objects&quot;</span>),
+                <span class="ident">JsonValue::Object</span>(<span class="ident">obj</span>) =&gt; <span class="ident">obj</span>,
+                <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;all auth data variants must serialize to objects&quot;</span>),
             }
         }
 
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Password</span> {
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Password</span> {
                 <span class="ident">identifier</span>: <span class="ident">x</span>.<span class="ident">identifier</span>.<span class="ident">to_outgoing</span>(),
                 <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">password</span>,
                 <span class="ident">session</span>: <span class="prelude-val">None</span>,
             })),
-            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">x</span>) =&gt; {
                 <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">ReCaptcha</span> { <span class="ident">response</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">response</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }))
             }
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">x</span>) =&gt; {
                 <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Token</span> { <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">token</span>, <span class="ident">txn_id</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">txn_id</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }))
             }
-            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">OAuth2</span> { <span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">uri</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> })),
-            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">EmailIdentity</span> {
+            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">OAuth2</span> { <span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">uri</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> })),
+            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">EmailIdentity</span> {
                 <span class="ident">thirdparty_id_creds</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">thirdparty_id_creds</span>,
                 <span class="ident">session</span>: <span class="prelude-val">None</span>,
             })),
-            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Msisdn</span> {
+            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">x</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">Msisdn</span> {
                 <span class="ident">thirdparty_id_creds</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">thirdparty_id_creds</span>,
                 <span class="ident">session</span>: <span class="prelude-val">None</span>,
             })),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">x</span>) =&gt; {
                 <span class="ident">Cow::Owned</span>(<span class="ident">serialize</span>(<span class="ident">RegistrationToken</span> { <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="ident">x</span>.<span class="ident">token</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }))
             }
             <span class="comment">// Dummy and fallback acknowledgement have no associated data</span>
-            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Owned</span>(<span class="ident">JsonObject::default</span>()),
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Cow::Borrowed</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>.<span class="ident">extra</span>),
+            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="kw">_</span>) =&gt; <span class="ident">Cow::Owned</span>(<span class="ident">JsonObject::default</span>()),
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">c</span>) =&gt; <span class="ident">Cow::Borrowed</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>.<span class="ident">extra</span>),
         }
     }
 
     <span class="doccomment">/// Convert `IncomingAuthData` to `AuthData`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AuthData</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">AuthData</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::Password</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::ReCaptcha</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::Token</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::OAuth2</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::EmailIdentity</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::Msisdn</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::Dummy</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::Password</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::Password</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::ReCaptcha</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::ReCaptcha</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::Token</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::Token</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::OAuth2</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::OAuth2</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::EmailIdentity</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::EmailIdentity</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::Msisdn</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::Msisdn</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::Dummy</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::Dummy</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::RegistrationToken</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::FallbackAcknowledgement</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
-            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AuthData::_Custom</span>(<span class="ident">CustomAuthData</span> {
+            <span class="ident"><span class="self">Self</span>::RegistrationToken</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::RegistrationToken</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::FallbackAcknowledgement</span>(<span class="ident">a</span>.<span class="ident">to_outgoing</span>()),
+            <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">a</span>) =&gt; <span class="ident">AuthData::_Custom</span>(<span class="ident">CustomAuthData</span> {
                 <span class="ident">auth_type</span>: <span class="kw-2">&amp;</span><span class="ident">a</span>.<span class="ident">auth_type</span>,
                 <span class="ident">session</span>: <span class="ident">a</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
                 <span class="ident">extra</span>: <span class="kw-2">&amp;</span><span class="ident">a</span>.<span class="ident">extra</span>,
@@ -1156,13 +1156,13 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IncomingAuthData</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
         <span class="kw">fn</span> <span class="ident">from_raw_json_value</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span>, <span class="ident">E</span>: <span class="ident">de::Error</span><span class="op">&gt;</span>(
             <span class="ident">raw</span>: <span class="kw-2">&amp;</span><span class="ident">RawJsonValue</span>,
-        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+        ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
             <span class="ident">serde_json::from_str</span>(<span class="ident">raw</span>.<span class="ident">get</span>()).<span class="ident">map_err</span>(<span class="ident">E::custom</span>)
         }
 
@@ -1179,19 +1179,19 @@
             .<span class="ident">auth_type</span>;
 
         <span class="kw">match</span> <span class="ident">auth_type</span>.<span class="ident">as_deref</span>() {
-            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.password&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Password</span>),
-            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.recaptcha&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::ReCaptcha</span>),
-            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.token&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Token</span>),
-            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.oauth2&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::OAuth2</span>),
-            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.email.identity&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::EmailIdentity</span>),
-            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.msisdn&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Msisdn</span>),
-            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.dummy&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Dummy</span>),
+            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.password&quot;</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Password</span>),
+            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.recaptcha&quot;</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::ReCaptcha</span>),
+            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.token&quot;</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Token</span>),
+            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.oauth2&quot;</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::OAuth2</span>),
+            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.email.identity&quot;</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::EmailIdentity</span>),
+            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.msisdn&quot;</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Msisdn</span>),
+            <span class="prelude-val">Some</span>(<span class="string">&quot;m.login.dummy&quot;</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Dummy</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="prelude-val">Some</span>(<span class="string">&quot;org.matrix.msc3231.login.registration_token&quot;</span>) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="prelude-val">Some</span>(<span class="string">&quot;org.matrix.msc3231.login.registration_token&quot;</span>) =&gt; {
                 <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::RegistrationToken</span>)
             }
-            <span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>),
-            <span class="prelude-val">Some</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>),
+            <span class="prelude-val">None</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::FallbackAcknowledgement</span>),
+            <span class="prelude-val">Some</span>(<span class="kw">_</span>) =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>),
         }
     }
 }
@@ -1258,14 +1258,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Password</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Password` with the given identifier and password.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">identifier</span>: <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">identifier</span>: <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">identifier</span>, <span class="ident">password</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingPassword</span> {
     <span class="doccomment">/// Convert `IncomingPassword` to `Password`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Password</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Password</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">Password</span> {
             <span class="ident">identifier</span>: <span class="self">self</span>.<span class="ident">identifier</span>.<span class="ident">to_outgoing</span>(),
             <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">password</span>,
@@ -1292,14 +1292,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ReCaptcha</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `ReCaptcha` with the given response string.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">response</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">response</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">response</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingReCaptcha</span> {
     <span class="doccomment">/// Convert `IncomingReCaptcha` to `ReCaptcha`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ReCaptcha</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">ReCaptcha</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">ReCaptcha</span> { <span class="ident">response</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">response</span>, <span class="ident">session</span>: <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>() }
     }
 }
@@ -1325,14 +1325,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Token</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Token` with the given token and transaction ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">txn_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">txn_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">token</span>, <span class="ident">txn_id</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingToken</span> {
     <span class="doccomment">/// Convert `IncomingToken` to `Token`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Token</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Token</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">Token</span> { <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">token</span>, <span class="ident">txn_id</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">txn_id</span>, <span class="ident">session</span>: <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>() }
     }
 }
@@ -1355,14 +1355,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">OAuth2</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `OAuth2` with the given URI.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">uri</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingOAuth2</span> {
     <span class="doccomment">/// Convert `IncomingOAuth2` to `OAuth2`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">OAuth2</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">OAuth2</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">OAuth2</span> { <span class="ident">uri</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">uri</span>, <span class="ident">session</span>: <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>() }
     }
 }
@@ -1386,7 +1386,7 @@
 
 <span class="kw">impl</span> <span class="ident">IncomingEmailIdentity</span> {
     <span class="doccomment">/// Convert `IncomingEmailIdentity` to `EmailIdentity`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">EmailIdentity</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">EmailIdentity</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">EmailIdentity</span> {
             <span class="ident">thirdparty_id_creds</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">thirdparty_id_creds</span>,
             <span class="ident">session</span>: <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>(),
@@ -1413,7 +1413,7 @@
 
 <span class="kw">impl</span> <span class="ident">IncomingMsisdn</span> {
     <span class="doccomment">/// Convert `IncomingMsisdn` to `Msisdn`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Msisdn</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Msisdn</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">Msisdn</span> { <span class="ident">thirdparty_id_creds</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">thirdparty_id_creds</span>, <span class="ident">session</span>: <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>() }
     }
 }
@@ -1433,14 +1433,14 @@
 
 <span class="kw">impl</span> <span class="ident">Dummy</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates an empty `Dummy`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingDummy</span> {
     <span class="doccomment">/// Convert from `IncomingDummy` to `Dummy`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Dummy</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Dummy</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">Dummy</span> { <span class="ident">session</span>: <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>() }
     }
 }
@@ -1465,7 +1465,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">RegistrationToken</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `RegistrationToken` with the given token.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">token</span>, <span class="ident">session</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -1473,7 +1473,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">IncomingRegistrationToken</span> {
     <span class="doccomment">/// Convert from `IncomingRegistrationToken` to `RegistrationToken`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RegistrationToken</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RegistrationToken</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">RegistrationToken</span> { <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">token</span>, <span class="ident">session</span>: <span class="self">self</span>.<span class="ident">session</span>.<span class="ident">as_deref</span>() }
     }
 }
@@ -1492,14 +1492,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FallbackAcknowledgement</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `FallbackAcknowledgement` with the given session key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">session</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">session</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">session</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingFallbackAcknowledgement</span> {
     <span class="doccomment">/// Convert from `IncomingFallbackAcknowledgement` to `FallbackAcknowledgement`.</span>
-    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">FallbackAcknowledgement</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">FallbackAcknowledgement</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">FallbackAcknowledgement</span> { <span class="ident">session</span>: <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">session</span> }
     }
 }
@@ -1560,13 +1560,13 @@
 }
 
 <span class="kw">impl</span> <span class="ident">IncomingUserIdentifier</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::MatrixId</span>(<span class="ident">id</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UserIdentifier::MatrixId</span>(<span class="ident">id</span>),
-            <span class="ident"><span class="self">Self</span>::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> } <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident"><span class="self">Self</span>::MatrixId</span>(<span class="ident">id</span>) =&gt; <span class="ident">UserIdentifier::MatrixId</span>(<span class="ident">id</span>),
+            <span class="ident"><span class="self">Self</span>::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span> } =&gt; {
                 <span class="ident">UserIdentifier::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span>: <span class="ident">medium</span>.<span class="ident">clone</span>() }
             }
-            <span class="ident"><span class="self">Self</span>::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> } <span class="op">=</span><span class="op">&gt;</span> <span class="ident">UserIdentifier::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> },
+            <span class="ident"><span class="self">Self</span>::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> } =&gt; <span class="ident">UserIdentifier::PhoneNumber</span> { <span class="ident">country</span>, <span class="ident">phone</span> },
         }
     }
 }
@@ -1596,7 +1596,7 @@
         <span class="ident">client_secret</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientSecret</span><span class="op">&gt;</span>,
         <span class="ident">id_server</span>: <span class="ident">String</span>,
         <span class="ident">id_access_token</span>: <span class="ident">String</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sid</span>, <span class="ident">client_secret</span>, <span class="ident">id_server</span>, <span class="ident">id_access_token</span> }
     }
 }
@@ -1629,7 +1629,7 @@
 
 <span class="kw">impl</span> <span class="ident">UiaaInfo</span> {
     <span class="doccomment">/// Creates a new `UiaaInfo` with the given flows and parameters.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">flows</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuthFlow</span><span class="op">&gt;</span>, <span class="ident">params</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">flows</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuthFlow</span><span class="op">&gt;</span>, <span class="ident">params</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">flows</span>, <span class="ident">completed</span>: <span class="ident">Vec::new</span>(), <span class="ident">params</span>, <span class="ident">session</span>: <span class="prelude-val">None</span>, <span class="ident">auth_error</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -1647,7 +1647,7 @@
     <span class="doccomment">/// Creates a new `AuthFlow` with the given stages.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// To create an empty `AuthFlow`, use `AuthFlow::default()`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">stages</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuthType</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">stages</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AuthType</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">stages</span> }
     }
 }
@@ -1664,16 +1664,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">UiaaResponse</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">fmt::Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::AuthResponse</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;User-Interactive Authentication required.&quot;</span>),
-            <span class="ident"><span class="self">Self</span>::MatrixError</span>(<span class="ident">err</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident"><span class="self">Self</span>::AuthResponse</span>(<span class="kw">_</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;User-Interactive Authentication required.&quot;</span>),
+            <span class="ident"><span class="self">Self</span>::MatrixError</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">err</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">MatrixError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UiaaResponse</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">error</span>: <span class="ident">MatrixError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">error</span>: <span class="ident">MatrixError</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::MatrixError</span>(<span class="ident">error</span>)
     }
 }
@@ -1681,8 +1681,8 @@
 <span class="kw">impl</span> <span class="ident">EndpointError</span> <span class="kw">for</span> <span class="ident">UiaaResponse</span> {
     <span class="kw">fn</span> <span class="ident">try_from_http_response</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>(
         <span class="ident">response</span>: <span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ResponseDeserializationError</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">response</span>.<span class="ident">status</span>() <span class="op">=</span><span class="op">=</span> <span class="ident">http::StatusCode::UNAUTHORIZED</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">ResponseDeserializationError</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">response</span>.<span class="ident">status</span>() <span class="op">==</span> <span class="ident">http::StatusCode::UNAUTHORIZED</span> {
             <span class="prelude-val">Ok</span>(<span class="ident">UiaaResponse::AuthResponse</span>(<span class="ident">from_json_slice</span>(<span class="ident">response</span>.<span class="ident">body</span>().<span class="ident">as_ref</span>())<span class="question-mark">?</span>))
         } <span class="kw">else</span> {
             <span class="ident">MatrixError::try_from_http_response</span>(<span class="ident">response</span>).<span class="ident">map</span>(<span class="ident">From::from</span>)
@@ -1695,14 +1695,14 @@
 <span class="kw">impl</span> <span class="ident">OutgoingResponse</span> <span class="kw">for</span> <span class="ident">UiaaResponse</span> {
     <span class="kw">fn</span> <span class="ident">try_into_http_response</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Default</span> <span class="op">+</span> <span class="ident">BufMut</span><span class="op">&gt;</span>(
         <span class="self">self</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">IntoHttpError</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Response</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">IntoHttpError</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">UiaaResponse::AuthResponse</span>(<span class="ident">authentication_info</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">http::Response::builder</span>()
+            <span class="ident">UiaaResponse::AuthResponse</span>(<span class="ident">authentication_info</span>) =&gt; <span class="ident">http::Response::builder</span>()
                 .<span class="ident">header</span>(<span class="ident">http::header::CONTENT_TYPE</span>, <span class="string">&quot;application/json&quot;</span>)
                 .<span class="ident">status</span>(<span class="kw-2">&amp;</span><span class="ident">http::StatusCode::UNAUTHORIZED</span>)
                 .<span class="ident">body</span>(<span class="ident">ruma_serde::json_to_buf</span>(<span class="kw-2">&amp;</span><span class="ident">authentication_info</span>)<span class="question-mark">?</span>)
                 .<span class="ident">map_err</span>(<span class="ident">Into::into</span>),
-            <span class="ident">UiaaResponse::MatrixError</span>(<span class="ident">error</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">error</span>.<span class="ident">try_into_http_response</span>(),
+            <span class="ident">UiaaResponse::MatrixError</span>(<span class="ident">error</span>) =&gt; <span class="ident">error</span>.<span class="ident">try_into_http_response</span>(),
         }
     }
 }

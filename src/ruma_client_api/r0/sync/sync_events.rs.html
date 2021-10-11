@@ -819,14 +819,14 @@
 
 <span class="kw">impl</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates an empty `Request`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given batch token.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">next_batch</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">next_batch</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">next_batch</span>,
             <span class="ident">rooms</span>: <span class="ident">Default::default</span>(),
@@ -864,13 +864,13 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">FilterDefinition</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">def</span>: <span class="ident">FilterDefinition</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">def</span>: <span class="ident">FilterDefinition</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::FilterDefinition</span>(<span class="ident">def</span>)
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::FilterId</span>(<span class="ident">id</span>)
     }
 }
@@ -899,12 +899,12 @@
 
 <span class="kw">impl</span> <span class="ident">Rooms</span> {
     <span class="doccomment">/// Creates an empty `Rooms`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there is no update in any room.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">leave</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">join</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">invite</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -929,12 +929,12 @@
 
 <span class="kw">impl</span> <span class="ident">LeftRoom</span> {
     <span class="doccomment">/// Creates an empty `LeftRoom`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are updates in the room.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">timeline</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">account_data</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -973,12 +973,12 @@
 
 <span class="kw">impl</span> <span class="ident">JoinedRoom</span> {
     <span class="doccomment">/// Creates an empty `JoinedRoom`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no updates in the room.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">summary</span>.<span class="ident">is_empty</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">unread_notifications</span>.<span class="ident">is_empty</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">timeline</span>.<span class="ident">is_empty</span>()
@@ -1021,12 +1021,12 @@
 
 <span class="kw">impl</span> <span class="ident">UnreadNotificationsCount</span> {
     <span class="doccomment">/// Creates an empty `UnreadNotificationsCount`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no notification count updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">highlight_count</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">notification_count</span>.<span class="ident">is_none</span>()
     }
 }
@@ -1053,12 +1053,12 @@
 
 <span class="kw">impl</span> <span class="ident">Timeline</span> {
     <span class="doccomment">/// Creates an empty `Timeline`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no timeline updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1074,12 +1074,12 @@
 
 <span class="kw">impl</span> <span class="ident">State</span> {
     <span class="doccomment">/// Creates an empty `State`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no state updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1095,12 +1095,12 @@
 
 <span class="kw">impl</span> <span class="ident">GlobalAccountData</span> {
     <span class="doccomment">/// Creates an empty `GlobalAccountData`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no global account data updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1116,12 +1116,12 @@
 
 <span class="kw">impl</span> <span class="ident">RoomAccountData</span> {
     <span class="doccomment">/// Creates an empty `RoomAccountData`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no room account data updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1137,12 +1137,12 @@
 
 <span class="kw">impl</span> <span class="ident">Ephemeral</span> {
     <span class="doccomment">/// Creates an empty `Ephemeral`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no ephemeral event updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1172,12 +1172,12 @@
 
 <span class="kw">impl</span> <span class="ident">RoomSummary</span> {
     <span class="doccomment">/// Creates an empty `RoomSummary`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no room summary updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">heroes</span>.<span class="ident">is_empty</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">joined_member_count</span>.<span class="ident">is_none</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">invited_member_count</span>.<span class="ident">is_none</span>()
@@ -1195,12 +1195,12 @@
 
 <span class="kw">impl</span> <span class="ident">InvitedRoom</span> {
     <span class="doccomment">/// Creates an empty `InvitedRoom`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no updates to this room.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">invite_state</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1216,12 +1216,12 @@
 
 <span class="kw">impl</span> <span class="ident">InviteState</span> {
     <span class="doccomment">/// Creates an empty `InviteState`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no state updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1237,12 +1237,12 @@
 
 <span class="kw">impl</span> <span class="ident">Presence</span> {
     <span class="doccomment">/// Creates an empty `Presence`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no presence updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1258,12 +1258,12 @@
 
 <span class="kw">impl</span> <span class="ident">ToDevice</span> {
     <span class="doccomment">/// Creates an empty `ToDevice`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no to-device events.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">events</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1285,12 +1285,12 @@
 
 <span class="kw">impl</span> <span class="ident">DeviceLists</span> {
     <span class="doccomment">/// Creates an empty `DeviceLists`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns true if there are no device list updates.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">changed</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">left</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -1383,7 +1383,7 @@
         )
         .<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) <span class="kw">if</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;myfilter&quot;</span>);
+        <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) <span class="kw">if</span> <span class="ident">id</span> <span class="op">==</span> <span class="string">&quot;myfilter&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">since</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;myts&quot;</span>.<span class="ident">into</span>()));
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">req</span>.<span class="ident">full_state</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">set_presence</span>, <span class="ident">PresenceState::Offline</span>);
@@ -1429,7 +1429,7 @@
         )
         .<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) <span class="kw">if</span> <span class="ident">id</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;EOKFFmdZYF&quot;</span>);
+        <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) <span class="kw">if</span> <span class="ident">id</span> <span class="op">==</span> <span class="string">&quot;EOKFFmdZYF&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">since</span>, <span class="prelude-val">None</span>);
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">req</span>.<span class="ident">full_state</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">set_presence</span>, <span class="ident">PresenceState::Online</span>);

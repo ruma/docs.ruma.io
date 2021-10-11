@@ -65,27 +65,27 @@
 
 <span class="kw">impl</span> <span class="ident">NotificationPowerLevels</span> {
     <span class="doccomment">/// Create a new `NotificationPowerLevels` with all-default values.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room</span>: <span class="ident">default_power_level</span>() }
     }
 
     <span class="doccomment">/// Value associated with the given `key`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Int</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Int</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">key</span> {
-            <span class="string">&quot;room&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">room</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="string">&quot;room&quot;</span> =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">room</span>),
+            <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">NotificationPowerLevels</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>()
     }
 }
 
 <span class="doccomment">/// Used to default power levels to 50 during deserialization.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_power_level</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Int</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">default_power_level</span>() -&gt; <span class="ident">Int</span> {
     <span class="macro">int!</span>(<span class="number">50</span>)
 }
 </code></pre></div>

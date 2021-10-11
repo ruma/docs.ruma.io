@@ -547,14 +547,14 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given categories.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">search_categories</span>: <span class="ident">Categories</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">search_categories</span>: <span class="ident">Categories</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">next_batch</span>: <span class="prelude-val">None</span>, <span class="ident">search_categories</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given search results.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">search_categories</span>: <span class="ident">ResultCategories</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">search_categories</span>: <span class="ident">ResultCategories</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">search_categories</span> }
     }
 }
@@ -570,7 +570,7 @@
 
 <span class="kw">impl</span> <span class="ident">Categories</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates an empty `Categories`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 }
@@ -611,7 +611,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Criteria</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Criteria` with the given search term.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">search_term</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">search_term</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">search_term</span>,
             <span class="ident">keys</span>: <span class="prelude-val">None</span>,
@@ -648,18 +648,18 @@
     <span class="kw">pub</span> <span class="ident">include_profile</span>: <span class="ident">bool</span>,
 }
 
-<span class="kw">fn</span> <span class="ident">default_event_context_limit</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">UInt</span> {
+<span class="kw">fn</span> <span class="ident">default_event_context_limit</span>() -&gt; <span class="ident">UInt</span> {
     <span class="macro">uint!</span>(<span class="number">5</span>)
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::trivially_copy_pass_by_ref</span>)]</span>
-<span class="kw">fn</span> <span class="ident">is_default_event_context_limit</span>(<span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">UInt</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-    <span class="kw-2">*</span><span class="ident">val</span> <span class="op">=</span><span class="op">=</span> <span class="ident">default_event_context_limit</span>()
+<span class="kw">fn</span> <span class="ident">is_default_event_context_limit</span>(<span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">UInt</span>) -&gt; <span class="ident">bool</span> {
+    <span class="kw-2">*</span><span class="ident">val</span> <span class="op">==</span> <span class="ident">default_event_context_limit</span>()
 }
 
 <span class="kw">impl</span> <span class="ident">EventContext</span> {
     <span class="doccomment">/// Creates an `EventContext` with all-default values.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">before_limit</span>: <span class="ident">default_event_context_limit</span>(),
             <span class="ident">after_limit</span>: <span class="ident">default_event_context_limit</span>(),
@@ -668,15 +668,15 @@
     }
 
     <span class="doccomment">/// Returns whether all fields have their default value.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">before_limit</span> <span class="op">=</span><span class="op">=</span> <span class="ident">default_event_context_limit</span>()
-            <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">after_limit</span> <span class="op">=</span><span class="op">=</span> <span class="ident">default_event_context_limit</span>()
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_default</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
+        <span class="self">self</span>.<span class="ident">before_limit</span> <span class="op">==</span> <span class="ident">default_event_context_limit</span>()
+            <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">after_limit</span> <span class="op">==</span> <span class="ident">default_event_context_limit</span>()
             <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">include_profile</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">EventContext</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::new</span>()
     }
 }
@@ -708,12 +708,12 @@
 
 <span class="kw">impl</span> <span class="ident">EventContextResult</span> {
     <span class="doccomment">/// Creates an empty `EventContextResult`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns whether all fields are `None` or an empty list.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">end</span>.<span class="ident">is_none</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">events_after</span>.<span class="ident">is_empty</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">events_before</span>.<span class="ident">is_empty</span>()
@@ -732,12 +732,12 @@
 
 <span class="kw">impl</span> <span class="ident">Grouping</span> {
     <span class="doccomment">/// Creates an empty `Grouping`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns whether `key` is `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">key</span>.<span class="ident">is_none</span>()
     }
 }
@@ -762,7 +762,7 @@
 
 <span class="kw">impl</span> <span class="ident">GroupingKey</span> {
     <span class="doccomment">/// Creates a string slice from this `GroupingKey`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -779,12 +779,12 @@
 
 <span class="kw">impl</span> <span class="ident">Groupings</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates an empty `Groupings`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns `true` if all fields are empty.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">group_by</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -814,7 +814,7 @@
 
 <span class="kw">impl</span> <span class="ident">SearchKeys</span> {
     <span class="doccomment">/// Creates a string slice from this `SearchKeys`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
@@ -846,7 +846,7 @@
 
 <span class="kw">impl</span> <span class="ident">ResultCategories</span> {
     <span class="doccomment">/// Creates an empty `ResultCategories`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 }
@@ -888,12 +888,12 @@
 
 <span class="kw">impl</span> <span class="ident">ResultRoomEvents</span> {
     <span class="doccomment">/// Creates an empty `ResultRoomEvents`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns `true` if all fields are empty / `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">count</span>.<span class="ident">is_none</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">groups</span>.<span class="ident">is_empty</span>()
             <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">next_batch</span>.<span class="ident">is_none</span>()
@@ -925,12 +925,12 @@
 
 <span class="kw">impl</span> <span class="ident">ResultGroup</span> {
     <span class="doccomment">/// Creates an empty `ResultGroup`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns `true` if all fields are empty / `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">next_batch</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">order</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">results</span>.<span class="ident">is_empty</span>()
     }
 }
@@ -956,12 +956,12 @@
 
 <span class="kw">impl</span> <span class="ident">SearchResult</span> {
     <span class="doccomment">/// Creates an empty `SearchResult`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns `true` if all fields are empty / `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">context</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">rank</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">result</span>.<span class="ident">is_none</span>()
     }
 }
@@ -988,12 +988,12 @@
 
 <span class="kw">impl</span> <span class="ident">UserProfile</span> {
     <span class="doccomment">/// Creates an empty `UserProfile`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">Default::default</span>()
     }
 
     <span class="doccomment">/// Returns `true` if all fields are `None`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">avatar_url</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">displayname</span>.<span class="ident">is_none</span>()
     }
 }

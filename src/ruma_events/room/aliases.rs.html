@@ -129,7 +129,7 @@
 
 <span class="kw">impl</span> <span class="ident">RoomAliasesEventContent</span> {
     <span class="doccomment">/// Create an `RoomAliasesEventContent` from the given aliases.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">aliases</span> }
     }
 }
@@ -137,7 +137,7 @@
 <span class="kw">impl</span> <span class="ident">RedactContent</span> <span class="kw">for</span> <span class="ident">RoomAliasesEventContent</span> {
     <span class="kw">type</span> <span class="ident">Redacted</span> <span class="op">=</span> <span class="ident">RedactedRoomAliasesEventContent</span>;
 
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">RedactedRoomAliasesEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) -&gt; <span class="ident">RedactedRoomAliasesEventContent</span> {
         <span class="comment">// We compare the long way to avoid pre version 6 behavior if/when</span>
         <span class="comment">// a new room version is introduced.</span>
         <span class="kw">let</span> <span class="ident">aliases</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">version</span> {
@@ -145,8 +145,8 @@
             <span class="op">|</span> <span class="ident">RoomVersionId::Version2</span>
             <span class="op">|</span> <span class="ident">RoomVersionId::Version3</span>
             <span class="op">|</span> <span class="ident">RoomVersionId::Version4</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version5</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">aliases</span>),
-            <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="op">|</span> <span class="ident">RoomVersionId::Version5</span> =&gt; <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">aliases</span>),
+            <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
         };
 
         <span class="ident">RedactedRoomAliasesEventContent</span> { <span class="ident">aliases</span> }
@@ -168,24 +168,24 @@
     <span class="doccomment">/// Create a `RedactedAliasesEventContent` with the given aliases.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is only valid for room version 5 and below.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_v1</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_v1</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">aliases</span>: <span class="prelude-val">Some</span>(<span class="ident">aliases</span>) }
     }
 
     <span class="doccomment">/// Create a `RedactedAliasesEventContent` with the given aliases.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is only valid for room version 6 and above.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_v6</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_v6</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
 }
 
 <span class="kw">impl</span> <span class="ident">EventContent</span> <span class="kw">for</span> <span class="ident">RedactedRoomAliasesEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+    <span class="kw">fn</span> <span class="ident">event_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
         <span class="string">&quot;m.room.aliases&quot;</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">from_parts</span>(<span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="ident">RawJsonValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from_parts</span>(<span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="ident">RawJsonValue</span>) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">event_type</span> <span class="op">!</span><span class="op">=</span> <span class="string">&quot;m.room.aliases&quot;</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">::serde::de::Error::custom</span>(<span class="macro">format!</span>(
                 <span class="string">&quot;expected event type `m.room.aliases`, found `{}`&quot;</span>,
@@ -200,11 +200,11 @@
 <span class="comment">// Since this redacted event has fields we leave the default `empty` method</span>
 <span class="comment">// that will error if called.</span>
 <span class="kw">impl</span> <span class="ident">RedactedEventContent</span> <span class="kw">for</span> <span class="ident">RedactedRoomAliasesEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">has_serialize_fields</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+    <span class="kw">fn</span> <span class="ident">has_serialize_fields</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">aliases</span>.<span class="ident">is_some</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">has_deserialize_fields</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HasDeserializeFields</span> {
+    <span class="kw">fn</span> <span class="ident">has_deserialize_fields</span>() -&gt; <span class="ident">HasDeserializeFields</span> {
         <span class="ident">HasDeserializeFields::Optional</span>
     }
 }

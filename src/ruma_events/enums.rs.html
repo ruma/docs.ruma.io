@@ -480,19 +480,19 @@
 <span class="doccomment">/// This allows documentation to be dynamically generated based on input.</span>
 <span class="doccomment">/// Necessary to work around &lt;https://github.com/rust-lang/rust/issues/52607&gt;.</span>
 <span class="macro">macro_rules!</span> <span class="ident">doc_concat</span> {
-    ( $( <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">doc</span>:<span class="ident">expr</span>]</span> $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">thing</span>:<span class="ident">tt</span> )<span class="op">*</span> )<span class="op">*</span> ) <span class="op">=</span><span class="op">&gt;</span> ( $( <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">doc</span>]</span> $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">thing</span> )<span class="op">*</span> )<span class="op">*</span> );
+    ( $( <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">doc</span>:<span class="ident">expr</span>]</span> $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">thing</span>:<span class="ident">tt</span> )<span class="op">*</span> )<span class="op">*</span> ) =&gt; ( $( <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">doc</span>]</span> $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">thing</span> )<span class="op">*</span> )<span class="op">*</span> );
 }
 
 <span class="macro">macro_rules!</span> <span class="ident">room_ev_accessor</span> {
-    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ty</span>) <span class="op">=</span><span class="op">&gt;</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>:<span class="ident">ident</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ty</span>) =&gt; {
         <span class="macro">doc_concat!</span> {
             <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">concat!</span>(<span class="string">&quot;Returns this event&#39;s `&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>), <span class="string">&quot;` field.&quot;</span>)]</span>
-            <span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
+            <span class="kw">pub</span> <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
                 <span class="kw">match</span> <span class="self">self</span> {
-                    <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
-                    <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
-                    <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
-                    <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
+                    <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
+                    <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
+                    <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
+                    <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>(),
                 }
             }
         }
@@ -550,12 +550,12 @@
     <span class="macro">room_ev_accessor!</span>(<span class="ident">sender</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>);
 
     <span class="doccomment">/// Converts `self` to an `AnyRoomEvent` by adding the given a room ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_full_event</span>(<span class="self">self</span>, <span class="ident">room_id</span>: <span class="ident">RoomId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">AnyRoomEvent</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_full_event</span>(<span class="self">self</span>, <span class="ident">room_id</span>: <span class="ident">RoomId</span>) -&gt; <span class="ident">AnyRoomEvent</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnyRoomEvent::Message</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
-            <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnyRoomEvent::State</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
-            <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnyRoomEvent::RedactedMessage</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
-            <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnyRoomEvent::RedactedState</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
+            <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) =&gt; <span class="ident">AnyRoomEvent::Message</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
+            <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) =&gt; <span class="ident">AnyRoomEvent::State</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
+            <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) =&gt; <span class="ident">AnyRoomEvent::RedactedMessage</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
+            <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) =&gt; <span class="ident">AnyRoomEvent::RedactedState</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
         }
     }
 }
@@ -568,7 +568,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnyRoomEvent</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">de::Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -577,24 +577,24 @@
 
         <span class="kw">if</span> <span class="ident">state_key</span>.<span class="ident">is_some</span>() {
             <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">unsigned</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() =&gt; {
                     <span class="ident">AnyRoomEvent::RedactedState</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>)
                 }
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnyRoomEvent::State</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
+                <span class="kw">_</span> =&gt; <span class="ident">AnyRoomEvent::State</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
             })
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">unsigned</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() =&gt; {
                     <span class="ident">AnyRoomEvent::RedactedMessage</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>)
                 }
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnyRoomEvent::Message</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
+                <span class="kw">_</span> =&gt; <span class="ident">AnyRoomEvent::Message</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
             })
         }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnySyncRoomEvent</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">de::Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
@@ -603,17 +603,17 @@
 
         <span class="kw">if</span> <span class="ident">state_key</span>.<span class="ident">is_some</span>() {
             <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">unsigned</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() =&gt; {
                     <span class="ident">AnySyncRoomEvent::RedactedState</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>)
                 }
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnySyncRoomEvent::State</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
+                <span class="kw">_</span> =&gt; <span class="ident">AnySyncRoomEvent::State</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
             })
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">unsigned</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="prelude-val">Some</span>(<span class="ident">unsigned</span>) <span class="kw">if</span> <span class="ident">unsigned</span>.<span class="ident">redacted_because</span>.<span class="ident">is_some</span>() =&gt; {
                     <span class="ident">AnySyncRoomEvent::RedactedMessage</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>)
                 }
-                <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">AnySyncRoomEvent::Message</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
+                <span class="kw">_</span> =&gt; <span class="ident">AnySyncRoomEvent::Message</span>(<span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>)<span class="question-mark">?</span>),
             })
         }
     }
@@ -636,21 +636,21 @@
     <span class="doccomment">/// Redacts `self`, referencing the given event in `unsigned.redacted_because`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Does nothing for events that are already redacted.</span>
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span> {
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) -&gt; <span class="ident"><span class="self">Self</span>::Redacted</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
-            <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
-            <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>),
-            <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>),
+            <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
+            <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
+            <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>),
+            <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">AnyRedactedRoomEvent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnyRoomEvent</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ev</span>: <span class="ident">AnyRedactedRoomEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ev</span>: <span class="ident">AnyRedactedRoomEvent</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">ev</span> {
-            <span class="ident">AnyRedactedRoomEvent::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>),
-            <span class="ident">AnyRedactedRoomEvent::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>),
+            <span class="ident">AnyRedactedRoomEvent::Message</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>),
+            <span class="ident">AnyRedactedRoomEvent::State</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>),
         }
     }
 }
@@ -672,21 +672,21 @@
     <span class="doccomment">/// Redacts `self`, referencing the given event in `unsigned.redacted_because`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Does nothing for events that are already redacted.</span>
-    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted</span> {
+    <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">redaction</span>: <span class="ident">SyncRoomRedactionEvent</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) -&gt; <span class="ident"><span class="self">Self</span>::Redacted</span> {
         <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
-            <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
-            <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>),
-            <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>),
+            <span class="ident"><span class="self">Self</span>::Message</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
+            <span class="ident"><span class="self">Self</span>::State</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>.<span class="ident">redact</span>(<span class="ident">redaction</span>, <span class="ident">version</span>)),
+            <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::Message</span>(<span class="ident">ev</span>),
+            <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::Redacted::State</span>(<span class="ident">ev</span>),
         }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">AnyRedactedSyncRoomEvent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AnySyncRoomEvent</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ev</span>: <span class="ident">AnyRedactedSyncRoomEvent</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">ev</span>: <span class="ident">AnyRedactedSyncRoomEvent</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">ev</span> {
-            <span class="ident">AnyRedactedSyncRoomEvent::Message</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>),
-            <span class="ident">AnyRedactedSyncRoomEvent::State</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>),
+            <span class="ident">AnyRedactedSyncRoomEvent::Message</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::RedactedMessage</span>(<span class="ident">ev</span>),
+            <span class="ident">AnyRedactedSyncRoomEvent::State</span>(<span class="ident">ev</span>) =&gt; <span class="ident"><span class="self">Self</span>::RedactedState</span>(<span class="ident">ev</span>),
         }
     }
 }
@@ -696,7 +696,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a helper function intended for encryption. There should not be a reason to access</span>
     <span class="doccomment">/// `m.relates_to` without first destructuring an `AnyMessageEventContent` otherwise.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">relation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="kw">crate</span>::room::encrypted::Relation</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">relation</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="kw">crate</span>::room::encrypted::Relation</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::key::verification</span>::{
             <span class="ident">accept::KeyVerificationAcceptEventContent</span>, <span class="ident">cancel::KeyVerificationCancelEventContent</span>,
@@ -714,13 +714,13 @@
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationAccept</span>(<span class="ident">KeyVerificationAcceptEventContent</span> { <span class="ident">relates_to</span>, .. })
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationKey</span>(<span class="ident">KeyVerificationKeyEventContent</span> { <span class="ident">relates_to</span>, .. })
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationMac</span>(<span class="ident">KeyVerificationMacEventContent</span> { <span class="ident">relates_to</span>, .. })
-            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationDone</span>(<span class="ident">KeyVerificationDoneEventContent</span> { <span class="ident">relates_to</span>, .. }) <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::KeyVerificationDone</span>(<span class="ident">KeyVerificationDoneEventContent</span> { <span class="ident">relates_to</span>, .. }) =&gt; {
                 <span class="prelude-val">Some</span>(<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">into</span>())
             },
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::Reaction</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">into</span>()),
-            <span class="ident"><span class="self">Self</span>::RoomEncrypted</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>(),
-            <span class="ident"><span class="self">Self</span>::RoomMessage</span>(<span class="ident">ev</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
+            <span class="ident"><span class="self">Self</span>::Reaction</span>(<span class="ident">ev</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">into</span>()),
+            <span class="ident"><span class="self">Self</span>::RoomEncrypted</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>(),
+            <span class="ident"><span class="self">Self</span>::RoomMessage</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="ident"><span class="self">Self</span>::CallAnswer</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallInvite</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallHangup</span>(<span class="kw">_</span>)
@@ -728,7 +728,7 @@
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::RoomMessageFeedback</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::RoomRedaction</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::Sticker</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::_Custom</span> { .. } <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::_Custom</span> { .. } =&gt; <span class="prelude-val">None</span>,
         }
     }
 }

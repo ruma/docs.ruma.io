@@ -144,7 +144,7 @@
         <span class="ident">mxid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
         <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sender</span>, <span class="ident">mxid</span>, <span class="ident">token</span>, <span class="ident">signatures</span> }
     }
 }
@@ -191,7 +191,7 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Invite3pidInit</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Invite3pid</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">Invite3pidInit</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">Invite3pidInit</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">Invite3pidInit</span> { <span class="ident">id_server</span>, <span class="ident">id_access_token</span>, <span class="ident">medium</span>, <span class="ident">address</span> } <span class="op">=</span> <span class="ident">init</span>;
         <span class="self">Self</span> { <span class="ident">id_server</span>, <span class="ident">id_access_token</span>, <span class="ident">medium</span>, <span class="ident">address</span> }
     }
