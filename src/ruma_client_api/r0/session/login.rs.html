@@ -374,15 +374,6 @@
 <span id="374">374</span>
 <span id="375">375</span>
 <span id="376">376</span>
-<span id="377">377</span>
-<span id="378">378</span>
-<span id="379">379</span>
-<span id="380">380</span>
-<span id="381">381</span>
-<span id="382">382</span>
-<span id="383">383</span>
-<span id="384">384</span>
-<span id="385">385</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/login](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-login)</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -394,7 +385,7 @@
     <span class="ident">de</span>::{<span class="self">self</span>, <span class="ident">DeserializeOwned</span>},
     <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>,
 };
-<span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
+<span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::uiaa</span>::{<span class="ident">IncomingUserIdentifier</span>, <span class="ident">UserIdentifier</span>};
 
@@ -526,28 +517,19 @@
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">fn</span> <span class="ident">from_raw_json_value</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span>, <span class="ident">E</span>: <span class="ident">de::Error</span><span class="op">&gt;</span>(
-            <span class="ident">raw</span>: <span class="kw-2">&amp;</span><span class="ident">RawJsonValue</span>,
-        ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
-            <span class="ident">serde_json::from_str</span>(<span class="ident">raw</span>.<span class="ident">get</span>()).<span class="ident">map_err</span>(<span class="ident">E::custom</span>)
+        <span class="kw">fn</span> <span class="ident">from_json_value</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">DeserializeOwned</span>, <span class="ident">E</span>: <span class="ident">de::Error</span><span class="op">&gt;</span>(<span class="ident">val</span>: <span class="ident">JsonValue</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span> {
+            <span class="ident">serde_json::from_value</span>(<span class="ident">val</span>).<span class="ident">map_err</span>(<span class="ident">E::custom</span>)
         }
 
-        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
+        <span class="comment">// FIXME: Would be better to use serde_json::value::RawValue, but that would require</span>
+        <span class="comment">// implementing Deserialize manually for Request, bc. `#[serde(flatten)]` breaks things.</span>
+        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">JsonValue::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
 
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">ExtractType</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">borrow</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
-            <span class="ident">login_type</span>: <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">str</span><span class="op">&gt;</span>,
-        }
-
-        <span class="kw">let</span> <span class="ident">login_type</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">ExtractType</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">get</span>())
-            .<span class="ident">map_err</span>(<span class="ident">de::Error::custom</span>)<span class="question-mark">?</span>
-            .<span class="ident">login_type</span>;
-
-        <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">login_type</span> {
-            <span class="string">&quot;m.login.password&quot;</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Password</span>),
-            <span class="string">&quot;m.login.token&quot;</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Token</span>),
-            <span class="kw">_</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>),
+        <span class="kw">let</span> <span class="ident">login_type</span> <span class="op">=</span> <span class="ident">json</span>[<span class="string">&quot;type&quot;</span>].<span class="ident">as_str</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">de::Error::missing_field</span>(<span class="string">&quot;type&quot;</span>))<span class="question-mark">?</span>;
+        <span class="kw">match</span> <span class="ident">login_type</span> {
+            <span class="string">&quot;m.login.password&quot;</span> =&gt; <span class="ident">from_json_value</span>(<span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Password</span>),
+            <span class="string">&quot;m.login.token&quot;</span> =&gt; <span class="ident">from_json_value</span>(<span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Token</span>),
+            <span class="kw">_</span> =&gt; <span class="ident">from_json_value</span>(<span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>),
         }
     }
 }
