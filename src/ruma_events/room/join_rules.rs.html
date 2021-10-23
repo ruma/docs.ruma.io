@@ -281,6 +281,29 @@
 <span id="281">281</span>
 <span id="282">282</span>
 <span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.join_rules` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
@@ -522,17 +545,19 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AllowRule</span>;
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>};
+    <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="kw">use</span> <span class="ident">ruma_identifiers::room_id</span>;
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AllowRule</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEvent</span>, <span class="ident">RoomJoinRulesEventContent</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize</span>() {
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="string">r#&quot;{&quot;join_rule&quot;: &quot;public&quot;}&quot;#</span>;
         <span class="kw">let</span> <span class="ident">event</span>: <span class="ident">RoomJoinRulesEventContent</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">event</span>, <span class="ident">RoomJoinRulesEventContent</span> { <span class="ident">join_rule</span>: <span class="ident">JoinRule::Public</span> }));
+        <span class="macro">assert_matches!</span>(<span class="ident">event</span>, <span class="ident">RoomJoinRulesEventContent</span> { <span class="ident">join_rule</span>: <span class="ident">JoinRule::Public</span> });
     }
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
@@ -562,6 +587,27 @@
             ),
             <span class="ident">rule</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Deserialized to wrong variant: {:?}&quot;</span>, <span class="ident">rule</span>),
         }
+    }
+
+    <span class="kw">fn</span> <span class="ident">deserialize_restricted_event</span>() {
+        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="string">r#&quot;{
+            &quot;type&quot;: &quot;m.room.join_rules&quot;,
+            &quot;sender&quot;: &quot;@admin:community.rs&quot;,
+            &quot;content&quot;: {
+                &quot;join_rule&quot;: &quot;restricted&quot;,
+                &quot;allow&quot;:[
+                    { &quot;type&quot;: &quot;m.room_membership&quot;,&quot;room_id&quot;: &quot;!KqeUnzmXPIhHRaWMTs:mccarty.io&quot; }
+                ]
+            },
+            &quot;state_key&quot;: &quot;&quot;,
+            &quot;origin_server_ts&quot;:1630508835342,
+            &quot;unsigned&quot;: {
+                &quot;age&quot;:4165521871
+            },
+            &quot;event_id&quot;: &quot;$0ACb9KSPlT3al3kikyRYvFhMqXPP9ZcQOBrsdIuh58U&quot;
+        }&quot;#</span>;
+
+        <span class="macro">assert_matches!</span>(<span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">RoomJoinRulesEvent</span><span class="op">&gt;</span>(<span class="ident">json</span>), <span class="prelude-val">Ok</span>(<span class="kw">_</span>));
     }
 }
 </code></pre></div>

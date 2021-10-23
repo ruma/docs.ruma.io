@@ -255,8 +255,8 @@
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
     <span class="ident">request</span>: {
         <span class="doccomment">/// Extra keys to be added to the content of the `m.room.create`.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;CreationContent::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">creation_content</span>: <span class="ident">CreationContent</span>,
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+        <span class="kw">pub</span> <span class="ident">creation_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">CreationContent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// List of state events to send to the new room.</span>
         <span class="doccomment">///</span>
