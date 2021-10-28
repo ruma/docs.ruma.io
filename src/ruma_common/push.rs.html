@@ -1250,7 +1250,7 @@
     <span class="doccomment">/// Returns `true` if the new rule was correctly added, and `false`</span>
     <span class="doccomment">/// if a rule with the same `rule_id` is already present for this kind</span>
     <span class="doccomment">/// of rule.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">rule</span>: <span class="ident">AnyPushRule</span>) -&gt; <span class="ident">bool</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">rule</span>: <span class="ident">AnyPushRule</span>) -&gt; <span class="ident">bool</span> {
         <span class="kw">match</span> <span class="ident">rule</span> {
             <span class="ident">AnyPushRule::Override</span>(<span class="ident">r</span>) =&gt; <span class="self">self</span>.<span class="ident">override_</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
             <span class="ident">AnyPushRule::Underride</span>(<span class="ident">r</span>) =&gt; <span class="self">self</span>.<span class="ident">underride</span>.<span class="ident">insert</span>(<span class="ident">r</span>),
@@ -1349,7 +1349,7 @@
 <span class="comment">// an IndexSet of the type</span>
 
 <span class="kw">impl</span> <span class="ident">Hash</span> <span class="kw">for</span> <span class="ident">SimplePushRule</span> {
-    <span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">H</span>) {
+    <span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident">H</span>) {
         <span class="self">self</span>.<span class="ident">rule_id</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
     }
 }
@@ -1445,7 +1445,7 @@
 <span class="comment">// an IndexSet of the type</span>
 
 <span class="kw">impl</span> <span class="ident">Hash</span> <span class="kw">for</span> <span class="ident">ConditionalPushRule</span> {
-    <span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">H</span>) {
+    <span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident">H</span>) {
         <span class="self">self</span>.<span class="ident">rule_id</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
     }
 }
@@ -1540,7 +1540,7 @@
 <span class="comment">// an IndexSet of the type</span>
 
 <span class="kw">impl</span> <span class="ident">Hash</span> <span class="kw">for</span> <span class="ident">PatternedPushRule</span> {
-    <span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">H</span>) {
+    <span class="kw">fn</span> <span class="ident">hash</span><span class="op">&lt;</span><span class="ident">H</span>: <span class="ident">Hasher</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;mut</span> <span class="ident">H</span>) {
         <span class="self">self</span>.<span class="ident">rule_id</span>.<span class="ident">hash</span>(<span class="ident">state</span>);
     }
 }

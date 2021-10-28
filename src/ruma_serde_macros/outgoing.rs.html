@@ -418,9 +418,9 @@
         <span class="ident">DataKind::Unit</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">impl_outgoing_with_incoming_self</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>, <span class="kw-2">&amp;</span><span class="ident">ruma_serde</span>)),
         <span class="ident">DataKind::Enum</span>(<span class="kw-2">mut</span> <span class="ident">vars</span>) =&gt; {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found_lifetime</span> <span class="op">=</span> <span class="bool-val">false</span>;
-            <span class="kw">for</span> <span class="ident">var</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">vars</span> {
-                <span class="kw">for</span> <span class="ident">field</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">var</span>.<span class="ident">fields</span> {
-                    <span class="kw">if</span> <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">field</span>.<span class="ident">ty</span>) {
+            <span class="kw">for</span> <span class="ident">var</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="ident">vars</span> {
+                <span class="kw">for</span> <span class="ident">field</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="ident">var</span>.<span class="ident">fields</span> {
+                    <span class="kw">if</span> <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;mut</span> <span class="ident">field</span>.<span class="ident">ty</span>) {
                         <span class="ident">found_lifetime</span> <span class="op">=</span> <span class="bool-val">true</span>;
                     }
                 }
@@ -438,7 +438,7 @@
             <span class="kw">let</span> <span class="ident">incoming_ident</span> <span class="op">=</span>
                 <span class="macro">format_ident!</span>(<span class="string">&quot;Incoming{}&quot;</span>, <span class="ident">original_ident</span>, <span class="ident">span</span> <span class="op">=</span> <span class="ident">Span::call_site</span>());
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gen_copy</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">generics</span>.<span class="ident">clone</span>();
-            <span class="kw">let</span> (<span class="ident">impl_gen</span>, <span class="ident">ty_gen</span>) <span class="op">=</span> <span class="ident">split_for_impl_lifetime_less</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gen_copy</span>);
+            <span class="kw">let</span> (<span class="ident">impl_gen</span>, <span class="ident">ty_gen</span>) <span class="op">=</span> <span class="ident">split_for_impl_lifetime_less</span>(<span class="kw-2">&amp;mut</span> <span class="ident">gen_copy</span>);
 
             <span class="prelude-val">Ok</span>(<span class="macro">quote!</span> {
                 <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">doc</span>]</span>
@@ -454,11 +454,11 @@
         }
         <span class="ident">DataKind::Struct</span>(<span class="kw-2">mut</span> <span class="ident">fields</span>, <span class="ident">struct_kind</span>) =&gt; {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">found_lifetime</span> <span class="op">=</span> <span class="bool-val">false</span>;
-            <span class="kw">for</span> <span class="ident">field</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fields</span> {
+            <span class="kw">for</span> <span class="ident">field</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="ident">fields</span> {
                 <span class="kw">if</span> <span class="op">!</span><span class="macro">matches!</span>(<span class="ident">field</span>.<span class="ident">vis</span>, <span class="ident">syn::Visibility::Public</span>(<span class="kw">_</span>)) {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">syn::Error::new_spanned</span>(<span class="ident">field</span>, <span class="string">&quot;All fields must be marked `pub`&quot;</span>));
                 }
-                <span class="kw">if</span> <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">field</span>.<span class="ident">ty</span>) {
+                <span class="kw">if</span> <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;mut</span> <span class="ident">field</span>.<span class="ident">ty</span>) {
                     <span class="ident">found_lifetime</span> <span class="op">=</span> <span class="bool-val">true</span>;
                 }
             }
@@ -475,7 +475,7 @@
             <span class="kw">let</span> <span class="ident">incoming_ident</span> <span class="op">=</span>
                 <span class="macro">format_ident!</span>(<span class="string">&quot;Incoming{}&quot;</span>, <span class="ident">original_ident</span>, <span class="ident">span</span> <span class="op">=</span> <span class="ident">Span::call_site</span>());
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">gen_copy</span> <span class="op">=</span> <span class="ident">input</span>.<span class="ident">generics</span>.<span class="ident">clone</span>();
-            <span class="kw">let</span> (<span class="ident">impl_gen</span>, <span class="ident">ty_gen</span>) <span class="op">=</span> <span class="ident">split_for_impl_lifetime_less</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gen_copy</span>);
+            <span class="kw">let</span> (<span class="ident">impl_gen</span>, <span class="ident">ty_gen</span>) <span class="op">=</span> <span class="ident">split_for_impl_lifetime_less</span>(<span class="kw-2">&amp;mut</span> <span class="ident">gen_copy</span>);
 
             <span class="kw">let</span> <span class="ident">struct_def</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">struct_kind</span> {
                 <span class="ident">StructKind::Struct</span> =&gt; <span class="macro">quote!</span> { { #(#<span class="ident">fields</span>,)<span class="op">*</span> } },
@@ -519,7 +519,7 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">split_for_impl_lifetime_less</span>(<span class="ident">generics</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Generics</span>) -&gt; (<span class="ident">ImplGenerics</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">TypeGenerics</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) {
+<span class="kw">fn</span> <span class="ident">split_for_impl_lifetime_less</span>(<span class="ident">generics</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Generics</span>) -&gt; (<span class="ident">ImplGenerics</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>, <span class="ident">TypeGenerics</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) {
     <span class="ident">generics</span>.<span class="ident">params</span> <span class="op">=</span> <span class="ident">generics</span>
         .<span class="ident">params</span>
         .<span class="ident">clone</span>()
@@ -531,7 +531,7 @@
     (<span class="ident">impl_gen</span>, <span class="ident">ty_gen</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">strip_lifetimes</span>(<span class="ident">field_type</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Type</span>) -&gt; <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">strip_lifetimes</span>(<span class="ident">field_type</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Type</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">match</span> <span class="ident">field_type</span> {
         <span class="comment">// T&lt;&#39;a&gt; -&gt; IncomingT</span>
         <span class="comment">// The IncomingT has to be declared by the user of this derive macro.</span>
@@ -539,9 +539,9 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">has_lifetimes</span> <span class="op">=</span> <span class="bool-val">false</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">is_lifetime_generic</span> <span class="op">=</span> <span class="bool-val">false</span>;
 
-            <span class="kw">for</span> <span class="ident">seg</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">path</span>.<span class="ident">segments</span> {
+            <span class="kw">for</span> <span class="ident">seg</span> <span class="kw">in</span> <span class="kw-2">&amp;mut</span> <span class="ident">path</span>.<span class="ident">segments</span> {
                 <span class="comment">// strip generic lifetimes</span>
-                <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">seg</span>.<span class="ident">arguments</span> {
+                <span class="kw">match</span> <span class="kw-2">&amp;mut</span> <span class="ident">seg</span>.<span class="ident">arguments</span> {
                     <span class="ident">PathArguments::AngleBracketed</span>(<span class="ident">AngleBracketedGenericArguments</span> {
                         <span class="ident">args</span>, ..
                     }) =&gt; {
@@ -549,7 +549,7 @@
                             .<span class="ident">clone</span>()
                             .<span class="ident">into_iter</span>()
                             .<span class="ident">map</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">ty</span><span class="op">|</span> {
-                                <span class="kw">if</span> <span class="kw">let</span> <span class="ident">GenericArgument::Type</span>(<span class="ident">ty</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ty</span> {
+                                <span class="kw">if</span> <span class="kw">let</span> <span class="ident">GenericArgument::Type</span>(<span class="ident">ty</span>) <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">ty</span> {
                                     <span class="kw">if</span> <span class="ident">strip_lifetimes</span>(<span class="ident">ty</span>) {
                                         <span class="ident">has_lifetimes</span> <span class="op">=</span> <span class="bool-val">true</span>;
                                     };
@@ -573,7 +573,7 @@
                             .<span class="ident">clone</span>()
                             .<span class="ident">into_iter</span>()
                             .<span class="ident">map</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">ty</span><span class="op">|</span> {
-                                <span class="kw">if</span> <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">ty</span>) {
+                                <span class="kw">if</span> <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ty</span>) {
                                     <span class="ident">has_lifetimes</span> <span class="op">=</span> <span class="bool-val">true</span>;
                                 };
                                 <span class="ident">ty</span>
@@ -596,7 +596,7 @@
             <span class="ident">has_lifetimes</span> <span class="op">|</span><span class="op">|</span> <span class="ident">is_lifetime_generic</span>
         }
         <span class="ident">Type::Reference</span>(<span class="ident">TypeReference</span> { <span class="ident">elem</span>, .. }) =&gt; {
-            <span class="kw">let</span> <span class="ident">special_replacement</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">elem</span> {
+            <span class="kw">let</span> <span class="ident">special_replacement</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">elem</span> {
                 <span class="ident">Type::Path</span>(<span class="ident">ty</span>) =&gt; {
                     <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">ty</span>.<span class="ident">path</span>;
                     <span class="kw">let</span> <span class="ident">last_seg</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">segments</span>.<span class="ident">last</span>().<span class="ident">unwrap</span>();
@@ -620,7 +620,7 @@
                 <span class="comment">// &amp;[T] -&gt; Vec&lt;T&gt;</span>
                 <span class="ident">Type::Slice</span>(<span class="ident">TypeSlice</span> { <span class="ident">elem</span>, .. }) =&gt; {
                     <span class="comment">// Recursively strip the lifetimes of the slice&#39;s elements.</span>
-                    <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">elem</span>);
+                    <span class="ident">strip_lifetimes</span>(<span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">elem</span>);
                     <span class="prelude-val">Some</span>(<span class="macro">parse_quote!</span> { <span class="ident">Vec</span><span class="op">&lt;</span>#<span class="ident">elem</span><span class="op">&gt;</span> })
                 }
                 <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
