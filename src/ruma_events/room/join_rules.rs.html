@@ -304,6 +304,7 @@
 <span id="304">304</span>
 <span id="305">305</span>
 <span id="306">306</span>
+<span id="307">307</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.join_rules` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
@@ -551,7 +552,7 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AllowRule</span>;
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEvent</span>, <span class="ident">RoomJoinRulesEventContent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>, <span class="ident">SyncRoomJoinRulesEvent</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize</span>() {
@@ -589,6 +590,7 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_restricted_event</span>() {
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="string">r#&quot;{
             &quot;type&quot;: &quot;m.room.join_rules&quot;,
@@ -607,7 +609,7 @@
             &quot;event_id&quot;: &quot;$0ACb9KSPlT3al3kikyRYvFhMqXPP9ZcQOBrsdIuh58U&quot;
         }&quot;#</span>;
 
-        <span class="macro">assert_matches!</span>(<span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">RoomJoinRulesEvent</span><span class="op">&gt;</span>(<span class="ident">json</span>), <span class="prelude-val">Ok</span>(<span class="kw">_</span>));
+        <span class="macro">assert_matches!</span>(<span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">SyncRoomJoinRulesEvent</span><span class="op">&gt;</span>(<span class="ident">json</span>), <span class="prelude-val">Ok</span>(<span class="kw">_</span>));
     }
 }
 </code></pre></div>
