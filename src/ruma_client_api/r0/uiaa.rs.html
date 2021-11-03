@@ -896,6 +896,7 @@
 <span id="896">896</span>
 <span id="897">897</span>
 <span id="898">898</span>
+<span id="899">899</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Module for [User-Interactive Authentication API][uiaa] types.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [uiaa]: https://matrix.org/docs/spec/client_server/r0.6.1#user-interactive-authentication-api</span>
@@ -1759,6 +1760,7 @@
     }
 }
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
 <span class="kw">fn</span> <span class="ident">deserialize_thirdparty_id_creds</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">D</span><span class="op">&gt;</span>(
     <span class="ident">deserializer</span>: <span class="ident">D</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ThirdpartyIdCredentials</span><span class="op">&gt;</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
