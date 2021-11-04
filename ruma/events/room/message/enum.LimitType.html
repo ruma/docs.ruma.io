@@ -2,7 +2,7 @@
 pub enum LimitType {
     MonthlyActiveUser,
     // some variants omitted
-}</code></pre></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Types of usage limits.</p>
+}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Types of usage limits.</p>
 <p>This type can hold an arbitrary string. To check for formats that are not available as a
 documented variant here, use its string representation, obtained through <code>.as_str()</code>.</p>
 </div></details><h2 id="variants" class="variants small-section-header">Variants (Non-exhaustive)<a href="#variants" class="anchor"></a></h2><details class="rustdoc-toggle non-exhaustive"><summary class="hideme"><span>This enum is marked as non-exhaustive</span></summary><div class="docblock">Non-exhaustive enums could have additional variants added in future. Therefore, when matching against variants of non-exhaustive enums, an extra wildcard arm must be added to account for any future variants.</div></details><div id="variant.MonthlyActiveUser" class="variant small-section-header"><a href="#variant.MonthlyActiveUser" class="anchor field"></a><code>MonthlyActiveUser</code></div><div class="docblock"><p>The server’s number of active users in the last 30 days has exceeded the maximum.</p>

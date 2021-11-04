@@ -3,7 +3,7 @@ pub enum IdentifierHashingAlgorithm {
     Sha256,
     None,
     // some variants omitted
-}</code></pre></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>api</code> and (crate features <code>identity-service-api</code> or <code>identity-service-api-c</code> or <code>identity-service-api-s</code>)</strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The algorithms that can be used to hash the identifiers used for lookup, as defined in the
+}</code></pre></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate features <code>identity-service-api</code> or <code>identity-service-api-c</code> or <code>identity-service-api-s</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The algorithms that can be used to hash the identifiers used for lookup, as defined in the
 Matrix Spec.</p>
 <p>This type can hold an arbitrary string. To check for algorithms that are not available as a
 documented variant here, use its string representation, obtained through <code>.as_str()</code>.</p>

@@ -3,7 +3,7 @@ pub enum Reason {
     IceFailed,
     InviteTimeout,
     // some variants omitted
-}</code></pre></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A reason for a hangup.</p>
+}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A reason for a hangup.</p>
 <p>Should not be provided when the user naturally ends or rejects the call. When there was an error
 in the call negotiation, this should be <code>ice_failed</code> for when ICE negotiation fails or
 <code>invite_timeout</code> for when the other party did not answer in time.</p>

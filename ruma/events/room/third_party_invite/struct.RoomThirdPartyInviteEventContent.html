@@ -3,7 +3,7 @@
     pub key_validity_url: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub public_key: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>,
     pub public_keys: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="struct.PublicKey.html" title="struct ruma::events::room::third_party_invite::PublicKey">PublicKey</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/alloc/struct.Global.html" title="struct alloc::alloc::Global">Global</a>&gt;&gt;,
-}</code></pre></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The content of an <code>m.room.third_party_invite</code> event.</p>
+}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The content of an <code>m.room.third_party_invite</code> event.</p>
 <p>An invitation to a room issued to a third party identifier, rather than a matrix user ID.</p>
 <p>Acts as an <code>m.room.member</code> invite event, where there isn’t a target user_id to invite. This
 event contains a token and a public key whose private key must be used to sign the token.
