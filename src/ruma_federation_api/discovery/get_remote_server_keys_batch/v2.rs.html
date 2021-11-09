@@ -74,6 +74,9 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/key/v2/query](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-key-v2-query)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -140,6 +143,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If not supplied, the current time as determined by the notary server is</span>
     <span class="doccomment">/// used.</span>
+    <span class="comment">// This doesn&#39;t use `serde(default)` because the default would then be</span>
+    <span class="comment">// determined by the client rather than the server (and it would take more</span>
+    <span class="comment">// bandwidth because `skip_serializing_if` couldn&#39;t be used).</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">minimum_valid_until_ts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MilliSecondsSinceUnixEpoch</span><span class="op">&gt;</span>,
 }
