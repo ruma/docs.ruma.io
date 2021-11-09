@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `check_registration_token_validity` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `check_registration_token_validity` API endpoint."],["Response","Data in the response from the `check_registration_token_validity` API endpoint."]]});
