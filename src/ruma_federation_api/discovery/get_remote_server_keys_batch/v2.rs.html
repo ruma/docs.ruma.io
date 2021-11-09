@@ -74,15 +74,6 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
-<span id="79">79</span>
-<span id="80">80</span>
-<span id="81">81</span>
-<span id="82">82</span>
-<span id="83">83</span>
-<span id="84">84</span>
-<span id="85">85</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/key/v2/query](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-key-v2-query)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -105,14 +96,6 @@
     }
 
     <span class="ident">request</span>: {
-        <span class="doccomment">/// The time until which the returned certificates will need to be valid to be useful to</span>
-        <span class="doccomment">/// the requesting server.</span>
-        <span class="doccomment">///</span>
-        <span class="doccomment">/// If not supplied, the current time as determined by the notary server is used.</span>
-        <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;MilliSecondsSinceUnixEpoch::now&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">minimum_valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
-
         <span class="doccomment">/// The query criteria.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// The outer string key on the object is the server name (eg: matrix.org). The inner</span>
@@ -132,12 +115,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Request</span> {
-    <span class="doccomment">/// Creates a new `Request` with the given query criteria and `minimum_valid_until` timestamp.</span>
+    <span class="doccomment">/// Creates a new `Request` with the given query criteria.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">server_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">QueryCriteria</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-        <span class="ident">minimum_valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
     ) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">server_keys</span>, <span class="ident">minimum_valid_until_ts</span> }
+        <span class="self">Self</span> { <span class="ident">server_keys</span> }
     }
 }
 
