@@ -1260,6 +1260,10 @@
 <span id="1260">1260</span>
 <span id="1261">1261</span>
 <span id="1262">1262</span>
+<span id="1263">1263</span>
+<span id="1264">1264</span>
+<span id="1265">1265</span>
+<span id="1266">1266</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">cmp::Reverse</span>,
     <span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BinaryHeap</span>, <span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
@@ -1593,6 +1597,10 @@
 }
 
 <span class="doccomment">/// Find the power level for the sender of `event_id` or return a default value of zero.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Do NOT use this any where but topological sort, we find the power level for the eventId</span>
+<span class="doccomment">/// at the eventId&#39;s generation (we walk backwards to `EventId`s most recent previous power level</span>
+<span class="doccomment">/// event).</span>
 <span class="kw">fn</span> <span class="ident">get_power_level_for_sender</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">Event</span><span class="op">&gt;</span>(
     <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="ident">EventId</span>,
     <span class="ident">fetch_event</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">EventId</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>,
