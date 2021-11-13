@@ -897,6 +897,10 @@
 <span id="897">897</span>
 <span id="898">898</span>
 <span id="899">899</span>
+<span id="900">900</span>
+<span id="901">901</span>
+<span id="902">902</span>
+<span id="903">903</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Module for [User-Interactive Authentication API][uiaa] types.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [uiaa]: https://matrix.org/docs/spec/client_server/r0.6.1#user-interactive-authentication-api</span>
@@ -921,7 +925,7 @@
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<span class="ident">Error</span> <span class="kw">as</span> <span class="ident">MatrixError</span>, <span class="ident">ErrorBody</span>};
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">authorize_fallback</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_uiaa_fallback_page</span>;
 <span class="kw">mod</span> <span class="ident">user_serde</span>;
 
 <span class="doccomment">/// Information for one authentication stage.</span>
@@ -1268,6 +1272,10 @@
     <span class="doccomment">/// Phone number-based authentication (`m.login.msisdn`).</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.msisdn&quot;</span>)]</span>
     <span class="ident">Msisdn</span>,
+
+    <span class="doccomment">/// SSO-based authentication (`m.login.sso`).</span>
+    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.sso&quot;</span>)]</span>
+    <span class="ident">Sso</span>,
 
     <span class="doccomment">/// Dummy authentication (`m.login.dummy`).</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.dummy&quot;</span>)]</span>
