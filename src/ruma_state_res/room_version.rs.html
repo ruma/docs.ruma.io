@@ -146,6 +146,9 @@
 <span id="146">146</span>
 <span id="147">147</span>
 <span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_identifiers::RoomVersionId</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Error</span>, <span class="prelude-ty">Result</span>};
@@ -156,7 +159,6 @@
     <span class="doccomment">/// A room version that has a stable specification.</span>
     <span class="ident">Stable</span>,
     <span class="doccomment">/// A room version that is not yet fully specified.</span>
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
     <span class="ident">Unstable</span>,
 }
 
@@ -210,8 +212,12 @@
     <span class="doccomment">/// Extra rules when verifying redaction events.</span>
     <span class="kw">pub</span> <span class="ident">extra_redaction_checks</span>: <span class="ident">bool</span>,
     <span class="doccomment">/// Allow knocking in event authentication.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// See: https://spec.matrix.org/unstable/rooms/v7/ for more information.</span>
     <span class="kw">pub</span> <span class="ident">allow_knocking</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// Allow knocking in event authentication.</span>
+    <span class="doccomment">/// Adds support for the restricted join rule.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// See: https://github.com/matrix-org/matrix-doc/pull/3289 for more information.</span>
     <span class="kw">pub</span> <span class="ident">restricted_join_rules</span>: <span class="ident">bool</span>,
 }
 
