@@ -275,45 +275,141 @@
 <span id="275">275</span>
 <span id="276">276</span>
 <span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">indoc::formatdoc</span>;
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">UserId</span>};
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">FormattedBody</span>, <span class="ident">MessageType</span>, <span class="ident">RoomMessageEvent</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{
+    <span class="ident">FormattedBody</span>, <span class="ident">MessageType</span>, <span class="ident">RoomMessageEvent</span>, <span class="ident">RoomMessageEventContent</span>, <span class="ident">SyncRoomMessageEvent</span>,
+};
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) -&gt; <span class="ident">String</span> {
-    <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">original_message</span>.<span class="ident">content</span>.<span class="ident">msgtype</span> {
+<span class="doccomment">/// An event that can be replied to.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This trait only exists to allow the plain-text `reply` constructors on `MessageEventContent` to</span>
+<span class="doccomment">/// use either a [`RoomMessageEvent`] or a [`SyncRoomMessageEvent`] as the event being replied to.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ReplyBaseEvent</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">event_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">EventId</span>;
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">sender</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">UserId</span>;
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">RoomMessageEventContent</span>;
+}
+
+<span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span> <span class="kw">for</span> <span class="ident">RoomMessageEvent</span> {
+    <span class="kw">fn</span> <span class="ident">event_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">EventId</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">event_id</span>
+    }
+
+    <span class="kw">fn</span> <span class="ident">sender</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">UserId</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>
+    }
+
+    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">RoomMessageEventContent</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span> <span class="kw">for</span> <span class="ident">SyncRoomMessageEvent</span> {
+    <span class="kw">fn</span> <span class="ident">event_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">EventId</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">event_id</span>
+    }
+
+    <span class="kw">fn</span> <span class="ident">sender</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">UserId</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>
+    }
+
+    <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">RoomMessageEventContent</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>
+    }
+}
+
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span>) -&gt; <span class="ident">String</span> {
+    <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="ident">original_message</span>.<span class="ident">sender</span>();
+
+    <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">original_message</span>.<span class="ident">content</span>().<span class="ident">msgtype</span> {
         <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent an audio file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent an audio file.&quot;</span>, <span class="ident">sender</span>)
         }
         <span class="ident">MessageType::Emote</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; * &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; * &lt;{}&gt; {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::File</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent a file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent a file.&quot;</span>, <span class="ident">sender</span>)
         }
         <span class="ident">MessageType::Image</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent an image.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent an image.&quot;</span>, <span class="ident">sender</span>)
         }
         <span class="ident">MessageType::Location</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::Notice</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::ServerNotice</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::Text</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::Video</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent a video.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent a video.&quot;</span>, <span class="ident">sender</span>)
         }
         <span class="ident">MessageType::_Custom</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
     }
     .<span class="ident">replace</span>(<span class="string">&#39;\n&#39;</span>, <span class="string">&quot;\n&gt; &quot;</span>)
