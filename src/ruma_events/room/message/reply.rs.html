@@ -282,38 +282,38 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_plain_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) -&gt; <span class="ident">String</span> {
     <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">original_message</span>.<span class="ident">content</span>.<span class="ident">msgtype</span> {
         <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent an audio file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent an audio file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
         <span class="ident">MessageType::Emote</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; * &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; * &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::File</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent a file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent a file.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
         <span class="ident">MessageType::Image</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent an image.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent an image.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
         <span class="ident">MessageType::Location</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::Notice</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::ServerNotice</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::Text</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="ident">MessageType::Video</span>(<span class="kw">_</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; sent a video.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; sent a video.&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>)
         }
         <span class="ident">MessageType::_Custom</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="ident">MessageType::VerificationRequest</span>(<span class="ident">content</span>) =&gt; {
-            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{:?}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
+            <span class="macro">format!</span>(<span class="string">&quot;&gt; &lt;{}&gt; {}&quot;</span>, <span class="ident">original_message</span>.<span class="ident">sender</span>, <span class="ident">content</span>.<span class="ident">body</span>)
         }
     }
     .<span class="ident">replace</span>(<span class="string">&#39;\n&#39;</span>, <span class="string">&quot;\n&gt; &quot;</span>)
