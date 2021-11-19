@@ -1152,11 +1152,6 @@
     }
 
     <span class="doccomment">/// Creates a plain text notice reply to a message.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Different from `notice_reply_plain`, this constructor requires specifically a</span>
-    <span class="doccomment">/// [`RoomMessageEvent`] since it creates a permalink to the previous message, for which the</span>
-    <span class="doccomment">/// room ID is required. If you want to reply to a [`SyncRoomMessageEvent`], you have to convert</span>
-    <span class="doccomment">/// it first by calling [`.into_full_event()`][crate::SyncMessageEvent::into_full_event].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_reply_plain</span>(
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
         <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span>,
@@ -1173,6 +1168,11 @@
     }
 
     <span class="doccomment">/// Creates a html text notice reply to a message.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Different from `notice_reply_plain`, this constructor requires specifically a</span>
+    <span class="doccomment">/// [`RoomMessageEvent`] since it creates a permalink to the previous message, for which the</span>
+    <span class="doccomment">/// room ID is required. If you want to reply to a [`SyncRoomMessageEvent`], you have to convert</span>
+    <span class="doccomment">/// it first by calling [`.into_full_event()`][crate::SyncMessageEvent::into_full_event].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_reply_html</span>(
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
         <span class="ident">html_reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
