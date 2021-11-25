@@ -66,7 +66,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::authentication::TokenType</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerNameBox</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -92,7 +92,7 @@
         <span class="kw">pub</span> <span class="ident">token_type</span>: <span class="ident">TokenType</span>,
 
         <span class="doccomment">/// Homeserver domain for verification of user&#39;s identity.</span>
-        <span class="kw">pub</span> <span class="ident">matrix_server_name</span>: <span class="ident">ServerNameBox</span>,
+        <span class="kw">pub</span> <span class="ident">matrix_server_name</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Seconds until token expiration.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::duration::secs&quot;</span>)]</span>
@@ -115,7 +115,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">access_token</span>: <span class="ident">String</span>,
         <span class="ident">token_type</span>: <span class="ident">TokenType</span>,
-        <span class="ident">matrix_server_name</span>: <span class="ident">ServerNameBox</span>,
+        <span class="ident">matrix_server_name</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
         <span class="ident">expires_in</span>: <span class="ident">Duration</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">access_token</span>, <span class="ident">token_type</span>, <span class="ident">matrix_server_name</span>, <span class="ident">expires_in</span> }

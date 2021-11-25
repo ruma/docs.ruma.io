@@ -38,7 +38,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for managing devices.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceIdBox</span>;
+<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_device</span>;
@@ -52,7 +52,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Device</span> {
     <span class="doccomment">/// Device ID</span>
-    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>,
+    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Public display name of the device.</span>
     <span class="kw">pub</span> <span class="ident">display_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -67,7 +67,7 @@
 
 <span class="kw">impl</span> <span class="ident">Device</span> {
     <span class="doccomment">/// Creates a new `Device` with the given device ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">device_id</span>, <span class="ident">display_name</span>: <span class="prelude-val">None</span>, <span class="ident">last_seen_ip</span>: <span class="prelude-val">None</span>, <span class="ident">last_seen_ts</span>: <span class="prelude-val">None</span> }
     }
 }

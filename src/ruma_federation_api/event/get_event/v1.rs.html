@@ -57,7 +57,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">ServerNameBox</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">ServerName</span>};
 
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
@@ -79,7 +79,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// The `server_name` of the homeserver sending this transaction.</span>
-        <span class="kw">pub</span> <span class="ident">origin</span>: <span class="ident">ServerNameBox</span>,
+        <span class="kw">pub</span> <span class="ident">origin</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Time on originating homeserver when this transaction started.</span>
         <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -100,7 +100,7 @@
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given server name, timestamp, and event.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">origin</span>: <span class="ident">ServerNameBox</span>,
+        <span class="ident">origin</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
         <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
         <span class="ident">pdu</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {

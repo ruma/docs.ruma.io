@@ -204,12 +204,10 @@
 <span id="203">203</span>
 <span id="204">204</span>
 <span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.name` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::RoomNameBox</span>;
+<span class="kw">use</span> <span class="ident">ruma_identifiers::RoomName</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// The content of an `m.room.name` event.</span>
@@ -221,24 +219,24 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomNameEventContent</span> {
     <span class="doccomment">/// The name of the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomNameBox</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomNameEventContent</span> {
     <span class="doccomment">/// Create a new `RoomNameEventContent` with the given name.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomNameBox</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomName</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">name</span> }
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
+    <span class="kw">use</span> <span class="ident">std::convert::TryInto</span>;
 
     <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">uint</span>};
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">RoomNameBox</span>};
+    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
@@ -248,7 +246,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_optional_fields_as_none</span>() {
         <span class="kw">let</span> <span class="ident">name_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
-            <span class="ident">content</span>: <span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="ident">RoomNameBox::try_from</span>(<span class="string">&quot;The room name&quot;</span>).<span class="ident">ok</span>() },
+            <span class="ident">content</span>: <span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="string">&quot;The room name&quot;</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>() },
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
             <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
@@ -277,12 +275,10 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_all_fields</span>() {
         <span class="kw">let</span> <span class="ident">name_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
-            <span class="ident">content</span>: <span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="ident">RoomNameBox::try_from</span>(<span class="string">&quot;The room name&quot;</span>).<span class="ident">ok</span>() },
+            <span class="ident">content</span>: <span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="string">&quot;The room name&quot;</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>() },
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
-            <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomNameEventContent</span> {
-                <span class="ident">name</span>: <span class="ident">RoomNameBox::try_from</span>(<span class="string">&quot;The old name&quot;</span>).<span class="ident">ok</span>(),
-            }),
+            <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="string">&quot;The old name&quot;</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>() }),
             <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!n8f893n9:example.com&quot;</span>),
             <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>),
             <span class="ident">state_key</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
@@ -349,7 +345,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">new_with_empty_name_creates_content_as_none</span>() {
         <span class="macro">assert_matches!</span>(
-            <span class="ident">RoomNameEventContent::new</span>(<span class="ident">RoomNameBox::try_from</span>(<span class="ident">String::new</span>()).<span class="ident">ok</span>()),
+            <span class="ident">RoomNameEventContent::new</span>(<span class="string">&quot;&quot;</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>()),
             <span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="prelude-val">None</span> }
         );
     }
@@ -394,7 +390,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">nonempty_field_as_some</span>() {
-        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="ident">RoomNameBox::try_from</span>(<span class="string">&quot;The room name&quot;</span>).<span class="ident">ok</span>();
+        <span class="kw">let</span> <span class="ident">name</span> <span class="op">=</span> <span class="string">&quot;The room name&quot;</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>();
         <span class="kw">let</span> <span class="ident">json_data</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;content&quot;</span>: {
                 <span class="string">&quot;name&quot;</span>: <span class="string">&quot;The room name&quot;</span>

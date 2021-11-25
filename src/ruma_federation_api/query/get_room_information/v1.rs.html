@@ -45,7 +45,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/query/directory](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-query-directory)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerNameBox</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -68,7 +68,7 @@
         <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
 
         <span class="doccomment">/// An array of server names that are likely to hold the given room.</span>
-        <span class="kw">pub</span> <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 }
 
@@ -81,7 +81,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given room IDs and servers.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">servers</span> }
     }
 }

@@ -90,7 +90,7 @@
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerNameBox</span>, <span class="ident">ServerSigningKeyId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">discover_homeserver</span>;
@@ -138,7 +138,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ServerSigningKeys</span> {
     <span class="doccomment">/// DNS name of the homeserver.</span>
-    <span class="kw">pub</span> <span class="ident">server_name</span>: <span class="ident">ServerNameBox</span>,
+    <span class="kw">pub</span> <span class="ident">server_name</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Public keys of the homeserver for verifying digital signatures.</span>
     <span class="kw">pub</span> <span class="ident">verify_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">VerifyKey</span><span class="op">&gt;</span>,
@@ -148,8 +148,8 @@
 
     <span class="doccomment">/// Digital signatures of this object signed using the verify_keys.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Map of server name to keys by key ID</span>
-    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Map of server name to keys by key ID.</span>
+    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp when the keys should be refreshed.</span>
     <span class="doccomment">///</span>
@@ -161,7 +161,7 @@
     <span class="doccomment">/// Creates a new `ServerSigningKeys` with the given server name and validity timestamp.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// All other fields will be empty.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="ident">ServerNameBox</span>, <span class="ident">valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">valid_until_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">server_name</span>,
             <span class="ident">verify_keys</span>: <span class="ident">BTreeMap::new</span>(),

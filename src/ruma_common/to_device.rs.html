@@ -85,7 +85,7 @@
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceIdBox</span>;
+<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="self">self</span>, <span class="ident">Unexpected</span>},
     <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>,
@@ -96,7 +96,7 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_enums</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DeviceIdOrAllDevices</span> {
     <span class="doccomment">/// Represents a device Id for one of a user&#39;s devices.</span>
-    <span class="ident">DeviceId</span>(<span class="ident">DeviceIdBox</span>),
+    <span class="ident">DeviceId</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>),
 
     <span class="doccomment">/// Represents all devices for a user.</span>
     <span class="ident">AllDevices</span>,
@@ -111,8 +111,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">DeviceIdBox</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeviceIdOrAllDevices</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">d</span>: <span class="ident">DeviceIdBox</span>) -&gt; <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeviceIdOrAllDevices</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">d</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">DeviceIdOrAllDevices::DeviceId</span>(<span class="ident">d</span>)
     }
 }

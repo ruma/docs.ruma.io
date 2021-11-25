@@ -476,7 +476,7 @@
     <span class="ident">encryption::DeviceKeys</span>, <span class="ident">presence::PresenceState</span>, <span class="ident">to_device::DeviceIdOrAllDevices</span>,
 };
 <span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">receipt::Receipt</span>, <span class="ident">AnyToDeviceEventContent</span>, <span class="ident">EventType</span>};
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceIdBox</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
@@ -675,7 +675,7 @@
     <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
 
     <span class="doccomment">/// The ID of the device whose details are changing.</span>
-    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>,
+    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The public human-readable name of this device.</span>
     <span class="doccomment">///</span>
@@ -703,7 +703,7 @@
 <span class="kw">impl</span> <span class="ident">DeviceListUpdateContent</span> {
     <span class="doccomment">/// Create a new `DeviceListUpdateContent` with the given `user_id`, `device_id` and</span>
     <span class="doccomment">/// `stream_id`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">device_id</span>,

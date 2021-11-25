@@ -72,7 +72,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.space.child` event.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::ServerNameBox</span>;
+<span class="kw">use</span> <span class="ident">ruma_identifiers::ServerName</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// The content of an `m.space.parent` event.</span>
@@ -88,7 +88,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SpaceParentEventContent</span> {
     <span class="doccomment">/// List of candidate servers that can be used to join the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">via</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">via</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Determines whether this is the main parent for the space.</span>
     <span class="doccomment">///</span>

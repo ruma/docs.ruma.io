@@ -140,7 +140,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/register](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-register)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">DeviceIdBox</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::uiaa</span>::{<span class="ident">AuthData</span>, <span class="ident">IncomingAuthData</span>, <span class="ident">UiaaResponse</span>};
@@ -227,7 +227,7 @@
         <span class="doccomment">/// ID of the registered device.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Will be the same as the corresponding parameter in the request, if one was specified.</span>
-        <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DeviceIdBox</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">error</span>: <span class="ident">UiaaResponse</span>

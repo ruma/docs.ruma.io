@@ -376,7 +376,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/login](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-login)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">DeviceIdBox</span>, <span class="ident">ServerNameBox</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">Outgoing</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="self">self</span>, <span class="ident">DeserializeOwned</span>},
@@ -424,13 +424,13 @@
         <span class="doccomment">/// Deprecated: Clients should instead use the `user_id.server_name()`</span>
         <span class="doccomment">/// method if they require it.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">home_server</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">home_server</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// ID of the logged-in device.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Will be the same as the corresponding parameter in the request, if one was</span>
         <span class="doccomment">/// specified.</span>
-        <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>,
+        <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Client configuration provided by the server.</span>
         <span class="doccomment">///</span>
@@ -451,7 +451,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given user ID, access token and device ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">access_token</span>: <span class="ident">String</span>, <span class="ident">device_id</span>: <span class="ident">DeviceIdBox</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">access_token</span>: <span class="ident">String</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">access_token</span>, <span class="ident">home_server</span>: <span class="prelude-val">None</span>, <span class="ident">device_id</span>, <span class="ident">well_known</span>: <span class="prelude-val">None</span> }
     }
 }

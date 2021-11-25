@@ -47,7 +47,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/directory/room/{roomAlias}](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-directory-room-roomalias)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerNameBox</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -70,7 +70,7 @@
         <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
 
         <span class="doccomment">/// A list of servers that are aware of this room ID.</span>
-        <span class="kw">pub</span> <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -85,7 +85,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given room id and servers</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ServerNameBox</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">servers</span> }
     }
 }

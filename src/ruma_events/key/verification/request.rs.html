@@ -47,7 +47,7 @@
 
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceIdBox</span>;
+<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::VerificationMethod</span>;
@@ -58,7 +58,7 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.request&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceKeyVerificationRequestEventContent</span> {
     <span class="doccomment">/// The device ID which is initiating the request.</span>
-    <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
+    <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// An opaque identifier for the verification request.</span>
     <span class="doccomment">///</span>
@@ -79,7 +79,7 @@
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationRequestEventContent` with the given device ID,</span>
     <span class="doccomment">/// transaction ID, methods and timestamp.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">from_device</span>: <span class="ident">DeviceIdBox</span>,
+        <span class="ident">from_device</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
         <span class="ident">transaction_id</span>: <span class="ident">String</span>,
         <span class="ident">methods</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">VerificationMethod</span><span class="op">&gt;</span>,
         <span class="ident">timestamp</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,

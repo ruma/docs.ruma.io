@@ -40,7 +40,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /.well-known/matrix/server](https://matrix.org/docs/spec/server_server/r0.1.4#get-well-known-matrix-server)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::ServerNameBox</span>;
+<span class="kw">use</span> <span class="ident">ruma_identifiers::ServerName</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -58,7 +58,7 @@
     <span class="ident">response</span>: {
         <span class="doccomment">/// The server name to delegate server-server communications to, with optional port.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.server&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">server</span>: <span class="ident">ServerNameBox</span>,
+        <span class="kw">pub</span> <span class="ident">server</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
     }
 }
 
@@ -71,7 +71,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given homeserver.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server</span>: <span class="ident">ServerNameBox</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">server</span> }
     }
 }
