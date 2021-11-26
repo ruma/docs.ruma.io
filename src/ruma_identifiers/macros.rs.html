@@ -298,7 +298,7 @@
                 <span class="kw">unsafe</span> { <span class="ident">Box::from_raw</span>(<span class="ident">Box::into_raw</span>(<span class="ident">s</span>) <span class="kw">as</span> <span class="kw">_</span>) }
             }
 
-            <span class="kw">fn</span> <span class="ident">into_owned</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> {
+            <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">into_owned</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> {
                 <span class="kw">unsafe</span> { <span class="ident">Box::from_raw</span>(<span class="ident">Box::into_raw</span>(<span class="self">self</span>) <span class="kw">as</span> <span class="kw">_</span>) }
             }
 
