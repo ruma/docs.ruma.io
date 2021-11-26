@@ -155,11 +155,7 @@
 <span id="154">154</span>
 <span id="155">155</span>
 <span id="156">156</span>
-<span id="157">157</span>
-<span id="158">158</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room alias identifiers.</span>
-
-<span class="kw">use</span> <span class="ident">std::convert::TryInto</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">server_name::ServerName</span>, <span class="ident">EventId</span>, <span class="ident">MatrixToRef</span>};
 
@@ -190,7 +186,7 @@
 
     <span class="doccomment">/// Returns the server name of the room alias ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">server_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">ServerName</span> {
-        <span class="self">self</span>.<span class="ident">as_str</span>()[<span class="self">self</span>.<span class="ident">colon_idx</span>() <span class="op">+</span> <span class="number">1</span>..].<span class="ident">try_into</span>().<span class="ident">unwrap</span>()
+        <span class="ident">ServerName::from_borrowed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">as_str</span>()[<span class="self">self</span>.<span class="ident">colon_idx</span>() <span class="op">+</span> <span class="number">1</span>..])
     }
 
     <span class="doccomment">/// Create a `matrix.to` reference for this room alias ID.</span>
