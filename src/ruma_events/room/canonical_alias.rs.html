@@ -187,11 +187,11 @@
         <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>,
         <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
     )]</span>
-    <span class="kw">pub</span> <span class="ident">alias</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">alias</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// List of alternative aliases to the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">alt_aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">alt_aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomCanonicalAliasEventContent</span> {
@@ -215,14 +215,14 @@
     <span class="kw">fn</span> <span class="ident">serialization_with_optional_fields_as_none</span>() {
         <span class="kw">let</span> <span class="ident">canonical_alias_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
             <span class="ident">content</span>: <span class="ident">RoomCanonicalAliasEventContent</span> {
-                <span class="ident">alias</span>: <span class="prelude-val">Some</span>(<span class="macro">room_alias_id!</span>(<span class="string">&quot;#somewhere:localhost&quot;</span>)),
+                <span class="ident">alias</span>: <span class="prelude-val">Some</span>(<span class="macro">room_alias_id!</span>(<span class="string">&quot;#somewhere:localhost&quot;</span>).<span class="ident">to_owned</span>()),
                 <span class="ident">alt_aliases</span>: <span class="ident">Vec::new</span>(),
             },
-            <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>),
+            <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
             <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
-            <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!dummy:example.com&quot;</span>),
-            <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>),
+            <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!dummy:example.com&quot;</span>).<span class="ident">to_owned</span>(),
+            <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">state_key</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">unsigned</span>: <span class="ident">Unsigned::default</span>(),
         };
@@ -310,7 +310,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">nonempty_field_as_some</span>() {
-        <span class="kw">let</span> <span class="ident">alias</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">room_alias_id!</span>(<span class="string">&quot;#somewhere:localhost&quot;</span>));
+        <span class="kw">let</span> <span class="ident">alias</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="macro">room_alias_id!</span>(<span class="string">&quot;#somewhere:localhost&quot;</span>).<span class="ident">to_owned</span>());
         <span class="kw">let</span> <span class="ident">json_data</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;content&quot;</span>: {
                 <span class="string">&quot;alias&quot;</span>: <span class="string">&quot;#somewhere:localhost&quot;</span>

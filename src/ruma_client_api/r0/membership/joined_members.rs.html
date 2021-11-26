@@ -133,7 +133,7 @@
     <span class="ident">response</span>: {
         <span class="doccomment">/// A list of the rooms the user is in, i.e.</span>
         <span class="doccomment">/// the ID of each room in which the user has joined membership.</span>
-        <span class="kw">pub</span> <span class="ident">joined</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">RoomMember</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">joined</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">RoomMember</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -148,7 +148,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given joined rooms.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">joined</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">RoomMember</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">joined</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">RoomMember</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">joined</span> }
     }
 }
@@ -170,7 +170,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>)
     )]</span>
-    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomMember</span> {
@@ -197,7 +197,7 @@
                 <span class="ident">display_name</span>: <span class="prelude-val">Some</span>(<span class="ident">display_name</span>),
                 <span class="ident">avatar_url</span>: <span class="prelude-val">Some</span>(<span class="ident">avatar_url</span>),
             } <span class="kw">if</span> <span class="ident">display_name</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">==</span> <span class="string">&quot;mxc://localhost/wefuiwegh8742w&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">avatar_url</span> <span class="op">==</span> <span class="string">&quot;mxc://localhost/wefuiwegh8742w&quot;</span>
         );
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>

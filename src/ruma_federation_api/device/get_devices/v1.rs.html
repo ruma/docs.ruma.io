@@ -105,7 +105,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// The user ID devices were requested for.</span>
-        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// A unique ID for a given user_id which describes the version of the returned device list.</span>
         <span class="doccomment">///</span>
@@ -129,7 +129,7 @@
     <span class="doccomment">/// Creates a new `Response` with the given user id and stream id.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The device list will be empty.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">stream_id</span>, <span class="ident">devices</span>: <span class="ident">Vec::new</span>() }
     }
 }

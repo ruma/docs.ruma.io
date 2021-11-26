@@ -64,34 +64,38 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
 </pre><pre class="rust"><code><span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::generate_localpart</span>;
 
-<span class="macro">opaque_identifier!</span> {
-    <span class="doccomment">/// A Matrix key ID.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Device identifiers in Matrix are completely opaque character sequences. This type is</span>
-    <span class="doccomment">/// provided simply for its semantic value.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Example</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
-    <span class="doccomment">/// use ruma_identifiers::{DeviceId, device_id};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let random_id = DeviceId::new();</span>
-    <span class="doccomment">/// assert_eq!(random_id.as_str().len(), 8);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let static_id = device_id!(&quot;01234567&quot;);</span>
-    <span class="doccomment">/// assert_eq!(static_id.as_str(), &quot;01234567&quot;);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let ref_id: &amp;DeviceId = &quot;abcdefghi&quot;.into();</span>
-    <span class="doccomment">/// assert_eq!(ref_id.as_str(), &quot;abcdefghi&quot;);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let owned_id: Box&lt;DeviceId&gt; = &quot;ijklmnop&quot;.into();</span>
-    <span class="doccomment">/// assert_eq!(owned_id.as_str(), &quot;ijklmnop&quot;);</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">DeviceId</span>;
-}
+<span class="doccomment">/// A Matrix key ID.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Device identifiers in Matrix are completely opaque character sequences. This type is provided</span>
+<span class="doccomment">/// simply for its semantic value.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use ruma_identifiers::{DeviceId, device_id};</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let random_id = DeviceId::new();</span>
+<span class="doccomment">/// assert_eq!(random_id.as_str().len(), 8);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let static_id = device_id!(&quot;01234567&quot;);</span>
+<span class="doccomment">/// assert_eq!(static_id.as_str(), &quot;01234567&quot;);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let ref_id: &amp;DeviceId = &quot;abcdefghi&quot;.into();</span>
+<span class="doccomment">/// assert_eq!(ref_id.as_str(), &quot;abcdefghi&quot;);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let owned_id: Box&lt;DeviceId&gt; = &quot;ijklmnop&quot;.into();</span>
+<span class="doccomment">/// assert_eq!(owned_id.as_str(), &quot;ijklmnop&quot;);</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceId</span>(<span class="ident">str</span>);
+
+<span class="macro">opaque_identifier!</span>(<span class="ident">DeviceId</span>);
 
 <span class="kw">impl</span> <span class="ident">DeviceId</span> {
     <span class="doccomment">/// Generates a random `DeviceId`, suitable for assignment to a new device.</span>

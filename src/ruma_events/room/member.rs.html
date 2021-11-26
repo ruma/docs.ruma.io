@@ -713,7 +713,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>)
     )]</span>
-    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The display name for this user, if any.</span>
     <span class="doccomment">///</span>
@@ -838,11 +838,11 @@
     <span class="doccomment">/// The invited Matrix user ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be equal to the user_id property of the event.</span>
-    <span class="kw">pub</span> <span class="ident">mxid</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">mxid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// A single signature from the verifying server, in the format specified by the Signing Events</span>
     <span class="doccomment">/// section of the server-server API.</span>
-    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The token property of the containing `third_party_invite` object.</span>
     <span class="kw">pub</span> <span class="ident">token</span>: <span class="ident">String</span>,
@@ -851,8 +851,8 @@
 <span class="kw">impl</span> <span class="ident">SignedContent</span> {
     <span class="doccomment">/// Creates a new `SignedContent` with the given mxid, signature and token.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">mxid</span>: <span class="ident">UserId</span>,
-        <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">mxid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+        <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">token</span>: <span class="ident">String</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">mxid</span>, <span class="ident">signatures</span>, <span class="ident">token</span> }
@@ -1153,13 +1153,13 @@
                 <span class="ident">state_key</span>,
                 <span class="ident">unsigned</span>,
                 <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
-            } <span class="kw">if</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
+            } <span class="kw">if</span> <span class="ident">avatar_url</span> <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">==</span> <span class="macro">btreemap!</span> {
-                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) =&gt; <span class="macro">btreemap!</span> {
-                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
+                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="macro">btreemap!</span> {
+                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
                     }
                 }
                 <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;abc123&quot;</span>
@@ -1238,13 +1238,13 @@
                 <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
-                <span class="op">&amp;&amp;</span> <span class="ident">avatar_url</span>.<span class="ident">to_string</span>() <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
+                <span class="op">&amp;&amp;</span> <span class="ident">avatar_url</span> <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">==</span> <span class="macro">btreemap!</span> {
-                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) =&gt; <span class="macro">btreemap!</span> {
-                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
+                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="macro">btreemap!</span> {
+                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
                     }
                 }
                 <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;abc123&quot;</span>
@@ -1317,8 +1317,8 @@
                 <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">==</span> <span class="macro">btreemap!</span> {
-                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>) =&gt; <span class="macro">btreemap!</span> {
-                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>) =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
+                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="macro">btreemap!</span> {
+                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
                     }
                 }
                 <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;abc123&quot;</span>

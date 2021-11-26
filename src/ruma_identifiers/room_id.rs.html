@@ -180,25 +180,9 @@
 <span id="179">179</span>
 <span id="180">180</span>
 <span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room identifiers.</span>
 
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryInto</span>, <span class="ident">fmt</span>, <span class="ident">num::NonZeroU8</span>};
+<span class="kw">use</span> <span class="ident">std::convert::TryInto</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventId</span>, <span class="ident">MatrixToRef</span>, <span class="ident">ServerName</span>};
 
@@ -211,21 +195,15 @@
 <span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_identifiers::RoomId;</span>
 <span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     RoomId::try_from(&quot;!n8f893n9:example.com&quot;).unwrap().as_ref(),</span>
+<span class="doccomment">///     &lt;&amp;RoomId&gt;::try_from(&quot;!n8f893n9:example.com&quot;).unwrap(),</span>
 <span class="doccomment">///     &quot;!n8f893n9:example.com&quot;</span>
 <span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomId</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">full_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">colon_idx</span>: <span class="ident">NonZeroU8</span>,
-}
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomId</span>(<span class="ident">str</span>);
 
-<span class="kw">impl</span> <span class="ident">fmt::Debug</span> <span class="kw">for</span> <span class="ident">RoomId</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
-        <span class="self">self</span>.<span class="ident">full_id</span>.<span class="ident">fmt</span>(<span class="ident">f</span>)
-    }
-}
+<span class="macro">opaque_identifier_validated!</span>(<span class="ident">RoomId</span>, <span class="ident">ruma_identifiers_validation::room_id::validate</span>);
 
 <span class="kw">impl</span> <span class="ident">RoomId</span> {
     <span class="doccomment">/// Attempts to generate a `RoomId` for the given origin server with a localpart consisting of</span>
@@ -233,22 +211,18 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Fails if the given homeserver cannot be parsed as a valid host.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="kw-2">&amp;</span><span class="ident">ServerName</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::generate_localpart</span>;
-
-        <span class="kw">let</span> <span class="ident">full_id</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;!{}:{}&quot;</span>, <span class="ident">generate_localpart</span>(<span class="number">18</span>), <span class="ident">server_name</span>).<span class="ident">into</span>();
-
-        <span class="self">Self</span> { <span class="ident">full_id</span>, <span class="ident">colon_idx</span>: <span class="ident">NonZeroU8::new</span>(<span class="number">19</span>).<span class="ident">unwrap</span>() }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="kw-2">&amp;</span><span class="ident">ServerName</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="macro">format!</span>(<span class="string">&quot;!{}:{}&quot;</span>, <span class="ident"><span class="kw">crate</span>::generate_localpart</span>(<span class="number">18</span>), <span class="ident">server_name</span>).<span class="ident">into</span>())
     }
 
     <span class="doccomment">/// Returns the rooms&#39;s unique ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">localpart</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">full_id</span>[<span class="number">1</span>..<span class="self">self</span>.<span class="ident">colon_idx</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">usize</span>]
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">as_str</span>()[<span class="number">1</span>..<span class="self">self</span>.<span class="ident">colon_idx</span>()]
     }
 
     <span class="doccomment">/// Returns the server name of the room ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">server_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">ServerName</span> {
-        <span class="self">self</span>.<span class="ident">full_id</span>[<span class="self">self</span>.<span class="ident">colon_idx</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="number">1</span>..].<span class="ident">try_into</span>().<span class="ident">unwrap</span>()
+        <span class="self">self</span>.<span class="ident">as_str</span>()[<span class="self">self</span>.<span class="ident">colon_idx</span>() <span class="op">+</span> <span class="number">1</span>..].<span class="ident">try_into</span>().<span class="ident">unwrap</span>()
     }
 
     <span class="doccomment">/// Create a `matrix.to` reference for this room ID.</span>
@@ -269,27 +243,18 @@
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
         <span class="ident">via</span>: <span class="kw">impl</span> <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ServerName</span><span class="op">&gt;</span>,
     ) -&gt; <span class="ident">MatrixToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="ident">MatrixToRef::new</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">full_id</span>, <span class="ident">via</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>())
+        <span class="ident">MatrixToRef::new</span>(<span class="self">self</span>.<span class="ident">as_str</span>(), <span class="ident">via</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>())
     }
 
     <span class="doccomment">/// Create a `matrix.to` reference for an event scoped under this room ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matrix_to_event_url</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">ev_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>) -&gt; <span class="ident">MatrixToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="ident">MatrixToRef::event</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">full_id</span>, <span class="ident">ev_id</span>, <span class="ident">Vec::new</span>())
+        <span class="ident">MatrixToRef::event</span>(<span class="self">self</span>.<span class="ident">as_str</span>(), <span class="ident">ev_id</span>, <span class="ident">Vec::new</span>())
+    }
+
+    <span class="kw">fn</span> <span class="ident">colon_idx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">as_str</span>().<span class="ident">find</span>(<span class="string">&#39;:&#39;</span>).<span class="ident">unwrap</span>()
     }
 }
-
-<span class="doccomment">/// Attempts to create a new Matrix room ID from a string representation.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// The string must include the leading ! sigil, the localpart, a literal colon, and a server name.</span>
-<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">room_id</span>: <span class="ident">S</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident"><span class="kw">crate</span>::Error</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-{
-    <span class="kw">let</span> <span class="ident">colon_idx</span> <span class="op">=</span> <span class="ident">ruma_identifiers_validation::room_id::validate</span>(<span class="ident">room_id</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(<span class="ident">RoomId</span> { <span class="ident">full_id</span>: <span class="ident">room_id</span>.<span class="ident">into</span>(), <span class="ident">colon_idx</span> })
-}
-
-<span class="macro">common_impls!</span>(<span class="ident">RoomId</span>, <span class="ident">try_from</span>, <span class="string">&quot;a Matrix room ID&quot;</span>);
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
@@ -301,7 +266,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
                 .<span class="ident">as_ref</span>(),
             <span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>
@@ -311,7 +276,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">empty_localpart</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomId::try_from</span>(<span class="string">&quot;!:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>).<span class="ident">as_ref</span>(),
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>).<span class="ident">as_ref</span>(),
             <span class="string">&quot;!:example.com&quot;</span>
         );
     }
@@ -321,7 +286,7 @@
     <span class="kw">fn</span> <span class="ident">generate_random_valid_room_id</span>() {
         <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::server_name</span>;
 
-        <span class="kw">let</span> <span class="ident">room_id</span> <span class="op">=</span> <span class="ident">RoomId::new</span>(<span class="kw-2">&amp;</span><span class="macro">server_name!</span>(<span class="string">&quot;example.com&quot;</span>));
+        <span class="kw">let</span> <span class="ident">room_id</span> <span class="op">=</span> <span class="ident">RoomId::new</span>(<span class="macro">server_name!</span>(<span class="string">&quot;example.com&quot;</span>));
         <span class="kw">let</span> <span class="ident">id_str</span> <span class="op">=</span> <span class="ident">room_id</span>.<span class="ident">as_str</span>();
 
         <span class="macro">assert!</span>(<span class="ident">id_str</span>.<span class="ident">starts_with</span>(<span class="string">&#39;!&#39;</span>));
@@ -333,7 +298,7 @@
     <span class="kw">fn</span> <span class="ident">serialize_valid_room_id</span>() {
         <span class="macro">assert_eq!</span>(
             <span class="ident">serde_json::to_string</span>(
-                <span class="kw-2">&amp;</span><span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
+                <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
             )
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert RoomId to JSON.&quot;</span>),
             <span class="string">r#&quot;&quot;!29fhd83h92h0:example.com&quot;&quot;#</span>
@@ -344,16 +309,16 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_room_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>(<span class="string">r#&quot;&quot;!29fhd83h92h0:example.com&quot;&quot;#</span>)
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">r#&quot;&quot;!29fhd83h92h0:example.com&quot;&quot;#</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to RoomId&quot;</span>),
-            <span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
         );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id_with_explicit_standard_port</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com:443&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com:443&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
                 .<span class="ident">as_ref</span>(),
             <span class="string">&quot;!29fhd83h92h0:example.com:443&quot;</span>
@@ -363,7 +328,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id_with_non_standard_port</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com:5000&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com:5000&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
                 .<span class="ident">as_ref</span>(),
             <span class="string">&quot;!29fhd83h92h0:example.com:5000&quot;</span>
@@ -372,23 +337,26 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">missing_room_id_sigil</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">RoomId::try_from</span>(<span class="string">&quot;carl:example.com&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::MissingLeadingSigil</span>);
+        <span class="macro">assert_eq!</span>(
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;carl:example.com&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">Error::MissingLeadingSigil</span>
+        );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">missing_room_id_delimiter</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::MissingDelimiter</span>);
+        <span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::MissingDelimiter</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_room_id_host</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:/&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::InvalidServerName</span>);
+        <span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:/&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::InvalidServerName</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_room_id_port</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com:notaport&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com:notaport&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">Error::InvalidServerName</span>
         );
     }

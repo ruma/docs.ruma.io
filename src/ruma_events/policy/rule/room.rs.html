@@ -128,10 +128,10 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
         <span class="kw">let</span> <span class="ident">room_event</span> <span class="op">=</span> <span class="ident">PolicyRuleRoomEvent</span> {
-            <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>),
-            <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@example:example.org&quot;</span>),
+            <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>).<span class="ident">to_owned</span>(),
+            <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@example:example.org&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="number">1_432_735_824_653_u64</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>()),
-            <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>),
+            <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">state_key</span>: <span class="string">&quot;rule:#*:example.org&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
             <span class="ident">unsigned</span>: <span class="ident">Unsigned</span> {

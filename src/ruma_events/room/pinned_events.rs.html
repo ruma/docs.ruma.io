@@ -82,12 +82,12 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.pinned_events&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomPinnedEventsEventContent</span> {
     <span class="doccomment">/// An ordered list of event IDs to pin.</span>
-    <span class="kw">pub</span> <span class="ident">pinned</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">pinned</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomPinnedEventsEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomPinnedEventsEventContent` with the given events.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">pinned</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">pinned</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">pinned</span> }
     }
 }
@@ -108,16 +108,16 @@
             <span class="ident">RoomPinnedEventsEventContent</span> { <span class="ident">pinned</span>: <span class="ident">Vec::new</span>() };
         <span class="kw">let</span> <span class="ident">server_name</span> <span class="op">=</span> <span class="macro">server_name!</span>(<span class="string">&quot;example.com&quot;</span>);
 
-        <span class="ident">content</span>.<span class="ident">pinned</span>.<span class="ident">push</span>(<span class="ident">EventId::new</span>(<span class="kw-2">&amp;</span><span class="ident">server_name</span>));
-        <span class="ident">content</span>.<span class="ident">pinned</span>.<span class="ident">push</span>(<span class="ident">EventId::new</span>(<span class="kw-2">&amp;</span><span class="ident">server_name</span>));
+        <span class="ident">content</span>.<span class="ident">pinned</span>.<span class="ident">push</span>(<span class="ident">EventId::new</span>(<span class="ident">server_name</span>));
+        <span class="ident">content</span>.<span class="ident">pinned</span>.<span class="ident">push</span>(<span class="ident">EventId::new</span>(<span class="ident">server_name</span>));
 
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
             <span class="ident">content</span>: <span class="ident">content</span>.<span class="ident">clone</span>(),
-            <span class="ident">event_id</span>: <span class="ident">EventId::new</span>(<span class="kw-2">&amp;</span><span class="ident">server_name</span>),
+            <span class="ident">event_id</span>: <span class="ident">EventId::new</span>(<span class="ident">server_name</span>),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="number">1_432_804_485_886_u64</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>()),
             <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
-            <span class="ident">room_id</span>: <span class="ident">RoomId::new</span>(<span class="kw-2">&amp;</span><span class="ident">server_name</span>),
-            <span class="ident">sender</span>: <span class="ident">UserId::new</span>(<span class="kw-2">&amp;</span><span class="ident">server_name</span>),
+            <span class="ident">room_id</span>: <span class="ident">RoomId::new</span>(<span class="ident">server_name</span>),
+            <span class="ident">sender</span>: <span class="ident">UserId::new</span>(<span class="ident">server_name</span>),
             <span class="ident">state_key</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">unsigned</span>: <span class="ident">Unsigned::default</span>(),
         };

@@ -56,7 +56,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// The user ID which registered the token.</span>
-        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
     }
 }
 
@@ -69,7 +69,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given `UserId`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span> }
     }
 }

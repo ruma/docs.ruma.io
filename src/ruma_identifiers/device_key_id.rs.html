@@ -107,44 +107,20 @@
 <span id="106">106</span>
 <span id="107">107</span>
 <span id="108">108</span>
-<span id="109">109</span>
-<span id="110">110</span>
-<span id="111">111</span>
-<span id="112">112</span>
-<span id="113">113</span>
-<span id="114">114</span>
-<span id="115">115</span>
-<span id="116">116</span>
-<span id="117">117</span>
-<span id="118">118</span>
-<span id="119">119</span>
-<span id="120">120</span>
-<span id="121">121</span>
-<span id="122">122</span>
-<span id="123">123</span>
-<span id="124">124</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Identifiers for device keys for end-to-end encryption.</span>
-
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryInto</span>, <span class="ident">fmt</span>, <span class="ident">num::NonZeroU8</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">crypto_algorithms::DeviceKeyAlgorithm</span>, <span class="ident">DeviceId</span>};
 
 <span class="doccomment">/// A key algorithm and a device id, combined with a &#39;:&#39;.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceKeyId</span> {
-    <span class="ident">full_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    <span class="ident">colon_idx</span>: <span class="ident">NonZeroU8</span>,
-}
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceKeyId</span>(<span class="ident">str</span>);
 
-<span class="kw">impl</span> <span class="ident">fmt::Debug</span> <span class="kw">for</span> <span class="ident">DeviceKeyId</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
-        <span class="self">self</span>.<span class="ident">full_id</span>.<span class="ident">fmt</span>(<span class="ident">f</span>)
-    }
-}
+<span class="macro">opaque_identifier_validated!</span>(<span class="ident">DeviceKeyId</span>, <span class="ident">ruma_identifiers_validation::device_key_id::validate</span>);
 
 <span class="kw">impl</span> <span class="ident">DeviceKeyId</span> {
     <span class="doccomment">/// Create a `DeviceKeyId` from a `DeviceKeyAlgorithm` and a `DeviceId`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_parts</span>(<span class="ident">algorithm</span>: <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">device_id</span>: <span class="kw-2">&amp;</span><span class="ident">DeviceId</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_parts</span>(<span class="ident">algorithm</span>: <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">device_id</span>: <span class="kw-2">&amp;</span><span class="ident">DeviceId</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">algorithm</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="ident">algorithm</span>.<span class="ident">as_ref</span>();
         <span class="kw">let</span> <span class="ident">device_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="ident">device_id</span>.<span class="ident">as_ref</span>();
 
@@ -153,33 +129,23 @@
         <span class="ident">res</span>.<span class="ident">push</span>(<span class="string">&#39;:&#39;</span>);
         <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="ident">device_id</span>);
 
-        <span class="kw">let</span> <span class="ident">colon_idx</span> <span class="op">=</span>
-            <span class="ident">NonZeroU8::new</span>(<span class="ident">algorithm</span>.<span class="ident">len</span>().<span class="ident">try_into</span>().<span class="ident">expect</span>(<span class="string">&quot;no algorithm name len &gt; 255&quot;</span>))
-                .<span class="ident">expect</span>(<span class="string">&quot;no empty algorithm name&quot;</span>);
-
-        <span class="ident">DeviceKeyId</span> { <span class="ident">full_id</span>: <span class="ident">res</span>.<span class="ident">into</span>(), <span class="ident">colon_idx</span> }
+        <span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="ident">res</span>.<span class="ident">into</span>())
     }
 
     <span class="doccomment">/// Returns key algorithm of the device key ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">algorithm</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">DeviceKeyAlgorithm</span> {
-        <span class="self">self</span>.<span class="ident">full_id</span>[..<span class="self">self</span>.<span class="ident">colon_idx</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">usize</span>].<span class="ident">into</span>()
+        <span class="self">self</span>.<span class="ident">as_str</span>()[..<span class="self">self</span>.<span class="ident">colon_idx</span>()].<span class="ident">into</span>()
     }
 
     <span class="doccomment">/// Returns device ID of the device key ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">device_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">DeviceId</span> {
-        (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">full_id</span>[<span class="self">self</span>.<span class="ident">colon_idx</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="number">1</span>..]).<span class="ident">into</span>()
+        <span class="self">self</span>.<span class="ident">as_str</span>()[<span class="self">self</span>.<span class="ident">colon_idx</span>() <span class="op">+</span> <span class="number">1</span>..].<span class="ident">into</span>()
+    }
+
+    <span class="kw">fn</span> <span class="ident">colon_idx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">as_str</span>().<span class="ident">find</span>(<span class="string">&#39;:&#39;</span>).<span class="ident">unwrap</span>()
     }
 }
-
-<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">key_id</span>: <span class="ident">S</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span>, <span class="ident"><span class="kw">crate</span>::Error</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-{
-    <span class="kw">let</span> <span class="ident">colon_idx</span> <span class="op">=</span> <span class="ident">ruma_identifiers_validation::device_key_id::validate</span>(<span class="ident">key_id</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(<span class="ident">DeviceKeyId</span> { <span class="ident">full_id</span>: <span class="ident">key_id</span>.<span class="ident">into</span>(), <span class="ident">colon_idx</span> })
-}
-
-<span class="macro">common_impls!</span>(<span class="ident">DeviceKeyId</span>, <span class="ident">try_from</span>, <span class="string">&quot;Device key ID with algorithm and device ID&quot;</span>);
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
@@ -191,9 +157,8 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">convert_device_key_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>)
-                .<span class="ident">expect</span>(<span class="string">&quot;Failed to create device key ID.&quot;</span>)
-                .<span class="ident">as_ref</span>(),
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>)
+                .<span class="ident">expect</span>(<span class="string">&quot;Failed to create device key ID.&quot;</span>),
             <span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>
         );
     }
@@ -201,7 +166,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialize_device_key_id</span>() {
-        <span class="kw">let</span> <span class="ident">device_key_id</span> <span class="op">=</span> <span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">device_key_id</span> <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">serialized</span> <span class="op">=</span> <span class="ident">serde_json::to_value</span>(<span class="ident">device_key_id</span>).<span class="ident">unwrap</span>();
 
         <span class="macro">assert_eq!</span>(<span class="ident">serialized</span>, <span class="macro">serde_json::json!</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>));
@@ -210,40 +175,43 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_device_key_id</span>() {
-        <span class="kw">let</span> <span class="ident">deserialized</span>: <span class="ident">DeviceKeyId</span> <span class="op">=</span>
+        <span class="kw">let</span> <span class="ident">deserialized</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span> <span class="op">=</span>
             <span class="ident">serde_json::from_value</span>(<span class="macro">serde_json::json!</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>)).<span class="ident">unwrap</span>();
 
-        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">deserialized</span>, <span class="ident">expected</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">missing_key_algorithm</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::InvalidKeyAlgorithm</span>);
+        <span class="macro">assert_eq!</span>(
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">Error::InvalidKeyAlgorithm</span>
+        );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">missing_delimiter</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;ed25519|JLAFKJWSCS&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ed25519|JLAFKJWSCS&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">Error::MissingDelimiter</span>,
         );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">empty_device_id_ok</span>() {
-        <span class="macro">assert!</span>(<span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;ed25519:&quot;</span>).<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ed25519:&quot;</span>).<span class="ident">is_ok</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_key_algorithm</span>() {
-        <span class="kw">let</span> <span class="ident">device_key_id</span> <span class="op">=</span> <span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">device_key_id</span> <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">device_key_id</span>.<span class="ident">algorithm</span>(), <span class="ident">DeviceKeyAlgorithm::Ed25519</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_device_id</span>() {
-        <span class="kw">let</span> <span class="ident">device_key_id</span> <span class="op">=</span> <span class="ident">DeviceKeyId::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">device_key_id</span> <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ed25519:JLAFKJWSCS&quot;</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">device_key_id</span>.<span class="ident">device_id</span>(), <span class="string">&quot;JLAFKJWSCS&quot;</span>);
     }
 }

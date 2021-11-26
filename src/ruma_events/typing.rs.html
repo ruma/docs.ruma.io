@@ -36,12 +36,12 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.typing&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">EphemeralRoom</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TypingEventContent</span> {
     <span class="doccomment">/// The list of user IDs typing in this room, if any.</span>
-    <span class="kw">pub</span> <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">TypingEventContent</span> {
     <span class="doccomment">/// Creates a new `TypingEventContent` with the given user IDs.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_ids</span> }
     }
 }

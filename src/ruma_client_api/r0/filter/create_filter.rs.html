@@ -176,7 +176,7 @@
         <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::filter::FilterDefinition</span>;
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident"><span class="kw">super</span>::Request::new</span>(<span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@foo:bar.com&quot;</span>), <span class="ident">FilterDefinition::default</span>())
+            <span class="ident"><span class="kw">super</span>::Request::new</span>(<span class="macro">user_id!</span>(<span class="string">&quot;@foo:bar.com&quot;</span>), <span class="ident">FilterDefinition::default</span>())
                 .<span class="ident">try_into_http_request</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(
                     <span class="string">&quot;https://matrix.org&quot;</span>,
                     <span class="ident">SendAccessToken::IfRequired</span>(<span class="string">&quot;tok&quot;</span>),

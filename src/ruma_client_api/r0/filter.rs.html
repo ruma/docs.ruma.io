@@ -542,7 +542,7 @@
     <span class="doccomment">/// If this list is absent then no rooms are excluded. A matching room will be excluded even if</span>
     <span class="doccomment">/// it is listed in the &#39;rooms&#39; filter.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">not_rooms</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">RoomId</span>],
+    <span class="kw">pub</span> <span class="ident">not_rooms</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>],
 
     <span class="doccomment">/// The maximum number of events to return.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -552,20 +552,20 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this list is absent then all rooms are included.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">rooms</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">RoomId</span>]<span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">rooms</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>]<span class="op">&gt;</span>,
 
     <span class="doccomment">/// A list of sender IDs to exclude.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this list is absent then no senders are excluded. A matching sender will be excluded</span>
     <span class="doccomment">/// even if it is listed in the &#39;senders&#39; filter.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">not_senders</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">UserId</span>],
+    <span class="kw">pub</span> <span class="ident">not_senders</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>],
 
     <span class="doccomment">/// A list of senders IDs to include.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this list is absent then all senders are included.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">senders</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">UserId</span>]<span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">senders</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>]<span class="op">&gt;</span>,
 
     <span class="doccomment">/// A list of event types to include.</span>
     <span class="doccomment">///</span>
@@ -665,14 +665,14 @@
     <span class="doccomment">/// it is listed in the &#39;rooms&#39; filter. This filter is applied before the filters in</span>
     <span class="doccomment">/// `ephemeral`, `state`, `timeline` or `account_data`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">not_rooms</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">RoomId</span>],
+    <span class="kw">pub</span> <span class="ident">not_rooms</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>],
 
     <span class="doccomment">/// A list of room IDs to include.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this list is absent then all rooms are included. This filter is applied before the</span>
     <span class="doccomment">/// filters in `ephemeral`, `state`, `timeline` or `account_data`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">rooms</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">RoomId</span>]<span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">rooms</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>]<span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">RoomFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -734,7 +734,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this list is absent then all senders are included.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">senders</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">UserId</span>]<span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">senders</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>]<span class="op">&gt;</span>,
 
     <span class="doccomment">/// A list of event types to include.</span>
     <span class="doccomment">///</span>
@@ -748,7 +748,7 @@
     <span class="doccomment">/// If this list is absent then no senders are excluded. A matching sender will be excluded</span>
     <span class="doccomment">/// even if it is listed in the &#39;senders&#39; filter.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">not_senders</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">UserId</span>],
+    <span class="kw">pub</span> <span class="ident">not_senders</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>],
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {

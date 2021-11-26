@@ -185,10 +185,10 @@
 <span id="184">184</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for persistent data unit schemas</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! The differences between the `RoomV1Pdu` schema and the `RoomV3Pdu` schema are</span>
-<span class="doccomment">//! that the `RoomV1Pdu` takes an `event_id` field (`RoomV3Pdu` does not), and</span>
-<span class="doccomment">//! `auth_events` and `prev_events` take `Vec&lt;(EventId, EventHash)&gt; rather than</span>
-<span class="doccomment">//! `Vec&lt;EventId&gt;` in `RoomV3Pdu`.</span>
+<span class="doccomment">//! The differences between the `RoomV1Pdu` schema and the `RoomV3Pdu` schema are that the</span>
+<span class="doccomment">//! `RoomV1Pdu` takes an `event_id` field (`RoomV3Pdu` does not), and `auth_events` and</span>
+<span class="doccomment">//! `prev_events` take `Vec&lt;(Box&lt;EventId&gt;, EventHash)&gt; rather than `Vec&lt;Box&lt;EventId&gt;&gt;` in</span>
+<span class="doccomment">//! `RoomV3Pdu`.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -220,13 +220,13 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomV1Pdu</span> {
     <span class="doccomment">/// Event ID for the PDU.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The room this event belongs to.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The user id of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
     <span class="doccomment">/// The `server_name` of the homeserver that created this event.</span>
@@ -251,7 +251,7 @@
     <span class="doccomment">/// Event IDs for the most recent events in the room that the homeserver was</span>
     <span class="doccomment">/// aware of when it created this event.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">prev_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">EventId</span>, <span class="ident">EventHash</span>)<span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">prev_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">EventHash</span>)<span class="op">&gt;</span>,
 
     <span class="doccomment">/// The maximum depth of the `prev_events`, plus one.</span>
     <span class="kw">pub</span> <span class="ident">depth</span>: <span class="ident">UInt</span>,
@@ -259,11 +259,11 @@
     <span class="doccomment">/// Event IDs for the authorization events that would allow this event to be</span>
     <span class="doccomment">/// in the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">auth_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">EventId</span>, <span class="ident">EventHash</span>)<span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">auth_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">EventHash</span>)<span class="op">&gt;</span>,
 
     <span class="doccomment">/// For redaction events, the ID of the event being redacted.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional data added by the origin server but not covered by the</span>
     <span class="doccomment">/// signatures.</span>
@@ -274,7 +274,7 @@
     <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">EventHash</span>,
 
     <span class="doccomment">/// Signatures for the PDU.</span>
-    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// A &#39;persistent data unit&#39; (event) for room versions 3 and beyond.</span>
@@ -282,10 +282,10 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomV3Pdu</span> {
     <span class="doccomment">/// The room this event belongs to.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The user id of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
     <span class="doccomment">/// The `server_name` of the homeserver that created this event.</span>
@@ -309,18 +309,18 @@
 
     <span class="doccomment">/// Event IDs for the most recent events in the room that the homeserver was</span>
     <span class="doccomment">/// aware of when it created this event.</span>
-    <span class="kw">pub</span> <span class="ident">prev_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">prev_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The maximum depth of the `prev_events`, plus one.</span>
     <span class="kw">pub</span> <span class="ident">depth</span>: <span class="ident">UInt</span>,
 
     <span class="doccomment">/// Event IDs for the authorization events that would allow this event to be</span>
     <span class="doccomment">/// in the room.</span>
-    <span class="kw">pub</span> <span class="ident">auth_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">auth_events</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// For redaction events, the ID of the event being redacted.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional data added by the origin server but not covered by the</span>
     <span class="doccomment">/// signatures.</span>
@@ -331,7 +331,7 @@
     <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">EventHash</span>,
 
     <span class="doccomment">/// Signatures for the PDU.</span>
-    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Content hashes of a PDU.</span>

@@ -116,7 +116,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">space_parent_serialization</span>() {
         <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">SpaceParentEventContent</span> {
-            <span class="ident">via</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;example.com&quot;</span>)]),
+            <span class="ident">via</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;example.com&quot;</span>).<span class="ident">to_owned</span>()]),
             <span class="ident">canonical</span>: <span class="bool-val">true</span>,
         };
 

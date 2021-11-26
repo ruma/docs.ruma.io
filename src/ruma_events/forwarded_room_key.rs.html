@@ -113,7 +113,7 @@
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
 
     <span class="doccomment">/// The room where the key is used.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The Curve25519 key of the device which initiated the session originally.</span>
     <span class="kw">pub</span> <span class="ident">sender_key</span>: <span class="ident">String</span>,
@@ -151,7 +151,7 @@
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
 
     <span class="doccomment">/// The room where the key is used.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The Curve25519 key of the device which initiated the session originally.</span>
     <span class="kw">pub</span> <span class="ident">sender_key</span>: <span class="ident">String</span>,

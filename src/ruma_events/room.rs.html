@@ -298,7 +298,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Only present if the thumbnail is unencrypted.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">thumbnail_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Information on the encrypted thumbnail image.</span>
     <span class="doccomment">///</span>
@@ -358,7 +358,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptedFile</span> {
     <span class="doccomment">/// The URL to the file.</span>
-    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">MxcUri</span>,
+    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// A [JSON Web Key](https://tools.ietf.org/html/rfc7517#appendix-A.3) object.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">JsonWebKey</span>,
@@ -385,7 +385,7 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptedFileInit</span> {
     <span class="doccomment">/// The URL to the file.</span>
-    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">MxcUri</span>,
+    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// A [JSON Web Key](https://tools.ietf.org/html/rfc7517#appendix-A.3) object.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">JsonWebKey</span>,

@@ -40,12 +40,12 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.fully_read&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">RoomAccountData</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FullyReadEventContent</span> {
     <span class="doccomment">/// The event the user&#39;s read marker is located at in the room.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">FullyReadEventContent</span> {
     <span class="doccomment">/// Creates a new `FullyReadEventContent` with the given event ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span> }
     }
 }

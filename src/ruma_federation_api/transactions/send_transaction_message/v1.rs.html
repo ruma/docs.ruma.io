@@ -124,7 +124,7 @@
     <span class="ident">response</span>: {
         <span class="doccomment">/// Map of event IDs and response for each PDU given in the request.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::pdu_process_response&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">pdus</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">pdus</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 }
 
@@ -143,7 +143,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given PDUs.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">pdus</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">EventId</span>, <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">pdus</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">pdus</span> }
     }
 }

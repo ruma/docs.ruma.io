@@ -1101,19 +1101,13 @@
 <span id="1100">1100</span>
 <span id="1101">1101</span>
 <span id="1102">1102</span>
-<span id="1103">1103</span>
-<span id="1104">1104</span>
-<span id="1105">1105</span>
-<span id="1106">1106</span>
-<span id="1107">1107</span>
-<span id="1108">1108</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Functions for signing and verifying JSON and events.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">borrow::Cow</span>,
     <span class="ident">collections</span>::{<span class="ident">BTreeMap</span>, <span class="ident">BTreeSet</span>},
+    <span class="ident">convert::TryFrom</span>,
     <span class="ident">mem</span>,
-    <span class="ident">str::FromStr</span>,
 };
 
 <span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">decode_config</span>, <span class="ident">encode_config</span>, <span class="ident">Config</span>, <span class="ident">STANDARD_NO_PAD</span>, <span class="ident">URL_SAFE_NO_PAD</span>};
@@ -1167,11 +1161,11 @@
             <span class="string">&quot;users_default&quot;</span>,
         ],
         <span class="string">&quot;m.room.aliases&quot;</span> =&gt; <span class="kw">match</span> <span class="ident">version</span> {
-            <span class="ident">RoomVersionId::Version1</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version2</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version3</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version4</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version5</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;aliases&quot;</span>],
+            <span class="ident">RoomVersionId::V1</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V2</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V3</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V4</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V5</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;aliases&quot;</span>],
             <span class="comment">// All other room versions, including custom ones, are treated by version 6 rules.</span>
             <span class="comment">// TODO: Should we return an error for unknown versions instead?</span>
             <span class="kw">_</span> =&gt; <span class="kw-2">&amp;</span>[],
@@ -1496,9 +1490,7 @@
     <span class="prelude-val">Ok</span>(<span class="ident">encode_config</span>(
         <span class="kw-2">&amp;</span><span class="ident">hash</span>,
         <span class="kw">match</span> <span class="ident">version</span> {
-            <span class="ident">RoomVersionId::Version1</span> <span class="op">|</span> <span class="ident">RoomVersionId::Version2</span> <span class="op">|</span> <span class="ident">RoomVersionId::Version3</span> =&gt; {
-                <span class="ident">STANDARD_NO_PAD</span>
-            }
+            <span class="ident">RoomVersionId::V1</span> <span class="op">|</span> <span class="ident">RoomVersionId::V2</span> <span class="op">|</span> <span class="ident">RoomVersionId::V3</span> =&gt; <span class="ident">STANDARD_NO_PAD</span>,
             <span class="comment">// Room versions higher than version 3 are url safe base64 encoded</span>
             <span class="kw">_</span> =&gt; <span class="ident">URL_SAFE_NO_PAD</span>,
         },
@@ -1567,7 +1559,7 @@
 <span class="doccomment">/// ).unwrap();</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Hash and sign the JSON with the key pair.</span>
-<span class="doccomment">/// assert!(hash_and_sign_event(&quot;domain&quot;, &amp;key_pair, &amp;mut object, &amp;RoomVersionId::Version1).is_ok());</span>
+<span class="doccomment">/// assert!(hash_and_sign_event(&quot;domain&quot;, &amp;key_pair, &amp;mut object, &amp;RoomVersionId::V1).is_ok());</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This will modify the JSON from the structure shown to a structure like this:</span>
@@ -1692,7 +1684,7 @@
 <span class="doccomment">/// public_key_map.insert(&quot;domain&quot;.into(), public_key_set);</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Verify at least one signature for each entity in `public_key_map`.</span>
-<span class="doccomment">/// let verification_result = verify_event(&amp;public_key_map, &amp;object, &amp;RoomVersionId::Version6);</span>
+<span class="doccomment">/// let verification_result = verify_event(&amp;public_key_map, &amp;object, &amp;RoomVersionId::V6);</span>
 <span class="doccomment">/// assert!(verification_result.is_ok());</span>
 <span class="doccomment">/// assert!(matches!(verification_result.unwrap(), Verified::All));</span>
 <span class="doccomment">/// ```</span>
@@ -1889,8 +1881,8 @@
     <span class="kw">if</span> <span class="op">!</span><span class="ident">is_third_party_invite</span>(<span class="ident">object</span>)<span class="question-mark">?</span> {
         <span class="kw">match</span> <span class="ident">object</span>.<span class="ident">get</span>(<span class="string">&quot;sender&quot;</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">CanonicalJsonValue::String</span>(<span class="ident">raw_sender</span>)) =&gt; {
-                <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span>
-                    <span class="ident">UserId::from_str</span>(<span class="ident">raw_sender</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">Error::from</span>(<span class="ident">ParseError::UserId</span>(<span class="ident">e</span>)))<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">raw_sender</span>.<span class="ident">as_str</span>())
+                    .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">Error::from</span>(<span class="ident">ParseError::UserId</span>(<span class="ident">e</span>)))<span class="question-mark">?</span>;
 
                 <span class="ident">servers_to_check</span>.<span class="ident">insert</span>(<span class="ident">user_id</span>.<span class="ident">server_name</span>().<span class="ident">to_owned</span>());
             }
@@ -1899,10 +1891,10 @@
     }
 
     <span class="kw">match</span> <span class="ident">version</span> {
-        <span class="ident">RoomVersionId::Version1</span> <span class="op">|</span> <span class="ident">RoomVersionId::Version2</span> =&gt; <span class="kw">match</span> <span class="ident">object</span>.<span class="ident">get</span>(<span class="string">&quot;event_id&quot;</span>) {
+        <span class="ident">RoomVersionId::V1</span> <span class="op">|</span> <span class="ident">RoomVersionId::V2</span> =&gt; <span class="kw">match</span> <span class="ident">object</span>.<span class="ident">get</span>(<span class="string">&quot;event_id&quot;</span>) {
             <span class="prelude-val">Some</span>(<span class="ident">CanonicalJsonValue::String</span>(<span class="ident">raw_event_id</span>)) =&gt; {
-                <span class="kw">let</span> <span class="ident">event_id</span> <span class="op">=</span> <span class="ident">EventId::from_str</span>(<span class="ident">raw_event_id</span>)
-                    .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">Error::from</span>(<span class="ident">ParseError::EventId</span>(<span class="ident">e</span>)))<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span> <span class="op">=</span>
+                    <span class="ident">raw_event_id</span>.<span class="ident">parse</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">Error::from</span>(<span class="ident">ParseError::EventId</span>(<span class="ident">e</span>)))<span class="question-mark">?</span>;
 
                 <span class="kw">let</span> <span class="ident">server_name</span> <span class="op">=</span> <span class="ident">event_id</span>
                     .<span class="ident">server_name</span>()
@@ -2042,8 +2034,7 @@
         ).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="ident">public_key_map</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
-        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span>
-            <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version6</span>);
+        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span> <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::V6</span>);
 
         <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_ok</span>());
         <span class="kw">let</span> <span class="ident">verification</span> <span class="op">=</span> <span class="ident">verification_result</span>.<span class="ident">unwrap</span>();
@@ -2096,8 +2087,7 @@
         <span class="ident">add_key_to_map</span>(<span class="kw-2">&amp;mut</span> <span class="ident">public_key_map</span>, <span class="string">&quot;domain-sender&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_sender</span>);
         <span class="ident">add_key_to_map</span>(<span class="kw-2">&amp;mut</span> <span class="ident">public_key_map</span>, <span class="string">&quot;domain-event&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_event</span>);
 
-        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span>
-            <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version1</span>);
+        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span> <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::V1</span>);
 
         <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_ok</span>());
         <span class="kw">let</span> <span class="ident">verification</span> <span class="op">=</span> <span class="ident">verification_result</span>.<span class="ident">unwrap</span>();
@@ -2132,8 +2122,7 @@
 
         <span class="comment">// Verify with an empty public key map should fail due to missing public keys</span>
         <span class="kw">let</span> <span class="ident">public_key_map</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
-        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span>
-            <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version6</span>);
+        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span> <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::V6</span>);
 
         <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_err</span>());
         <span class="kw">let</span> <span class="ident">error_msg</span> <span class="op">=</span> <span class="ident">verification_result</span>.<span class="ident">err</span>().<span class="ident">unwrap</span>();
@@ -2182,8 +2171,7 @@
         <span class="ident">sender_key_map</span>.<span class="ident">insert</span>(<span class="ident">version</span>.<span class="ident">to_string</span>(), <span class="ident">encoded_public_key</span>);
         <span class="ident">public_key_map</span>.<span class="ident">insert</span>(<span class="string">&quot;domain-sender&quot;</span>.<span class="ident">to_owned</span>(), <span class="ident">sender_key_map</span>);
 
-        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span>
-            <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::Version6</span>);
+        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span> <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::V6</span>);
 
         <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_err</span>());
         <span class="kw">let</span> <span class="ident">error_msg</span> <span class="op">=</span> <span class="ident">verification_result</span>.<span class="ident">err</span>().<span class="ident">unwrap</span>();

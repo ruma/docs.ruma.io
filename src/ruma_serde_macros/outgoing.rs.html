@@ -344,6 +344,17 @@
 <span id="343">343</span>
 <span id="344">344</span>
 <span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">proc_macro2</span>::{<span class="ident">Span</span>, <span class="ident">TokenStream</span>};
 <span class="kw">use</span> <span class="ident">quote</span>::{<span class="ident">format_ident</span>, <span class="ident">quote</span>};
 <span class="kw">use</span> <span class="ident">syn</span>::{
@@ -607,10 +618,21 @@
                         <span class="prelude-val">Some</span>(<span class="macro">parse_quote!</span> { <span class="ident">::std::string::String</span> })
                     } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;ClientSecret&quot;</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;DeviceId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;DeviceKeyId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;DeviceSigningKeyId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;EventId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;KeyId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;MxcUri&quot;</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;ServerName&quot;</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;SessionId&quot;</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;RawJsonValue&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;RoomAliasId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;RoomId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;RoomOrAliasId&quot;</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;RoomName&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;ServerSigningKeyId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;SigningKeyId&quot;</span>
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">last_seg</span>.<span class="ident">ident</span> <span class="op">==</span> <span class="string">&quot;UserId&quot;</span>
                     {
                         <span class="comment">// The identifiers that need to be boxed `Box&lt;T&gt;` since they are DST&#39;s.</span>
                         <span class="prelude-val">Some</span>(<span class="macro">parse_quote!</span> { <span class="ident">::std::boxed::Box</span><span class="op">&lt;</span>#<span class="ident">path</span><span class="op">&gt;</span> })

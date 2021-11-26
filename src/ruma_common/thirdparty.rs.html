@@ -313,6 +313,10 @@
 <span id="312">312</span>
 <span id="313">313</span>
 <span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [third party networks module][thirdparty].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [thirdparty]: https://matrix.org/docs/spec/client_server/r0.6.1#id153</span>
@@ -488,7 +492,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Location</span> {
     <span class="doccomment">/// An alias for a matrix room.</span>
-    <span class="kw">pub</span> <span class="ident">alias</span>: <span class="ident">RoomAliasId</span>,
+    <span class="kw">pub</span> <span class="ident">alias</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The protocol ID that the third party location is a part of.</span>
     <span class="kw">pub</span> <span class="ident">protocol</span>: <span class="ident">String</span>,
@@ -499,7 +503,11 @@
 
 <span class="kw">impl</span> <span class="ident">Location</span> {
     <span class="doccomment">/// Creates a new `Location` with the given alias, protocol and fields.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">alias</span>: <span class="ident">RoomAliasId</span>, <span class="ident">protocol</span>: <span class="ident">String</span>, <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
+        <span class="ident">alias</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+        <span class="ident">protocol</span>: <span class="ident">String</span>,
+        <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">alias</span>, <span class="ident">protocol</span>, <span class="ident">fields</span> }
     }
 }
@@ -509,7 +517,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">User</span> {
     <span class="doccomment">/// A matrix user ID representing a third party user.</span>
-    <span class="kw">pub</span> <span class="ident">userid</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">userid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The protocol ID that the third party user is a part of.</span>
     <span class="kw">pub</span> <span class="ident">protocol</span>: <span class="ident">String</span>,
@@ -520,7 +528,7 @@
 
 <span class="kw">impl</span> <span class="ident">User</span> {
     <span class="doccomment">/// Creates a new `User` with the given userid, protocol and fields.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">userid</span>: <span class="ident">UserId</span>, <span class="ident">protocol</span>: <span class="ident">String</span>, <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">userid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">protocol</span>: <span class="ident">String</span>, <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">userid</span>, <span class="ident">protocol</span>, <span class="ident">fields</span> }
     }
 }

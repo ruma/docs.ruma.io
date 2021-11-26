@@ -320,11 +320,11 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PublicRoomsChunk</span> {
     <span class="doccomment">/// Aliases of the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The canonical alias of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">canonical_alias</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">canonical_alias</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The name of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -334,7 +334,7 @@
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,
 
     <span class="doccomment">/// The ID of the room.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The topic of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -357,7 +357,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>)
     )]</span>
-    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Initial set of mandatory fields of `PublicRoomsChunk`.</span>
@@ -371,7 +371,7 @@
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,
 
     <span class="doccomment">/// The ID of the room.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Whether the room may be viewed by guest users without joining.</span>
     <span class="kw">pub</span> <span class="ident">world_readable</span>: <span class="ident">bool</span>,

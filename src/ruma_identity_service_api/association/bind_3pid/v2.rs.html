@@ -108,7 +108,7 @@
         <span class="kw">pub</span> <span class="ident">medium</span>: <span class="ident">Medium</span>,
 
         <span class="doccomment">/// The Matrix user ID associated with the 3PID.</span>
-        <span class="kw">pub</span> <span class="ident">mxid</span>: <span class="ident">UserId</span>,
+        <span class="kw">pub</span> <span class="ident">mxid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// A UNIX timestamp before which the association is not known to be valid.</span>
         <span class="kw">pub</span> <span class="ident">not_before</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -138,7 +138,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">address</span>: <span class="ident">String</span>,
         <span class="ident">medium</span>: <span class="ident">Medium</span>,
-        <span class="ident">mxid</span>: <span class="ident">UserId</span>,
+        <span class="ident">mxid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
         <span class="ident">not_before</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
         <span class="ident">not_after</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
         <span class="ident">ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,

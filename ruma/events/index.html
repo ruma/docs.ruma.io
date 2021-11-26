@@ -37,7 +37,7 @@ would work.</p>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.annotation&quot;</span>)]</span>
     <span class="ident">Annotation</span> {
         <span class="doccomment">/// The event this reaction relates to.</span>
-        <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+        <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
         <span class="doccomment">/// The displayable content of the reaction.</span>
         <span class="ident">key</span>: <span class="ident">String</span>,
     },

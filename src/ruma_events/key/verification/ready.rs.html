@@ -245,7 +245,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
-        <span class="kw">let</span> <span class="ident">event_id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>);
+        <span class="kw">let</span> <span class="ident">event_id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>).<span class="ident">to_owned</span>();
         <span class="kw">let</span> <span class="ident">device</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span> <span class="op">=</span> <span class="string">&quot;123&quot;</span>.<span class="ident">into</span>();
 
         <span class="kw">let</span> <span class="ident">json_data</span> <span class="op">=</span> <span class="macro">json!</span>({

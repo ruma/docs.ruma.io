@@ -69,7 +69,7 @@
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/join/{roomIdOrAlias}](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-join-roomidoralias)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomIdOrAliasId</span>, <span class="ident">ServerName</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomOrAliasId</span>, <span class="ident">ServerName</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">IncomingThirdPartySigned</span>, <span class="ident">ThirdPartySigned</span>};
 
@@ -86,7 +86,7 @@
     <span class="ident">request</span>: {
         <span class="doccomment">/// The room where the user should be invited.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">path</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">room_id_or_alias</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomIdOrAliasId</span>,
+        <span class="kw">pub</span> <span class="ident">room_id_or_alias</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomOrAliasId</span>,
 
         <span class="doccomment">/// The servers to attempt to join the room through.</span>
         <span class="doccomment">///</span>
@@ -108,7 +108,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// The room that the user joined.</span>
-        <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+        <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -116,7 +116,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a new `Request` with the given room ID or alias ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id_or_alias</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomIdOrAliasId</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id_or_alias</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomOrAliasId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">room_id_or_alias</span>,
             <span class="ident">server_name</span>: <span class="kw-2">&amp;</span>[],
@@ -129,7 +129,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given room ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span> }
     }
 }

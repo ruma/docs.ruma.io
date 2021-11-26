@@ -67,7 +67,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// The room ID for this room alias.</span>
-        <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+        <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// A list of servers that are aware of this room ID.</span>
         <span class="kw">pub</span> <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -85,7 +85,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given room id and servers</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">servers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">servers</span> }
     }
 }

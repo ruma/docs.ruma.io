@@ -409,34 +409,34 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RoomVersionId</span> {
     <span class="doccomment">/// A version 1 room.</span>
-    <span class="ident">Version1</span>,
+    <span class="ident">V1</span>,
 
     <span class="doccomment">/// A version 2 room.</span>
-    <span class="ident">Version2</span>,
+    <span class="ident">V2</span>,
 
     <span class="doccomment">/// A version 3 room.</span>
-    <span class="ident">Version3</span>,
+    <span class="ident">V3</span>,
 
     <span class="doccomment">/// A version 4 room.</span>
-    <span class="ident">Version4</span>,
+    <span class="ident">V4</span>,
 
     <span class="doccomment">/// A version 5 room.</span>
-    <span class="ident">Version5</span>,
+    <span class="ident">V5</span>,
 
     <span class="doccomment">/// A version 6 room.</span>
-    <span class="ident">Version6</span>,
+    <span class="ident">V6</span>,
 
     <span class="doccomment">/// A version 7 room.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="ident">Version7</span>,
+    <span class="ident">V7</span>,
 
     <span class="doccomment">/// A version 8 room.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="ident">Version8</span>,
+    <span class="ident">V8</span>,
 
     <span class="doccomment">/// A version 9 room.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="ident">Version9</span>,
+    <span class="ident">V9</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">_Custom</span>(<span class="ident">CustomRoomVersion</span>),
@@ -448,18 +448,18 @@
         <span class="comment">// FIXME: Add support for non-`str`-deref&#39;ing types for fallback to AsRefStr derive and</span>
         <span class="comment">//        implement this function in terms of `AsRef&lt;str&gt;`</span>
         <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span> {
-            <span class="ident"><span class="self">Self</span>::Version1</span> =&gt; <span class="string">&quot;1&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Version2</span> =&gt; <span class="string">&quot;2&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Version3</span> =&gt; <span class="string">&quot;3&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Version4</span> =&gt; <span class="string">&quot;4&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Version5</span> =&gt; <span class="string">&quot;5&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::Version6</span> =&gt; <span class="string">&quot;6&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V1</span> =&gt; <span class="string">&quot;1&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V2</span> =&gt; <span class="string">&quot;2&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V3</span> =&gt; <span class="string">&quot;3&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V4</span> =&gt; <span class="string">&quot;4&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V5</span> =&gt; <span class="string">&quot;5&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V6</span> =&gt; <span class="string">&quot;6&quot;</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::Version7</span> =&gt; <span class="string">&quot;7&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V7</span> =&gt; <span class="string">&quot;7&quot;</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::Version8</span> =&gt; <span class="string">&quot;8&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V8</span> =&gt; <span class="string">&quot;8&quot;</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident"><span class="self">Self</span>::Version9</span> =&gt; <span class="string">&quot;9&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V9</span> =&gt; <span class="string">&quot;9&quot;</span>,
             <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">version</span>) =&gt; <span class="ident">version</span>.<span class="ident">as_str</span>(),
         }
     }
@@ -473,18 +473,18 @@
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">RoomVersionId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">String</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="ident">RoomVersionId</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">id</span> {
-            <span class="ident">RoomVersionId::Version1</span> =&gt; <span class="string">&quot;1&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">RoomVersionId::Version2</span> =&gt; <span class="string">&quot;2&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">RoomVersionId::Version3</span> =&gt; <span class="string">&quot;3&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">RoomVersionId::Version4</span> =&gt; <span class="string">&quot;4&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">RoomVersionId::Version5</span> =&gt; <span class="string">&quot;5&quot;</span>.<span class="ident">to_owned</span>(),
-            <span class="ident">RoomVersionId::Version6</span> =&gt; <span class="string">&quot;6&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V1</span> =&gt; <span class="string">&quot;1&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V2</span> =&gt; <span class="string">&quot;2&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V3</span> =&gt; <span class="string">&quot;3&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V4</span> =&gt; <span class="string">&quot;4&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V5</span> =&gt; <span class="string">&quot;5&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V6</span> =&gt; <span class="string">&quot;6&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">RoomVersionId::Version7</span> =&gt; <span class="string">&quot;7&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V7</span> =&gt; <span class="string">&quot;7&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">RoomVersionId::Version8</span> =&gt; <span class="string">&quot;8&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V8</span> =&gt; <span class="string">&quot;8&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">RoomVersionId::Version9</span> =&gt; <span class="string">&quot;9&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V9</span> =&gt; <span class="string">&quot;9&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">RoomVersionId::_Custom</span>(<span class="ident">version</span>) =&gt; <span class="ident">version</span>.<span class="ident">into</span>(),
         }
     }
@@ -544,18 +544,18 @@
     <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 {
     <span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">room_version_id</span>.<span class="ident">as_ref</span>() {
-        <span class="string">&quot;1&quot;</span> =&gt; <span class="ident">RoomVersionId::Version1</span>,
-        <span class="string">&quot;2&quot;</span> =&gt; <span class="ident">RoomVersionId::Version2</span>,
-        <span class="string">&quot;3&quot;</span> =&gt; <span class="ident">RoomVersionId::Version3</span>,
-        <span class="string">&quot;4&quot;</span> =&gt; <span class="ident">RoomVersionId::Version4</span>,
-        <span class="string">&quot;5&quot;</span> =&gt; <span class="ident">RoomVersionId::Version5</span>,
-        <span class="string">&quot;6&quot;</span> =&gt; <span class="ident">RoomVersionId::Version6</span>,
+        <span class="string">&quot;1&quot;</span> =&gt; <span class="ident">RoomVersionId::V1</span>,
+        <span class="string">&quot;2&quot;</span> =&gt; <span class="ident">RoomVersionId::V2</span>,
+        <span class="string">&quot;3&quot;</span> =&gt; <span class="ident">RoomVersionId::V3</span>,
+        <span class="string">&quot;4&quot;</span> =&gt; <span class="ident">RoomVersionId::V4</span>,
+        <span class="string">&quot;5&quot;</span> =&gt; <span class="ident">RoomVersionId::V5</span>,
+        <span class="string">&quot;6&quot;</span> =&gt; <span class="ident">RoomVersionId::V6</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="string">&quot;7&quot;</span> =&gt; <span class="ident">RoomVersionId::Version7</span>,
+        <span class="string">&quot;7&quot;</span> =&gt; <span class="ident">RoomVersionId::V7</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="string">&quot;8&quot;</span> =&gt; <span class="ident">RoomVersionId::Version8</span>,
+        <span class="string">&quot;8&quot;</span> =&gt; <span class="ident">RoomVersionId::V8</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="string">&quot;9&quot;</span> =&gt; <span class="ident">RoomVersionId::Version9</span>,
+        <span class="string">&quot;9&quot;</span> =&gt; <span class="ident">RoomVersionId::V9</span>,
         <span class="ident">custom</span> =&gt; {
             <span class="ident">ruma_identifiers_validation::room_version_id::validate</span>(<span class="ident">custom</span>)<span class="question-mark">?</span>;
             <span class="ident">RoomVersionId::_Custom</span>(<span class="ident">CustomRoomVersion</span>(<span class="ident">room_version_id</span>.<span class="ident">into</span>()))
@@ -733,7 +733,7 @@
         <span class="kw">let</span> <span class="ident">deserialized</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">RoomVersionId</span><span class="op">&gt;</span>(<span class="string">r#&quot;&quot;1&quot;&quot;#</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert RoomVersionId to JSON.&quot;</span>);
 
-        <span class="macro">assert_eq!</span>(<span class="ident">deserialized</span>, <span class="ident">RoomVersionId::Version1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">deserialized</span>, <span class="ident">RoomVersionId::V1</span>);
 
         <span class="macro">assert_eq!</span>(
             <span class="ident">deserialized</span>,

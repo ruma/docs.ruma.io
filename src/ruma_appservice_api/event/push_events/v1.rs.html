@@ -256,7 +256,7 @@
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
         <span class="kw">struct</span> <span class="ident">EventDeHelper</span> {
-            <span class="ident">room_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+            <span class="ident">room_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">response</span> <span class="op">=</span> <span class="ident">sync_events::Response::new</span>(<span class="ident">next_batch</span>.<span class="ident">into</span>());
@@ -326,7 +326,7 @@
             <span class="ident">incoming_request</span>.<span class="ident">try_into_sync_response</span>(<span class="ident">txn_id</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="ident">response_rooms_join</span> <span class="op">=</span>
-            <span class="ident">response</span>.<span class="ident">rooms</span>.<span class="ident">join</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="macro">room_id!</span>(<span class="string">&quot;!roomid:room.com&quot;</span>)).<span class="ident">expect</span>(<span class="string">&quot;joined room response&quot;</span>);
+            <span class="ident">response</span>.<span class="ident">rooms</span>.<span class="ident">join</span>.<span class="ident">get</span>(<span class="macro">room_id!</span>(<span class="string">&quot;!roomid:room.com&quot;</span>)).<span class="ident">expect</span>(<span class="string">&quot;joined room response&quot;</span>);
 
         <span class="macro">assert_eq!</span>(<span class="ident">response_rooms_join</span>.<span class="ident">timeline</span>.<span class="ident">events</span>.<span class="ident">len</span>(), <span class="number">2</span>);
     }

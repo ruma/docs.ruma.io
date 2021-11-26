@@ -271,7 +271,7 @@
             <span class="kw">let</span> <span class="ident">decoded</span> <span class="op">=</span>
                 <span class="ident">percent_encoding::percent_decode</span>(<span class="ident">path_segments</span>[<span class="number">4</span>].<span class="ident">as_bytes</span>()).<span class="ident">decode_utf8</span>()<span class="question-mark">?</span>;
 
-            <span class="ident">RoomId::try_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">decoded</span>)<span class="question-mark">?</span>
+            <span class="ident">Box</span>::<span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">decoded</span>)<span class="question-mark">?</span>
         };
 
         <span class="kw">let</span> <span class="ident">event_type</span> <span class="op">=</span> {

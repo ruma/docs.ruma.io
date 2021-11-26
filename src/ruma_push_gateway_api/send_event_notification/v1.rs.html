@@ -745,12 +745,12 @@
         <span class="kw">let</span> <span class="ident">devices</span> <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="ident">device</span>];
 
         <span class="kw">let</span> <span class="ident">notice</span> <span class="op">=</span> <span class="ident">Notification</span> {
-            <span class="ident">event_id</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">eid</span>),
-            <span class="ident">room_id</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">rid</span>),
+            <span class="ident">event_id</span>: <span class="prelude-val">Some</span>(<span class="ident">eid</span>),
+            <span class="ident">room_id</span>: <span class="prelude-val">Some</span>(<span class="ident">rid</span>),
             <span class="ident">event_type</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomMessage</span>),
-            <span class="ident">sender</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">uid</span>),
+            <span class="ident">sender</span>: <span class="prelude-val">Some</span>(<span class="ident">uid</span>),
             <span class="ident">sender_display_name</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;Major Tom&quot;</span>),
-            <span class="ident">room_alias</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">alias</span>),
+            <span class="ident">room_alias</span>: <span class="prelude-val">Some</span>(<span class="ident">alias</span>),
             <span class="ident">content</span>: <span class="prelude-val">Some</span>(<span class="ident">serde_json::from_str</span>(<span class="string">&quot;{}&quot;</span>).<span class="ident">unwrap</span>()),
             <span class="ident">counts</span>: <span class="ident">count</span>,
             <span class="ident">prio</span>: <span class="ident">NotificationPriority::Low</span>,

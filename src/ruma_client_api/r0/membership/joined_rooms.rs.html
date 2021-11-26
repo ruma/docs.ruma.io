@@ -60,7 +60,7 @@
     <span class="ident">response</span>: {
         <span class="doccomment">/// A list of the rooms the user is in, i.e. the ID of each room in</span>
         <span class="doccomment">/// which the user has joined membership.</span>
-        <span class="kw">pub</span> <span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -75,7 +75,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given joined rooms.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">joined_rooms</span> }
     }
 }

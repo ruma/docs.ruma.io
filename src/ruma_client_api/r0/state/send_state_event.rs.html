@@ -190,7 +190,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// A unique identifier for the event.</span>
-        <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+        <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
     }
 
     <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -249,7 +249,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given event id.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span> }
     }
 }
@@ -321,7 +321,7 @@
             <span class="kw">let</span> <span class="ident">decoded</span> <span class="op">=</span>
                 <span class="ident">percent_encoding::percent_decode</span>(<span class="ident">path_segments</span>[<span class="number">4</span>].<span class="ident">as_bytes</span>()).<span class="ident">decode_utf8</span>()<span class="question-mark">?</span>;
 
-            <span class="ident">RoomId::try_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">decoded</span>)<span class="question-mark">?</span>
+            <span class="ident">Box</span>::<span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">decoded</span>)<span class="question-mark">?</span>
         };
 
         <span class="kw">let</span> <span class="ident">event_type</span> <span class="op">=</span> <span class="ident">percent_encoding::percent_decode</span>(<span class="ident">path_segments</span>[<span class="number">6</span>].<span class="ident">as_bytes</span>())

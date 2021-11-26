@@ -414,7 +414,7 @@
 
     <span class="ident">response</span>: {
         <span class="doccomment">/// The fully-qualified Matrix ID that has been registered.</span>
-        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// An access token for the account.</span>
         <span class="kw">pub</span> <span class="ident">access_token</span>: <span class="ident">String</span>,
@@ -451,7 +451,7 @@
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
     <span class="doccomment">/// Creates a new `Response` with the given user ID, access token and device ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">access_token</span>: <span class="ident">String</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">access_token</span>: <span class="ident">String</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">access_token</span>, <span class="ident">home_server</span>: <span class="prelude-val">None</span>, <span class="ident">device_id</span>, <span class="ident">well_known</span>: <span class="prelude-val">None</span> }
     }
 }

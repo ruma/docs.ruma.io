@@ -163,26 +163,26 @@
     <span class="kw">pub</span> <span class="ident">address</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The now-bound user ID that received the invite.</span>
-    <span class="kw">pub</span> <span class="ident">mxid</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">mxid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The room ID the invite is valid for.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The user ID that sent the invite.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Signature from the identity server using a long-term private key.</span>
-    <span class="kw">pub</span> <span class="ident">signed</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">signed</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ThirdPartyInvite</span> {
     <span class="doccomment">/// Creates a new third party invite with the given parameters.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">address</span>: <span class="ident">String</span>,
-        <span class="ident">mxid</span>: <span class="ident">UserId</span>,
-        <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
-        <span class="ident">sender</span>: <span class="ident">UserId</span>,
-        <span class="ident">signed</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">mxid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+        <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+        <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+        <span class="ident">signed</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">medium</span>: <span class="ident">Medium::Email</span>, <span class="ident">address</span>, <span class="ident">mxid</span>, <span class="ident">room_id</span>, <span class="ident">sender</span>, <span class="ident">signed</span> }
     }

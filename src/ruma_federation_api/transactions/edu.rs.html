@@ -564,7 +564,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PresenceUpdate</span> {
     <span class="doccomment">/// The user ID this presence EDU is for.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The presence of the user.</span>
     <span class="kw">pub</span> <span class="ident">presence</span>: <span class="ident">PresenceState</span>,
@@ -585,7 +585,7 @@
 
 <span class="kw">impl</span> <span class="ident">PresenceUpdate</span> {
     <span class="doccomment">/// Creates a new `PresenceUpdate` with the given `user_id`, `presence` and `last_activity`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">presence</span>: <span class="ident">PresenceState</span>, <span class="ident">last_activity</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">presence</span>: <span class="ident">PresenceState</span>, <span class="ident">last_activity</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">presence</span>,
@@ -602,12 +602,12 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReceiptContent</span> {
     <span class="doccomment">/// Receipts for a particular room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ReceiptContent</span> {
     <span class="doccomment">/// Creates a new `ReceiptContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">receipts</span> }
     }
 }
@@ -618,12 +618,12 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReceiptMap</span> {
     <span class="doccomment">/// Read receipts for users in the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.read&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ReceiptMap</span> {
     <span class="doccomment">/// Creates a new `ReceiptMap`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">read</span> }
     }
 }
@@ -636,12 +636,12 @@
     <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">Receipt</span>,
 
     <span class="doccomment">/// The extremity event ID the user has read up to.</span>
-    <span class="kw">pub</span> <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ReceiptData</span> {
     <span class="doccomment">/// Creates a new `ReceiptData`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data</span>: <span class="ident">Receipt</span>, <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data</span>: <span class="ident">Receipt</span>, <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">data</span>, <span class="ident">event_ids</span> }
     }
 }
@@ -651,10 +651,10 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TypingContent</span> {
     <span class="doccomment">/// The room where the user&#39;s typing status has been updated.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The user ID that has had their typing status changed.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Whether the user is typing in the room or not.</span>
     <span class="kw">pub</span> <span class="ident">typing</span>: <span class="ident">bool</span>,
@@ -662,7 +662,7 @@
 
 <span class="kw">impl</span> <span class="ident">TypingContent</span> {
     <span class="doccomment">/// Creates a new `TypingContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">RoomId</span>, <span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">typing</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">typing</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">typing</span> }
     }
 }
@@ -672,7 +672,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceListUpdateContent</span> {
     <span class="doccomment">/// The user ID who owns the device.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The ID of the device whose details are changing.</span>
     <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
@@ -703,7 +703,7 @@
 <span class="kw">impl</span> <span class="ident">DeviceListUpdateContent</span> {
     <span class="doccomment">/// Create a new `DeviceListUpdateContent` with the given `user_id`, `device_id` and</span>
     <span class="doccomment">/// `stream_id`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">UserId</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">device_id</span>,
@@ -721,7 +721,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DirectDeviceContent</span> {
     <span class="doccomment">/// The user ID of the sender.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Event type for the message.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
@@ -739,7 +739,7 @@
 
 <span class="kw">impl</span> <span class="ident">DirectDeviceContent</span> {
     <span class="doccomment">/// Creates a new `DirectDeviceContent` with the given `sender, `ev_type` and `message_id`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sender</span>: <span class="ident">UserId</span>, <span class="ident">ev_type</span>: <span class="ident">EventType</span>, <span class="ident">message_id</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">ev_type</span>: <span class="ident">EventType</span>, <span class="ident">message_id</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sender</span>, <span class="ident">ev_type</span>, <span class="ident">message_id</span>, <span class="ident">messages</span>: <span class="ident">DirectDeviceMessages::new</span>() }
     }
 }
@@ -748,7 +748,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Represented as a map of `{ user-ids =&gt; { device-ids =&gt; message-content } }`.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">DirectDeviceMessages</span> <span class="op">=</span>
-    <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">UserId</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">DeviceIdOrAllDevices</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyToDeviceEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+    <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">DeviceIdOrAllDevices</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyToDeviceEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
@@ -870,7 +870,7 @@
         <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
             <span class="ident">Edu::Receipt</span>(<span class="ident">ReceiptContent</span> { <span class="ident">receipts</span> })
-                <span class="kw">if</span> <span class="ident">receipts</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="macro">room_id!</span>(<span class="string">&quot;!some_room:example.org&quot;</span>)).<span class="ident">is_some</span>()
+                <span class="kw">if</span> <span class="ident">receipts</span>.<span class="ident">get</span>(<span class="macro">room_id!</span>(<span class="string">&quot;!some_room:example.org&quot;</span>)).<span class="ident">is_some</span>()
         );
 
         <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
@@ -929,7 +929,7 @@
             }) <span class="kw">if</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@john:example.com&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">ev_type</span> <span class="op">==</span> <span class="ident">EventType::RoomKeyRequest</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">message_id</span> <span class="op">==</span> <span class="string">&quot;hiezohf6Hoo7kaev&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">messages</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@alice:example.org&quot;</span>)).<span class="ident">is_some</span>()
+                <span class="op">&amp;&amp;</span> <span class="ident">messages</span>.<span class="ident">get</span>(<span class="macro">user_id!</span>(<span class="string">&quot;@alice:example.org&quot;</span>)).<span class="ident">is_some</span>()
         );
 
         <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);

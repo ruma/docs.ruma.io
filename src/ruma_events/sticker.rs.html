@@ -58,12 +58,12 @@
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="ident">ImageInfo</span>,
 
     <span class="doccomment">/// The URL to the sticker image.</span>
-    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">MxcUri</span>,
+    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">StickerEventContent</span> {
     <span class="doccomment">/// Creates a new `StickerEventContent` with the given body, image info and URL.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">info</span>: <span class="ident">ImageInfo</span>, <span class="ident">url</span>: <span class="ident">MxcUri</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">info</span>: <span class="ident">ImageInfo</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">info</span>, <span class="ident">url</span> }
     }
 }

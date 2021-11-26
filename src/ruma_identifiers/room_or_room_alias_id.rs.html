@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates&#x2F;ruma-identifiers&#x2F;src&#x2F;room_id_or_room_alias_id.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>room_id_or_room_alias_id.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates&#x2F;ruma-identifiers&#x2F;src&#x2F;room_or_room_alias_id.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>room_or_room_alias_id.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;www.ruma.io&#x2F;favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../ruma_identifiers/index.html'><div class='logo-container rust-logo'><img src='https:&#x2F;&#x2F;www.ruma.io&#x2F;images&#x2F;logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -204,80 +204,52 @@
 <span id="203">203</span>
 <span id="204">204</span>
 <span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
-<span id="208">208</span>
-<span id="209">209</span>
-<span id="210">210</span>
-<span id="211">211</span>
-<span id="212">212</span>
-<span id="213">213</span>
-<span id="214">214</span>
-<span id="215">215</span>
-<span id="216">216</span>
-<span id="217">217</span>
-<span id="218">218</span>
-<span id="219">219</span>
-<span id="220">220</span>
-<span id="221">221</span>
-<span id="222">222</span>
-<span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
-<span id="226">226</span>
-<span id="227">227</span>
-<span id="228">228</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix identifiers for places where a room ID or room alias ID are used interchangeably.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
-    <span class="ident">fmt</span>,
     <span class="ident">hint::unreachable_unchecked</span>,
-    <span class="ident">num::NonZeroU8</span>,
 };
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">server_name::ServerName</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>};
 
 <span class="doccomment">/// A Matrix room ID or a Matrix room alias ID.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `RoomIdOrAliasId` is useful for APIs that accept either kind of room identifier. It is converted</span>
+<span class="doccomment">/// `RoomOrAliasId` is useful for APIs that accept either kind of room identifier. It is converted</span>
 <span class="doccomment">/// from a string slice, and can be converted back into a string as needed. When converted from a</span>
 <span class="doccomment">/// string slice, the variant is determined by the leading sigil character.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// # use std::convert::TryFrom;</span>
-<span class="doccomment">/// # use ruma_identifiers::RoomIdOrAliasId;</span>
+<span class="doccomment">/// # use ruma_identifiers::RoomOrAliasId;</span>
 <span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     RoomIdOrAliasId::try_from(&quot;#ruma:example.com&quot;).unwrap().as_ref(),</span>
+<span class="doccomment">///     &lt;&amp;RoomOrAliasId&gt;::try_from(&quot;#ruma:example.com&quot;).unwrap(),</span>
 <span class="doccomment">///     &quot;#ruma:example.com&quot;</span>
 <span class="doccomment">/// );</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     RoomIdOrAliasId::try_from(&quot;!n8f893n9:example.com&quot;).unwrap().as_ref(),</span>
+<span class="doccomment">///     &lt;&amp;RoomOrAliasId&gt;::try_from(&quot;!n8f893n9:example.com&quot;).unwrap(),</span>
 <span class="doccomment">///     &quot;!n8f893n9:example.com&quot;</span>
 <span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomIdOrAliasId</span> {
-    <span class="ident">full_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    <span class="ident">colon_idx</span>: <span class="ident">NonZeroU8</span>,
-}
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomOrAliasId</span>(<span class="ident">str</span>);
 
-<span class="kw">impl</span> <span class="ident">fmt::Debug</span> <span class="kw">for</span> <span class="ident">RoomIdOrAliasId</span> {
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
-        <span class="self">self</span>.<span class="ident">full_id</span>.<span class="ident">fmt</span>(<span class="ident">f</span>)
-    }
-}
+<span class="macro">opaque_identifier_validated!</span>(
+    <span class="ident">RoomOrAliasId</span>,
+    <span class="ident">ruma_identifiers_validation::room_id_or_alias_id::validate</span>
+);
 
-<span class="kw">impl</span> <span class="ident">RoomIdOrAliasId</span> {
+<span class="kw">impl</span> <span class="ident">RoomOrAliasId</span> {
     <span class="doccomment">/// Returns the local part (everything after the `!` or `#` and before the first colon).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">localpart</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">full_id</span>[<span class="number">1</span>..<span class="self">self</span>.<span class="ident">colon_idx</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">usize</span>]
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">as_str</span>()[<span class="number">1</span>..<span class="self">self</span>.<span class="ident">colon_idx</span>()]
     }
 
     <span class="doccomment">/// Returns the server name of the room (alias) ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">server_name</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">ServerName</span> {
-        <span class="self">self</span>.<span class="ident">full_id</span>[<span class="self">self</span>.<span class="ident">colon_idx</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="number">1</span>..].<span class="ident">try_into</span>().<span class="ident">unwrap</span>()
+        <span class="self">self</span>.<span class="ident">as_str</span>()[<span class="self">self</span>.<span class="ident">colon_idx</span>() <span class="op">+</span> <span class="number">1</span>..].<span class="ident">try_into</span>().<span class="ident">unwrap</span>()
     }
 
     <span class="doccomment">/// Whether this is a room id (starts with `&#39;!&#39;`)</span>
@@ -290,22 +262,24 @@
         <span class="self">self</span>.<span class="ident">variant</span>() <span class="op">==</span> <span class="ident">Variant::RoomAliasId</span>
     }
 
-    <span class="doccomment">/// Turn this `RoomIdOrAliasId` into `Either&lt;RoomId, RoomAliasId&gt;`</span>
+    <span class="doccomment">/// Turn this `RoomOrAliasId` into `Either&lt;RoomId, RoomAliasId&gt;`</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;either&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_either</span>(<span class="self">self</span>) -&gt; <span class="ident">either::Either</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">RoomAliasId</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">variant</span>() {
-            <span class="ident">Variant::RoomId</span> =&gt; {
-                <span class="ident">either::Either::Left</span>(<span class="ident">RoomId</span> { <span class="ident">full_id</span>: <span class="self">self</span>.<span class="ident">full_id</span>, <span class="ident">colon_idx</span>: <span class="self">self</span>.<span class="ident">colon_idx</span> })
-            }
-            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="ident">either::Either::Right</span>(<span class="ident">RoomAliasId</span> {
-                <span class="ident">full_id</span>: <span class="self">self</span>.<span class="ident">full_id</span>,
-                <span class="ident">colon_idx</span>: <span class="self">self</span>.<span class="ident">colon_idx</span>,
-            }),
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_either</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">either::Either</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">variant</span>();
+        <span class="kw">let</span> <span class="ident">boxed_str</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">into_owned</span>();
+
+        <span class="kw">match</span> <span class="ident">variant</span> {
+            <span class="ident">Variant::RoomId</span> =&gt; <span class="ident">either::Either::Left</span>(<span class="ident">RoomId::from_owned</span>(<span class="ident">boxed_str</span>)),
+            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="ident">either::Either::Right</span>(<span class="ident">RoomAliasId::from_owned</span>(<span class="ident">boxed_str</span>)),
         }
     }
 
+    <span class="kw">fn</span> <span class="ident">colon_idx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">as_str</span>().<span class="ident">find</span>(<span class="string">&#39;:&#39;</span>).<span class="ident">unwrap</span>()
+    }
+
     <span class="kw">fn</span> <span class="ident">variant</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Variant</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">full_id</span>.<span class="ident">bytes</span>().<span class="ident">next</span>() {
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">as_str</span>().<span class="ident">bytes</span>().<span class="ident">next</span>() {
             <span class="prelude-val">Some</span>(<span class="string">b&#39;!&#39;</span>) =&gt; <span class="ident">Variant::RoomId</span>,
             <span class="prelude-val">Some</span>(<span class="string">b&#39;#&#39;</span>) =&gt; <span class="ident">Variant::RoomAliasId</span>,
             <span class="kw">_</span> =&gt; <span class="kw">unsafe</span> { <span class="ident">unreachable_unchecked</span>() },
@@ -319,56 +293,36 @@
     <span class="ident">RoomAliasId</span>,
 }
 
-<span class="doccomment">/// Attempts to create a new Matrix room ID or a room alias ID from a string representation.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// The string must either include the leading ! sigil, the localpart, a literal colon, and a</span>
-<span class="doccomment">/// valid homeserver host or include the leading # sigil, the alias, a literal colon, and a</span>
-<span class="doccomment">/// valid homeserver host.</span>
-<span class="kw">fn</span> <span class="ident">try_from</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="ident">room_id_or_alias_id</span>: <span class="ident">S</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RoomIdOrAliasId</span>, <span class="ident"><span class="kw">crate</span>::Error</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-{
-    <span class="kw">let</span> <span class="ident">colon_idx</span> <span class="op">=</span>
-        <span class="ident">ruma_identifiers_validation::room_id_or_alias_id::validate</span>(<span class="ident">room_id_or_alias_id</span>.<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(<span class="ident">RoomIdOrAliasId</span> { <span class="ident">full_id</span>: <span class="ident">room_id_or_alias_id</span>.<span class="ident">into</span>(), <span class="ident">colon_idx</span> })
-}
-
-<span class="macro">common_impls!</span>(<span class="ident">RoomIdOrAliasId</span>, <span class="ident">try_from</span>, <span class="string">&quot;a Matrix room ID or room alias ID&quot;</span>);
-
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomIdOrAliasId</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">RoomId</span> { <span class="ident">full_id</span>, <span class="ident">colon_idx</span> }: <span class="ident">RoomId</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">full_id</span>, <span class="ident">colon_idx</span> }
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::try_from</span>(<span class="ident">room_id</span>.<span class="ident">as_str</span>()).<span class="ident">unwrap</span>()
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomIdOrAliasId</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">RoomAliasId</span> { <span class="ident">full_id</span>, <span class="ident">colon_idx</span> }: <span class="ident">RoomAliasId</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">full_id</span>, <span class="ident">colon_idx</span> }
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">room_alias_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::try_from</span>(<span class="ident">room_alias_id</span>.<span class="ident">as_str</span>()).<span class="ident">unwrap</span>()
     }
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">RoomIdOrAliasId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomId</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">RoomAliasId</span>;
+<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">RoomIdOrAliasId</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RoomId</span>, <span class="ident">RoomAliasId</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">id</span>.<span class="ident">variant</span>() {
-            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">RoomId</span> { <span class="ident">full_id</span>: <span class="ident">id</span>.<span class="ident">full_id</span>, <span class="ident">colon_idx</span>: <span class="ident">id</span>.<span class="ident">colon_idx</span> }),
-            <span class="ident">Variant::RoomAliasId</span> =&gt; {
-                <span class="prelude-val">Err</span>(<span class="ident">RoomAliasId</span> { <span class="ident">full_id</span>: <span class="ident">id</span>.<span class="ident">full_id</span>, <span class="ident">colon_idx</span>: <span class="ident">id</span>.<span class="ident">colon_idx</span> })
-            }
+            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">id</span>.<span class="ident">as_str</span>().<span class="ident">try_into</span>().<span class="ident">unwrap</span>()),
+            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">id</span>.<span class="ident">as_str</span>().<span class="ident">try_into</span>().<span class="ident">unwrap</span>()),
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">RoomIdOrAliasId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomAliasId</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">RoomId</span>;
+<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">RoomIdOrAliasId</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">id</span>.<span class="ident">variant</span>() {
-            <span class="ident">Variant::RoomAliasId</span> =&gt; {
-                <span class="prelude-val">Ok</span>(<span class="ident">RoomAliasId</span> { <span class="ident">full_id</span>: <span class="ident">id</span>.<span class="ident">full_id</span>, <span class="ident">colon_idx</span>: <span class="ident">id</span>.<span class="ident">colon_idx</span> })
-            }
-            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">RoomId</span> { <span class="ident">full_id</span>: <span class="ident">id</span>.<span class="ident">full_id</span>, <span class="ident">colon_idx</span>: <span class="ident">id</span>.<span class="ident">colon_idx</span> }),
+            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">id</span>.<span class="ident">as_str</span>().<span class="ident">try_into</span>().<span class="ident">unwrap</span>()),
+            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">id</span>.<span class="ident">as_str</span>().<span class="ident">try_into</span>().<span class="ident">unwrap</span>()),
         }
     }
 }
@@ -377,13 +331,13 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomIdOrAliasId</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomOrAliasId</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Error</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id_or_alias_id_with_a_room_alias_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomIdOrAliasId::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
                 .<span class="ident">as_ref</span>(),
             <span class="string">&quot;#ruma:example.com&quot;</span>
@@ -393,7 +347,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id_or_alias_id_with_a_room_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomIdOrAliasId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
                 .<span class="ident">as_ref</span>(),
             <span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>
@@ -403,7 +357,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">missing_sigil_for_room_id_or_alias_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">RoomIdOrAliasId::try_from</span>(<span class="string">&quot;ruma:example.com&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ruma:example.com&quot;</span>).<span class="ident">unwrap_err</span>(),
             <span class="ident">Error::MissingLeadingSigil</span>
         );
     }
@@ -413,7 +367,7 @@
     <span class="kw">fn</span> <span class="ident">serialize_valid_room_id_or_alias_id_with_a_room_alias_id</span>() {
         <span class="macro">assert_eq!</span>(
             <span class="ident">serde_json::to_string</span>(
-                <span class="kw-2">&amp;</span><span class="ident">RoomIdOrAliasId::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>)
+                <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>)
                     .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
             )
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert RoomAliasId to JSON.&quot;</span>),
@@ -426,7 +380,7 @@
     <span class="kw">fn</span> <span class="ident">serialize_valid_room_id_or_alias_id_with_a_room_id</span>() {
         <span class="macro">assert_eq!</span>(
             <span class="ident">serde_json::to_string</span>(
-                <span class="kw-2">&amp;</span><span class="ident">RoomIdOrAliasId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
+                <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
                     .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomId.&quot;</span>)
             )
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert RoomId to JSON.&quot;</span>),
@@ -438,9 +392,9 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_room_id_or_alias_id_with_a_room_alias_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">RoomIdOrAliasId</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;#ruma:example.com&quot;&quot;##</span>)
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;#ruma:example.com&quot;&quot;##</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to RoomAliasId&quot;</span>),
-            <span class="ident">RoomIdOrAliasId::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
         );
     }
 
@@ -448,9 +402,9 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_room_id_or_alias_id_with_a_room_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">RoomIdOrAliasId</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;!29fhd83h92h0:example.com&quot;&quot;##</span>)
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;!29fhd83h92h0:example.com&quot;&quot;##</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to RoomId&quot;</span>),
-            <span class="ident">RoomIdOrAliasId::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
         );
     }

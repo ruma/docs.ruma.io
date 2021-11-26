@@ -125,12 +125,12 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.aliases&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>, <span class="ident">custom_redacted</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomAliasesEventContent</span> {
     <span class="doccomment">/// A list of room aliases.</span>
-    <span class="kw">pub</span> <span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomAliasesEventContent</span> {
     <span class="doccomment">/// Create an `RoomAliasesEventContent` from the given aliases.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">aliases</span> }
     }
 }
@@ -142,11 +142,11 @@
         <span class="comment">// We compare the long way to avoid pre version 6 behavior if/when</span>
         <span class="comment">// a new room version is introduced.</span>
         <span class="kw">let</span> <span class="ident">aliases</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">version</span> {
-            <span class="ident">RoomVersionId::Version1</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version2</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version3</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version4</span>
-            <span class="op">|</span> <span class="ident">RoomVersionId::Version5</span> =&gt; <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">aliases</span>),
+            <span class="ident">RoomVersionId::V1</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V2</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V3</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V4</span>
+            <span class="op">|</span> <span class="ident">RoomVersionId::V5</span> =&gt; <span class="prelude-val">Some</span>(<span class="self">self</span>.<span class="ident">aliases</span>),
             <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
         };
 
@@ -162,14 +162,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// According to the Matrix spec version 1 redaction rules allowed this field to be</span>
     <span class="doccomment">/// kept after redaction, this was changed in version 6.</span>
-    <span class="kw">pub</span> <span class="ident">aliases</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">aliases</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RedactedRoomAliasesEventContent</span> {
     <span class="doccomment">/// Create a `RedactedAliasesEventContent` with the given aliases.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is only valid for room version 5 and below.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_v1</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_v1</span>(<span class="ident">aliases</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">aliases</span>: <span class="prelude-val">Some</span>(<span class="ident">aliases</span>) }
     }
 

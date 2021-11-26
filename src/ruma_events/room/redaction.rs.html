@@ -185,19 +185,19 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RoomRedactionEventContent</span>,
 
     <span class="doccomment">/// The ID of the event that was redacted.</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
@@ -232,19 +232,19 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RedactedRoomRedactionEventContent</span>,
 
     <span class="doccomment">/// The ID of the event that was redacted.</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">RedactedUnsigned</span>,
@@ -258,13 +258,13 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RoomRedactionEventContent</span>,
 
     <span class="doccomment">/// The ID of the event that was redacted.</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -301,13 +301,13 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RedactedRoomRedactionEventContent</span>,
 
     <span class="doccomment">/// The ID of the event that was redacted.</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,

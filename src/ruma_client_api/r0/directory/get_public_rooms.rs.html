@@ -204,7 +204,7 @@
         <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident"><span class="kw">super</span>::Request</span> {
             <span class="ident">limit</span>: <span class="prelude-val">Some</span>(<span class="macro">uint!</span>(<span class="number">10</span>)),
             <span class="ident">since</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;hello&quot;</span>),
-            <span class="ident">server</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="macro">server_name!</span>(<span class="string">&quot;test.tld&quot;</span>)),
+            <span class="ident">server</span>: <span class="prelude-val">Some</span>(<span class="macro">server_name!</span>(<span class="string">&quot;test.tld&quot;</span>)),
         }
         .<span class="ident">try_into_http_request</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(
             <span class="string">&quot;https://homeserver.tld&quot;</span>,

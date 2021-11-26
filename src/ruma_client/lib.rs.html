@@ -333,7 +333,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! async {</span>
 <span class="doccomment">//!     let response = client</span>
-<span class="doccomment">//!         .send_request(get_alias::Request::new(&amp;room_alias_id!(&quot;#example_room:example.com&quot;)))</span>
+<span class="doccomment">//!         .send_request(get_alias::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)))</span>
 <span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     assert_eq!(response.room_id, room_id!(&quot;!n8f893n9:example.com&quot;));</span>

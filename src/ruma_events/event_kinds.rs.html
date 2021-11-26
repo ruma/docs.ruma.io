@@ -372,7 +372,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// An ephemeral room event without a `room_id`.</span>
@@ -392,16 +392,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
@@ -417,10 +417,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -439,16 +439,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">RedactedUnsigned</span>,
@@ -464,10 +464,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -486,16 +486,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
@@ -520,10 +520,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -548,7 +548,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
@@ -583,16 +583,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
@@ -614,10 +614,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -639,7 +639,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// The decrypted payload of an `m.olm.v1.curve25519-aes-sha2` event.</span>
@@ -649,10 +649,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the intended recipient this event.</span>
-    <span class="kw">pub</span> <span class="ident">recipient</span>: <span class="ident">UserId</span>,
+    <span class="kw">pub</span> <span class="ident">recipient</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The recipient&#39;s ed25519 key.</span>
     <span class="kw">pub</span> <span class="ident">recipient_keys</span>: <span class="ident">OlmV1Keys</span>,
@@ -675,7 +675,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The ID of the room associated with the event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">RoomId</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_events" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>

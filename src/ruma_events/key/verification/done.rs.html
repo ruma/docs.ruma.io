@@ -148,7 +148,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
-        <span class="kw">let</span> <span class="ident">event_id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>);
+        <span class="kw">let</span> <span class="ident">event_id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>).<span class="ident">to_owned</span>();
 
         <span class="kw">let</span> <span class="ident">json_data</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;m.relates_to&quot;</span>: {
@@ -179,7 +179,7 @@
                 <span class="ident">relates_to</span>: <span class="ident">Relation</span> {
                     <span class="ident">event_id</span>
                 },
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">id</span>
+            } <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">event_id</span> <span class="op">==</span> <span class="kw-2">*</span><span class="ident">id</span>
         );
     }
 }

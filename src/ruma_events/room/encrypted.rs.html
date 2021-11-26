@@ -512,7 +512,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Replacement</span> {
     <span class="doccomment">/// The ID of the event being replacing.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// A reference to another event.</span>
@@ -521,13 +521,13 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Reference</span> {
     <span class="doccomment">/// The event we are referencing.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Reference</span> {
     <span class="doccomment">/// Creates a new `Reference` with the given event ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span> }
     }
 }
@@ -538,7 +538,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Annotation</span> {
     <span class="doccomment">/// The event that is being annotated.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">EventId</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The annotation.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
@@ -547,7 +547,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Annotation</span> {
     <span class="doccomment">/// Creates a new `Annotation` with the given event ID and key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">EventId</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">key</span> }
     }
 }
@@ -691,7 +691,7 @@
                 <span class="ident">session_id</span>: <span class="string">&quot;session_id&quot;</span>.<span class="ident">into</span>(),
             }),
             <span class="ident">relates_to</span>: <span class="prelude-val">Some</span>(<span class="ident">Relation::Reply</span> {
-                <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo</span> { <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>) },
+                <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo</span> { <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>).<span class="ident">to_owned</span>() },
             }),
         };
 

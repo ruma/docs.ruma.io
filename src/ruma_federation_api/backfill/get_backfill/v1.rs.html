@@ -93,7 +93,7 @@
 
         <span class="doccomment">/// The event IDs to backfill from.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">EventId</span>],
+        <span class="kw">pub</span> <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>],
 
         <span class="doccomment">/// The maximum number of PDUs to retrieve, including the given events.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
@@ -117,7 +117,7 @@
     <span class="doccomment">/// * the given room id.</span>
     <span class="doccomment">/// * the event IDs to backfill from.</span>
     <span class="doccomment">/// * the maximum number of PDUs to retrieve, including the given events.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">EventId</span>], <span class="ident">limit</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>], <span class="ident">limit</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">v</span>, <span class="ident">limit</span> }
     }
 }
