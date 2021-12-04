@@ -1860,7 +1860,7 @@
         <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="ident">alice</span>();
 
         <span class="macro">assert!</span>(<span class="ident">valid_membership_change</span>(
-            <span class="kw-2">&amp;</span><span class="ident">RoomVersion::VERSION6</span>,
+            <span class="kw-2">&amp;</span><span class="ident">RoomVersion::V6</span>,
             <span class="kw-2">&amp;</span><span class="ident">target_user</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomMember</span>, <span class="ident">target_user</span>.<span class="ident">to_string</span>()),
             <span class="kw-2">&amp;</span><span class="ident">sender</span>,
@@ -1905,7 +1905,7 @@
         <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="ident">charlie</span>();
 
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">valid_membership_change</span>(
-            <span class="kw-2">&amp;</span><span class="ident">RoomVersion::VERSION6</span>,
+            <span class="kw-2">&amp;</span><span class="ident">RoomVersion::V6</span>,
             <span class="kw-2">&amp;</span><span class="ident">target_user</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomMember</span>, <span class="ident">target_user</span>.<span class="ident">to_string</span>()),
             <span class="kw-2">&amp;</span><span class="ident">sender</span>,
