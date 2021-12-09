@@ -335,7 +335,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">exports::http</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
+    <span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
     <span class="kw">use</span> <span class="ident">ruma_events::AnyRoomEvent</span>;
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
@@ -359,8 +359,8 @@
         <span class="kw">let</span> <span class="ident">dummy_event</span> <span class="op">=</span> <span class="ident">Raw::new</span>(<span class="kw-2">&amp;</span><span class="ident">dummy_event</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">dummy_event</span>];
 
-        <span class="kw">let</span> <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Request</span> { <span class="ident">events</span>: <span class="kw-2">&amp;</span><span class="ident">events</span>, <span class="ident">txn_id</span>: <span class="string">&quot;any_txn_id&quot;</span> }
-            .<span class="ident">try_into_http_request</span>(
+        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">Request</span> { <span class="ident">events</span>: <span class="kw-2">&amp;</span><span class="ident">events</span>, <span class="ident">txn_id</span>: <span class="string">&quot;any_txn_id&quot;</span> }
+            .<span class="ident">try_into_http_request</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(
                 <span class="string">&quot;https://homeserver.tld&quot;</span>,
                 <span class="ident">SendAccessToken::IfRequired</span>(<span class="string">&quot;auth_tok&quot;</span>),
             )
