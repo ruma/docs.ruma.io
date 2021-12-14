@@ -77,12 +77,14 @@
 <span id="76">76</span>
 <span id="77">77</span>
 <span id="78">78</span>
+<span id="79">79</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/user/devices/{userId}](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-user-devices-userid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::encryption::DeviceKeys</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="macro">ruma_api!</span> {
@@ -142,7 +144,7 @@
     <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Identity keys for the device.</span>
-    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">DeviceKeys</span>,
+    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Optional display name for the device</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -151,7 +153,7 @@
 
 <span class="kw">impl</span> <span class="ident">UserDevice</span> {
     <span class="doccomment">/// Creates a new `UserDevice` with the given device id and keys.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">DeviceKeys</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">device_id</span>, <span class="ident">keys</span>, <span class="ident">device_display_name</span>: <span class="prelude-val">None</span> }
     }
 }
