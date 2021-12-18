@@ -227,8 +227,8 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">url</span> <span class="op">=</span> <span class="macro">format!</span>(
             <span class="string">&quot;{}/_matrix/client/r0/rooms/{}/state/{}&quot;</span>,
             <span class="ident">base_url</span>.<span class="ident">strip_suffix</span>(<span class="string">&#39;/&#39;</span>).<span class="ident">unwrap_or</span>(<span class="ident">base_url</span>),
-            <span class="ident">utf8_percent_encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">room_id</span>.<span class="ident">to_string</span>(), <span class="ident">NON_ALPHANUMERIC</span>),
-            <span class="ident">utf8_percent_encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">event_type</span>.<span class="ident">to_string</span>(), <span class="ident">NON_ALPHANUMERIC</span>)
+            <span class="ident">utf8_percent_encode</span>(<span class="self">self</span>.<span class="ident">room_id</span>.<span class="ident">as_str</span>(), <span class="ident">NON_ALPHANUMERIC</span>),
+            <span class="ident">utf8_percent_encode</span>(<span class="self">self</span>.<span class="ident">event_type</span>.<span class="ident">as_str</span>(), <span class="ident">NON_ALPHANUMERIC</span>)
         );
 
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">state_key</span>.<span class="ident">is_empty</span>() {
@@ -295,5 +295,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0-nightly (5531927e8 2021-12-16)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0-nightly (7abab1efb 2021-12-17)" ></div>
 </body></html>
