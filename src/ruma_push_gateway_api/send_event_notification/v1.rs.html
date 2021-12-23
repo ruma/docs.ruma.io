@@ -379,8 +379,6 @@
 <span id="377">377</span>
 <span id="378">378</span>
 <span id="379">379</span>
-<span id="380">380</span>
-<span id="381">381</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/push/v1/notify](https://matrix.org/docs/spec/push_gateway/r0.1.1#post-matrix-push-v1-notify)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -412,15 +410,13 @@
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
     <span class="ident">response</span>: {
-        <span class="doccomment">/// A list of all pushkeys given in the notification request that are</span>
-        <span class="doccomment">/// not valid.</span>
+        <span class="doccomment">/// A list of all pushkeys given in the notification request that are not valid.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// These could have been rejected by an upstream gateway because they</span>
-        <span class="doccomment">/// have expired or have never been valid. Homeservers must cease</span>
-        <span class="doccomment">/// sending notification requests for these pushkeys and remove the</span>
-        <span class="doccomment">/// associated pushers. It may not necessarily be the notification in</span>
-        <span class="doccomment">/// the request that failed: it could be that a previous notification to</span>
-        <span class="doccomment">/// the same pushkey failed. May be empty.</span>
+        <span class="doccomment">/// These could have been rejected by an upstream gateway because they have expired or have</span>
+        <span class="doccomment">/// never been valid. Homeservers must cease sending notification requests for these</span>
+        <span class="doccomment">/// pushkeys and remove the associated pushers. It may not necessarily be the notification</span>
+        <span class="doccomment">/// in the request that failed: it could be that a previous notification to the same pushkey</span>
+        <span class="doccomment">/// failed. May be empty.</span>
         <span class="kw">pub</span> <span class="ident">rejected</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     }
 }
@@ -763,5 +759,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_push_gateway_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0-nightly (e100ec5bc 2021-12-21)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_push_gateway_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0-nightly (34926f0a1 2021-12-22)" ></div>
 </body></html>
