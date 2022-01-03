@@ -294,6 +294,26 @@
 <span id="292">292</span>
 <span id="293">293</span>
 <span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix user identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">rc::Rc</span>, <span class="ident">sync::Arc</span>};
@@ -345,6 +365,7 @@
         <span class="kw">if</span> <span class="ident">id_str</span>.<span class="ident">starts_with</span>(<span class="string">&#39;@&#39;</span>) {
             <span class="ident"><span class="self">Self</span>::parse</span>(<span class="ident">id</span>)
         } <span class="kw">else</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">localpart_is_fully_conforming</span>(<span class="ident">id_str</span>)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="macro">format!</span>(<span class="string">&quot;@{}:{}&quot;</span>, <span class="ident">id_str</span>, <span class="ident">server_name</span>).<span class="ident">into</span>()))
         }
     }
@@ -361,6 +382,7 @@
         <span class="kw">if</span> <span class="ident">id_str</span>.<span class="ident">starts_with</span>(<span class="string">&#39;@&#39;</span>) {
             <span class="ident"><span class="self">Self</span>::parse_rc</span>(<span class="ident">id</span>)
         } <span class="kw">else</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">localpart_is_fully_conforming</span>(<span class="ident">id_str</span>)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_rc</span>(<span class="macro">format!</span>(<span class="string">&quot;@{}:{}&quot;</span>, <span class="ident">id_str</span>, <span class="ident">server_name</span>).<span class="ident">into</span>()))
         }
     }
@@ -377,6 +399,7 @@
         <span class="kw">if</span> <span class="ident">id_str</span>.<span class="ident">starts_with</span>(<span class="string">&#39;@&#39;</span>) {
             <span class="ident"><span class="self">Self</span>::parse_arc</span>(<span class="ident">id</span>)
         } <span class="kw">else</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">localpart_is_fully_conforming</span>(<span class="ident">id_str</span>)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_arc</span>(<span class="macro">format!</span>(<span class="string">&quot;@{}:{}&quot;</span>, <span class="ident">id_str</span>, <span class="ident">server_name</span>).<span class="ident">into</span>()))
         }
     }
@@ -458,6 +481,23 @@
         <span class="macro">assert_eq!</span>(<span class="ident">user_id</span>.<span class="ident">localpart</span>(), <span class="string">&quot;carl&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">user_id</span>.<span class="ident">server_name</span>(), <span class="string">&quot;example.com&quot;</span>);
         <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">user_id</span>.<span class="ident">is_historical</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">invalid_user_id</span>() {
+        <span class="kw">let</span> <span class="ident">localpart</span> <span class="op">=</span> <span class="string">&quot;τ&quot;</span>;
+        <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="string">&quot;@τ:example.com&quot;</span>;
+        <span class="kw">let</span> <span class="ident">server_name</span> <span class="op">=</span> <span class="macro">server_name!</span>(<span class="string">&quot;example.com&quot;</span>);
+
+        <span class="macro">assert!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">user_id</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_with_server_name</span>(<span class="ident">user_id</span>, <span class="ident">server_name</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_with_server_name</span>(<span class="ident">localpart</span>, <span class="ident">server_name</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_with_server_name_rc</span>(<span class="ident">user_id</span>, <span class="ident">server_name</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_with_server_name_rc</span>(<span class="ident">localpart</span>, <span class="ident">server_name</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_with_server_name_arc</span>(<span class="ident">user_id</span>, <span class="ident">server_name</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_with_server_name_arc</span>(<span class="ident">localpart</span>, <span class="ident">server_name</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_rc</span>(<span class="ident">user_id</span>).<span class="ident">is_err</span>());
+        <span class="macro">assert!</span>(<span class="ident">UserId::parse_arc</span>(<span class="ident">user_id</span>).<span class="ident">is_err</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
