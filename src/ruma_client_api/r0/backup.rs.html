@@ -165,7 +165,7 @@
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// A wrapper around a mapping of session IDs to key data.</span>
@@ -192,7 +192,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.megolm_backup.v1.curve25519-aes-sha2&quot;</span>)]</span>
     <span class="ident">MegolmBackupV1Curve25519AesSha2</span> {
         <span class="doccomment">/// The curve25519 public key used to encrypt the backups, encoded in unpadded base64.</span>
-        <span class="ident">public_key</span>: <span class="ident">String</span>,
+        <span class="ident">public_key</span>: <span class="ident">Base64</span>,
 
         <span class="doccomment">/// Signatures of the auth_data as Signed JSON.</span>
         <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -255,13 +255,13 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SessionData</span> {
     <span class="doccomment">/// Unpadded base64-encoded public half of the ephemeral key.</span>
-    <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Ciphertext, encrypted using AES-CBC-256 with PKCS#7 padding, encoded in base64.</span>
-    <span class="kw">pub</span> <span class="ident">ciphertext</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">ciphertext</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// First 8 bytes of MAC key, encoded in base64.</span>
-    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">Base64</span>,
 }
 
 <span class="doccomment">/// The algorithm used for storing backups.</span>
@@ -272,13 +272,13 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SessionDataInit</span> {
     <span class="doccomment">/// Unpadded base64-encoded public half of the ephemeral key.</span>
-    <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Ciphertext, encrypted using AES-CBC-256 with PKCS#7 padding, encoded in base64.</span>
-    <span class="kw">pub</span> <span class="ident">ciphertext</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">ciphertext</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// First 8 bytes of MAC key, encoded in base64.</span>
-    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">Base64</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SessionDataInit</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SessionData</span> {

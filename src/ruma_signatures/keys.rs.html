@@ -221,6 +221,7 @@
 <span id="218">218</span>
 <span id="219">219</span>
 <span id="220">220</span>
+<span id="221">221</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Public and private key pairs.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -234,6 +235,7 @@
     <span class="ident">der</span>::{<span class="ident">Decodable</span>, <span class="ident">Encodable</span>},
     <span class="ident">AlgorithmIdentifier</span>, <span class="ident">ObjectIdentifier</span>, <span class="ident">PrivateKeyInfo</span>,
 };
+<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">signatures::Signature</span>, <span class="ident">Algorithm</span>, <span class="ident">Error</span>, <span class="ident">ParseError</span>};
 
@@ -407,8 +409,8 @@
 
 <span class="doccomment">/// A set of public keys for a single homeserver.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This is represented as a map from key ID to Base64-encoded signature.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">PublicKeySet</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>;
+<span class="doccomment">/// This is represented as a map from key ID to base64-encoded signature.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">PublicKeySet</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Base64</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {

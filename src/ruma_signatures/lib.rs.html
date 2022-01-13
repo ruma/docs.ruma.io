@@ -421,6 +421,7 @@
 <span id="418">418</span>
 <span id="419">419</span>
 <span id="420">420</span>
+<span id="421">421</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! Digital signatures according to the [Matrix](https://matrix.org/) specification.</span>
@@ -440,7 +441,7 @@
 <span class="doccomment">//! are also required to contain hashes of their content, which are similarly stored within the</span>
 <span class="doccomment">//! hashed JSON object under a `hashes` key.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! In JSON representations, both signatures and hashes appear as Base64-encoded strings, using the</span>
+<span class="doccomment">//! In JSON representations, both signatures and hashes appear as base64-encoded strings, using the</span>
 <span class="doccomment">//! standard character set, without padding.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Signing and hashing</span>
@@ -527,9 +528,10 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">decode_config</span>, <span class="ident">encode_config</span>, <span class="ident">STANDARD_NO_PAD</span>};
+    <span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">decode_config</span>, <span class="ident">STANDARD_NO_PAD</span>};
     <span class="kw">use</span> <span class="ident">pkcs8</span>::{<span class="ident">der::Decodable</span>, <span class="ident">PrivateKeyInfo</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomVersionId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>, <span class="ident">to_string</span> <span class="kw">as</span> <span class="ident">to_json_string</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{
@@ -542,13 +544,13 @@
     &quot;</span>;
 
     <span class="doccomment">/// Convenience method for getting the public key as a string</span>
-    <span class="kw">fn</span> <span class="ident">public_key_string</span>() -&gt; <span class="ident">String</span> {
-        <span class="ident">encode_config</span>(
-            <span class="kw-2">&amp;</span><span class="ident">PrivateKeyInfo::from_der</span>(<span class="kw-2">&amp;</span><span class="ident">decode_config</span>(<span class="ident">PKCS8</span>, <span class="ident">STANDARD_NO_PAD</span>).<span class="ident">unwrap</span>())
+    <span class="kw">fn</span> <span class="ident">public_key_string</span>() -&gt; <span class="ident">Base64</span> {
+        <span class="ident">Base64::new</span>(
+            <span class="ident">PrivateKeyInfo::from_der</span>(<span class="kw-2">&amp;</span><span class="ident">decode_config</span>(<span class="ident">PKCS8</span>, <span class="ident">STANDARD_NO_PAD</span>).<span class="ident">unwrap</span>())
                 .<span class="ident">unwrap</span>()
                 .<span class="ident">public_key</span>
-                .<span class="ident">unwrap</span>(),
-            <span class="ident">STANDARD_NO_PAD</span>,
+                .<span class="ident">unwrap</span>()
+                .<span class="ident">to_owned</span>(),
         )
     }
 

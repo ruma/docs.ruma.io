@@ -1049,63 +1049,6 @@
 <span id="1046">1046</span>
 <span id="1047">1047</span>
 <span id="1048">1048</span>
-<span id="1049">1049</span>
-<span id="1050">1050</span>
-<span id="1051">1051</span>
-<span id="1052">1052</span>
-<span id="1053">1053</span>
-<span id="1054">1054</span>
-<span id="1055">1055</span>
-<span id="1056">1056</span>
-<span id="1057">1057</span>
-<span id="1058">1058</span>
-<span id="1059">1059</span>
-<span id="1060">1060</span>
-<span id="1061">1061</span>
-<span id="1062">1062</span>
-<span id="1063">1063</span>
-<span id="1064">1064</span>
-<span id="1065">1065</span>
-<span id="1066">1066</span>
-<span id="1067">1067</span>
-<span id="1068">1068</span>
-<span id="1069">1069</span>
-<span id="1070">1070</span>
-<span id="1071">1071</span>
-<span id="1072">1072</span>
-<span id="1073">1073</span>
-<span id="1074">1074</span>
-<span id="1075">1075</span>
-<span id="1076">1076</span>
-<span id="1077">1077</span>
-<span id="1078">1078</span>
-<span id="1079">1079</span>
-<span id="1080">1080</span>
-<span id="1081">1081</span>
-<span id="1082">1082</span>
-<span id="1083">1083</span>
-<span id="1084">1084</span>
-<span id="1085">1085</span>
-<span id="1086">1086</span>
-<span id="1087">1087</span>
-<span id="1088">1088</span>
-<span id="1089">1089</span>
-<span id="1090">1090</span>
-<span id="1091">1091</span>
-<span id="1092">1092</span>
-<span id="1093">1093</span>
-<span id="1094">1094</span>
-<span id="1095">1095</span>
-<span id="1096">1096</span>
-<span id="1097">1097</span>
-<span id="1098">1098</span>
-<span id="1099">1099</span>
-<span id="1100">1100</span>
-<span id="1101">1101</span>
-<span id="1102">1102</span>
-<span id="1103">1103</span>
-<span id="1104">1104</span>
-<span id="1105">1105</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Functions for signing and verifying JSON and events.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1115,9 +1058,9 @@
     <span class="ident">mem</span>,
 };
 
-<span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">decode_config</span>, <span class="ident">encode_config</span>, <span class="ident">Config</span>, <span class="ident">STANDARD_NO_PAD</span>, <span class="ident">URL_SAFE_NO_PAD</span>};
+<span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">encode_config</span>, <span class="ident">STANDARD_NO_PAD</span>, <span class="ident">URL_SAFE_NO_PAD</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">CanonicalJsonObject</span>, <span class="ident">CanonicalJsonValue</span>};
+<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">CanonicalJsonObject</span>, <span class="ident">CanonicalJsonValue</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>, <span class="ident">to_string</span> <span class="kw">as</span> <span class="ident">to_json_string</span>};
 <span class="kw">use</span> <span class="ident">sha2</span>::{<span class="ident">digest::Digest</span>, <span class="ident">Sha256</span>};
 
@@ -1338,7 +1281,9 @@
 <span class="doccomment">/// ```rust</span>
 <span class="doccomment">/// use std::collections::BTreeMap;</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// const PUBLIC_KEY: &amp;str = &quot;XGX0JRS2Af3be3knz2fBiRbApjm2Dh61gXDJA8kcJNI&quot;;</span>
+<span class="doccomment">/// use ruma_serde::Base64;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// const PUBLIC_KEY: &amp;[u8] = b&quot;XGX0JRS2Af3be3knz2fBiRbApjm2Dh61gXDJA8kcJNI&quot;;</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Deserialize the signed JSON.</span>
 <span class="doccomment">/// let object = serde_json::from_str(</span>
@@ -1353,7 +1298,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Create the `PublicKeyMap` that will inform `verify_json` which signatures to verify.</span>
 <span class="doccomment">/// let mut public_key_set = BTreeMap::new();</span>
-<span class="doccomment">/// public_key_set.insert(&quot;ed25519:1&quot;.into(), PUBLIC_KEY.to_owned());</span>
+<span class="doccomment">/// public_key_set.insert(&quot;ed25519:1&quot;.into(), Base64::parse(PUBLIC_KEY.to_owned()).unwrap());</span>
 <span class="doccomment">/// let mut public_key_map = BTreeMap::new();</span>
 <span class="doccomment">/// public_key_map.insert(&quot;domain&quot;.into(), public_key_set);</span>
 <span class="doccomment">///</span>
@@ -1397,20 +1342,15 @@
                 )
             })<span class="question-mark">?</span>;
 
-            <span class="kw">let</span> <span class="ident">verify</span> <span class="op">=</span> <span class="op">|</span><span class="ident">config</span>: <span class="ident">Config</span><span class="op">|</span> {
-                <span class="kw">let</span> <span class="ident">signature_bytes</span> <span class="op">=</span> <span class="ident">decode_config</span>(<span class="ident">signature</span>, <span class="ident">config</span>)
-                    .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;signature&quot;</span>, <span class="ident">signature</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">Base64::parse</span>(<span class="ident">signature</span>)
+                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;signature&quot;</span>, <span class="ident">signature</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
 
-                <span class="kw">let</span> <span class="ident">public_key_bytes</span> <span class="op">=</span> <span class="ident">decode_config</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>, <span class="ident">config</span>)
-                    .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;public key&quot;</span>, <span class="ident">public_key</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
-
-                <span class="ident">verify_json_with</span>(<span class="kw-2">&amp;</span><span class="ident">Ed25519Verifier</span>, <span class="kw-2">&amp;</span><span class="ident">public_key_bytes</span>, <span class="kw-2">&amp;</span><span class="ident">signature_bytes</span>, <span class="ident">object</span>)
-            };
-
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
-            <span class="ident">also_try_forgiving_base64</span>(<span class="ident">STANDARD_NO_PAD</span>, <span class="ident">verify</span>)<span class="question-mark">?</span>;
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>))]</span>
-            <span class="ident">verify</span>(<span class="ident">STANDARD_NO_PAD</span>)<span class="question-mark">?</span>;
+            <span class="ident">verify_json_with</span>(
+                <span class="kw-2">&amp;</span><span class="ident">Ed25519Verifier</span>,
+                <span class="ident">public_key</span>.<span class="ident">as_bytes</span>(),
+                <span class="ident">signature</span>.<span class="ident">as_bytes</span>(),
+                <span class="ident">object</span>,
+            )<span class="question-mark">?</span>;
         }
     }
 
@@ -1443,7 +1383,7 @@
 
 <span class="doccomment">/// Creates a *content hash* for an event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns the hash as a Base64-encoded string, using the standard character set, without padding.</span>
+<span class="doccomment">/// Returns the hash as a base64-encoded string, using the standard character set, without padding.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The content hash of an event covers the complete event including the unredacted contents. It is</span>
 <span class="doccomment">/// used during federation and is described in the Matrix server-server specification.</span>
@@ -1455,7 +1395,7 @@
 <span class="doccomment">/// # Errors</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returns an error if the event is too large.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content_hash</span>(<span class="ident">object</span>: <span class="kw-2">&amp;</span><span class="ident">CanonicalJsonObject</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content_hash</span>(<span class="ident">object</span>: <span class="kw-2">&amp;</span><span class="ident">CanonicalJsonObject</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Base64</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">32</span>]<span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">canonical_json_with_fields_to_remove</span>(<span class="ident">object</span>, <span class="ident">CONTENT_HASH_FIELDS_TO_REMOVE</span>)<span class="question-mark">?</span>;
     <span class="kw">if</span> <span class="ident">json</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">MAX_PDU_BYTES</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::PduSize</span>);
@@ -1463,12 +1403,12 @@
 
     <span class="kw">let</span> <span class="ident">hash</span> <span class="op">=</span> <span class="ident">Sha256::digest</span>(<span class="ident">json</span>.<span class="ident">as_bytes</span>());
 
-    <span class="prelude-val">Ok</span>(<span class="ident">encode_config</span>(<span class="kw-2">&amp;</span><span class="ident">hash</span>, <span class="ident">STANDARD_NO_PAD</span>))
+    <span class="prelude-val">Ok</span>(<span class="ident">Base64::new</span>(<span class="ident">hash</span>.<span class="ident">into</span>()))
 }
 
 <span class="doccomment">/// Creates a *reference hash* for an event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns the hash as a Base64-encoded string, using the standard character set, without padding.</span>
+<span class="doccomment">/// Returns the hash as a base64-encoded string, using the standard character set, without padding.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The reference hash of an event covers the essential fields of an event, including content</span>
 <span class="doccomment">/// hashes. It is used to generate event identifiers and is described in the Matrix server-server</span>
@@ -1615,7 +1555,7 @@
 
     <span class="kw">match</span> <span class="ident">hashes_value</span> {
         <span class="ident">CanonicalJsonValue::Object</span>(<span class="ident">hashes</span>) =&gt; {
-            <span class="ident">hashes</span>.<span class="ident">insert</span>(<span class="string">&quot;sha256&quot;</span>.<span class="ident">into</span>(), <span class="ident">CanonicalJsonValue::String</span>(<span class="ident">hash</span>))
+            <span class="ident">hashes</span>.<span class="ident">insert</span>(<span class="string">&quot;sha256&quot;</span>.<span class="ident">into</span>(), <span class="ident">CanonicalJsonValue::String</span>(<span class="ident">hash</span>.<span class="ident">encode</span>()))
         }
         <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">JsonError::not_of_type</span>(<span class="string">&quot;hashes&quot;</span>, <span class="ident">JsonType::Object</span>)),
     };
@@ -1654,10 +1594,10 @@
 <span class="doccomment">/// ```rust</span>
 <span class="doccomment">/// # use std::collections::BTreeMap;</span>
 <span class="doccomment">/// # use ruma_identifiers::RoomVersionId;</span>
-<span class="doccomment">/// # use ruma_signatures::verify_event;</span>
-<span class="doccomment">/// # use ruma_signatures::Verified;</span>
+<span class="doccomment">/// # use ruma_serde::Base64;</span>
+<span class="doccomment">/// # use ruma_signatures::{verify_event, Verified};</span>
 <span class="doccomment">/// #</span>
-<span class="doccomment">/// const PUBLIC_KEY: &amp;str = &quot;XGX0JRS2Af3be3knz2fBiRbApjm2Dh61gXDJA8kcJNI&quot;;</span>
+<span class="doccomment">/// const PUBLIC_KEY: &amp;[u8] = b&quot;XGX0JRS2Af3be3knz2fBiRbApjm2Dh61gXDJA8kcJNI&quot;;</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Deserialize an event from JSON.</span>
 <span class="doccomment">/// let object = serde_json::from_str(</span>
@@ -1687,14 +1627,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Create the `PublicKeyMap` that will inform `verify_json` which signatures to verify.</span>
 <span class="doccomment">/// let mut public_key_set = BTreeMap::new();</span>
-<span class="doccomment">/// public_key_set.insert(&quot;ed25519:1&quot;.into(), PUBLIC_KEY.to_owned());</span>
+<span class="doccomment">/// public_key_set.insert(&quot;ed25519:1&quot;.into(), Base64::parse(PUBLIC_KEY.to_owned()).unwrap());</span>
 <span class="doccomment">/// let mut public_key_map = BTreeMap::new();</span>
 <span class="doccomment">/// public_key_map.insert(&quot;domain&quot;.into(), public_key_set);</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Verify at least one signature for each entity in `public_key_map`.</span>
 <span class="doccomment">/// let verification_result = verify_event(&amp;public_key_map, &amp;object, &amp;RoomVersionId::V6);</span>
 <span class="doccomment">/// assert!(verification_result.is_ok());</span>
-<span class="doccomment">/// assert!(matches!(verification_result.unwrap(), Verified::All));</span>
+<span class="doccomment">/// assert_eq!(verification_result.unwrap(), Verified::All);</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_event</span>(
     <span class="ident">public_key_map</span>: <span class="kw-2">&amp;</span><span class="ident">PublicKeyMap</span>,
@@ -1767,34 +1707,31 @@
 
         <span class="kw">let</span> <span class="ident">public_key</span> <span class="op">=</span> <span class="ident">signature_and_pubkey</span>.<span class="ident">public_key</span>;
 
-        <span class="kw">let</span> <span class="ident">verify</span> <span class="op">=</span> <span class="op">|</span><span class="ident">config</span>: <span class="ident">Config</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">signature_bytes</span> <span class="op">=</span> <span class="ident">decode_config</span>(<span class="ident">signature</span>, <span class="ident">config</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;signature&quot;</span>, <span class="ident">signature</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span>
+            <span class="ident">Base64::parse</span>(<span class="ident">signature</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;signature&quot;</span>, <span class="ident">signature</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
 
-            <span class="kw">let</span> <span class="ident">public_key_bytes</span> <span class="op">=</span> <span class="ident">decode_config</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>, <span class="ident">config</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;public key&quot;</span>, <span class="ident">public_key</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
-
-            <span class="ident">verify_json_with</span>(<span class="kw-2">&amp;</span><span class="ident">Ed25519Verifier</span>, <span class="kw-2">&amp;</span><span class="ident">public_key_bytes</span>, <span class="kw-2">&amp;</span><span class="ident">signature_bytes</span>, <span class="kw-2">&amp;</span><span class="ident">canonical_json</span>)
-        };
-
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
-        <span class="ident">also_try_forgiving_base64</span>(<span class="ident">STANDARD_NO_PAD</span>, <span class="ident">verify</span>)<span class="question-mark">?</span>;
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>))]</span>
-        <span class="ident">verify</span>(<span class="ident">STANDARD_NO_PAD</span>)<span class="question-mark">?</span>;
+        <span class="ident">verify_json_with</span>(
+            <span class="kw-2">&amp;</span><span class="ident">Ed25519Verifier</span>,
+            <span class="ident">public_key</span>.<span class="ident">as_bytes</span>(),
+            <span class="ident">signature</span>.<span class="ident">as_bytes</span>(),
+            <span class="kw-2">&amp;</span><span class="ident">canonical_json</span>,
+        )<span class="question-mark">?</span>;
     }
 
     <span class="kw">let</span> <span class="ident">calculated_hash</span> <span class="op">=</span> <span class="ident">content_hash</span>(<span class="ident">object</span>)<span class="question-mark">?</span>;
 
-    <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">hash</span> <span class="op">==</span> <span class="ident">calculated_hash</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">Verified::All</span>)
-    } <span class="kw">else</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">Verified::Signatures</span>)
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">hash</span>) <span class="op">=</span> <span class="ident">Base64::parse</span>(<span class="ident">hash</span>) {
+        <span class="kw">if</span> <span class="ident">hash</span>.<span class="ident">as_bytes</span>() <span class="op">==</span> <span class="ident">calculated_hash</span>.<span class="ident">as_bytes</span>() {
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Verified::All</span>);
+        }
     }
+
+    <span class="prelude-val">Ok</span>(<span class="ident">Verified::Signatures</span>)
 }
 
 <span class="kw">struct</span> <span class="ident">SignatureAndPubkey</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">signature</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">CanonicalJsonValue</span>,
-    <span class="ident">public_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">String</span>,
+    <span class="ident">public_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Base64</span>,
 }
 
 <span class="doccomment">/// Internal implementation detail of the canonical JSON algorithm.</span>
@@ -1929,41 +1866,6 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
-<span class="comment">// see https://github.com/ruma/ruma/issues/591</span>
-<span class="comment">// synapse allows this, so we must allow it too.</span>
-<span class="comment">// shouldn&#39;t lose data, but when it does, it&#39;ll make verification fail instead.</span>
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">also_try_forgiving_base64</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(
-    <span class="ident">config</span>: <span class="ident">Config</span>,
-    <span class="ident">twice</span>: <span class="kw">impl</span> <span class="ident">Fn</span>(<span class="ident">Config</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>,
-) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>
-<span class="kw">where</span>
-    <span class="ident">E</span>: <span class="ident">std::fmt::Display</span>,
-{
-    <span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">debug</span>, <span class="ident">warn</span>};
-
-    <span class="kw">let</span> <span class="ident">first_try</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">twice</span>(<span class="ident">config</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">t</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">t</span>),
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="ident">e</span>,
-    };
-
-    <span class="kw">let</span> <span class="ident">adjusted</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">decode_allow_trailing_bits</span>(<span class="bool-val">true</span>);
-
-    <span class="kw">match</span> <span class="ident">twice</span>(<span class="ident">adjusted</span>) {
-        <span class="prelude-val">Ok</span>(<span class="ident">t</span>) =&gt; {
-            <span class="macro">warn!</span>(
-                <span class="string">&quot;Usage of base64 config only worked after allowing trailing bits, first error: {}&quot;</span>,
-                <span class="ident">first_try</span>
-            );
-            <span class="prelude-val">Ok</span>(<span class="ident">t</span>)
-        }
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; {
-            <span class="macro">debug!</span>(<span class="string">&quot;Second error when trying to allow trailing bits: {}&quot;</span>, <span class="ident">e</span>);
-            <span class="prelude-val">Err</span>(<span class="ident">first_try</span>)
-        }
-    }
-}
-
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1971,9 +1873,8 @@
         <span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
     };
 
-    <span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">encode_config</span>, <span class="ident">STANDARD_NO_PAD</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomVersionId</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">SigningKeyAlgorithm</span>};
-    <span class="kw">use</span> <span class="ident">ruma_serde::CanonicalJsonValue</span>;
+    <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">CanonicalJsonValue</span>};
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::canonical_json</span>;
@@ -2047,20 +1948,6 @@
         <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_ok</span>());
         <span class="kw">let</span> <span class="ident">verification</span> <span class="op">=</span> <span class="ident">verification_result</span>.<span class="ident">unwrap</span>();
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">verification</span>, <span class="ident">Verified::Signatures</span>));
-    }
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">fallback_invalid_base64</span>() {
-        <span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">decode_config</span>, <span class="ident">Config</span>};
-
-        <span class="kw">const</span> <span class="ident">SLIGHTLY_MALFORMED_BASE64</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;3UmJnEIzUr2xWyaUnJg5fXwRybwG5FVC6GqMHverEUn0ztuIsvVxX89JXX2pvdTsOBbLQx+4TVL02l4Cp5wPCm&quot;</span>;
-
-        <span class="kw">let</span> <span class="ident">verify</span> <span class="op">=</span> <span class="op">|</span><span class="ident">config</span>: <span class="ident">Config</span><span class="op">|</span> <span class="ident">decode_config</span>(<span class="ident">SLIGHTLY_MALFORMED_BASE64</span>, <span class="ident">config</span>);
-
-        <span class="macro">assert!</span>(<span class="ident">verify</span>(<span class="ident">STANDARD_NO_PAD</span>).<span class="ident">is_err</span>());
-
-        <span class="macro">assert!</span>(<span class="ident"><span class="kw">super</span>::also_try_forgiving_base64</span>(<span class="ident">STANDARD_NO_PAD</span>, <span class="ident">verify</span>).<span class="ident">is_ok</span>());
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -2170,8 +2057,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">public_key_map</span> <span class="op">=</span> <span class="ident">PublicKeyMap::new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sender_key_map</span> <span class="op">=</span> <span class="ident">PublicKeySet::new</span>();
         <span class="kw">let</span> <span class="ident">newly_generated_key_pair</span> <span class="op">=</span> <span class="ident">generate_key_pair</span>();
-        <span class="kw">let</span> <span class="ident">encoded_public_key</span> <span class="op">=</span>
-            <span class="ident">encode_config</span>(<span class="ident">newly_generated_key_pair</span>.<span class="ident">public_key</span>(), <span class="ident">STANDARD_NO_PAD</span>);
+        <span class="kw">let</span> <span class="ident">encoded_public_key</span> <span class="op">=</span> <span class="ident">Base64::new</span>(<span class="ident">newly_generated_key_pair</span>.<span class="ident">public_key</span>().<span class="ident">to_owned</span>());
         <span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">ServerSigningKeyId::from_parts</span>(
             <span class="ident">SigningKeyAlgorithm::Ed25519</span>,
             <span class="ident">key_pair_sender</span>.<span class="ident">version</span>().<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),
@@ -2200,7 +2086,7 @@
 
     <span class="kw">fn</span> <span class="ident">add_key_to_map</span>(<span class="ident">public_key_map</span>: <span class="kw-2">&amp;mut</span> <span class="ident">PublicKeyMap</span>, <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">pair</span>: <span class="kw-2">&amp;</span><span class="ident">Ed25519KeyPair</span>) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sender_key_map</span> <span class="op">=</span> <span class="ident">PublicKeySet::new</span>();
-        <span class="kw">let</span> <span class="ident">encoded_public_key</span> <span class="op">=</span> <span class="ident">encode_config</span>(<span class="ident">pair</span>.<span class="ident">public_key</span>(), <span class="ident">STANDARD_NO_PAD</span>);
+        <span class="kw">let</span> <span class="ident">encoded_public_key</span> <span class="op">=</span> <span class="ident">Base64::new</span>(<span class="ident">pair</span>.<span class="ident">public_key</span>().<span class="ident">to_owned</span>());
         <span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">ServerSigningKeyId::from_parts</span>(
             <span class="ident">SigningKeyAlgorithm::Ed25519</span>,
             <span class="ident">pair</span>.<span class="ident">version</span>().<span class="ident">try_into</span>().<span class="ident">unwrap</span>(),

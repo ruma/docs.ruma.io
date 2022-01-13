@@ -174,6 +174,7 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
+<span id="174">174</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for [encryption] related tasks.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [encryption]: https://matrix.org/docs/spec/client_server/r0.6.1#id76</span>
@@ -181,6 +182,7 @@
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">DeviceKeyId</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// Identity keys for a device.</span>
@@ -255,7 +257,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SignedKey</span> {
     <span class="doccomment">/// Base64-encoded 32-byte Curve25519 public key.</span>
-    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Signatures for the key object.</span>
     <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">SignedKeySignatures</span>,
@@ -268,7 +270,7 @@
 
 <span class="kw">impl</span> <span class="ident">SignedKey</span> {
     <span class="doccomment">/// Creates a new `SignedKey` with the given key and signatures.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">String</span>, <span class="ident">signatures</span>: <span class="ident">SignedKeySignatures</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">Base64</span>, <span class="ident">signatures</span>: <span class="ident">SignedKeySignatures</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">key</span>,
             <span class="ident">signatures</span>,
@@ -279,7 +281,7 @@
 
     <span class="doccomment">/// Creates a new fallback `SignedKey` with the given key and signatures.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_fallback</span>(<span class="ident">key</span>: <span class="ident">String</span>, <span class="ident">signatures</span>: <span class="ident">SignedKeySignatures</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_fallback</span>(<span class="ident">key</span>: <span class="ident">Base64</span>, <span class="ident">signatures</span>: <span class="ident">SignedKeySignatures</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key</span>, <span class="ident">signatures</span>, <span class="ident">fallback</span>: <span class="bool-val">true</span> }
     }
 }

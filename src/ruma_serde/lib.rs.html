@@ -84,6 +84,10 @@
 <span id="81">81</span>
 <span id="82">82</span>
 <span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! (De)serialization helpers for other ruma crates.</span>
@@ -92,6 +96,7 @@
 
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
+<span class="kw">mod</span> <span class="ident">base64</span>;
 <span class="kw">mod</span> <span class="ident">buf</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">can_be_empty</span>;
 <span class="kw">mod</span> <span class="ident">canonical_json</span>;
@@ -105,19 +110,22 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">test</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">urlencoded</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">buf</span>::{<span class="ident">json_to_buf</span>, <span class="ident">slice_to_buf</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">can_be_empty</span>::{<span class="ident">is_empty</span>, <span class="ident">CanBeEmpty</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">canonical_json</span>::{
-    <span class="ident">to_canonical_value</span>, <span class="ident">try_from_json_map</span>,
-    <span class="ident">value</span>::{<span class="ident">CanonicalJsonValue</span>, <span class="ident">Object</span> <span class="kw">as</span> <span class="ident">CanonicalJsonObject</span>},
-    <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">CanonicalJsonError</span>,
-};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">cow::deserialize_cow_str</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">empty::vec_as_map_of_empty</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">raw::Raw</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">strings</span>::{
-    <span class="ident">btreemap_int_or_string_to_int_values</span>, <span class="ident">empty_string_as_none</span>, <span class="ident">int_or_string_to_int</span>,
-    <span class="ident">none_as_empty_string</span>,
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
+    <span class="ident">base64::Base64</span>,
+    <span class="ident">buf</span>::{<span class="ident">json_to_buf</span>, <span class="ident">slice_to_buf</span>},
+    <span class="ident">can_be_empty</span>::{<span class="ident">is_empty</span>, <span class="ident">CanBeEmpty</span>},
+    <span class="ident">canonical_json</span>::{
+        <span class="ident">to_canonical_value</span>, <span class="ident">try_from_json_map</span>,
+        <span class="ident">value</span>::{<span class="ident">CanonicalJsonValue</span>, <span class="ident">Object</span> <span class="kw">as</span> <span class="ident">CanonicalJsonObject</span>},
+        <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">CanonicalJsonError</span>,
+    },
+    <span class="ident">cow::deserialize_cow_str</span>,
+    <span class="ident">empty::vec_as_map_of_empty</span>,
+    <span class="ident">raw::Raw</span>,
+    <span class="ident">strings</span>::{
+        <span class="ident">btreemap_int_or_string_to_int_values</span>, <span class="ident">empty_string_as_none</span>, <span class="ident">int_or_string_to_int</span>,
+        <span class="ident">none_as_empty_string</span>,
+    },
 };
 
 <span class="doccomment">/// The inner type of [`JsonValue::Object`].</span>

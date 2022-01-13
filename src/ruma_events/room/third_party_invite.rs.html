@@ -74,11 +74,13 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
+<span id="74">74</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.third_party_invite`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.third_party_invite`]: https://spec.matrix.org/v1.1/client-server-api/#mroomthird_party_invite</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// The content of an `m.room.third_party_invite` event.</span>
@@ -106,12 +108,12 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>))]</span>
     <span class="kw">pub</span> <span class="ident">key_validity_url</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// A Base64-encoded Ed25519 key with which the token must be signed.</span>
+    <span class="doccomment">/// A base64-encoded Ed25519 key with which the token must be signed.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If you activate the `compat` feature, this field being absent in JSON will result in an</span>
     <span class="doccomment">/// empty string here during deserialization.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>))]</span>
-    <span class="kw">pub</span> <span class="ident">public_key</span>: <span class="ident">String</span>,
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;Base64::empty&quot;</span>))]</span>
+    <span class="kw">pub</span> <span class="ident">public_key</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Keys with which the token may be signed.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -121,7 +123,7 @@
 <span class="kw">impl</span> <span class="ident">RoomThirdPartyInviteEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomThirdPartyInviteEventContent` with the given display name, key validity</span>
     <span class="doccomment">/// url and public key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">display_name</span>: <span class="ident">String</span>, <span class="ident">key_validity_url</span>: <span class="ident">String</span>, <span class="ident">public_key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">display_name</span>: <span class="ident">String</span>, <span class="ident">key_validity_url</span>: <span class="ident">String</span>, <span class="ident">public_key</span>: <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">display_name</span>, <span class="ident">key_validity_url</span>, <span class="ident">public_key</span>, <span class="ident">public_keys</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -137,13 +139,13 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">key_validity_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// A Base64-encoded Ed25519 key with which the token must be signed.</span>
-    <span class="kw">pub</span> <span class="ident">public_key</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// A base64-encoded Ed25519 key with which the token must be signed.</span>
+    <span class="kw">pub</span> <span class="ident">public_key</span>: <span class="ident">Base64</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">PublicKey</span> {
     <span class="doccomment">/// Creates a new `PublicKey` with the given base64-encoded ed25519 key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">public_key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">public_key</span>: <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key_validity_url</span>: <span class="prelude-val">None</span>, <span class="ident">public_key</span> }
     }
 }

@@ -87,12 +87,14 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
+<span id="87">87</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Server discovery endpoints.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>};
+<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">discover_homeserver</span>;
@@ -105,13 +107,13 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VerifyKey</span> {
-    <span class="doccomment">/// The Unpadded Base64 encoded key.</span>
-    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// The unpadded base64-encoded key.</span>
+    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">Base64</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">VerifyKey</span> {
     <span class="doccomment">/// Creates a new `VerifyKey` from the given key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key</span> }
     }
 }
@@ -123,13 +125,13 @@
     <span class="doccomment">/// Timestamp when this key expired.</span>
     <span class="kw">pub</span> <span class="ident">expired_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
-    <span class="doccomment">/// The Unpadded Base64 encoded key.</span>
-    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// The unpadded base64-encoded key.</span>
+    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">Base64</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">OldVerifyKey</span> {
     <span class="doccomment">/// Creates a new `OldVerifyKey` with the given expiry time and key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">expired_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">expired_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">key</span>: <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">expired_ts</span>, <span class="ident">key</span> }
     }
 }

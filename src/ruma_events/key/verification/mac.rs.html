@@ -73,6 +73,7 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
+<span id="73">73</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.key.verification.mac`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.key.verification.mac`]: https://spec.matrix.org/v1.1/client-server-api/#mkeyverificationmac</span>
@@ -80,6 +81,7 @@
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
@@ -99,18 +101,18 @@
 
     <span class="doccomment">/// A map of the key ID to the MAC of the key, using the algorithm in the verification process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The MAC is encoded as unpadded Base64.</span>
-    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// The MAC is encoded as unpadded base64.</span>
+    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Base64</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The MAC of the comma-separated, sorted, list of key IDs given in the `mac` property,</span>
-    <span class="doccomment">/// encoded as unpadded Base64.</span>
-    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// encoded as unpadded base64.</span>
+    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">Base64</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationMacEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationMacEventContent` with the given transaction ID, key ID</span>
     <span class="doccomment">/// to MAC map and key MAC.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">String</span>, <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Base64</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">mac</span>, <span class="ident">keys</span> }
     }
 }
@@ -125,12 +127,12 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyVerificationMacEventContent</span> {
     <span class="doccomment">/// A map of the key ID to the MAC of the key, using the algorithm in the verification process.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The MAC is encoded as unpadded Base64.</span>
-    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// The MAC is encoded as unpadded base64.</span>
+    <span class="kw">pub</span> <span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Base64</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The MAC of the comma-separated, sorted, list of key IDs given in the `mac` property,</span>
-    <span class="doccomment">/// encoded as unpadded Base64.</span>
-    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// encoded as unpadded base64.</span>
+    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Information about the related event.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relates_to&quot;</span>)]</span>
@@ -141,7 +143,7 @@
 <span class="kw">impl</span> <span class="ident">KeyVerificationMacEventContent</span> {
     <span class="doccomment">/// Creates a new `KeyVerificationMacEventContent` with the given key ID to MAC map, key MAC and</span>
     <span class="doccomment">/// relation.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">String</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mac</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Base64</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">Base64</span>, <span class="ident">relates_to</span>: <span class="ident">Relation</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">mac</span>, <span class="ident">keys</span>, <span class="ident">relates_to</span> }
     }
 }

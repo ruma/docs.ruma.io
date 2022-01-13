@@ -82,7 +82,7 @@
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_common::encryption::OneTimeKey</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="macro">ruma_api!</span> {
@@ -132,7 +132,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyObject</span> {
     <span class="doccomment">/// The key, encoded using unpadded base64.</span>
-    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Signature of the key object.</span>
     <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -141,7 +141,7 @@
 <span class="kw">impl</span> <span class="ident">KeyObject</span> {
     <span class="doccomment">/// Creates a new `KeyObject` with the given key and signatures.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">key</span>: <span class="ident">String</span>,
+        <span class="ident">key</span>: <span class="ident">Base64</span>,
         <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">key</span>, <span class="ident">signatures</span> }

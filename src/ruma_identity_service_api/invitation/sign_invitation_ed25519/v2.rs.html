@@ -60,10 +60,12 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
+<span id="60">60</span>
 </pre><pre class="rust"><code><span class="doccomment">//![POST /_matrix/identity/v2/sign-ed25519](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-sign-ed25519)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerSignatures</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -83,7 +85,7 @@
         <span class="kw">pub</span> <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
         <span class="doccomment">/// The private key, encoded as unpadded base64.</span>
-        <span class="kw">pub</span> <span class="ident">private_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
+        <span class="kw">pub</span> <span class="ident">private_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Base64</span>,
     }
 
     <span class="ident">response</span>: {
@@ -103,7 +105,7 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Creates a `Request` with the given Matrix user ID, token and private_key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mxid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">private_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mxid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>, <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">private_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">mxid</span>, <span class="ident">token</span>, <span class="ident">private_key</span> }
     }
 }

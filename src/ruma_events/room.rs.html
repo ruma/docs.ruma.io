@@ -242,6 +242,7 @@
 <span id="239">239</span>
 <span id="240">240</span>
 <span id="241">241</span>
+<span id="242">242</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.room` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -250,6 +251,7 @@
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::MxcUri</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">aliases</span>;
@@ -366,12 +368,12 @@
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">JsonWebKey</span>,
 
     <span class="doccomment">/// The 128-bit unique counter block used by AES-CTR, encoded as unpadded base64.</span>
-    <span class="kw">pub</span> <span class="ident">iv</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">iv</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// A map from an algorithm name to a hash of the ciphertext, encoded as unpadded base64.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Clients should support the SHA-256 hash, which uses the key sha256.</span>
-    <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Base64</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Version of the encrypted attachments protocol.</span>
     <span class="doccomment">///</span>
@@ -393,12 +395,12 @@
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">JsonWebKey</span>,
 
     <span class="doccomment">/// The 128-bit unique counter block used by AES-CTR, encoded as unpadded base64.</span>
-    <span class="kw">pub</span> <span class="ident">iv</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">iv</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// A map from an algorithm name to a hash of the ciphertext, encoded as unpadded base64.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Clients should support the SHA-256 hash, which uses the key sha256.</span>
-    <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">hashes</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Base64</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Version of the encrypted attachments protocol.</span>
     <span class="doccomment">///</span>
@@ -436,7 +438,7 @@
     <span class="kw">pub</span> <span class="ident">alg</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The key, encoded as url-safe unpadded base64.</span>
-    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Extractable.</span>
     <span class="doccomment">///</span>
@@ -468,7 +470,7 @@
     <span class="kw">pub</span> <span class="ident">alg</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The key, encoded as url-safe unpadded base64.</span>
-    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">String</span>,
+    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">Base64</span>,
 
     <span class="doccomment">/// Extractable.</span>
     <span class="doccomment">///</span>
