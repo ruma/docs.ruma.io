@@ -73,6 +73,7 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
+<span id="73">73</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
@@ -84,6 +85,7 @@
     <span class="ident">bytes</span>: <span class="ident">B</span>,
 }
 
+<span class="comment">// See https://github.com/matrix-org/matrix-doc/issues/3211</span>
 <span class="kw">const</span> <span class="ident">BASE64_CONFIG</span>: <span class="ident">base64::Config</span> <span class="op">=</span> <span class="ident">base64::STANDARD_NO_PAD</span>.<span class="ident">decode_allow_trailing_bits</span>(<span class="bool-val">true</span>);
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">Base64</span><span class="op">&lt;</span><span class="ident">B</span><span class="op">&gt;</span> {
