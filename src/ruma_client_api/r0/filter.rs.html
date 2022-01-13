@@ -479,6 +479,8 @@
 <span id="476">476</span>
 <span id="477">477</span>
 <span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for event filters.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">create_filter</span>;
@@ -495,6 +497,8 @@
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+
 <span class="doccomment">/// Format to use for returned events.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
@@ -510,7 +514,7 @@
     <span class="ident">Federation</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">EventFormat</span> {
@@ -958,5 +962,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>

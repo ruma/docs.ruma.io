@@ -225,6 +225,9 @@
 <span id="222">222</span>
 <span id="223">223</span>
 <span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/createRoom](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-createroom)</span>
 
 <span class="kw">use</span> <span class="ident">assign::assign</span>;
@@ -243,7 +246,10 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Visibility</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::membership</span>::{<span class="ident">IncomingInvite3pid</span>, <span class="ident">Invite3pid</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">r0::membership</span>::{<span class="ident">IncomingInvite3pid</span>, <span class="ident">Invite3pid</span>},
+    <span class="ident">PrivOwnedStr</span>,
+};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -440,7 +446,7 @@
     <span class="ident">TrustedPrivateChat</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">RoomPreset</span> {
@@ -450,5 +456,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>

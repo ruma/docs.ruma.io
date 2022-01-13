@@ -506,6 +506,9 @@
 <span id="503">503</span>
 <span id="504">504</span>
 <span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/search](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-search)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -517,7 +520,10 @@
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::r0::filter</span>::{<span class="ident">IncomingRoomEventFilter</span>, <span class="ident">RoomEventFilter</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">r0::filter</span>::{<span class="ident">IncomingRoomEventFilter</span>, <span class="ident">RoomEventFilter</span>},
+    <span class="ident">PrivOwnedStr</span>,
+};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {
@@ -760,7 +766,7 @@
     <span class="ident">Sender</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">GroupingKey</span> {
@@ -812,7 +818,7 @@
     <span class="ident">ContentTopic</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">SearchKeys</span> {
@@ -835,7 +841,7 @@
     <span class="ident">Rank</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="doccomment">/// Categories of events that can be searched for.</span>
@@ -1012,5 +1018,5 @@
     <span class="ident">UserId</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>),
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>

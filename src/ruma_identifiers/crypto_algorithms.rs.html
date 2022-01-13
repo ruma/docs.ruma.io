@@ -102,12 +102,13 @@
 <span id="99"> 99</span>
 <span id="100">100</span>
 <span id="101">101</span>
-<span id="102">102</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Key algorithms used in Matrix spec.</span>
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">DeserializeFromCowStr</span>, <span class="ident">SerializeAsRefStr</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde_macros</span>::{<span class="ident">AsRefStr</span>, <span class="ident">DisplayAsRefStr</span>, <span class="ident">FromString</span>};
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="doccomment">/// The basic key algorithms in the specification.</span>
 <span class="doccomment">///</span>
@@ -128,7 +129,7 @@
     <span class="ident">SignedCurve25519</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="doccomment">/// The signing key algorithms defined in the Matrix spec.</span>
@@ -144,7 +145,7 @@
     <span class="ident">Ed25519</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="doccomment">/// An encryption algorithm to be used to encrypt messages sent to a room.</span>
@@ -164,7 +165,7 @@
     <span class="ident">MegolmV1AesSha2</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
@@ -199,12 +200,9 @@
             <span class="ident">EventEncryptionAlgorithm::OlmV1Curve25519AesSha2</span>,
             <span class="macro">json!</span>(<span class="string">&quot;m.olm.v1.curve25519-aes-sha2&quot;</span>),
         );
-        <span class="ident">serde_json_eq</span>(
-            <span class="ident">EventEncryptionAlgorithm::_Custom</span>(<span class="string">&quot;io.ruma.test&quot;</span>.<span class="ident">into</span>()),
-            <span class="macro">json!</span>(<span class="string">&quot;io.ruma.test&quot;</span>),
-        );
+        <span class="ident">serde_json_eq</span>(<span class="ident">EventEncryptionAlgorithm::from</span>(<span class="string">&quot;io.ruma.test&quot;</span>), <span class="macro">json!</span>(<span class="string">&quot;io.ruma.test&quot;</span>));
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_identifiers" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_identifiers" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>

@@ -215,6 +215,8 @@
 <span id="212">212</span>
 <span id="213">213</span>
 <span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.key.verification` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -228,6 +230,8 @@
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">accept</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">cancel</span>;
@@ -252,7 +256,7 @@
     <span class="ident">Sha256</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">HashAlgorithm</span> {
@@ -277,7 +281,7 @@
     <span class="ident">Curve25519HkdfSha256</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">KeyAgreementProtocol</span> {
@@ -302,7 +306,7 @@
     <span class="ident">HmacSha256</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">MessageAuthenticationCode</span> {
@@ -327,7 +331,7 @@
     <span class="ident">Emoji</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">ShortAuthenticationString</span> {
@@ -382,7 +386,7 @@
     <span class="ident">ReciprocateV1</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">VerificationMethod</span> {
@@ -430,5 +434,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>

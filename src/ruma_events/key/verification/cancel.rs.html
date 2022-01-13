@@ -174,7 +174,6 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
-<span id="174">174</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.key.verification.cancel`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.key.verification.cancel`]: https://spec.matrix.org/v1.1/client-server-api/#mkeyverificationcancel</span>
@@ -182,6 +181,8 @@
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Relation</span>;
@@ -307,7 +308,7 @@
     <span class="ident">MismatchedSas</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">CancelCode</span> {
@@ -330,10 +331,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">custom_cancel_codes_serialize_to_display_form</span>() {
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">to_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">CancelCode::_Custom</span>(<span class="string">&quot;io.ruma.test&quot;</span>.<span class="ident">into</span>())).<span class="ident">unwrap</span>(),
-            <span class="macro">json!</span>(<span class="string">&quot;io.ruma.test&quot;</span>)
-        );
+        <span class="macro">assert_eq!</span>(<span class="ident">to_json_value</span>(<span class="ident">CancelCode::from</span>(<span class="string">&quot;io.ruma.test&quot;</span>)).<span class="ident">unwrap</span>(), <span class="macro">json!</span>(<span class="string">&quot;io.ruma.test&quot;</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -345,10 +343,10 @@
     <span class="kw">fn</span> <span class="ident">custom_cancel_codes_deserialize_from_display_form</span>() {
         <span class="macro">assert_eq!</span>(
             <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">CancelCode</span><span class="op">&gt;</span>(<span class="macro">json!</span>(<span class="string">&quot;io.ruma.test&quot;</span>)).<span class="ident">unwrap</span>(),
-            <span class="ident">CancelCode::_Custom</span>(<span class="string">&quot;io.ruma.test&quot;</span>.<span class="ident">into</span>())
-        )
+            <span class="string">&quot;io.ruma.test&quot;</span>.<span class="ident">into</span>()
+        );
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>

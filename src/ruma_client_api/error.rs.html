@@ -281,6 +281,12 @@
 <span id="278">278</span>
 <span id="279">279</span>
 <span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Errors that can be sent from the homeserver.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>, <span class="ident">time::Duration</span>};
@@ -294,6 +300,8 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_slice</span> <span class="kw">as</span> <span class="ident">from_json_slice</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+
 <span class="doccomment">/// Deserialize and Serialize implementations for ErrorKind.</span>
 <span class="doccomment">/// Separate module because it&#39;s a lot of code.</span>
 <span class="kw">mod</span> <span class="ident">kind_serde</span>;
@@ -301,7 +309,7 @@
 <span class="doccomment">/// An enum for the error kind.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Items may contain additional information.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ErrorKind</span> {
     <span class="doccomment">/// M_FORBIDDEN</span>
@@ -418,8 +426,12 @@
     <span class="ident">CannotLeaveServerNoticeRoom</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span> { <span class="ident">errcode</span>: <span class="ident">String</span>, <span class="ident">extra</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span> },
+    <span class="ident">_Custom</span> { <span class="ident">errcode</span>: <span class="ident">PrivOwnedStr</span>, <span class="ident">extra</span>: <span class="ident">Extra</span> },
 }
+
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Extra</span>(<span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">JsonValue</span><span class="op">&gt;</span>);
 
 <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ErrorKind</span> {
     <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
@@ -456,7 +468,7 @@
             <span class="ident"><span class="self">Self</span>::Exclusive</span> =&gt; <span class="string">&quot;M_EXCLUSIVE&quot;</span>,
             <span class="ident"><span class="self">Self</span>::ResourceLimitExceeded</span> { .. } =&gt; <span class="string">&quot;M_RESOURCE_LIMIT_EXCEEDED&quot;</span>,
             <span class="ident"><span class="self">Self</span>::CannotLeaveServerNoticeRoom</span> =&gt; <span class="string">&quot;M_CANNOT_LEAVE_SERVER_NOTICE_ROOM&quot;</span>,
-            <span class="ident"><span class="self">Self</span>::_Custom</span> { <span class="ident">errcode</span>, .. } =&gt; <span class="ident">errcode</span>,
+            <span class="ident"><span class="self">Self</span>::_Custom</span> { <span class="ident">errcode</span>, .. } =&gt; <span class="kw-2">&amp;</span><span class="ident">errcode</span>.<span class="number">0</span>,
         }
     }
 }
@@ -562,5 +574,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>

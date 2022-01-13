@@ -310,6 +310,8 @@
 <span id="307">307</span>
 <span id="308">308</span>
 <span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.join_rules`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.join_rules`]: https://spec.matrix.org/v1.1/client-server-api/#mroomjoin_rules</span>
@@ -329,6 +331,8 @@
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="doccomment">/// The content of an `m.room.join_rules` event.</span>
 <span class="doccomment">///</span>
@@ -400,7 +404,7 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">String</span>),
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">JoinRule</span> {
@@ -413,7 +417,7 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">JoinRule::Restricted</span>(<span class="kw">_</span>) =&gt; <span class="string">&quot;restricted&quot;</span>,
             <span class="ident">JoinRule::Public</span> =&gt; <span class="string">&quot;public&quot;</span>,
-            <span class="ident">JoinRule::_Custom</span>(<span class="ident">rule</span>) =&gt; <span class="ident">rule</span>,
+            <span class="ident">JoinRule::_Custom</span>(<span class="ident">rule</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">rule</span>.<span class="number">0</span>,
         }
     }
 }
@@ -447,7 +451,7 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="string">&quot;restricted&quot;</span> =&gt; <span class="ident">from_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">json</span>).<span class="ident">map</span>(<span class="ident"><span class="self">Self</span>::Restricted</span>),
             <span class="string">&quot;public&quot;</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::Public</span>),
-            <span class="kw">_</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">join_rule</span>.<span class="ident">into_owned</span>())),
+            <span class="kw">_</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">PrivOwnedStr</span>(<span class="ident">join_rule</span>.<span class="ident">into</span>()))),
         }
     }
 }
@@ -620,5 +624,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1409c015b 2022-01-11)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (1bd4fdc94 2022-01-12)" ></div>
 </body></html>
