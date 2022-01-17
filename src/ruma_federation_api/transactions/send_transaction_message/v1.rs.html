@@ -77,6 +77,8 @@
 <span id="72">72</span>
 <span id="73">73</span>
 <span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v1/send/{txnId}](https://matrix.org/docs/spec/server_server/r0.1.4#put-matrix-federation-v1-send-txnid)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -127,6 +129,8 @@
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
     <span class="ident">response</span>: {
         <span class="doccomment">/// Map of event IDs and response for each PDU given in the request.</span>
+        <span class="comment">// https://github.com/matrix-org/matrix-doc/pull/3618 makes returning `pdus` optional.</span>
+        <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>, <span class="ident">serde</span>(<span class="ident">default</span>))]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::pdu_process_response&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">pdus</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
