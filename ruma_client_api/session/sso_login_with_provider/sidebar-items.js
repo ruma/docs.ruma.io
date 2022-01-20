@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["v3","GET /_matrix/client/v3/login/sso/redirect/{idp_id}"]]});
