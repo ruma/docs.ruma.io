@@ -113,7 +113,7 @@
 <span class="doccomment">//! [`m.room_key_request`]: https://spec.matrix.org/v1.1/client-server-api/#mroom_key_request</span>
 
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>, <span class="ident">SecretRequestId</span>};
+<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -139,7 +139,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the key is requested multiple times, it should be reused. It should also reused</span>
     <span class="doccomment">/// in order to cancel a request.</span>
-    <span class="kw">pub</span> <span class="ident">request_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SecretRequestId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">request_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ToDeviceRoomKeyRequestEventContent</span> {
@@ -149,7 +149,7 @@
         <span class="ident">action</span>: <span class="ident">Action</span>,
         <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RequestedKeyInfo</span><span class="op">&gt;</span>,
         <span class="ident">requesting_device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
-        <span class="ident">request_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SecretRequestId</span><span class="op">&gt;</span>,
+        <span class="ident">request_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">action</span>, <span class="ident">body</span>, <span class="ident">requesting_device_id</span>, <span class="ident">request_id</span> }
     }
