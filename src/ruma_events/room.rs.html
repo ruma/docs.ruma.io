@@ -256,7 +256,7 @@
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::MxcUri</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">base64::UrlSafe</span>, <span class="ident">Base64</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">aliases</span>;
@@ -443,7 +443,7 @@
     <span class="kw">pub</span> <span class="ident">alg</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The key, encoded as url-safe unpadded base64.</span>
-    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">Base64</span>,
+    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">Base64</span><span class="op">&lt;</span><span class="ident">UrlSafe</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Extractable.</span>
     <span class="doccomment">///</span>
@@ -475,7 +475,7 @@
     <span class="kw">pub</span> <span class="ident">alg</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The key, encoded as url-safe unpadded base64.</span>
-    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">Base64</span>,
+    <span class="kw">pub</span> <span class="ident">k</span>: <span class="ident">Base64</span><span class="op">&lt;</span><span class="ident">UrlSafe</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Extractable.</span>
     <span class="doccomment">///</span>

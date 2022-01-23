@@ -1052,8 +1052,6 @@
 <span id="1044">1044</span>
 <span id="1045">1045</span>
 <span id="1046">1046</span>
-<span id="1047">1047</span>
-<span id="1048">1048</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Functions for signing and verifying JSON and events.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1065,7 +1063,7 @@
 
 <span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">encode_config</span>, <span class="ident">STANDARD_NO_PAD</span>, <span class="ident">URL_SAFE_NO_PAD</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">CanonicalJsonObject</span>, <span class="ident">CanonicalJsonValue</span>};
+<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">base64::Standard</span>, <span class="ident">Base64</span>, <span class="ident">CanonicalJsonObject</span>, <span class="ident">CanonicalJsonValue</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>, <span class="ident">to_string</span> <span class="kw">as</span> <span class="ident">to_json_string</span>};
 <span class="kw">use</span> <span class="ident">sha2</span>::{<span class="ident">digest::Digest</span>, <span class="ident">Sha256</span>};
 
@@ -1347,7 +1345,7 @@
                 )
             })<span class="question-mark">?</span>;
 
-            <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">Base64::parse</span>(<span class="ident">signature</span>)
+            <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">Base64</span>::<span class="op">&lt;</span><span class="ident">Standard</span><span class="op">&gt;</span><span class="ident">::parse</span>(<span class="ident">signature</span>)
                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;signature&quot;</span>, <span class="ident">signature</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
 
             <span class="ident">verify_json_with</span>(
@@ -1388,8 +1386,6 @@
 
 <span class="doccomment">/// Creates a *content hash* for an event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Returns the hash as a base64-encoded string, using the standard character set, without padding.</span>
-<span class="doccomment">///</span>
 <span class="doccomment">/// The content hash of an event covers the complete event including the unredacted contents. It is</span>
 <span class="doccomment">/// used during federation and is described in the Matrix server-server specification.</span>
 <span class="doccomment">///</span>
@@ -1400,7 +1396,7 @@
 <span class="doccomment">/// # Errors</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returns an error if the event is too large.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content_hash</span>(<span class="ident">object</span>: <span class="kw-2">&amp;</span><span class="ident">CanonicalJsonObject</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Base64</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="number">32</span>]<span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content_hash</span>(<span class="ident">object</span>: <span class="kw-2">&amp;</span><span class="ident">CanonicalJsonObject</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Base64</span><span class="op">&lt;</span><span class="ident">Standard</span>, [<span class="ident">u8</span>; <span class="number">32</span>]<span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="ident">canonical_json_with_fields_to_remove</span>(<span class="ident">object</span>, <span class="ident">CONTENT_HASH_FIELDS_TO_REMOVE</span>)<span class="question-mark">?</span>;
     <span class="kw">if</span> <span class="ident">json</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">MAX_PDU_BYTES</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::PduSize</span>);
@@ -1712,8 +1708,8 @@
 
         <span class="kw">let</span> <span class="ident">public_key</span> <span class="op">=</span> <span class="ident">signature_and_pubkey</span>.<span class="ident">public_key</span>;
 
-        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span>
-            <span class="ident">Base64::parse</span>(<span class="ident">signature</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;signature&quot;</span>, <span class="ident">signature</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">signature</span> <span class="op">=</span> <span class="ident">Base64</span>::<span class="op">&lt;</span><span class="ident">Standard</span><span class="op">&gt;</span><span class="ident">::parse</span>(<span class="ident">signature</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ParseError::base64</span>(<span class="string">&quot;signature&quot;</span>, <span class="ident">signature</span>, <span class="ident">e</span>))<span class="question-mark">?</span>;
 
         <span class="ident">verify_json_with</span>(
             <span class="kw-2">&amp;</span><span class="ident">Ed25519Verifier</span>,
@@ -1725,7 +1721,7 @@
 
     <span class="kw">let</span> <span class="ident">calculated_hash</span> <span class="op">=</span> <span class="ident">content_hash</span>(<span class="ident">object</span>)<span class="question-mark">?</span>;
 
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">hash</span>) <span class="op">=</span> <span class="ident">Base64::parse</span>(<span class="ident">hash</span>) {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">hash</span>) <span class="op">=</span> <span class="ident">Base64</span>::<span class="op">&lt;</span><span class="ident">Standard</span><span class="op">&gt;</span><span class="ident">::parse</span>(<span class="ident">hash</span>) {
         <span class="kw">if</span> <span class="ident">hash</span>.<span class="ident">as_bytes</span>() <span class="op">==</span> <span class="ident">calculated_hash</span>.<span class="ident">as_bytes</span>() {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Verified::All</span>);
         }
