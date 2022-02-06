@@ -5,8 +5,7 @@
     <nav class="sidebar"><a class="sidebar-logo" href="../../ruma_common/index.html"><div class="logo-container">
                     <img src="https://www.ruma.io/images/logo.png" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../ruma_common/index.html">
-                        <img src="https://www.ruma.io/images/logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
-                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+                        <img src="https://www.ruma.io/images/logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -174,12 +173,6 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for [encryption] related tasks.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [encryption]: https://matrix.org/docs/spec/client_server/r0.6.1#id76</span>
@@ -268,7 +261,6 @@
     <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">SignedKeySignatures</span>,
 
     <span class="doccomment">/// Is this key considered to be a fallback key, defaults to false.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">fallback</span>: <span class="ident">bool</span>,
 }
@@ -276,12 +268,7 @@
 <span class="kw">impl</span> <span class="ident">SignedKey</span> {
     <span class="doccomment">/// Creates a new `SignedKey` with the given key and signatures.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key</span>: <span class="ident">Base64</span>, <span class="ident">signatures</span>: <span class="ident">SignedKeySignatures</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">key</span>,
-            <span class="ident">signatures</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">fallback</span>: <span class="bool-val">false</span>,
-        }
+        <span class="self">Self</span> { <span class="ident">key</span>, <span class="ident">signatures</span>, <span class="ident">fallback</span>: <span class="bool-val">false</span> }
     }
 
     <span class="doccomment">/// Creates a new fallback `SignedKey` with the given key and signatures.</span>
@@ -355,5 +342,5 @@
     <span class="ident">UserSigning</span>,
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (bfe156467 2022-01-22)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (88fb06a1f 2022-02-05)" ></div>
 </body></html>

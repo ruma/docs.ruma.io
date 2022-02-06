@@ -5,8 +5,7 @@
     <nav class="sidebar"><a class="sidebar-logo" href="../../../ruma_events/index.html"><div class="logo-container">
                     <img src="https://www.ruma.io/images/logo.png" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../ruma_events/index.html">
-                        <img src="https://www.ruma.io/images/logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div>
-                                <input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+                        <img src="https://www.ruma.io/images/logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -789,20 +788,6 @@
 <span id="781">781</span>
 <span id="782">782</span>
 <span id="783">783</span>
-<span id="784">784</span>
-<span id="785">785</span>
-<span id="786">786</span>
-<span id="787">787</span>
-<span id="788">788</span>
-<span id="789">789</span>
-<span id="790">790</span>
-<span id="791">791</span>
-<span id="792">792</span>
-<span id="793">793</span>
-<span id="794">794</span>
-<span id="795">795</span>
-<span id="796">796</span>
-<span id="797">797</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.member`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.member`]: https://spec.matrix.org/v1.1/client-server-api/#mroommember</span>
@@ -899,12 +884,10 @@
     <span class="doccomment">/// Clients are not recommended to show this reason to users when receiving an invite due to</span>
     <span class="doccomment">/// the potential for spam and abuse. Hiding the reason behind a button or other component</span>
     <span class="doccomment">/// is recommended.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">reason</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Arbitrarily chosen `UserId` (MxID) of a local user who can send an invite.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;join_authorised_via_users_server&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">join_authorized_via_users_server</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
@@ -921,9 +904,7 @@
             <span class="ident">third_party_invite</span>: <span class="prelude-val">None</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">blurhash</span>: <span class="prelude-val">None</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">reason</span>: <span class="prelude-val">None</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">join_authorized_via_users_server</span>: <span class="prelude-val">None</span>,
         }
     }
@@ -935,9 +916,7 @@
     <span class="kw">fn</span> <span class="ident">redact</span>(<span class="self">self</span>, <span class="ident">_version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) -&gt; <span class="ident">RedactedRoomMemberEventContent</span> {
         <span class="ident">RedactedRoomMemberEventContent</span> {
             <span class="ident">membership</span>: <span class="self">self</span>.<span class="ident">membership</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">join_authorized_via_users_server</span>: <span class="kw">match</span> <span class="ident">_version</span> {
-                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
                 <span class="ident">RoomVersionId::V9</span> =&gt; <span class="self">self</span>.<span class="ident">join_authorized_via_users_server</span>,
                 <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
             },
@@ -956,7 +935,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is redacted in room versions 8 and below. It is used for validating</span>
     <span class="doccomment">/// joins when the join rule is restricted.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;join_authorised_via_users_server&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">join_authorized_via_users_server</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
@@ -964,11 +942,7 @@
 <span class="kw">impl</span> <span class="ident">RedactedRoomMemberEventContent</span> {
     <span class="doccomment">/// Create a `RedactedRoomMemberEventContent` with the given membership.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">membership</span>: <span class="ident">MembershipState</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">membership</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-            <span class="ident">join_authorized_via_users_server</span>: <span class="prelude-val">None</span>,
-        }
+        <span class="self">Self</span> { <span class="ident">membership</span>, <span class="ident">join_authorized_via_users_server</span>: <span class="prelude-val">None</span> }
     }
 }
 
@@ -1159,9 +1133,7 @@
             <span class="ident">third_party_invite</span>: <span class="prelude-val">None</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">blurhash</span>: <span class="prelude-val">None</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">reason</span>: <span class="prelude-val">None</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">join_authorized_via_users_server</span>: <span class="prelude-val">None</span>,
         }
     };
@@ -1555,7 +1527,6 @@
         );
     }
 
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serde_with_join_authorized</span>() {
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
@@ -1601,5 +1572,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (bfe156467 2022-01-22)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (88fb06a1f 2022-02-05)" ></div>
 </body></html>
