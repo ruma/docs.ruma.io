@@ -602,8 +602,8 @@
     <span class="kw">pub</span> <span class="ident">keys</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">SearchKeys</span>]<span class="op">&gt;</span>,
 
     <span class="doccomment">/// A `Filter` to apply to the search.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">filter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RoomEventFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;RoomEventFilter::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">filter</span>: <span class="ident">RoomEventFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The order in which to search for results.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -628,7 +628,7 @@
         <span class="self">Self</span> {
             <span class="ident">search_term</span>,
             <span class="ident">keys</span>: <span class="prelude-val">None</span>,
-            <span class="ident">filter</span>: <span class="prelude-val">None</span>,
+            <span class="ident">filter</span>: <span class="ident">RoomEventFilter::default</span>(),
             <span class="ident">order_by</span>: <span class="prelude-val">None</span>,
             <span class="ident">event_context</span>: <span class="ident">Default::default</span>(),
             <span class="ident">include_state</span>: <span class="prelude-val">None</span>,
@@ -1022,5 +1022,5 @@
     <span class="ident">UserId</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>),
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (88fb06a1f 2022-02-05)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (734368a20 2022-02-07)" ></div>
 </body></html>
