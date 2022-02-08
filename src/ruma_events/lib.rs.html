@@ -410,6 +410,8 @@
 <span id="403">403</span>
 <span id="404">404</span>
 <span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
@@ -536,6 +538,9 @@
 
 <span class="kw">use</span> <span class="ident"><span class="self">self</span>::room::redaction::SyncRoomRedactionEvent</span>;
 
+<span class="comment">// Needs to be public for trybuild tests</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">_custom</span>;
 <span class="kw">mod</span> <span class="ident">enums</span>;
 <span class="kw">mod</span> <span class="ident">event_kinds</span>;
 <span class="kw">mod</span> <span class="ident">unsigned</span>;
@@ -563,7 +568,6 @@
 }
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">call</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">custom</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">direct</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">dummy</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">forwarded_room_key</span>;
