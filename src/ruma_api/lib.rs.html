@@ -588,6 +588,16 @@
 <span id="581">581</span>
 <span id="582">582</span>
 <span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! Core types used to define the requests and responses for each endpoint in the various</span>
@@ -1005,9 +1015,19 @@
     <span class="doccomment">/// A unique identifier for this endpoint.</span>
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
 
+    <span class="doccomment">/// (DEPRECATED)</span>
+    <span class="kw">pub</span> <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
+
+    <span class="doccomment">/// The unstable path of this endpoint&#39;s URL, often `None`, used for developmental purposes.</span>
+    <span class="kw">pub</span> <span class="ident">unstable_path</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// The pre-v1.1 version of this endpoint&#39;s URL, `None` for post-v1.1 endpoints, supplemental</span>
+    <span class="doccomment">/// to `stable_path`.</span>
+    <span class="kw">pub</span> <span class="ident">r0_path</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span>,
+
     <span class="doccomment">/// The path of this endpoint&#39;s URL, with variable names where path parameters should be filled</span>
     <span class="doccomment">/// in during a request.</span>
-    <span class="kw">pub</span> <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
+    <span class="kw">pub</span> <span class="ident">stable_path</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Whether or not this endpoint is rate limited by the server.</span>
     <span class="kw">pub</span> <span class="ident">rate_limited</span>: <span class="ident">bool</span>,
