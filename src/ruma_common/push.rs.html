@@ -1203,6 +1203,7 @@
 <span id="1196">1196</span>
 <span id="1197">1197</span>
 <span id="1198">1198</span>
+<span id="1199">1199</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [push notifications module][push].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [push]: https://matrix.org/docs/spec/client_server/r0.6.1#id89</span>
@@ -1619,7 +1620,8 @@
     <span class="doccomment">/// [sygnal]: https://github.com/matrix-org/sygnal/blob/main/docs/applications.md#ios-applications-beware</span>
     <span class="comment">// Not specified, issue: https://github.com/matrix-org/matrix-doc/issues/3474</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">default_payload</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">JsonValue</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;JsonValue::is_null&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">default_payload</span>: <span class="ident">JsonValue</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">PusherData</span> {
@@ -1637,7 +1639,7 @@
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         {
-            <span class="self">self</span>.<span class="ident">url</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">format</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">default_payload</span>.<span class="ident">is_none</span>()
+            <span class="self">self</span>.<span class="ident">url</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">format</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">default_payload</span>.<span class="ident">is_null</span>()
         }
     }
 }
