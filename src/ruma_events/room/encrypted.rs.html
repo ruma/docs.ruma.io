@@ -362,6 +362,7 @@
 <span id="355">355</span>
 <span id="356">356</span>
 <span id="357">357</span>
+<span id="358">358</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.encrypted`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.encrypted`]: https://spec.matrix.org/v1.1/client-server-api/#mroomencrypted</span>
@@ -473,8 +474,9 @@
 
 <span class="doccomment">/// The event this relation belongs to replaces another event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// In contrast to [`message::Replacement`], this struct doesn&#39;t store the new content, since that</span>
-<span class="doccomment">/// is part of the encrypted content of an `m.room.encrypted` events.</span>
+<span class="doccomment">/// In contrast to [`message::Replacement`](crate::room::message::Replacement), this struct doesn&#39;t</span>
+<span class="doccomment">/// store the new content, since that is part of the encrypted content of an `m.room.encrypted`</span>
+<span class="doccomment">/// events.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
