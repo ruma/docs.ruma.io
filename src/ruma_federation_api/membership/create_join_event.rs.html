@@ -54,6 +54,7 @@
 <span id="47">47</span>
 <span id="48">48</span>
 <span id="49">49</span>
+<span id="50">50</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoint to send join events to remote homeservers.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v1</span>;
@@ -90,6 +91,7 @@
     <span class="doccomment">/// Creates an empty `RoomState` with the given `origin`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method doesn&#39;t take any parameters.</span>
+    <span class="doccomment">/// See [matrix-doc#1664](https://github.com/matrix-org/matrix-doc/issues/1664).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">origin</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">origin</span>, <span class="ident">auth_chain</span>: <span class="ident">Vec::new</span>(), <span class="ident">state</span>: <span class="ident">Vec::new</span>() }
     }
@@ -98,7 +100,7 @@
     <span class="doccomment">/// Creates an empty `RoomState` with the given `origin`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Without the `unstable-pre-spec` feature, this method takes a parameter for the origin</span>
-    <span class="doccomment">/// server.</span>
+    <span class="doccomment">/// server. See [matrix-doc#1664](https://github.com/matrix-org/matrix-doc/issues/1664).</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">auth_chain</span>: <span class="ident">Vec::new</span>(), <span class="ident">state</span>: <span class="ident">Vec::new</span>() }
     }
