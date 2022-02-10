@@ -61,18 +61,12 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
-<span id="57">57</span>
-<span id="58">58</span>
-<span id="59">59</span>
-<span id="60">60</span>
-</pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/federation/v1/user/keys/query](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-federation-v1-user-keys-query)</span>
+</pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/federation/v1/user/keys/query](https://spec.matrix.org/v1.1/server-server-api/#post_matrixfederationv1userkeysquery)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">ruma_common::encryption::CrossSigningKey</span>;
-<span class="kw">use</span> <span class="ident">ruma_common::encryption::DeviceKeys</span>;
+<span class="kw">use</span> <span class="ident">ruma_common::encryption</span>::{<span class="ident">CrossSigningKey</span>, <span class="ident">DeviceKeys</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
@@ -99,12 +93,10 @@
         <span class="kw">pub</span> <span class="ident">device_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Information on the master cross-signing keys of the queried users.</span>
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">master_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">CrossSigningKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Information on the self-signing keys of the queried users.</span>
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">self_signing_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">CrossSigningKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
