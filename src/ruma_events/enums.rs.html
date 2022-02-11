@@ -427,7 +427,7 @@
         <span class="string">&quot;m.key.verification.key&quot;</span>,
         <span class="string">&quot;m.key.verification.mac&quot;</span>,
         <span class="string">&quot;m.key.verification.done&quot;</span>,
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
         <span class="string">&quot;m.reaction&quot;</span>,
         <span class="string">&quot;m.room.encrypted&quot;</span>,
         <span class="string">&quot;m.room.message&quot;</span>,
@@ -723,7 +723,7 @@
                     <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>(),
                 }))
             }
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
             <span class="ident"><span class="self">Self</span>::Reaction</span>(<span class="ident">ev</span>) =&gt; {
                 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::reaction</span>;
 
@@ -738,7 +738,7 @@
                 <span class="ident">message::Relation::Reply</span> { <span class="ident">in_reply_to</span> } =&gt; {
                     <span class="ident">encrypted::Relation::Reply</span> { <span class="ident">in_reply_to</span> }
                 }
-                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
                 <span class="ident">message::Relation::Replacement</span>(<span class="ident">re</span>) =&gt; {
                     <span class="ident">encrypted::Relation::Replacement</span>(<span class="ident">encrypted::Replacement</span> {
                         <span class="ident">event_id</span>: <span class="ident">re</span>.<span class="ident">event_id</span>,
@@ -758,5 +758,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e7aca8959 2022-02-09)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e646f3d2a 2022-02-10)" ></div>
 </body></html>

@@ -21,7 +21,7 @@ are also required to contain hashes of their content, which are similarly stored
 hashed JSON object under a <code>hashes</code> key.</p>
 <p>In JSON representations, both signatures and hashes appear as base64-encoded strings, using the
 standard character set, without padding.</p>
-<h2 id="signing-and-hashing" class="section-header"><a href="#signing-and-hashing">Signing and hashing</a></h2>
+<h2 id="signing-and-hashing"><a href="#signing-and-hashing">Signing and hashing</a></h2>
 <p>To sign an arbitrary JSON object, use the <code>sign_json</code> function. See the documentation of this
 function for more details and a full example of use.</p>
 <p>Signing an event uses a more complicated process than signing arbitrary JSON, because events can
@@ -31,7 +31,7 @@ exchanging them with other homeservers. Although the algorithm for hashing and s
 is more complicated than for signing arbitrary JSON, the interface to a user of ruma-signatures
 is the same. To hash and sign an event, use the <code>hash_and_sign_event</code> function. See the
 documentation of this function for more details and a full example of use.</p>
-<h2 id="verifying-signatures-and-hashes" class="section-header"><a href="#verifying-signatures-and-hashes">Verifying signatures and hashes</a></h2>
+<h2 id="verifying-signatures-and-hashes"><a href="#verifying-signatures-and-hashes">Verifying signatures and hashes</a></h2>
 <p>When a homeserver receives data from another homeserver via the federation, it’s necessary to
 verify the authenticity and integrity of the data by verifying their signatures.</p>
 <p>To verify a signature on arbitrary JSON, use the <code>verify_json</code> function. To verify the
@@ -69,5 +69,5 @@ these respective functions for more details and full examples of use.</p>
 <div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.CanonicalJsonObject.html" title="ruma_signatures::CanonicalJsonObject type">CanonicalJsonObject</a></div><div class="item-right docblock-short"><p>The inner type of <code>CanonicalJsonValue::Object</code>.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.PublicKeyMap.html" title="ruma_signatures::PublicKeyMap type">PublicKeyMap</a></div><div class="item-right docblock-short"><p>A map from entity names to sets of public keys for that entity.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.PublicKeySet.html" title="ruma_signatures::PublicKeySet type">PublicKeySet</a></div><div class="item-right docblock-short"><p>A set of public keys for a single homeserver.</p>
-</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma_signatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e7aca8959 2022-02-09)" ></div>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma_signatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e646f3d2a 2022-02-10)" ></div>
 </body></html>

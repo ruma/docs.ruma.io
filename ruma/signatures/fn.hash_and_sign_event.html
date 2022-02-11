@@ -10,14 +10,14 @@
 <code>signatures</code>, respectively.</p>
 <p>If <code>hashes</code> and/or <code>signatures</code> are already present, the new data will be appended to the
 existing data.</p>
-<h2 id="parameters" class="section-header"><a href="#parameters">Parameters</a></h2>
+<h2 id="parameters"><a href="#parameters">Parameters</a></h2>
 <ul>
 <li>entity_id: The identifier of the entity creating the signature. Generally this means a
 homeserver, e.g. “example.com”.</li>
 <li>key_pair: A cryptographic key pair used to sign the event.</li>
 <li>object: A JSON object to be hashed and signed according to the Matrix specification.</li>
 </ul>
-<h2 id="errors" class="section-header"><a href="#errors">Errors</a></h2>
+<h2 id="errors"><a href="#errors">Errors</a></h2>
 <p>Returns an error if:</p>
 <ul>
 <li><code>object</code> contains a field called <code>content</code> that is not a JSON object.</li>
@@ -25,7 +25,7 @@ homeserver, e.g. “example.com”.</li>
 <li><code>object</code> contains a field called <code>signatures</code> that is not a JSON object.</li>
 <li><code>object</code> is missing the <code>type</code> field or the field is not a JSON string.</li>
 </ul>
-<h2 id="examples" class="section-header"><a href="#examples">Examples</a></h2>
+<h2 id="examples"><a href="#examples">Examples</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">const</span> <span class="ident">PKCS8</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;\
     MFMCAQEwBQYDK2VwBCIEINjozvdfbsGEt6DD+7Uf4PiJ/YvTNXV2mIPc/\
     tA0T+6toSMDIQDdM+tpNzNWQM9NFpfgr4B9S7LHszOrVRp9NfKmeXS3aQ\
@@ -85,5 +85,5 @@ homeserver, e.g. “example.com”.</li>
     }
 }</code></pre></div>
 <p>Notice the addition of <code>hashes</code> and <code>signatures</code>.</p>
-</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e7aca8959 2022-02-09)" ></div>
+</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e646f3d2a 2022-02-10)" ></div>
 </body></html>

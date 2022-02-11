@@ -4,7 +4,7 @@
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../ruma/index.html"><div class="logo-container">
                     <img src="https://www.ruma.io/images/logo.png" alt="logo"></div>
-        </a><h2 class="location"><a href="#">Crate ruma</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.4.0</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><div id="sidebar-vars" data-name="ruma" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../ruma/index.html">
+        </a><h2 class="location"><a href="#">Crate ruma</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.4.0</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li><li><a href="#derives">Derive Macros</a></li></ul></div><div id="sidebar-vars" data-name="ruma" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../ruma/index.html">
                         <img src="https://www.ruma.io/images/logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
     <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">ruma</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/ruma/lib.rs.html#1-169">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Types and traits for working with the <a href="https://matrix.org">Matrix</a> protocol.</p>
 <p>This crate re-exports things from all of the other ruma crates so you don’t
@@ -14,7 +14,7 @@ have to manually keep all the versions in sync.</p>
 <p>⚠ Some details might be missing because rustdoc has trouble with re-exports so you may need
 to refer to other crates’ documentations.</p>
 </blockquote>
-<h2 id="api-features" class="section-header"><a href="#api-features">API features</a></h2>
+<h2 id="api-features"><a href="#api-features">API features</a></h2>
 <p>Depending on which parts of Matrix are relevant to you, activate the following features:</p>
 <ul>
 <li><code>appservice-api</code> – Application Service API.</li>
@@ -29,19 +29,19 @@ with the <code>-c</code> and <code>-s</code> suffixes. For example:</p>
 <li><code>client-api-c</code> – The Client-Server API optimized for the client side.</li>
 <li><code>client-api-s</code> – The Client-Server API optimized for the server side.</li>
 </ul>
-<h2 id="compatibility-feature" class="section-header"><a href="#compatibility-feature">Compatibility feature</a></h2>
+<h2 id="compatibility-feature"><a href="#compatibility-feature">Compatibility feature</a></h2>
 <ul>
 <li><code>compat</code> increases compatibility with other parts of the Matrix ecosystem, at the expense of
 deviating from the specification.</li>
 </ul>
-<h2 id="convenience-features" class="section-header"><a href="#convenience-features">Convenience features</a></h2>
+<h2 id="convenience-features"><a href="#convenience-features">Convenience features</a></h2>
 <p>These features are only useful if you want to use a method that requires it:</p>
 <ul>
 <li><code>either</code></li>
 <li><code>rand</code></li>
 <li><code>markdown</code></li>
 </ul>
-<h2 id="unstable-features" class="section-header"><a href="#unstable-features">Unstable features</a></h2>
+<h2 id="unstable-features"><a href="#unstable-features">Unstable features</a></h2>
 <p>By using these features, you opt out of all semver guarantees Ruma otherwise provides:</p>
 <ul>
 <li><code>unstable-exhaustive-types</code> – Most types in Ruma are marked as non-exhaustive to avoid
@@ -49,14 +49,14 @@ breaking changes when new fields are added in the specification. This feature co
 types as exhaustive.</li>
 <li><code>unstable-pre-spec</code> – Upcoming Matrix features that may be subject to change or removal.</li>
 </ul>
-<h2 id="common-features" class="section-header"><a href="#common-features">Common features</a></h2>
+<h2 id="common-features"><a href="#common-features">Common features</a></h2>
 <p>These submodules are usually activated by the API features when needed:</p>
 <ul>
 <li><code>api</code></li>
 <li><code>events</code></li>
 <li><code>signatures</code></li>
 </ul>
-<h2 id="ruma-client-features" class="section-header"><a href="#ruma-client-features"><code>ruma-client</code> features</a></h2>
+<h2 id="ruma-client-features"><a href="#ruma-client-features"><code>ruma-client</code> features</a></h2>
 <p>The <code>client</code> feature activates <a href="client/index.html" title="client"><code>ruma::client</code></a>, and <code>client-ext-client-api</code> activates
 <code>ruma-client</code>s <code>client-api</code> feature. All other <code>client-*</code> features activate the same feature
 without the <code>client-</code> prefix on <code>ruma-client</code>. See the crate’s documentation for the effect of
@@ -129,5 +129,5 @@ users and URIs.</p>
 </div></div></div><h2 id="derives" class="small-section-header"><a href="#derives">Derive Macros</a></h2>
 <div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="derive" href="derive.Outgoing.html" title="ruma::Outgoing derive">Outgoing</a></div><div class="item-right docblock-short"><p>Derive the <code>Outgoing</code> trait, possibly generating an ‘Incoming’ version of the struct this
 derive macro is used on.</p>
-</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e7aca8959 2022-02-09)" ></div>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e646f3d2a 2022-02-10)" ></div>
 </body></html>

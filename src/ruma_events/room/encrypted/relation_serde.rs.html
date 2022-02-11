@@ -122,10 +122,14 @@
 <span id="115">115</span>
 <span id="116">116</span>
 <span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Annotation</span>, <span class="ident">Replacement</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Annotation</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Replacement</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InReplyTo</span>, <span class="ident">Reference</span>, <span class="ident">Relation</span>};
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Relation</span> {
@@ -140,10 +144,10 @@
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">relation</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span> {
                 <span class="kw">return</span> <span class="kw">match</span> <span class="ident">relation</span> {
-                    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+                    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
                     <span class="ident">RelationJsonRepr::Annotation</span>(<span class="ident">a</span>) =&gt; <span class="ident">Relation::Annotation</span>(<span class="ident">a</span>),
                     <span class="ident">RelationJsonRepr::Reference</span>(<span class="ident">r</span>) =&gt; <span class="ident">Relation::Reference</span>(<span class="ident">r</span>),
-                    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+                    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
                     <span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span> }) =&gt; {
                         <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span> })
                     }
@@ -167,7 +171,7 @@
     {
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::needless_update</span>)]</span>
         <span class="kw">let</span> <span class="ident">relates_to</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span> {
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
             <span class="ident">Relation::Annotation</span>(<span class="ident">r</span>) =&gt; <span class="ident">RelatesToJsonRepr</span> {
                 <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Annotation</span>(<span class="ident">r</span>.<span class="ident">clone</span>())),
                 ..<span class="ident">Default::default</span>()
@@ -176,7 +180,7 @@
                 <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Reference</span>(<span class="ident">r</span>.<span class="ident">clone</span>())),
                 ..<span class="ident">Default::default</span>()
             },
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
             <span class="ident">Relation::Replacement</span>(<span class="ident">r</span>) =&gt; <span class="ident">RelatesToJsonRepr</span> {
                 <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">r</span>.<span class="ident">clone</span>())),
                 ..<span class="ident">Default::default</span>()
@@ -219,7 +223,7 @@
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;rel_type&quot;</span>)]</span>
 <span class="kw">enum</span> <span class="ident">RelationJsonRepr</span> {
     <span class="doccomment">/// An annotation to an event.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.annotation&quot;</span>)]</span>
     <span class="ident">Annotation</span>(<span class="ident">Annotation</span>),
 
@@ -228,7 +232,7 @@
     <span class="ident">Reference</span>(<span class="ident">Reference</span>),
 
     <span class="doccomment">/// An event that replaces another event.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.replace&quot;</span>)]</span>
     <span class="ident">Replacement</span>(<span class="ident">Replacement</span>),
 
@@ -240,5 +244,5 @@
     <span class="ident">Unknown</span>,
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e7aca8959 2022-02-09)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e646f3d2a 2022-02-10)" ></div>
 </body></html>

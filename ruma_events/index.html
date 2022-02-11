@@ -16,20 +16,20 @@ defines a number of event types which are considered core to the protocol, and M
 and servers must understand their semantics.
 ruma-events contains Rust types for each of the event types defined by the specification and
 facilities for extending the event system for custom event types.</p>
-<h2 id="event-types" class="section-header"><a href="#event-types">Event types</a></h2>
+<h2 id="event-types"><a href="#event-types">Event types</a></h2>
 <p>ruma-events includes a Rust enum called <code>EventType</code>, which provides a simple enumeration of
 all the event types defined by the Matrix specification. Matrix event types are serialized to
 JSON strings in <a href="https://en.wikipedia.org/wiki/Reverse_domain_name_notation">reverse domain name
 notation</a>, although the core event
 types all use the special “m” TLD, e.g. <code>m.room.message</code>.</p>
-<h2 id="core-event-types" class="section-header"><a href="#core-event-types">Core event types</a></h2>
+<h2 id="core-event-types"><a href="#core-event-types">Core event types</a></h2>
 <p>ruma-events includes Rust types for every one of the event types in the Matrix specification.
 To better organize the crate, these types live in separate modules with a hierarchy that
 matches the reverse domain name notation of the event type.
 For example, the <code>m.room.message</code> event lives at <code>ruma_events::room::message::MessageEvent</code>.
 Each type’s module also contains a Rust type for that event type’s <code>content</code> field, and any
 other supporting types required by the event’s other fields.</p>
-<h2 id="extending-ruma-with-custom-events" class="section-header"><a href="#extending-ruma-with-custom-events">Extending Ruma with custom events</a></h2>
+<h2 id="extending-ruma-with-custom-events"><a href="#extending-ruma-with-custom-events">Extending Ruma with custom events</a></h2>
 <p>For our example we will create a reaction message event. This can be used with ruma-events
 structs, for this event we will use a <code>SyncMessageEvent</code> struct but any <code>MessageEvent</code> struct
 would work.</p>
@@ -91,7 +91,7 @@ would work.</p>
         ..
     }) <span class="kw">if</span> <span class="ident">key</span> <span class="op">==</span> <span class="string">&quot;👍&quot;</span>
 );</code></pre></div>
-<h2 id="serialization-and-deserialization" class="section-header"><a href="#serialization-and-deserialization">Serialization and deserialization</a></h2>
+<h2 id="serialization-and-deserialization"><a href="#serialization-and-deserialization">Serialization and deserialization</a></h2>
 <p>All concrete event types in ruma-events can be serialized via the <code>Serialize</code> trait from
 <a href="https://serde.rs/">serde</a> and can be deserialized from as <code>Raw&lt;EventType&gt;</code>. In order to
 handle incoming data that may not conform to <code>ruma-events</code>’ strict definitions of event
@@ -119,9 +119,9 @@ event structure, if needed.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="policy/index.html" title="ruma_events::policy mod">policy</a></div><div class="item-right docblock-short"><p>Modules for events in the <code>m.policy</code> namespace.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="presence/index.html" title="ruma_events::presence mod">presence</a></div><div class="item-right docblock-short"><p>A presence event is represented by a struct with a set content field.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="push_rules/index.html" title="ruma_events::push_rules mod">push_rules</a></div><div class="item-right docblock-short"><p>Types for the <a href="https://spec.matrix.org/v1.1/client-server-api/#mpush_rules"><code>m.push_rules</code></a> event.</p>
-</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="reaction/index.html" title="ruma_events::reaction mod">reaction</a><span class="stab portability" title="This is supported on crate feature `unstable-pre-spec` only"><code>unstable-pre-spec</code></span></div><div class="item-right docblock-short"><p>Types for the <code>m.reaction</code> event.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="reaction/index.html" title="ruma_events::reaction mod">reaction</a><span class="stab portability" title="This is supported on crate feature `unstable-msc2677` only"><code>unstable-msc2677</code></span></div><div class="item-right docblock-short"><p>Types for the <code>m.reaction</code> event.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="receipt/index.html" title="ruma_events::receipt mod">receipt</a></div><div class="item-right docblock-short"><p>Types for the <a href="https://spec.matrix.org/v1.1/client-server-api/#mreceipt"><code>m.receipt</code></a> event.</p>
-</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="relation/index.html" title="ruma_events::relation mod">relation</a><span class="stab portability" title="This is supported on crate feature `unstable-pre-spec` only"><code>unstable-pre-spec</code></span></div><div class="item-right docblock-short"><p>Types describing event relations after MSC 2674, 2675, 2676, 2677.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="relation/index.html" title="ruma_events::relation mod">relation</a><span class="stab portability" title="This is supported on crate feature `unstable-msc2675` only"><code>unstable-msc2675</code></span></div><div class="item-right docblock-short"><p>Types describing event relations after MSC 2674, 2675, 2676, 2677.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="room/index.html" title="ruma_events::room mod">room</a></div><div class="item-right docblock-short"><p>Modules for events in the <code>m.room</code> namespace.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="room_key/index.html" title="ruma_events::room_key mod">room_key</a></div><div class="item-right docblock-short"><p>Types for the <a href="https://spec.matrix.org/v1.1/client-server-api/#mroom_key"><code>m.room_key</code></a> event.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="room_key_request/index.html" title="ruma_events::room_key_request mod">room_key_request</a></div><div class="item-right docblock-short"><p>Types for the <a href="https://spec.matrix.org/v1.1/client-server-api/#mroom_key_request"><code>m.room_key_request</code></a> event.</p>
@@ -205,5 +205,5 @@ event structure, if needed.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.StateEventContent.html" title="ruma_events::StateEventContent trait">StateEventContent</a></div><div class="item-right docblock-short"><p>Marker trait for the content of a state event.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.StaticEventContent.html" title="ruma_events::StaticEventContent trait">StaticEventContent</a></div><div class="item-right docblock-short"><p>Trait for abstracting over event content structs.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ToDeviceEventContent.html" title="ruma_events::ToDeviceEventContent trait">ToDeviceEventContent</a></div><div class="item-right docblock-short"><p>Marker trait for the content of a to device event.</p>
-</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e7aca8959 2022-02-09)" ></div>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (e646f3d2a 2022-02-10)" ></div>
 </body></html>
