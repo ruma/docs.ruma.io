@@ -305,7 +305,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">server_default</span>(<span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">content</span>: <span class="macro">indexset!</span>[<span class="ident">PatternedPushRule::contains_user_name</span>(<span class="ident">user_id</span>)],
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
             <span class="ident">override_</span>: <span class="macro">indexset!</span>[
                 <span class="ident">ConditionalPushRule::master</span>(),
                 <span class="ident">ConditionalPushRule::suppress_notices</span>(),
@@ -316,7 +316,7 @@
                 <span class="ident">ConditionalPushRule::roomnotif</span>(),
                 <span class="ident">ConditionalPushRule::reaction</span>(),
             ],
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>))]</span>
             <span class="ident">override_</span>: <span class="macro">indexset!</span>[
                 <span class="ident">ConditionalPushRule::master</span>(),
                 <span class="ident">ConditionalPushRule::suppress_notices</span>(),
@@ -445,7 +445,7 @@
 
     <span class="doccomment">/// Matches emoji reactions to a message</span>
     <span class="doccomment">/// MSC2677: Annotations and Reactions</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reaction</span>() -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">actions</span>: <span class="macro">vec!</span>[<span class="ident">DontNotify</span>],
