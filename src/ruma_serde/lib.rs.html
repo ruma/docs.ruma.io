@@ -126,7 +126,7 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">urlencoded</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
-    <span class="ident">base64::Base64</span>,
+    <span class="ident">base64</span>::{<span class="ident">Base64</span>, <span class="ident">Base64DecodeError</span>},
     <span class="ident">buf</span>::{<span class="ident">json_to_buf</span>, <span class="ident">slice_to_buf</span>},
     <span class="ident">can_be_empty</span>::{<span class="ident">is_empty</span>, <span class="ident">CanBeEmpty</span>},
     <span class="ident">canonical_json</span>::{
