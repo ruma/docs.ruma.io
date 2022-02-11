@@ -735,9 +735,6 @@
 <span id="728">728</span>
 <span id="729">729</span>
 <span id="730">730</span>
-<span id="731">731</span>
-<span id="732">732</span>
-<span id="733">733</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/sync](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-sync)</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">time::Duration</span>};
@@ -839,8 +836,6 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// The presence of this field indicates that the server supports</span>
         <span class="doccomment">/// fallback keys.</span>
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc2732.device_unused_fallback_key_types&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">device_unused_fallback_key_types</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">DeviceKeyAlgorithm</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
@@ -865,7 +860,6 @@
             <span class="ident">to_device</span>: <span class="ident">Default::default</span>(),
             <span class="ident">device_lists</span>: <span class="ident">Default::default</span>(),
             <span class="ident">device_one_time_keys_count</span>: <span class="ident">BTreeMap::new</span>(),
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
             <span class="ident">device_unused_fallback_key_types</span>: <span class="prelude-val">None</span>,
         }
     }
