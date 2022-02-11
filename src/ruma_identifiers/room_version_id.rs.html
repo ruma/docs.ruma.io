@@ -376,19 +376,9 @@
 <span id="369">369</span>
 <span id="370">370</span>
 <span id="371">371</span>
-<span id="372">372</span>
-<span id="373">373</span>
-<span id="374">374</span>
-<span id="375">375</span>
-<span id="376">376</span>
-<span id="377">377</span>
-<span id="378">378</span>
-<span id="379">379</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room version identifiers.</span>
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;room-version-ord&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident">std::cmp::Ordering</span>;
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">str::FromStr</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cmp::Ordering</span>, <span class="ident">convert::TryFrom</span>, <span class="ident">str::FromStr</span>};
 
 <span class="kw">use</span> <span class="ident">ruma_serde_macros::DisplayAsRefStr</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
@@ -491,9 +481,6 @@
     }
 }
 
-<span class="doccomment">/// This trait implementation is feature-gated because it could be interpreted as having other</span>
-<span class="doccomment">/// semantics than it actually does.</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;room-version-ord&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">PartialOrd</span> <span class="kw">for</span> <span class="ident">RoomVersionId</span> {
     <span class="doccomment">/// Compare the two given room version IDs by comparing their string representations.</span>
     <span class="doccomment">///</span>
@@ -505,9 +492,6 @@
     }
 }
 
-<span class="doccomment">/// This trait implementation is feature-gated because it could be interpreted as having other</span>
-<span class="doccomment">/// semantics than it actually does.</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;room-version-ord&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Ord</span> <span class="kw">for</span> <span class="ident">RoomVersionId</span> {
     <span class="doccomment">/// Compare the two given room version IDs by comparing their string representations.</span>
     <span class="doccomment">///</span>
