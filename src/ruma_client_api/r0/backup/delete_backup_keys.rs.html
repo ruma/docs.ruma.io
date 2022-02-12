@@ -55,7 +55,7 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
-</pre><pre class="rust"><code><span class="doccomment">//! [DELETE /_matrix/client/r0/room_keys/keys](https://spec.matrix.org/v1.1/client-server-api/#delete_matrixclientv3room_keyskeys)</span>
+</pre><pre class="rust"><code><span class="doccomment">//! [DELETE /_matrix/client/v3/room_keys/keys](https://spec.matrix.org/v1.1/client-server-api/#delete_matrixclientv3room_keyskeys)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -65,7 +65,7 @@
         <span class="ident">description</span>: <span class="string">&quot;Delete all keys in a backup.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">DELETE</span>,
         <span class="ident">name</span>: <span class="string">&quot;delete_backup_keys&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/room_keys/keys&quot;</span>,
+        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/keys&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
     }

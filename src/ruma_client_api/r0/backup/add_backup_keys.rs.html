@@ -63,7 +63,7 @@
 <span id="56">56</span>
 <span id="57">57</span>
 <span id="58">58</span>
-</pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/r0/room_keys/keys](https://spec.matrix.org/v1.1/client-server-api/#put_matrixclientv3room_keyskeys)</span>
+</pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/v3/room_keys/keys](https://spec.matrix.org/v1.1/client-server-api/#put_matrixclientv3room_keyskeys)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -78,7 +78,7 @@
         <span class="ident">description</span>: <span class="string">&quot;Store several keys in the backup.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">PUT</span>,
         <span class="ident">name</span>: <span class="string">&quot;add_backup_keys&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/room_keys/keys&quot;</span>,
+        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/keys&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
     }

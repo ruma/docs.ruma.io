@@ -61,7 +61,7 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
-</pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/room_keys/keys/{roomId}/{sessionId}](https://spec.matrix.org/v1.1/client-server-api/#get_matrixclientv3room_keyskeysroomidsessionid)</span>
+</pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/v3/room_keys/keys/{roomId}/{sessionId}](https://spec.matrix.org/v1.1/client-server-api/#get_matrixclientv3room_keyskeysroomidsessionid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomId</span>;
@@ -74,7 +74,7 @@
         <span class="ident">description</span>: <span class="string">&quot;Retrieve a key from the backup&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_backup_key_session&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/room_keys/keys/:room_id/:session_id&quot;</span>,
+        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/keys/:room_id/:session_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
     }

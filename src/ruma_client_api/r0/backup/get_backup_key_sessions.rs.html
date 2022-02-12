@@ -58,7 +58,7 @@
 <span id="51">51</span>
 <span id="52">52</span>
 <span id="53">53</span>
-</pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/room_keys/keys/{roomId}](https://spec.matrix.org/v1.1/client-server-api/#get_matrixclientv3room_keyskeysroomid)</span>
+</pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/v3/room_keys/keys/{roomId}](https://spec.matrix.org/v1.1/client-server-api/#get_matrixclientv3room_keyskeysroomid)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -73,7 +73,7 @@
         <span class="ident">description</span>: <span class="string">&quot;Retrieve sessions from the backup for a given room.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_backup_key_sessions&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/room_keys/keys/:room_id&quot;</span>,
+        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/keys/:room_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
     }

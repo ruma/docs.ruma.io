@@ -76,7 +76,7 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
-</pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/r0/room_keys/keys/{roomId}/{sessionId}](https://spec.matrix.org/v1.1/client-server-api/#put_matrixclientv3room_keyskeysroomidsessionid)</span>
+</pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/v3/room_keys/keys/{roomId}/{sessionId}](https://spec.matrix.org/v1.1/client-server-api/#put_matrixclientv3room_keyskeysroomidsessionid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -90,7 +90,7 @@
         <span class="ident">description</span>: <span class="string">&quot;Store several keys in the backup.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">PUT</span>,
         <span class="ident">name</span>: <span class="string">&quot;add_backup_key_session&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/room_keys/keys/:room_id/:session_id&quot;</span>,
+        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/keys/:room_id/:session_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
     }
