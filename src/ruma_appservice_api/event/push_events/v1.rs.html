@@ -190,9 +190,6 @@
 <span id="183">183</span>
 <span id="184">184</span>
 <span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/app/v1/transactions/{txnId}](https://matrix.org/docs/spec/application_service/r0.1.2#put-matrix-app-v1-transactions-txnid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -344,15 +341,13 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
-    <span class="kw">use</span> <span class="ident">ruma_events::AnyRoomEvent</span>;
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Request</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">decode_request_contains_events_field</span>() {
-        <span class="kw">let</span> <span class="ident">dummy_event</span>: <span class="ident">AnyRoomEvent</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>(<span class="macro">json!</span>({
+        <span class="kw">let</span> <span class="ident">dummy_event</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>(<span class="macro">json!</span>({
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.message&quot;</span>,
             <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$143273582443PhrSn:example.com&quot;</span>,
             <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">1</span>,
@@ -364,7 +359,6 @@
             },
         }))
         .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">dummy_event</span> <span class="op">=</span> <span class="ident">Raw::new</span>(<span class="kw-2">&amp;</span><span class="ident">dummy_event</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">dummy_event</span>];
 
         <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">Request</span> { <span class="ident">events</span>: <span class="kw-2">&amp;</span><span class="ident">events</span>, <span class="ident">txn_id</span>: <span class="string">&quot;any_txn_id&quot;</span>.<span class="ident">into</span>() }
