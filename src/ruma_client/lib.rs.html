@@ -276,6 +276,16 @@
 <span id="269">269</span>
 <span id="270">270</span>
 <span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! A minimal [Matrix](https://matrix.org/) client library.</span>
@@ -336,10 +346,11 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! use ruma_client_api::r0::alias::get_alias;</span>
 <span class="doccomment">//! use ruma_identifiers::{room_alias_id, room_id};</span>
+<span class="doccomment">//! use ruma_api::MatrixVersion;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! async {</span>
 <span class="doccomment">//!     let response = client</span>
-<span class="doccomment">//!         .send_request(get_alias::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)))</span>
+<span class="doccomment">//!         .send_request(get_alias::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)), &amp;[MatrixVersion::V1_0])</span>
 <span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     assert_eq!(response.room_id, room_id!(&quot;!n8f893n9:example.com&quot;));</span>
@@ -375,7 +386,7 @@
     <span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>},
 };
 
-<span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
+<span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
 
 <span class="comment">// &quot;Undo&quot; rename from `Cargo.toml` that only serves to make crate names available as a Cargo</span>
@@ -457,14 +468,19 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">HttpClient</span><span class="op">&gt;</span> <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Makes a request to a Matrix API endpoint.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_request</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">OutgoingRequest</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">R</span>) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>(())).<span class="kw">await</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_request</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">OutgoingRequest</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">request</span>: <span class="ident">R</span>,
+        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
+    ) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="ident">for_versions</span>, <span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>(())).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Makes a request to a Matrix API endpoint including additional URL parameters.</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_customized_request</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">F</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">request</span>: <span class="ident">R</span>,
+        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
         <span class="ident">customize</span>: <span class="ident">F</span>,
     ) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span>
     <span class="kw">where</span>
@@ -481,6 +497,7 @@
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">http_client</span>,
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">homeserver_url</span>,
             <span class="ident">send_access_token</span>,
+            <span class="ident">for_versions</span>,
             <span class="ident">request</span>,
             <span class="ident">customize</span>,
         )
@@ -495,8 +512,10 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>,
         <span class="ident">request</span>: <span class="ident">R</span>,
+        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
     ) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="ident">add_user_id_to_query</span>::<span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">user_id</span>)).<span class="kw">await</span>
+        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="ident">for_versions</span>, <span class="ident">add_user_id_to_query</span>::<span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">user_id</span>))
+            .<span class="kw">await</span>
     }
 }
 
@@ -504,6 +523,7 @@
     <span class="ident">http_client</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">C</span>,
     <span class="ident">homeserver_url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
     <span class="ident">send_access_token</span>: <span class="ident">SendAccessToken</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+    <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
     <span class="ident">request</span>: <span class="ident">R</span>,
     <span class="ident">customize</span>: <span class="ident">F</span>,
 ) -&gt; <span class="kw">impl</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Send</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>
@@ -513,7 +533,7 @@
     <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">C::RequestBody</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ResponseError</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 {
     <span class="kw">let</span> <span class="ident">http_req</span> <span class="op">=</span> <span class="ident">request</span>
-        .<span class="ident">try_into_http_request</span>(<span class="ident">homeserver_url</span>, <span class="ident">send_access_token</span>)
+        .<span class="ident">try_into_http_request</span>(<span class="ident">homeserver_url</span>, <span class="ident">send_access_token</span>, <span class="ident">for_versions</span>)
         .<span class="ident">map_err</span>(<span class="ident">ResponseError</span>::<span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="ident">::from</span>)
         .<span class="ident">and_then</span>(<span class="op">|</span><span class="kw-2">mut</span> <span class="ident">req</span><span class="op">|</span> {
             <span class="ident">customize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">req</span>)<span class="question-mark">?</span>;

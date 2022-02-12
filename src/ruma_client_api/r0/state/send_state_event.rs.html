@@ -178,6 +178,18 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/r0/rooms/{roomId}/state/{eventType}/{stateKey}](https://matrix.org/docs/spec/client_server/r0.6.1#put-matrix-client-r0-rooms-roomid-state-eventtype-statekey)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -273,17 +285,29 @@
         <span class="self">self</span>,
         <span class="ident">base_url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">access_token</span>: <span class="ident">ruma_api::SendAccessToken</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+        <span class="ident">considering_versions</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;_</span> [<span class="ident">ruma_api::MatrixVersion</span>],
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">ruma_api::error::IntoHttpError</span><span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
 
         <span class="kw">use</span> <span class="ident">http::header</span>::{<span class="self">self</span>, <span class="ident">HeaderValue</span>};
         <span class="kw">use</span> <span class="ident">percent_encoding</span>::{<span class="ident">utf8_percent_encode</span>, <span class="ident">NON_ALPHANUMERIC</span>};
 
+        <span class="kw">let</span> <span class="ident">room_id_percent</span> <span class="op">=</span> <span class="ident">utf8_percent_encode</span>(<span class="self">self</span>.<span class="ident">room_id</span>.<span class="ident">as_str</span>(), <span class="ident">NON_ALPHANUMERIC</span>);
+        <span class="kw">let</span> <span class="ident">event_type_percent</span> <span class="op">=</span> <span class="ident">utf8_percent_encode</span>(<span class="self">self</span>.<span class="ident">event_type</span>, <span class="ident">NON_ALPHANUMERIC</span>);
+
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">url</span> <span class="op">=</span> <span class="macro">format!</span>(
-            <span class="string">&quot;{}/_matrix/client/r0/rooms/{}/state/{}&quot;</span>,
+            <span class="string">&quot;{}{}&quot;</span>,
             <span class="ident">base_url</span>.<span class="ident">strip_suffix</span>(<span class="string">&#39;/&#39;</span>).<span class="ident">unwrap_or</span>(<span class="ident">base_url</span>),
-            <span class="ident">utf8_percent_encode</span>(<span class="self">self</span>.<span class="ident">room_id</span>.<span class="ident">as_str</span>(), <span class="ident">NON_ALPHANUMERIC</span>),
-            <span class="ident">utf8_percent_encode</span>(<span class="self">self</span>.<span class="ident">event_type</span>, <span class="ident">NON_ALPHANUMERIC</span>),
+            <span class="ident">ruma_api::select_path</span>(
+                <span class="ident">considering_versions</span>,
+                <span class="kw-2">&amp;</span><span class="ident">METADATA</span>,
+                <span class="prelude-val">None</span>,
+                <span class="prelude-val">Some</span>(<span class="macro">format_args!</span>(
+                    <span class="string">&quot;/_matrix/client/r0/rooms/{}/state/{}&quot;</span>,
+                    <span class="ident">room_id_percent</span>, <span class="ident">event_type_percent</span>
+                )),
+                <span class="prelude-val">None</span>,
+            )<span class="question-mark">?</span>
         );
 
         <span class="comment">// Last URL segment is optional, that is why this trait impl is not generated.</span>

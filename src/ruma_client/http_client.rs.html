@@ -147,6 +147,17 @@
 <span id="140">140</span>
 <span id="141">141</span>
 <span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
 </pre><pre class="rust"><code><span class="doccomment">//! This module contains an abstraction for HTTP clients as well as friendly-named re-exports of</span>
 <span class="doccomment">//! client types that implement this trait.</span>
 
@@ -154,7 +165,7 @@
 
 <span class="kw">use</span> <span class="ident">async_trait::async_trait</span>;
 <span class="kw">use</span> <span class="ident">bytes::BufMut</span>;
-<span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
+<span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">add_user_id_to_query</span>, <span class="ident">ResponseError</span>, <span class="ident">ResponseResult</span>};
@@ -213,9 +224,16 @@
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
         <span class="ident">homeserver_url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">access_token</span>: <span class="ident">SendAccessToken</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
         <span class="ident">request</span>: <span class="ident">R</span>,
     ) -&gt; <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">send_customized_matrix_request</span>(<span class="ident">homeserver_url</span>, <span class="ident">access_token</span>, <span class="ident">request</span>, <span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>(()))
+        <span class="self">self</span>.<span class="ident">send_customized_matrix_request</span>(
+            <span class="ident">homeserver_url</span>,
+            <span class="ident">access_token</span>,
+            <span class="ident">for_versions</span>,
+            <span class="ident">request</span>,
+            <span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>(()),
+        )
     }
 
     <span class="doccomment">/// Turn a strongly-typed matrix request into an `http::Request`, customize it and send it to</span>
@@ -225,6 +243,7 @@
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
         <span class="ident">homeserver_url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">access_token</span>: <span class="ident">SendAccessToken</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
         <span class="ident">request</span>: <span class="ident">R</span>,
         <span class="ident">customize</span>: <span class="ident">F</span>,
     ) -&gt; <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>
@@ -236,6 +255,7 @@
             <span class="self">self</span>,
             <span class="ident">homeserver_url</span>,
             <span class="ident">access_token</span>,
+            <span class="ident">for_versions</span>,
             <span class="ident">request</span>,
             <span class="ident">customize</span>,
         ))
@@ -250,12 +270,14 @@
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
         <span class="ident">homeserver_url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">access_token</span>: <span class="ident">SendAccessToken</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
+        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
         <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         <span class="ident">request</span>: <span class="ident">R</span>,
     ) -&gt; <span class="ident">Pin</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Future</span><span class="op">&lt;</span><span class="ident">Output</span> <span class="op">=</span> <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">send_customized_matrix_request</span>(
             <span class="ident">homeserver_url</span>,
             <span class="ident">access_token</span>,
+            <span class="ident">for_versions</span>,
             <span class="ident">request</span>,
             <span class="ident">add_user_id_to_query</span>::<span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">user_id</span>),
         )

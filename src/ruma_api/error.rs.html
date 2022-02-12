@@ -241,6 +241,18 @@
 <span id="234">234</span>
 <span id="235">235</span>
 <span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
 </pre><pre class="rust"><code><span class="doccomment">//! This module contains types for all kinds of errors that can occur when</span>
 <span class="doccomment">//! converting between http requests / responses and ruma&#39;s representation of</span>
 <span class="doccomment">//! matrix API requests / responses.</span>
@@ -251,7 +263,7 @@
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_slice</span> <span class="kw">as</span> <span class="ident">from_json_slice</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 <span class="kw">use</span> <span class="ident">thiserror::Error</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EndpointError</span>, <span class="ident">OutgoingResponse</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EndpointError</span>, <span class="ident">MatrixVersion</span>, <span class="ident">OutgoingResponse</span>};
 
 <span class="doccomment">/// A general-purpose Matrix error type consisting of an HTTP status code and a JSON body.</span>
 <span class="doccomment">///</span>
@@ -309,6 +321,18 @@
          try_into_authenticated_http_request&quot;</span>
     )]</span>
     <span class="ident">NeedsAuthentication</span>,
+
+    <span class="doccomment">/// Tried to create a request with an old enough version, for which no unstable endpoint</span>
+    <span class="doccomment">/// exists.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is also a fallback error for if the version is too new for this endpoint.</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Endpoint was not supported by server-reported versions, but no unstable path to fall back to was defined.&quot;</span>)]</span>
+    <span class="ident">NoUnstablePath</span>,
+
+    <span class="doccomment">/// Tried to create a request with [`MatrixVersion`]s for all of which this endpoint was</span>
+    <span class="doccomment">/// removed.</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Could not create any path variant for endpoint, as it was removed in version {0}&quot;</span>)]</span>
+    <span class="ident">EndpointRemoved</span>(<span class="ident">MatrixVersion</span>),
 
     <span class="doccomment">/// JSON serialization failed.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;JSON serialization failed: {0}&quot;</span>)]</span>

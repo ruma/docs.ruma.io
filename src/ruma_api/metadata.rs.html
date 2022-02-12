@@ -175,6 +175,7 @@
 <span id="168">168</span>
 <span id="169">169</span>
 <span id="170">170</span>
+<span id="171">171</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">convert::TryFrom</span>,
     <span class="ident">fmt</span>::{<span class="self">self</span>, <span class="ident">Display</span>},
@@ -227,15 +228,15 @@
     <span class="doccomment">/// The matrix version that deprecated this endpoint.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Deprecation often precedes one matrix version before removal.</span>
-    <span class="comment">// TODO add once try_into_http_request has been altered;</span>
-    <span class="comment">// This will make `try_into_http_request` emit a warning,</span>
-    <span class="comment">// see the corresponding documentation for more information.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will make [`try_into_http_request`](crate::OutgoingRequest::try_into_http_request)</span>
+    <span class="doccomment">/// emit a warning, see the corresponding documentation for more information.</span>
     <span class="kw">pub</span> <span class="ident">deprecated</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MatrixVersion</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The matrix version that removed this endpoint.</span>
-    <span class="comment">// TODO add once try_into_http_request has been altered;</span>
-    <span class="comment">// This will make `try_into_http_request` emit an error,</span>
-    <span class="comment">// see the corresponding documentation for more information.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will make [`try_into_http_request`](crate::OutgoingRequest::try_into_http_request)</span>
+    <span class="doccomment">/// emit an error, see the corresponding documentation for more information.</span>
     <span class="kw">pub</span> <span class="ident">removed</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MatrixVersion</span><span class="op">&gt;</span>,
 }
 
@@ -248,10 +249,11 @@
 <span class="doccomment">/// backwards-compatible manner.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Matrix has a deprecation policy, read more about it here: &lt;https://spec.matrix.org/v1.2/#deprecation-policy&gt;.</span>
-<span class="comment">// TODO add the following once `EndpointPath` and added/deprecated/removed macros are in place;</span>
-<span class="comment">// Ruma keeps track of when endpoints are added, deprecated, and removed. It&#39;ll automatically</span>
-<span class="comment">// select the right endpoint stability variation to use depending on which Matrix version you</span>
-<span class="comment">// pass it with [`EndpointPath`], see its respective documentation for more.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Ruma keeps track of when endpoints are added, deprecated, and removed. It&#39;ll automatically</span>
+<span class="doccomment">/// select the right endpoint stability variation to use depending on which Matrix versions you</span>
+<span class="doccomment">/// pass to [`try_into_http_request`](crate::OutgoingRequest::try_into_http_request), see its</span>
+<span class="doccomment">/// respective documentation for more information.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MatrixVersion</span> {
