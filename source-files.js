@@ -1,5 +1,5 @@
 var N = null;var sourcesIndex = {};
-sourcesIndex["misterbot"] = {"name":"","files":["main.rs"]};
+sourcesIndex["joke_bot"] = {"name":"","files":["main.rs"]};
 sourcesIndex["ruma"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["ruma_api"] = {"name":"","files":["error.rs","lib.rs","metadata.rs"]};
 sourcesIndex["ruma_appservice_api"] = {"name":"","dirs":[{"name":"event","dirs":[{"name":"push_events","files":["v1.rs"]}],"files":["push_events.rs"]},{"name":"query","dirs":[{"name":"query_room_alias","files":["v1.rs"]},{"name":"query_user_id","files":["v1.rs"]}],"files":["query_room_alias.rs","query_user_id.rs"]},{"name":"thirdparty","dirs":[{"name":"get_location_for_protocol","files":["v1.rs"]},{"name":"get_location_for_room_alias","files":["v1.rs"]},{"name":"get_protocol","files":["v1.rs"]},{"name":"get_user_for_protocol","files":["v1.rs"]},{"name":"get_user_for_user_id","files":["v1.rs"]}],"files":["get_location_for_protocol.rs","get_location_for_room_alias.rs","get_protocol.rs","get_user_for_protocol.rs","get_user_for_user_id.rs"]}],"files":["event.rs","lib.rs","query.rs","thirdparty.rs"]};

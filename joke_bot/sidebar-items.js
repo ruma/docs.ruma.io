@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["create_matrix_session",""],["get_joke",""],["handle_invitations",""],["handle_message",""],["main",""],["read_config",""],["read_state",""],["run",""],["write_state",""]],"struct":[["Config",""],["State",""]],"type":[["HttpClient",""],["MatrixClient",""]]});
