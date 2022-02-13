@@ -399,6 +399,8 @@
 <span id="392">392</span>
 <span id="393">393</span>
 <span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/login](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-login)</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -416,9 +418,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Gets the homeserver&#39;s supported login types to authenticate users. Clients should pick one of these and supply it as the type when logging in.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_login_types&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/login&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/login&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/login&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>

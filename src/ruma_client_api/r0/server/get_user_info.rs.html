@@ -110,6 +110,8 @@
 <span id="103">103</span>
 <span id="104">104</span>
 <span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/admin/whois/{userId}](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-admin-whois-userid)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -124,9 +126,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Get information about a particular user.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_user_info&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/admin/whois/:user_id&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/admin/whois/:user_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/admin/whois/:user_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

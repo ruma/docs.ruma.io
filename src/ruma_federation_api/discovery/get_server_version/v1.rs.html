@@ -66,6 +66,7 @@
 <span id="59">59</span>
 <span id="60">60</span>
 <span id="61">61</span>
+<span id="62">62</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/version](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-version)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -76,9 +77,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Get the implementation name and version of this homeserver.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_server_version&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/version&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/version&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>

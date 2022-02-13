@@ -87,6 +87,7 @@
 <span id="80">80</span>
 <span id="81">81</span>
 <span id="82">82</span>
+<span id="83">83</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/federation/v1/get_missing_events/{roomId}](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-federation-v1-get-missing-events-roomid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">uint</span>, <span class="ident">UInt</span>};
@@ -100,9 +101,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Retrieves previous events that the sender is missing.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_missing_events&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/get_missing_events/:room_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/get_missing_events/:room_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

@@ -46,6 +46,8 @@
 <span id="39">39</span>
 <span id="40">40</span>
 <span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/v1/register/m.login.registration_token/validity](https://spec.matrix.org/unstable/client-server-api/#get_matrixclientv1registermloginregistration_tokenvalidity)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -55,9 +57,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Checks to see if the given registration token is valid.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;check_registration_token_validity&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/v1/register/m.login.registration_token/validity&quot;</span>,
+        <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/org.matrix.msc3231/register/org.matrix.msc3231.login.registration_token/validity&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v1/register/m.login.registration_token/validity&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.2</span>,
     }
 
     <span class="ident">request</span>: {

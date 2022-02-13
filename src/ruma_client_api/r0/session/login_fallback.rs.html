@@ -58,6 +58,7 @@
 <span id="51">51</span>
 <span id="52">52</span>
 <span id="53">53</span>
+<span id="54">54</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/static/client/login/](https://spec.matrix.org/unstable/client-server-api/#login-fallback)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -68,9 +69,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Get login fallback web page.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;login_fallback&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/static/client/login/&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/static/client/login/&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>

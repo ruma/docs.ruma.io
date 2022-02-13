@@ -56,6 +56,8 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/knock/{roomIdOrAlias}](https://spec.matrix.org/unstable/client-server-api/#post_matrixclientr0knockroomidoralias)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -66,9 +68,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Knock on a room.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;knock_room&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/knock/:room_id_or_alias&quot;</span>,
+        <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/xyz.amorgan.knock/knock/:room_id_or_alias&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/knock/:room_id_or_alias&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.1</span>,
     }
 
     <span class="ident">request</span>: {

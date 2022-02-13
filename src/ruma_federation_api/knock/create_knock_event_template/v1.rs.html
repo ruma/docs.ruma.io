@@ -61,6 +61,8 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/make_knock/{roomId}/{userId}](https://spec.matrix.org/v1.1/server-server-api/#get_matrixfederationv1make_knockroomiduserid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -72,9 +74,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Send a request for a knock event template to a resident server.&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;create_knock_event_template&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/make_knock/:room_id/:user_id&quot;</span>,
+        <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/federation/unstable/xyz.amorgan.knock/make_knock/:room_id/:user_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/make_knock/:room_id/:user_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.1</span>,
     }
 
     <span class="ident">request</span>: {

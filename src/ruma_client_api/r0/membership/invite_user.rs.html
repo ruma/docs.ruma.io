@@ -119,6 +119,8 @@
 <span id="112">112</span>
 <span id="113">113</span>
 <span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/rooms/{roomId}/invite][invite-by-user-id]</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This endpoint has two forms: one to invite a user</span>
@@ -140,9 +142,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Invite a user to a room.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;invite_user&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/rooms/:room_id/invite&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/rooms/:room_id/invite&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/rooms/:room_id/invite&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

@@ -63,6 +63,7 @@
 <span id="56">56</span>
 <span id="57">57</span>
 <span id="58">58</span>
+<span id="59">59</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/make_leave/{roomId}/{userId}](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-make-leave-roomid-userid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -75,9 +76,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Asks the receiving server to return information that the sending server will need to prepare a leave event to get out of the room.&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_leave_event&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/make_leave/:room_id/:user_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/make_leave/:room_id/:user_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

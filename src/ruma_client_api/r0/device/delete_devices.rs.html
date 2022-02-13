@@ -50,6 +50,8 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/delete_devices](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-delete-devices)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -61,10 +63,12 @@
     <span class="ident">metadata</span>: {
         <span class="ident">description</span>: <span class="string">&quot;Delete specified devices.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/delete_devices&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/delete_devices&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/delete_devices&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;delete_devices&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

@@ -50,6 +50,7 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
+<span id="46">46</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/validate/msisdn/submitToken](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-validate-msisdn-submittoken)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -60,9 +61,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Validate ownership of an phone number.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;validate_msisdn&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/identity/v2/validate/msisdn/submitToken&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/identity/v2/validate/msisdn/submitToken&quot;</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

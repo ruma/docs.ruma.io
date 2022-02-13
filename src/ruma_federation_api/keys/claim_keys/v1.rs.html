@@ -78,6 +78,7 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
+<span id="74">74</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST</span>
 <span class="doccomment">//! /_matrix/federation/v1/user/keys/claim](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-federation-v1-user-keys-claim)</span>
 
@@ -94,9 +95,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Claims one-time keys for use in pre-key messages.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;claim_keys&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/user/keys/claim&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/user/keys/claim&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

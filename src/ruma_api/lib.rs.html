@@ -483,6 +483,8 @@
 <span id="476">476</span>
 <span id="477">477</span>
 <span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! Core types used to define the requests and responses for each endpoint in the various</span>
@@ -620,9 +622,10 @@
 <span class="doccomment">///             description: &quot;Does something.&quot;,</span>
 <span class="doccomment">///             method: POST,</span>
 <span class="doccomment">///             name: &quot;some_endpoint&quot;,</span>
-<span class="doccomment">///             path: &quot;/_matrix/some/endpoint/:baz&quot;,</span>
+<span class="doccomment">///             stable_path: &quot;/_matrix/some/endpoint/:baz&quot;,</span>
 <span class="doccomment">///             rate_limited: false,</span>
 <span class="doccomment">///             authentication: None,</span>
+<span class="doccomment">///             added: 1.1,</span>
 <span class="doccomment">///         }</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///         request: {</span>
@@ -661,9 +664,10 @@
 <span class="doccomment">///             description: &quot;Does something.&quot;,</span>
 <span class="doccomment">///             method: PUT,</span>
 <span class="doccomment">///             name: &quot;newtype_body_endpoint&quot;,</span>
-<span class="doccomment">///             path: &quot;/_matrix/some/newtype/body/endpoint&quot;,</span>
+<span class="doccomment">///             stable_path: &quot;/_matrix/some/newtype/body/endpoint&quot;,</span>
 <span class="doccomment">///             rate_limited: false,</span>
 <span class="doccomment">///             authentication: None,</span>
+<span class="doccomment">///             added: 1.1,</span>
 <span class="doccomment">///         }</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///         request: {</span>

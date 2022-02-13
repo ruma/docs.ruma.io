@@ -114,6 +114,8 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/notifications](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-notifications)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -129,9 +131,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Paginate through the list of events that the user has been, or would have been notified about.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_notifications&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/notifications&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/notifications&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/notifications&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>

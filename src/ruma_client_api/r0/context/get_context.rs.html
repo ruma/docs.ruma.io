@@ -105,6 +105,8 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/rooms/{roomId}/context/{eventId}](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-rooms-roomid-context-eventid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">uint</span>, <span class="ident">UInt</span>};
@@ -119,10 +121,12 @@
     <span class="ident">metadata</span>: {
         <span class="ident">description</span>: <span class="string">&quot;Get the events immediately preceding and following a given event.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/rooms/:room_id/context/:event_id&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/rooms/:room_id/context/:event_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/rooms/:room_id/context/:event_id&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_context&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

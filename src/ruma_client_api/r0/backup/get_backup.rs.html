@@ -130,6 +130,8 @@
 <span id="123">123</span>
 <span id="124">124</span>
 <span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/v3/room_keys/version/{version}](https://spec.matrix.org/v1.1/client-server-api/#get_matrixclientv3room_keysversionversion)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -145,9 +147,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Get information about an existing backup.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_backup&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/version/:version&quot;</span>,
+        <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/version/:version&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/room_keys/version/:version&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.1</span>,
     }
 
     <span class="ident">request</span>: {

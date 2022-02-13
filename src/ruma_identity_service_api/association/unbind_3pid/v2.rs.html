@@ -100,6 +100,7 @@
 <span id="93">93</span>
 <span id="94">94</span>
 <span id="95">95</span>
+<span id="96">96</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/3pid/unbind](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-3pid-unbind)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -112,9 +113,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Remove an association between a session and a Matrix user ID.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;unbind_3pid&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/identity/v2/3pid/unbind&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/identity/v2/3pid/unbind&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

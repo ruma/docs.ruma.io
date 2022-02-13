@@ -156,6 +156,7 @@
 <span id="149">149</span>
 <span id="150">150</span>
 <span id="151">151</span>
+<span id="152">152</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v1/send_leave/{roomId}/{eventId}](https://matrix.org/docs/spec/server_server/r0.1.4#put-matrix-federation-v1-send-leave-roomid-eventid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -171,9 +172,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Submits a signed leave event to the receiving server for it to accept it into the room&#39;s graph.&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;create_leave_event&quot;</span>,
         <span class="ident">method</span>: <span class="ident">PUT</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/send_leave/:room_id/:event_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/send_leave/:room_id/:event_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

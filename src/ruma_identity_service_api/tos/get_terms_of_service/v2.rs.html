@@ -94,6 +94,7 @@
 <span id="87">87</span>
 <span id="88">88</span>
 <span id="89">89</span>
+<span id="90">90</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/identity/v2/terms](https://matrix.org/docs/spec/identity_service/r0.3.0#get-matrix-identity-v2-terms)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -106,9 +107,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Gets all the terms of service offered by the server.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_terms_of_service&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/identity/v2/terms&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/identity/v2/terms&quot;</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>

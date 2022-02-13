@@ -43,6 +43,7 @@
 <span id="36">36</span>
 <span id="37">37</span>
 <span id="38">38</span>
+<span id="39">39</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/terms](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-terms)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -52,9 +53,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Called by a client to indicate that the user has accepted/agreed to the included set of URLs.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;accept_terms_of_service&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/identity/v2/terms&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/identity/v2/terms&quot;</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

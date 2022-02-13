@@ -173,9 +173,6 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">convert::TryFrom</span>,
     <span class="ident">fmt</span>::{<span class="self">self</span>, <span class="ident">Display</span>},
@@ -198,9 +195,6 @@
 
     <span class="doccomment">/// A unique identifier for this endpoint.</span>
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
-
-    <span class="doccomment">/// (DEPRECATED)</span>
-    <span class="kw">pub</span> <span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
 
     <span class="doccomment">/// The unstable path of this endpoint&#39;s URL, often `None`, used for developmental</span>
     <span class="doccomment">/// purposes.</span>

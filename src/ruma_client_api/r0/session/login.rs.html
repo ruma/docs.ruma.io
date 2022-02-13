@@ -387,6 +387,8 @@
 <span id="380">380</span>
 <span id="381">381</span>
 <span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/login](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-login)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -405,9 +407,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Login to the homeserver.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;login&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/login&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/login&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/login&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {
@@ -721,7 +725,7 @@
         .<span class="ident">try_into_http_request</span>(
             <span class="string">&quot;https://homeserver.tld&quot;</span>,
             <span class="ident">SendAccessToken::None</span>,
-            <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>],
+            <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_1</span>],
         )
         .<span class="ident">unwrap</span>();
 
@@ -749,7 +753,7 @@
         .<span class="ident">try_into_http_request</span>(
             <span class="string">&quot;https://homeserver.tld&quot;</span>,
             <span class="ident">SendAccessToken::None</span>,
-            <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>],
+            <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_1</span>],
         )
         .<span class="ident">unwrap</span>();
 

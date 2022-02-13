@@ -96,6 +96,8 @@
 <span id="89">89</span>
 <span id="90">90</span>
 <span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/media/r0/preview_url](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-media-r0-preview-url)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -108,9 +110,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Get a preview for a URL.&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_media_preview&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/media/r0/preview_url&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/media/r0/preview_url&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/media/v3/preview_url&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

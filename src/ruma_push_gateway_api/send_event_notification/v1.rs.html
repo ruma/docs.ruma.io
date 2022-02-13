@@ -386,6 +386,7 @@
 <span id="379">379</span>
 <span id="380">380</span>
 <span id="381">381</span>
+<span id="382">382</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/push/v1/notify](https://matrix.org/docs/spec/push_gateway/r0.1.1#post-matrix-push-v1-notify)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -407,9 +408,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Notify a push gateway about an event or update the number of unread notifications a user has&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;send_event_notification&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/push/v1/notify&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/push/v1/notify&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

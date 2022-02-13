@@ -190,6 +190,8 @@
 <span id="183">183</span>
 <span id="184">184</span>
 <span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/r0/rooms/{roomId}/state/{eventType}/{stateKey}](https://matrix.org/docs/spec/client_server/r0.6.1#put-matrix-client-r0-rooms-roomid-state-eventtype-statekey)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -203,9 +205,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Send a state event to a room associated with a given state key.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">PUT</span>,
         <span class="ident">name</span>: <span class="string">&quot;send_state_event&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/rooms/:room_id/state/:event_type/:state_key&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/rooms/:room_id/state/:event_type/:state_key&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/rooms/:room_id/state/:event_type/:state_key&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">response</span>: {

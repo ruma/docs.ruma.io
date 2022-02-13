@@ -47,6 +47,8 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/register/available](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-register-available)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -56,9 +58,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Checks to see if a username is available, and valid, for the server.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_username_availability&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/register/available&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/register/available&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/register/available&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

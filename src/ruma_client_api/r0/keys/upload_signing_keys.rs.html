@@ -67,6 +67,8 @@
 <span id="60">60</span>
 <span id="61">61</span>
 <span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/v3/keys/device_signing/upload](https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3keysdevice_signingupload)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -80,9 +82,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Publishes cross signing keys for the user.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;upload_signing_keys&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/unstable/keys/device_signing/upload&quot;</span>,
+        <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/keys/device_signing/upload&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/keys/device_signing/upload&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.1</span>,
     }
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>

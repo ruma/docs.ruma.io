@@ -84,6 +84,7 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
+<span id="80">80</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/user/devices/{userId}](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-user-devices-userid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -98,9 +99,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Gets information on all of the user&#39;s devices.&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_devices&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/user/devices/:user_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/user/devices/:user_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

@@ -84,6 +84,8 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/client/r0/publicRooms](https://matrix.org/docs/spec/client_server/r0.6.1#post-matrix-client-r0-publicrooms)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -98,9 +100,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Get the list of rooms in this homeserver&#39;s public directory.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_public_rooms_filtered&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/publicRooms&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/publicRooms&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/publicRooms&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>

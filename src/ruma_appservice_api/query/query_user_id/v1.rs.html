@@ -43,6 +43,7 @@
 <span id="36">36</span>
 <span id="37">37</span>
 <span id="38">38</span>
+<span id="39">39</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/app/v1/users/{userId}](https://matrix.org/docs/spec/application_service/r0.1.2#get-matrix-app-v1-users-userid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -53,9 +54,10 @@
         <span class="ident">description</span>: <span class="string">&quot;This endpoint is invoked by the homeserver on an application service to query the existence of a given user ID.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;query_user_id&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/app/v1/users/:user_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/app/v1/users/:user_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">QueryOnlyAccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

@@ -72,6 +72,8 @@
 <span id="65">65</span>
 <span id="66">66</span>
 <span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/client/r0/login/sso/redirect](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-client-r0-login-sso-redirect)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -81,9 +83,11 @@
         <span class="ident">description</span>: <span class="string">&quot;&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;sso_login&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/login/sso/redirect&quot;</span>,
+        <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/org.matrix.msc2858/login/sso/redirect&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/login/sso/redirect&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.1</span>,
     }
 
     <span class="ident">request</span>: {
@@ -129,13 +133,13 @@
             .<span class="ident">try_into_http_request</span>(
                 <span class="string">&quot;https://homeserver.tld&quot;</span>,
                 <span class="ident">SendAccessToken::None</span>,
-                <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>],
+                <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_1</span>],
             )
             .<span class="ident">unwrap</span>();
 
         <span class="macro">assert_eq!</span>(
             <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">to_string</span>(),
-            <span class="string">&quot;https://homeserver.tld/_matrix/client/r0/login/sso/redirect?redirectUrl=https%3A%2F%2Fexample.com%2Fsso&quot;</span>
+            <span class="string">&quot;https://homeserver.tld/_matrix/client/v3/login/sso/redirect?redirectUrl=https%3A%2F%2Fexample.com%2Fsso&quot;</span>
         );
     }
 }

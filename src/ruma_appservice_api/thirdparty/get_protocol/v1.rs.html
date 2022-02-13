@@ -46,6 +46,7 @@
 <span id="39">39</span>
 <span id="40">40</span>
 <span id="41">41</span>
+<span id="42">42</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/app/v1/thirdparty/protocol/{protocol}](https://matrix.org/docs/spec/application_service/r0.1.2#get-matrix-app-v1-thirdparty-protocol-protocol)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -56,9 +57,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Fetches the metadata from the homeserver about a particular third party protocol.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_protocol&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/app/v1/thirdparty/protocol/:protocol&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/app/v1/thirdparty/protocol/:protocol&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">QueryOnlyAccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

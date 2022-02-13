@@ -61,6 +61,7 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
+<span id="57">57</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/federation/v1/user/keys/query](https://spec.matrix.org/v1.1/server-server-api/#post_matrixfederationv1userkeysquery)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -75,9 +76,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Returns the current devices and identity keys for the given users.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_keys&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/user/keys/query&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/user/keys/query&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

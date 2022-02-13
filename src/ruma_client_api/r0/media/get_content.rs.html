@@ -79,6 +79,8 @@
 <span id="72">72</span>
 <span id="73">73</span>
 <span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/media/r0/download/{serverName}/{mediaId}](https://matrix.org/docs/spec/client_server/r0.6.1#get-matrix-media-r0-download-servername-mediaid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -89,9 +91,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Retrieve content from the media store.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_media_content&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/media/r0/download/:server_name/:media_id&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/media/r0/download/:server_name/:media_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/media/v3/download/:server_name/:media_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

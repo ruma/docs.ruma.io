@@ -84,6 +84,7 @@
 <span id="77">77</span>
 <span id="78">78</span>
 <span id="79">79</span>
+<span id="80">80</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/key/v2/query](https://matrix.org/docs/spec/server_server/r0.1.4#post-matrix-key-v2-query)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -100,9 +101,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Query for keys from multiple servers in a batch format.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_remote_server_keys_batch&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/key/v2/query&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/key/v2/query&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

@@ -73,6 +73,7 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
+<span id="69">69</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/federation/v1/backfill/{roomId}](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-backfill-roomid)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -87,9 +88,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Request more history from another homeserver&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;get_backfill&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/backfill/:room_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/backfill/:room_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

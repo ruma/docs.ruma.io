@@ -71,6 +71,7 @@
 <span id="64">64</span>
 <span id="65">65</span>
 <span id="66">66</span>
+<span id="67">67</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [POST /_matrix/identity/v2/validate/msisdn/requestToken](https://matrix.org/docs/spec/identity_service/r0.3.0#post-matrix-identity-v2-validate-msisdn-requesttoken)</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
@@ -82,9 +83,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Creates a session for validating a phone number.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">POST</span>,
         <span class="ident">name</span>: <span class="string">&quot;create_msisdn_validation_session&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/identity/v2/validate/msisdn/requestToken&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/identity/v2/validate/msisdn/requestToken&quot;</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

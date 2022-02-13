@@ -101,9 +101,10 @@ a JSON objects. A field with <code>#[ruma_api(raw_body)]</code> needs to have th
             <span class="ident">description</span>: <span class="string">&quot;Does something.&quot;</span>,
             <span class="ident">method</span>: <span class="ident">POST</span>,
             <span class="ident">name</span>: <span class="string">&quot;some_endpoint&quot;</span>,
-            <span class="ident">path</span>: <span class="string">&quot;/_matrix/some/endpoint/:baz&quot;</span>,
+            <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/some/endpoint/:baz&quot;</span>,
             <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
             <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+            <span class="ident">added</span>: <span class="number">1.1</span>,
         }
 
         <span class="ident">request</span>: {
@@ -142,9 +143,10 @@ a JSON objects. A field with <code>#[ruma_api(raw_body)]</code> needs to have th
             <span class="ident">description</span>: <span class="string">&quot;Does something.&quot;</span>,
             <span class="ident">method</span>: <span class="ident">PUT</span>,
             <span class="ident">name</span>: <span class="string">&quot;newtype_body_endpoint&quot;</span>,
-            <span class="ident">path</span>: <span class="string">&quot;/_matrix/some/newtype/body/endpoint&quot;</span>,
+            <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/some/newtype/body/endpoint&quot;</span>,
             <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
             <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+            <span class="ident">added</span>: <span class="number">1.1</span>,
         }
 
         <span class="ident">request</span>: {

@@ -56,6 +56,8 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v1/send_knock/{roomId}/{eventId}](https://spec.matrix.org/v1.1/server-server-api/#put_matrixfederationv1send_knockroomideventid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -69,9 +71,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Submits a signed knock event to the resident homeserver for it to accept into the room&#39;s graph.&quot;</span>,
         <span class="ident">name</span>: <span class="string">&quot;send_knock&quot;</span>,
         <span class="ident">method</span>: <span class="ident">PUT</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v1/send_knock/:room_id/:event_id&quot;</span>,
+        <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/federation/unstable/xyz.amorgan.knock/send_knock/:room_id/:event_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v1/send_knock/:room_id/:event_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.1</span>,
     }
 
     <span class="ident">request</span>: {

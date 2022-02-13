@@ -66,6 +66,8 @@
 <span id="59">59</span>
 <span id="60">60</span>
 <span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/client/r0/sendToDevice/{eventType}/{txnId}](https://matrix.org/docs/spec/client_server/r0.6.1#put-matrix-client-r0-sendtodevice-eventtype-txnid)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -81,9 +83,11 @@
         <span class="ident">description</span>: <span class="string">&quot;Send an event to a device or devices.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">PUT</span>,
         <span class="ident">name</span>: <span class="string">&quot;send_event_to_device&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/client/r0/sendToDevice/:event_type/:txn_id&quot;</span>,
+        <span class="ident">r0_path</span>: <span class="string">&quot;/_matrix/client/r0/sendToDevice/:event_type/:txn_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/sendToDevice/:event_type/:txn_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

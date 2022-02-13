@@ -68,6 +68,7 @@
 <span id="61">61</span>
 <span id="62">62</span>
 <span id="63">63</span>
+<span id="64">64</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [PUT /_matrix/federation/v2/invite/{roomId}/{eventId}](https://matrix.org/docs/spec/server_server/r0.1.4#put-matrix-federation-v2-invite-roomid-eventid)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -81,9 +82,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Invites a remote user to a room.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">PUT</span>,
         <span class="ident">name</span>: <span class="string">&quot;create_invite&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/federation/v2/invite/:room_id/:event_id&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/federation/v2/invite/:room_id/:event_id&quot;</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
         <span class="ident">authentication</span>: <span class="ident">ServerSignatures</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {

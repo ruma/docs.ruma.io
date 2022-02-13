@@ -51,6 +51,7 @@
 <span id="44">44</span>
 <span id="45">45</span>
 <span id="46">46</span>
+<span id="47">47</span>
 </pre><pre class="rust"><code><span class="doccomment">//! [GET /_matrix/identity/v2/validate/msisdn/submitToken](https://matrix.org/docs/spec/identity_service/r0.3.0#get-matrix-identity-v2-validate-msisdn-submittoken)</span>
 
 <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
@@ -61,9 +62,10 @@
         <span class="ident">description</span>: <span class="string">&quot;Validate ownership of an email address.&quot;</span>,
         <span class="ident">method</span>: <span class="ident">GET</span>,
         <span class="ident">name</span>: <span class="string">&quot;validate_email_by_end_user&quot;</span>,
-        <span class="ident">path</span>: <span class="string">&quot;/_matrix/identity/v2/validate/msisdn/submitToken&quot;</span>,
+        <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/identity/v2/validate/msisdn/submitToken&quot;</span>,
         <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
         <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
+        <span class="ident">added</span>: <span class="number">1.0</span>,
     }
 
     <span class="ident">request</span>: {
