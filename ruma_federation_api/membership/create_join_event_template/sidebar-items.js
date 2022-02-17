@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","GET /_matrix/federation/v1/make_join/{roomId}/{userId}"]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v2","GET /_matrix/key/v2/query/{serverName}/{keyId}"]]});
+initSidebarItems({"mod":[["v2","`/v2/` (spec)"]]});

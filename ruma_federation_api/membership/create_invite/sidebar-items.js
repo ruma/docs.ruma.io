@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","PUT /_matrix/federation/v1/invite/{roomId}/{eventId}"],["v2","PUT /_matrix/federation/v2/invite/{roomId}/{eventId}"]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"],["v2","`/v2/` (spec)"]]});

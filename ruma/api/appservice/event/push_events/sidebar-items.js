@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","PUT /_matrix/app/v1/transactions/{txnId}"]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"]]});

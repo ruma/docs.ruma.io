@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["check_public_key_validity","Endpoint to check for valid public key with an identity server."],["get_public_key","Endpoint to retrieve the public key for a key ID."],["validate_ephemeral_key","Endpoint to check for validity of short-term public key."]]});
+initSidebarItems({"mod":[["check_public_key_validity","`GET /_matrix/identity/*/pubkey/isvalid`"],["get_public_key","`GET /_matrix/identity/*/pubkey/{keyId}`"],["validate_ephemeral_key","`GET /_matrix/identity/*/pubkey/ephemeral/isvalid`"]]});

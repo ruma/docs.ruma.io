@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","GET /_matrix/app/v1/thirdparty/user"]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v2","GET /_matrix/identity/v2/account"]]});
+initSidebarItems({"mod":[["v2","`/v2/` (spec)"]]});

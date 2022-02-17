@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v2","POST /_matrix/identity/v2/validate/msisdn/requestToken"]]});
+initSidebarItems({"mod":[["v2","`/v2/` (spec)"]]});

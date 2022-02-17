@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","POST /_matrix/federation/v1/user/keys/query"]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"]]});

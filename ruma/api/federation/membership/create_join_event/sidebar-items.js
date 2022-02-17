@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","PUT /_matrix/federation/v1/send_join/{roomId}/{eventId}"],["v2","PUT /_matrix/federation/v2/send_join/{roomId}/{eventId}"]],"struct":[["RoomState","Full state of the room."]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"],["v2","`/v2/` (spec)"]],"struct":[["RoomState","Full state of the room."]]});

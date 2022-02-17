@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["create_email_validation_session","Create a session for verifying an email."],["validate_email","Validate an email ID after creation of a session."],["validate_email_by_end_user","Endpoint for validation of an email ID by the end-user, after creation of a session."]]});
+initSidebarItems({"mod":[["create_email_validation_session","`POST /_matrix/identity/*/validate/email/requestToken`"],["validate_email","`POST /_matrix/identity/*/validate/email/submitToken`"],["validate_email_by_end_user","`GET /_matrix/identity/*/validate/email/submitToken`"]]});

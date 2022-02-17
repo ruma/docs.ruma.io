@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["create_knock_event_template","Endpoint to query information to prepare a knock event."],["send_knock","Endpoint to submit a signed knock event to the resident homeserver."]]});
+initSidebarItems({"mod":[["create_knock_event_template","`GET /_matrix/federation/*/make_knock/{roomId}/{userId}`"],["send_knock","`PUT /_matrix/federation/*/send_knock/{roomId}/{eventId}`"]]});

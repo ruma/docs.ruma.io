@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v2","POST /_matrix/identity/v2/3pid/bind"]]});
+initSidebarItems({"mod":[["v2","`/v2/` (spec)"]]});

@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["query_room_alias","Endpoint to query the existence of a given room alias."],["query_user_id","Endpoint to query the existence of a given user ID."]]});
+initSidebarItems({"mod":[["query_room_alias","`GET /_matrix/app/*/rooms/{roomAlias}`"],["query_user_id","`GET /_matrix/app/*/users/{userId}`"]]});

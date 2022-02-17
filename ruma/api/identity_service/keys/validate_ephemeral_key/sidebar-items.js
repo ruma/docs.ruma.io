@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v2","GET /_matrix/identity/v2/pubkey/ephemeral/isvalid"]]});
+initSidebarItems({"mod":[["v2","`/v2/` (spec)"]]});

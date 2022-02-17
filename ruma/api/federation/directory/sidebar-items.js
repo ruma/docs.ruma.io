@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["get_public_rooms","Endpoint to query a homeserver’s public rooms."],["get_public_rooms_filtered","Endpoint to query a homeserver’s public rooms with an optional filter."]]});
+initSidebarItems({"mod":[["get_public_rooms","`GET /_matrix/federation/*/publicRooms`"],["get_public_rooms_filtered","`POST /_matrix/federation/*/publicRooms`"]]});

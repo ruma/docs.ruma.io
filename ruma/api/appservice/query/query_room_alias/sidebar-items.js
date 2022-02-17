@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","GET /_matrix/app/v1/rooms/{roomAlias}"]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"]]});

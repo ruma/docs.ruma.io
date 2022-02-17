@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["get_custom_information","Generic query endpoint for performing custom queries."],["get_profile_information","Endpoint to query profile information with a user id and optional field."],["get_room_information","Endpoint to query room information with a room alias."]]});
+initSidebarItems({"mod":[["get_custom_information","`GET /_matrix/federation/*/query/{queryType}`"],["get_profile_information","`GET /_matrix/federation/*/query/profile`"],["get_room_information","`GET /_matrix/federation/*/query/directory`"]]});

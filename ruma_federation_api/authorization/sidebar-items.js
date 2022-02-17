@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["get_event_authorization","Endpoint to retrieve the complete auth chain for a given event."]]});
+initSidebarItems({"mod":[["get_event_authorization","`GET /_matrix/federation/*/event_auth/{roomId}/{eventId}`"]]});

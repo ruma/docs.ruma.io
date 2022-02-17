@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","GET /_matrix/federation/v1/event_auth/{roomId}/{eventId}"]]});
+initSidebarItems({"mod":[["v1","`/v1/` (spec)"]]});

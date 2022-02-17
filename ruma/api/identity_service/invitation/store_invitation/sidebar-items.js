@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v2","POST /_matrix/identity/v2/store-invite"]]});
+initSidebarItems({"mod":[["v2","`/v2/` (spec)"]]});
