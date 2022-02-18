@@ -71,6 +71,7 @@
 <span id="64">64</span>
 <span id="65">65</span>
 <span id="66">66</span>
+<span id="67">67</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/key/*/query/{serverName}/{keyId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Query for another server&#39;s keys. The receiving (notary) server must sign the keys returned by</span>
@@ -84,6 +85,7 @@
     <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
     <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
     <span class="kw">use</span> <span class="ident">ruma_identifiers::ServerName</span>;
+    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::discovery::ServerSigningKeys</span>;
 
@@ -116,7 +118,7 @@
 
         <span class="ident">response</span>: {
             <span class="doccomment">/// The queried server&#39;s keys, signed by the notary server.</span>
-            <span class="kw">pub</span> <span class="ident">server_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">server_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
     }
 
@@ -132,7 +134,7 @@
 
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Creates a new `Response` with the given keys.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_keys</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">server_keys</span> }
         }
     }

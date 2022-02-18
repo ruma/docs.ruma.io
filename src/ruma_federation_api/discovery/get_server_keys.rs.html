@@ -62,6 +62,7 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
+<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/key/*/server`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint for retrieving a server&#39;s published signing keys.</span>
@@ -75,6 +76,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixkeyv2serverkeyid</span>
 
     <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
+    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::discovery::ServerSigningKeys</span>;
 
@@ -95,7 +97,7 @@
         <span class="ident">response</span>: {
             <span class="doccomment">/// Queried server key, signed by the notary server.</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">server_key</span>: <span class="ident">ServerSigningKeys</span>,
+            <span class="kw">pub</span> <span class="ident">server_key</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span>,
         }
     }
 
@@ -108,13 +110,13 @@
 
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Creates a new `Response` with the given server key.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_key</span>: <span class="ident">ServerSigningKeys</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_key</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">server_key</span> }
         }
     }
 
-    <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Response</span> {
-        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">server_key</span>: <span class="ident">ServerSigningKeys</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Response</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">server_key</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">ServerSigningKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">server_key</span>)
         }
     }
