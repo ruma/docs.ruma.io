@@ -82,6 +82,7 @@
 <span id="75">75</span>
 <span id="76">76</span>
 <span id="77">77</span>
+<span id="78">78</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the Send-To-Device Messaging</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [send-to-device]: https://matrix.org/docs/spec/client_server/r0.6.1#id70</span>
@@ -125,6 +126,7 @@
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeviceIdOrAllDevices</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>;
+
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">device_id_or_all_devices</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">device_id_or_all_devices</span>.<span class="ident">is_empty</span>() {
             <span class="prelude-val">Err</span>(<span class="string">&quot;Device identifier cannot be empty&quot;</span>)
