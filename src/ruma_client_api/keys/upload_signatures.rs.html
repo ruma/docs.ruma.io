@@ -112,6 +112,15 @@
 <span id="105">105</span>
 <span id="106">106</span>
 <span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/keys/signatures/upload`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -129,6 +138,8 @@
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::iter::SignedKeysIter</span>;
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
@@ -195,6 +206,11 @@
         ) {
             <span class="self">self</span>.<span class="number">0</span>.<span class="ident">insert</span>(<span class="ident">cross_signing_key_id</span>, <span class="ident">cross_signing_keys</span>.<span class="ident">into_json</span>());
         }
+
+        <span class="doccomment">/// Returns an iterator over the keys.</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">SignedKeysIter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
+            <span class="ident">SignedKeysIter</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">iter</span>())
+        }
     }
 
     <span class="doccomment">/// A failure to process a signed key.</span>
@@ -219,6 +235,8 @@
         <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
     }
 }
+
+<span class="kw">mod</span> <span class="ident">iter</span>;
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (30b3f35c4 2022-02-17)" ></div>
 </body></html>
