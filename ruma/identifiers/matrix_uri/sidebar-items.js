@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["MatrixId","All Matrix Identifiers that can be represented as a Matrix URI."]],"struct":[["MatrixToUri","The `matrix.to` URI representation of a user, room or event."]]});
