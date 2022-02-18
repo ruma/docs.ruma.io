@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["set_room_visibility","PUT /_matrix/client/r0/directory/list/appservice/{networkId}/{roomId}"]]});

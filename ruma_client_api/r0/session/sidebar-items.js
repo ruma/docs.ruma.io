@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["get_login_types","GET /_matrix/client/r0/login"],["login","POST /_matrix/client/r0/login"],["login_fallback","GET /_matrix/static/client/login/"],["logout","POST /_matrix/client/r0/logout"],["logout_all","POST /_matrix/client/r0/logout/all"],["sso_login","GET /_matrix/client/r0/login/sso/redirect"]]});

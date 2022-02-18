@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["get_public_rooms","GET /_matrix/client/r0/publicRooms"],["get_public_rooms_filtered","POST /_matrix/client/r0/publicRooms"],["get_room_visibility","GET /_matrix/client/r0/directory/list/room/{roomId}"],["set_room_visibility","PUT /_matrix/client/r0/directory/list/room/{roomId}"]]});

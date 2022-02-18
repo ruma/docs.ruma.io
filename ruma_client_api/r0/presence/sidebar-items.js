@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["get_presence","GET /_matrix/client/r0/presence/{userId}/status"],["set_presence","PUT /_matrix/client/r0/presence/{userId}/status"]]});

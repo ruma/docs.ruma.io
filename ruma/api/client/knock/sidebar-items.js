@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["knock_room","`POST /_matrix/client/*/knock/{roomIdOrAlias}`"]]});

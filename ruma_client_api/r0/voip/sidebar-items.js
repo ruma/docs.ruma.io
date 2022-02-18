@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["get_turn_server_info","GET /_matrix/client/r0/voip/turnServer"]]});

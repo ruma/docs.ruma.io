@@ -365,13 +365,13 @@
 <span class="doccomment">//! # let client = MatrixClient::new(homeserver_url, None);</span>
 <span class="doccomment">//! use std::convert::TryFrom;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! use ruma_client_api::r0::alias::get_alias;</span>
+<span class="doccomment">//! use ruma_client_api::alias::get_alias;</span>
 <span class="doccomment">//! use ruma_identifiers::{room_alias_id, room_id};</span>
 <span class="doccomment">//! use ruma_api::MatrixVersion;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! async {</span>
 <span class="doccomment">//!     let response = client</span>
-<span class="doccomment">//!         .send_request(get_alias::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)), &amp;[MatrixVersion::V1_0])</span>
+<span class="doccomment">//!         .send_request(get_alias::v3::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)), &amp;[MatrixVersion::V1_0])</span>
 <span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     assert_eq!(response.room_id, room_id!(&quot;!n8f893n9:example.com&quot;));</span>
@@ -610,5 +610,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (75d9a0ae2 2022-02-16)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (30b3f35c4 2022-02-17)" ></div>
 </body></html>

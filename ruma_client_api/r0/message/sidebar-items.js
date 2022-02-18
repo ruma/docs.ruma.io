@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["get_message_events","GET /_matrix/client/r0/rooms/{roomId}/messages"],["send_message_event","PUT /_matrix/client/r0/rooms/{roomId}/send/{eventType}/{txnId}"]]});

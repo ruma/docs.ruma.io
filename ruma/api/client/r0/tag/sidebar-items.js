@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["create_tag","PUT /_matrix/client/r0/user/{userId}/rooms/{roomId}/tags/{tag}"],["delete_tag","DELETE /_matrix/client/r0/user/{userId}/rooms/{roomId}/tags/{tag}"],["get_tags","GET /_matrix/client/r0/user/{userId}/rooms/{roomId}/tags"]]});
