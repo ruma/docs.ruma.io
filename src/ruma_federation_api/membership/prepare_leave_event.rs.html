@@ -70,13 +70,17 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/federation/*/make_leave/{roomId}/{userId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to asks the receiving server to return information that the sending server will need</span>
 <span class="doccomment">//! to prepare a leave event to get out of the room.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v1</span> {
-    <span class="doccomment">//! [GET /_matrix/federation/v1/make_leave/{roomId}/{userId}](https://matrix.org/docs/spec/server_server/r0.1.4#get-matrix-federation-v1-make-leave-roomid-userid)</span>
+    <span class="doccomment">//! `/v1/` ([spec])</span>
+    <span class="doccomment">//!</span>
+    <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixfederationv1make_leaveroomiduserid</span>
 
     <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};

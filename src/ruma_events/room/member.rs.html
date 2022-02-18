@@ -790,7 +790,7 @@
 <span id="783">783</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.member`] event.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`m.room.member`]: https://spec.matrix.org/v1.1/client-server-api/#mroommember</span>
+<span class="doccomment">//! [`m.room.member`]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -1173,7 +1173,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [spec]: https://matrix.org/docs/spec/client_server/r0.6.1#m-room-member</span>
+    <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
         <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
@@ -1184,7 +1184,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [spec]: https://matrix.org/docs/spec/client_server/r0.6.1#m-room-member</span>
+    <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
         <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
@@ -1195,7 +1195,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [spec]: https://matrix.org/docs/spec/client_server/r0.6.1#m-room-member</span>
+    <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
         <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="prelude-val">None</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }

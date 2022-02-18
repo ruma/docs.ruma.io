@@ -13,7 +13,7 @@
     SetTweak(<a class="enum" href="enum.Tweak.html" title="enum ruma::push::Tweak">Tweak</a>),
 }</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This represents the different actions that should be taken when a rule is matched, and
 controls how notifications are delivered to the client.</p>
-<p>See <a href="https://matrix.org/docs/spec/client_server/r0.6.1#actions">https://matrix.org/docs/spec/client_server/r0.6.1#actions</a> for details.</p>
+<p>See <a href="https://spec.matrix.org/v1.2/client-server-api/#actions">the spec</a> for details.</p>
 </div></details><h2 id="variants" class="variants small-section-header">Variants<a href="#variants" class="anchor"></a></h2><h3 id="variant.Notify" class="variant small-section-header"><a href="#variant.Notify" class="anchor field"></a><code>Notify</code></h3><div class="docblock"><p>Causes matching events to generate a notification.</p>
 </div><h3 id="variant.DontNotify" class="variant small-section-header"><a href="#variant.DontNotify" class="anchor field"></a><code>DontNotify</code></h3><div class="docblock"><p>Prevents matching events from generating a notification.</p>
 </div><h3 id="variant.Coalesce" class="variant small-section-header"><a href="#variant.Coalesce" class="anchor field"></a><code>Coalesce</code></h3><div class="docblock"><p>Behaves like notify but homeservers may choose to coalesce multiple events

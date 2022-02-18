@@ -792,7 +792,7 @@
 <span id="785">785</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Module for [User-Interactive Authentication API][uiaa] types.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [uiaa]: https://matrix.org/docs/spec/client_server/r0.6.1#user-interactive-authentication-api</span>
+<span class="doccomment">//! [uiaa]: https://spec.matrix.org/v1.2/client-server-api/#user-interactive-authentication-api</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">fmt</span>};
 
@@ -1131,7 +1131,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [the spec] for how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [the spec]: https://matrix.org/docs/spec/client_server/r0.6.1#password-based</span>
+<span class="doccomment">/// [the spec]: https://spec.matrix.org/v1.2/client-server-api/#password-based</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.password&quot;</span>)]</span>
@@ -1168,7 +1168,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [the spec] for how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [the spec]: https://matrix.org/docs/spec/client_server/r0.6.1#google-recaptcha</span>
+<span class="doccomment">/// [the spec]: https://spec.matrix.org/v1.2/client-server-api/#google-recaptcha</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.recaptcha&quot;</span>)]</span>
@@ -1198,7 +1198,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [the spec] for how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [the spec]: https://matrix.org/docs/spec/client_server/r0.6.1#email-based-identity-homeserver</span>
+<span class="doccomment">/// [the spec]: https://spec.matrix.org/v1.2/client-server-api/#email-based-identity--homeserver</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.email.identity&quot;</span>)]</span>
@@ -1229,7 +1229,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [the spec] for how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [the spec]: https://matrix.org/docs/spec/client_server/r0.6.1#phone-number-msisdn-based-identity-homeserver</span>
+<span class="doccomment">/// [the spec]: https://spec.matrix.org/v1.2/client-server-api/#phone-numbermsisdn-based-identity--homeserver</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.msisdn&quot;</span>)]</span>
@@ -1257,7 +1257,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [the spec] for how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [the spec]: https://matrix.org/docs/spec/client_server/r0.6.1#dummy-auth</span>
+<span class="doccomment">/// [the spec]: https://spec.matrix.org/v1.2/client-server-api/#dummy-auth</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.dummy&quot;</span>)]</span>
@@ -1284,7 +1284,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [the spec] for how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [the spec]: https://spec.matrix.org/unstable/client-server-api/#token-authenticated-registration</span>
+<span class="doccomment">/// [the spec]: https://spec.matrix.org/v1.2/client-server-api/#token-authenticated-registration</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.registration_token&quot;</span>)]</span>
@@ -1314,7 +1314,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// See [the spec] for how to use this.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [the spec]: https://matrix.org/docs/spec/client_server/r0.6.1#fallback</span>
+<span class="doccomment">/// [the spec]: https://spec.matrix.org/v1.2/client-server-api/#fallback</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FallbackAcknowledgement</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {

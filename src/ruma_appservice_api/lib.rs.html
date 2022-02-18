@@ -173,7 +173,7 @@
 
 <span class="doccomment">/// A namespace defined by an application service.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Used for [appservice registration](https://matrix.org/docs/spec/application_service/r0.1.2#registration).</span>
+<span class="doccomment">/// Used for [appservice registration](https://spec.matrix.org/v1.2/application-service-api/#registration).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Namespace</span> {
@@ -193,7 +193,7 @@
 
 <span class="doccomment">/// Namespaces defined by an application service.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Used for [appservice registration](https://matrix.org/docs/spec/application_service/r0.1.2#registration).</span>
+<span class="doccomment">/// Used for [appservice registration](https://spec.matrix.org/v1.2/application-service-api/#registration).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Namespaces</span> {
@@ -223,7 +223,7 @@
 <span class="doccomment">/// To create an instance of this type, first create a `RegistrationInit` and convert it via</span>
 <span class="doccomment">/// `Registration::from` / `.into()`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Used for [appservice registration](https://matrix.org/docs/spec/application_service/r0.1.2#registration).</span>
+<span class="doccomment">/// Used for [appservice registration](https://spec.matrix.org/v1.2/application-service-api/#registration).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Registration</span> {
@@ -261,7 +261,7 @@
 <span class="doccomment">/// This struct will not be updated even if additional fields are added to `Registration` in a new</span>
 <span class="doccomment">/// (non-breaking) release of the Matrix specification.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Used for [appservice registration](https://matrix.org/docs/spec/application_service/r0.1.2#registration).</span>
+<span class="doccomment">/// Used for [appservice registration](https://spec.matrix.org/v1.2/application-service-api/#registration).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RegistrationInit</span> {

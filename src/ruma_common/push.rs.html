@@ -1199,7 +1199,7 @@
 <span id="1192">1192</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [push notifications module][push].</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [push]: https://matrix.org/docs/spec/client_server/r0.6.1#id89</span>
+<span class="doccomment">//! [push]: https://spec.matrix.org/v1.2/client-server-api/#push-notifications</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Understanding the types of this module</span>
 <span class="doccomment">//!</span>
@@ -1637,7 +1637,7 @@
 <span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
 <span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// [spec]: https://matrix.org/docs/spec/push_gateway/r0.1.1#homeserver-behaviour</span>
+<span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/push-gateway-api/#homeserver-behaviour</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>

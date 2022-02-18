@@ -235,7 +235,7 @@
 <span id="228">228</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.tag`] event.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`m.tag`]: https://spec.matrix.org/v1.1/client-server-api/#mtag</span>
+<span class="doccomment">//! [`m.tag`]: https://spec.matrix.org/v1.2/client-server-api/#mtag</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">error::Error</span>, <span class="ident">fmt</span>, <span class="ident">str::FromStr</span>};
 
@@ -323,7 +323,7 @@
     <span class="ident">LowPriority</span>,
 
     <span class="doccomment">/// `m.server_notice`: Used to identify</span>
-    <span class="doccomment">/// [Server Notice Rooms](https://matrix.org/docs/spec/client_server/r0.6.1#module-server-notices).</span>
+    <span class="doccomment">/// [Server Notice Rooms](https://spec.matrix.org/v1.2/client-server-api/#server-notices).</span>
     <span class="ident">ServerNotice</span>,
 
     <span class="doccomment">/// `u.*`: User-defined tag</span>

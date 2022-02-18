@@ -1326,7 +1326,7 @@
 
     <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="ident">incoming_event</span>.<span class="ident">sender</span>();
 
-    <span class="comment">// Implementation of https://matrix.org/docs/spec/rooms/v1#authorization-rules</span>
+    <span class="comment">// Implementation of https://spec.matrix.org/v1.2/rooms/v1/#authorization-rules</span>
     <span class="comment">//</span>
     <span class="comment">// 1. If type is m.room.create:</span>
     <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">incoming_event</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">EventType::RoomCreate</span> {

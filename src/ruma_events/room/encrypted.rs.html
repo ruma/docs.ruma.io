@@ -365,7 +365,7 @@
 <span id="358">358</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.encrypted`] event.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`m.room.encrypted`]: https://spec.matrix.org/v1.1/client-server-api/#mroomencrypted</span>
+<span class="doccomment">//! [`m.room.encrypted`]: https://spec.matrix.org/v1.2/client-server-api/#mroomencrypted</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
@@ -389,7 +389,7 @@
 
     <span class="doccomment">/// Information about related messages for [rich replies].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// [rich replies]: https://matrix.org/docs/spec/client_server/r0.6.1#rich-replies</span>
+    <span class="doccomment">/// [rich replies]: https://spec.matrix.org/v1.2/client-server-api/#rich-replies</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
