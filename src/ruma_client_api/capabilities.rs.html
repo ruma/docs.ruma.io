@@ -234,13 +234,13 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">collections::BTreeMap</span>};
 
-<span class="kw">use</span> <span class="ident">iter</span>::{<span class="ident">CapabilitiesIter</span>, <span class="ident">CapabilityRef</span>};
 <span class="kw">use</span> <span class="ident">maplit::btreemap</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomVersionId</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 
+<span class="kw">use</span> <span class="ident"><span class="self">self</span>::iter</span>::{<span class="ident">CapabilitiesIter</span>, <span class="ident">CapabilityRef</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_capabilities</span>;

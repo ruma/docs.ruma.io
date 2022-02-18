@@ -317,8 +317,6 @@
 <span id="310">310</span>
 <span id="311">311</span>
 <span id="312">312</span>
-<span id="313">313</span>
-<span id="314">314</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix user identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">rc::Rc</span>, <span class="ident">sync::Arc</span>};
@@ -333,10 +331,7 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_identifiers::UserId;</span>
-<span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     &lt;&amp;UserId&gt;::try_from(&quot;@carl:example.com&quot;).unwrap(),</span>
-<span class="doccomment">///     &quot;@carl:example.com&quot;</span>
-<span class="doccomment">/// );</span>
+<span class="doccomment">/// assert_eq!(&lt;&amp;UserId&gt;::try_from(&quot;@carl:example.com&quot;).unwrap(), &quot;@carl:example.com&quot;);</span>
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
@@ -436,7 +431,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let message = format!(</span>
     <span class="doccomment">///     r#&quot;Thanks for the update &lt;a href=&quot;{link}&quot;&gt;{display_name}&lt;/a&gt;.&quot;#,</span>
-    <span class="doccomment">///     link = user_id!(&quot;@jplatte:notareal.hs&quot;).matrix_to_url(), display_name = &quot;jplatte&quot;,</span>
+    <span class="doccomment">///     link = user_id!(&quot;@jplatte:notareal.hs&quot;).matrix_to_url(),</span>
+    <span class="doccomment">///     display_name = &quot;jplatte&quot;,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matrix_to_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MatrixToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {

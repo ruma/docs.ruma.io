@@ -1077,6 +1077,8 @@
 <span id="1070">1070</span>
 <span id="1071">1071</span>
 <span id="1072">1072</span>
+<span id="1073">1073</span>
+<span id="1074">1074</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Functions for signing and verifying JSON and events.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1195,7 +1197,8 @@
 <span class="doccomment">/// let key_pair = ruma_signatures::Ed25519KeyPair::from_der(</span>
 <span class="doccomment">///     &amp;document,</span>
 <span class="doccomment">///     &quot;1&quot;.into(), // The &quot;version&quot; of the key.</span>
-<span class="doccomment">/// ).unwrap();</span>
+<span class="doccomment">/// )</span>
+<span class="doccomment">/// .unwrap();</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Deserialize some JSON.</span>
 <span class="doccomment">/// let mut value = serde_json::from_str(&quot;{}&quot;).unwrap();</span>
@@ -1270,11 +1273,10 @@
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// let input =</span>
-<span class="doccomment">///     r#&quot;{</span>
-<span class="doccomment">///         &quot;本&quot;: 2,</span>
-<span class="doccomment">///         &quot;日&quot;: 1</span>
-<span class="doccomment">///     }&quot;#;</span>
+<span class="doccomment">/// let input = r#&quot;{</span>
+<span class="doccomment">///     &quot;本&quot;: 2,</span>
+<span class="doccomment">///     &quot;日&quot;: 1</span>
+<span class="doccomment">/// }&quot;#;</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// let object = serde_json::from_str(input).unwrap();</span>
 <span class="doccomment">/// let canonical = ruma_signatures::canonical_json(&amp;object).unwrap();</span>
@@ -1509,7 +1511,8 @@
 <span class="doccomment">/// let key_pair = Ed25519KeyPair::from_der(</span>
 <span class="doccomment">///     &amp;document,</span>
 <span class="doccomment">///     &quot;1&quot;.into(), // The &quot;version&quot; of the key.</span>
-<span class="doccomment">/// ).unwrap();</span>
+<span class="doccomment">/// )</span>
+<span class="doccomment">/// .unwrap();</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Deserialize an event from JSON.</span>
 <span class="doccomment">/// let mut object = serde_json::from_str(</span>
@@ -1528,8 +1531,9 @@
 <span class="doccomment">///         &quot;unsigned&quot;: {</span>
 <span class="doccomment">///             &quot;age_ts&quot;: 1000000</span>
 <span class="doccomment">///         }</span>
-<span class="doccomment">///     }&quot;#</span>
-<span class="doccomment">/// ).unwrap();</span>
+<span class="doccomment">///     }&quot;#,</span>
+<span class="doccomment">/// )</span>
+<span class="doccomment">/// .unwrap();</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // Hash and sign the JSON with the key pair.</span>
 <span class="doccomment">/// assert!(hash_and_sign_event(&quot;domain&quot;, &amp;key_pair, &amp;mut object, &amp;RoomVersionId::V1).is_ok());</span>

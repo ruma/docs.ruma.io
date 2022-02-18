@@ -359,6 +359,10 @@
 <span id="352">352</span>
 <span id="353">353</span>
 <span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Deserialization support for the `application/x-www-form-urlencoded` format.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -392,8 +396,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// assert_eq!(</span>
 <span class="doccomment">///     ruma_serde::urlencoded::from_bytes::&lt;Vec&lt;(String, String)&gt;&gt;(</span>
-<span class="doccomment">///         b&quot;bread=baguette&amp;cheese=comt%C3%A9&amp;meat=ham&amp;fat=butter&quot;),</span>
-<span class="doccomment">///     Ok(meal));</span>
+<span class="doccomment">///         b&quot;bread=baguette&amp;cheese=comt%C3%A9&amp;meat=ham&amp;fat=butter&quot;</span>
+<span class="doccomment">///     ),</span>
+<span class="doccomment">///     Ok(meal)</span>
+<span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_bytes</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;de</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
@@ -414,8 +420,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// assert_eq!(</span>
 <span class="doccomment">///     ruma_serde::urlencoded::from_str::&lt;Vec&lt;(String, String)&gt;&gt;(</span>
-<span class="doccomment">///         &quot;bread=baguette&amp;cheese=comt%C3%A9&amp;meat=ham&amp;fat=butter&quot;),</span>
-<span class="doccomment">///     Ok(meal));</span>
+<span class="doccomment">///         &quot;bread=baguette&amp;cheese=comt%C3%A9&amp;meat=ham&amp;fat=butter&quot;</span>
+<span class="doccomment">///     ),</span>
+<span class="doccomment">///     Ok(meal)</span>
+<span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_str</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;de</span> <span class="ident">str</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>

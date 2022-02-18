@@ -78,7 +78,6 @@
 <span id="71">71</span>
 <span id="72">72</span>
 <span id="73">73</span>
-<span id="74">74</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/federation/*/make_join/{roomId}/{userId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to request a template for join events.</span>
@@ -90,7 +89,6 @@
 
     <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
-
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
     <span class="macro">ruma_api!</span> {

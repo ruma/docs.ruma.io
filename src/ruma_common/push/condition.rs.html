@@ -602,7 +602,6 @@
 <span id="595">595</span>
 <span id="596">596</span>
 <span id="597">597</span>
-<span id="598">598</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">convert::TryFrom</span>, <span class="ident">ops::RangeBounds</span>, <span class="ident">str::FromStr</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">Int</span>, <span class="ident">UInt</span>};
@@ -919,9 +918,8 @@
         <span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>,
     };
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::power_levels::NotificationPowerLevels</span>;
-
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">FlattenedJson</span>, <span class="ident">PushCondition</span>, <span class="ident">PushConditionRoomCtx</span>, <span class="ident">RoomMemberCountIs</span>, <span class="ident">StrExt</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::power_levels::NotificationPowerLevels</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialize_event_match_condition</span>() {

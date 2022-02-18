@@ -493,10 +493,6 @@
 <span id="486">486</span>
 <span id="487">487</span>
 <span id="488">488</span>
-<span id="489">489</span>
-<span id="490">490</span>
-<span id="491">491</span>
-<span id="492">492</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Serialization support for the `application/x-www-form-urlencoded` format.</span>
 
 <span class="kw">mod</span> <span class="ident">key</span>;
@@ -512,16 +508,12 @@
 <span class="doccomment">/// Serializes a value into a `application/x-www-form-urlencoded` `String` buffer.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// let meal = &amp;[</span>
-<span class="doccomment">///     (&quot;bread&quot;, &quot;baguette&quot;),</span>
-<span class="doccomment">///     (&quot;cheese&quot;, &quot;comté&quot;),</span>
-<span class="doccomment">///     (&quot;meat&quot;, &quot;ham&quot;),</span>
-<span class="doccomment">///     (&quot;fat&quot;, &quot;butter&quot;),</span>
-<span class="doccomment">/// ];</span>
+<span class="doccomment">/// let meal = &amp;[(&quot;bread&quot;, &quot;baguette&quot;), (&quot;cheese&quot;, &quot;comté&quot;), (&quot;meat&quot;, &quot;ham&quot;), (&quot;fat&quot;, &quot;butter&quot;)];</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// assert_eq!(</span>
 <span class="doccomment">///     ruma_serde::urlencoded::to_string(meal),</span>
-<span class="doccomment">///     Ok(&quot;bread=baguette&amp;cheese=comt%C3%A9&amp;meat=ham&amp;fat=butter&quot;.to_owned()));</span>
+<span class="doccomment">///     Ok(&quot;bread=baguette&amp;cheese=comt%C3%A9&amp;meat=ham&amp;fat=butter&quot;.to_owned())</span>
+<span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_string</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ser::Serialize</span><span class="op">&gt;</span>(<span class="ident">input</span>: <span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">urlencoder</span> <span class="op">=</span> <span class="ident">UrlEncodedSerializer::new</span>(<span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>());

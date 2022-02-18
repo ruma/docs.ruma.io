@@ -1192,6 +1192,10 @@
 <span id="1187">1187</span>
 <span id="1188">1188</span>
 <span id="1189">1189</span>
+<span id="1190">1190</span>
+<span id="1191">1191</span>
+<span id="1192">1192</span>
+<span id="1193">1193</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Borrow</span>, <span class="ident">collections::BTreeSet</span>, <span class="ident">convert::TryFrom</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
@@ -2123,6 +2127,17 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
+    <span class="kw">use</span> <span class="ident">ruma_events</span>::{
+        <span class="ident">room</span>::{
+            <span class="ident">join_rules</span>::{
+                <span class="ident">AllowRule</span>, <span class="ident">JoinRule</span>, <span class="ident">Restricted</span>, <span class="ident">RoomJoinRulesEventContent</span>, <span class="ident">RoomMembership</span>,
+            },
+            <span class="ident">member</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>},
+        },
+        <span class="ident">EventType</span>,
+    };
+    <span class="kw">use</span> <span class="ident">serde_json::value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>;
+
     <span class="kw">use</span> <span class="kw">crate</span>::{
         <span class="ident">event_auth::valid_membership_change</span>,
         <span class="ident">test_utils</span>::{
@@ -2131,13 +2146,6 @@
         },
         <span class="ident">Event</span>, <span class="ident">RoomVersion</span>, <span class="ident">StateMap</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_events::room</span>::{
-        <span class="ident">join_rules</span>::{<span class="ident">AllowRule</span>, <span class="ident">JoinRule</span>, <span class="ident">Restricted</span>, <span class="ident">RoomJoinRulesEventContent</span>, <span class="ident">RoomMembership</span>},
-        <span class="ident">member</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>},
-    };
-    <span class="kw">use</span> <span class="ident">serde_json::value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>;
-
-    <span class="kw">use</span> <span class="ident">ruma_events::EventType</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_ban_pass</span>() {

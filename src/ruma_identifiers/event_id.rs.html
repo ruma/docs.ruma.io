@@ -253,9 +253,6 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix event identifiers.</span>
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
@@ -278,10 +275,7 @@
 <span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_identifiers::EventId;</span>
 <span class="doccomment">/// // Original format</span>
-<span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     &lt;&amp;EventId&gt;::try_from(&quot;$h29iv0s8:example.com&quot;).unwrap(),</span>
-<span class="doccomment">///     &quot;$h29iv0s8:example.com&quot;</span>
-<span class="doccomment">/// );</span>
+<span class="doccomment">/// assert_eq!(&lt;&amp;EventId&gt;::try_from(&quot;$h29iv0s8:example.com&quot;).unwrap(), &quot;$h29iv0s8:example.com&quot;);</span>
 <span class="doccomment">/// // Room version 3 format</span>
 <span class="doccomment">/// assert_eq!(</span>
 <span class="doccomment">///     &lt;&amp;EventId&gt;::try_from(&quot;$acR1l0raoZnm60CBwAVgqbZqoO/mYU81xysh1u7XcJk&quot;).unwrap(),</span>

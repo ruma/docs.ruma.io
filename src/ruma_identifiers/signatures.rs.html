@@ -63,6 +63,7 @@
 <span id="56">56</span>
 <span id="57">57</span>
 <span id="58">58</span>
+<span id="59">59</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Borrow</span>, <span class="ident">collections::BTreeMap</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">DeviceId</span>, <span class="ident">KeyName</span>, <span class="ident">ServerName</span>, <span class="ident">SigningKeyId</span>, <span class="ident">UserId</span>};
@@ -77,7 +78,8 @@
 <span class="doccomment">/// let key_identifier = KeyId::from_parts(SigningKeyAlgorithm::Ed25519, &quot;1&quot;);</span>
 <span class="doccomment">/// let mut signatures = Signatures::new();</span>
 <span class="doccomment">/// let server_name = server_name!(&quot;example.org&quot;);</span>
-<span class="doccomment">/// let signature = &quot;YbJva03ihSj5mPk+CHMJKUKlCXCPFXjXOK6VqBnN9nA2evksQcTGn6hwQfrgRHIDDXO2le49x7jnWJHMJrJoBQ&quot;;</span>
+<span class="doccomment">/// let signature =</span>
+<span class="doccomment">///     &quot;YbJva03ihSj5mPk+CHMJKUKlCXCPFXjXOK6VqBnN9nA2evksQcTGn6hwQfrgRHIDDXO2le49x7jnWJHMJrJoBQ&quot;;</span>
 <span class="doccomment">/// signatures.insert(server_name, key_identifier, signature.into());</span>
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>

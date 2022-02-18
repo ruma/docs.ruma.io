@@ -307,6 +307,9 @@
 <span id="300">300</span>
 <span id="301">301</span>
 <span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! A minimal [Matrix](https://matrix.org/) client library.</span>
@@ -365,13 +368,16 @@
 <span class="doccomment">//! # let client = MatrixClient::new(homeserver_url, None);</span>
 <span class="doccomment">//! use std::convert::TryFrom;</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! use ruma_api::MatrixVersion;</span>
 <span class="doccomment">//! use ruma_client_api::alias::get_alias;</span>
 <span class="doccomment">//! use ruma_identifiers::{room_alias_id, room_id};</span>
-<span class="doccomment">//! use ruma_api::MatrixVersion;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! async {</span>
 <span class="doccomment">//!     let response = client</span>
-<span class="doccomment">//!         .send_request(get_alias::v3::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)), &amp;[MatrixVersion::V1_0])</span>
+<span class="doccomment">//!         .send_request(</span>
+<span class="doccomment">//!             get_alias::v3::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)),</span>
+<span class="doccomment">//!             &amp;[MatrixVersion::V1_0],</span>
+<span class="doccomment">//!         )</span>
 <span class="doccomment">//!         .await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//!     assert_eq!(response.room_id, room_id!(&quot;!n8f893n9:example.com&quot;));</span>

@@ -327,8 +327,6 @@
 <span id="320">320</span>
 <span id="321">321</span>
 <span id="322">322</span>
-<span id="323">323</span>
-<span id="324">324</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.power_levels`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.power_levels`]: https://spec.matrix.org/v1.1/client-server-api/#mroompower_levels</span>
@@ -336,14 +334,12 @@
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
-<span class="kw">use</span> <span class="ident">ruma_common::power_levels::default_power_level</span>;
+<span class="kw">use</span> <span class="ident">ruma_common::power_levels</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>};
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EventType</span>;
-
-<span class="kw">use</span> <span class="ident">ruma_common::power_levels::NotificationPowerLevels</span>;
 
 <span class="doccomment">/// The content of an `m.room.power_levels` event.</span>
 <span class="doccomment">///</span>

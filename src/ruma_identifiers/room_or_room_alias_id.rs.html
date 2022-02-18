@@ -238,9 +238,6 @@
 <span id="231">231</span>
 <span id="232">232</span>
 <span id="233">233</span>
-<span id="234">234</span>
-<span id="235">235</span>
-<span id="236">236</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix identifiers for places where a room ID or room alias ID are used interchangeably.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">hint::unreachable_unchecked</span>};
@@ -256,10 +253,7 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_identifiers::RoomOrAliasId;</span>
-<span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     &lt;&amp;RoomOrAliasId&gt;::try_from(&quot;#ruma:example.com&quot;).unwrap(),</span>
-<span class="doccomment">///     &quot;#ruma:example.com&quot;</span>
-<span class="doccomment">/// );</span>
+<span class="doccomment">/// assert_eq!(&lt;&amp;RoomOrAliasId&gt;::try_from(&quot;#ruma:example.com&quot;).unwrap(), &quot;#ruma:example.com&quot;);</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// assert_eq!(</span>
 <span class="doccomment">///     &lt;&amp;RoomOrAliasId&gt;::try_from(&quot;!n8f893n9:example.com&quot;).unwrap(),</span>

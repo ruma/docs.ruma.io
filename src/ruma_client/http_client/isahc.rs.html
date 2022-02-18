@@ -29,10 +29,10 @@
 <span id="22">22</span>
 <span id="23">23</span>
 <span id="24">24</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">super</span>::HttpClient</span>;
-
-<span class="kw">use</span> <span class="ident">async_trait::async_trait</span>;
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">async_trait::async_trait</span>;
 <span class="kw">use</span> <span class="ident">futures_lite::AsyncReadExt</span>;
+
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::HttpClient</span>;
 
 <span class="doccomment">/// The `isahc` crate&#39;s `HttpClient`.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Isahc</span> <span class="op">=</span> <span class="ident">isahc::HttpClient</span>;

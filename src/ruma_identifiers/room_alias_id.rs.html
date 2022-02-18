@@ -158,9 +158,6 @@
 <span id="151">151</span>
 <span id="152">152</span>
 <span id="153">153</span>
-<span id="154">154</span>
-<span id="155">155</span>
-<span id="156">156</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room alias identifiers.</span>
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">server_name::ServerName</span>, <span class="ident">EventId</span>, <span class="ident">MatrixToRef</span>};
@@ -173,10 +170,7 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_identifiers::RoomAliasId;</span>
-<span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     &lt;&amp;RoomAliasId&gt;::try_from(&quot;#ruma:example.com&quot;).unwrap(),</span>
-<span class="doccomment">///     &quot;#ruma:example.com&quot;</span>
-<span class="doccomment">/// );</span>
+<span class="doccomment">/// assert_eq!(&lt;&amp;RoomAliasId&gt;::try_from(&quot;#ruma:example.com&quot;).unwrap(), &quot;#ruma:example.com&quot;);</span>
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>

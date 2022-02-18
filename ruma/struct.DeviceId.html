@@ -10,7 +10,7 @@
 <p>Device identifiers in Matrix are completely opaque character sequences. This type is provided
 simply for its semantic value.</p>
 <h2 id="example"><a href="#example">Example</a></h2>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">device_id</span>};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">device_id</span>, <span class="ident">DeviceId</span>};
 
 <span class="kw">let</span> <span class="ident">random_id</span> <span class="op">=</span> <span class="ident">DeviceId::new</span>();
 <span class="macro">assert_eq!</span>(<span class="ident">random_id</span>.<span class="ident">as_str</span>().<span class="ident">len</span>(), <span class="number">8</span>);
