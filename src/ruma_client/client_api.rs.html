@@ -175,7 +175,7 @@
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">login::v3::Response</span>, <span class="ident">Error</span><span class="op">&lt;</span><span class="ident">C::Error</span>, <span class="ident">ruma_client_api::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">response</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">send_request</span>(<span class="macro">assign!</span>(<span class="ident">login::v3::Request::new</span>(
-                <span class="ident">LoginInfo::Password</span>(<span class="ident">login::v3::Password::new</span>(<span class="ident">UserIdentifier::MatrixId</span>(<span class="ident">user</span>), <span class="ident">password</span>))), {
+                <span class="ident">LoginInfo::Password</span>(<span class="ident">login::v3::Password::new</span>(<span class="ident">UserIdentifier::UserIdOrLocalpart</span>(<span class="ident">user</span>), <span class="ident">password</span>))), {
                 <span class="ident">device_id</span>,
                 <span class="ident">initial_device_display_name</span>,
                 }
