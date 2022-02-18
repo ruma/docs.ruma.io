@@ -268,19 +268,13 @@
 <span id="263">263</span>
 <span id="264">264</span>
 <span id="265">265</span>
-<span id="266">266</span>
-<span id="267">267</span>
-<span id="268">268</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryInto</span>, <span class="ident">error::Error</span>, <span class="ident">io</span>, <span class="ident">process::exit</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">futures_util::future</span>::{<span class="ident">join</span>, <span class="ident">join_all</span>};
 <span class="kw">use</span> <span class="ident">ruma</span>::{
-    <span class="ident">api</span>::{
-        <span class="ident">client</span>::{
-            <span class="ident">filter::FilterDefinition</span>, <span class="ident">membership::join_room_by_id</span>, <span class="ident">message::send_message_event</span>,
-            <span class="ident">sync::sync_events</span>,
-        },
-        <span class="ident">MatrixVersion</span>,
+    <span class="ident">api::client</span>::{
+        <span class="ident">filter::FilterDefinition</span>, <span class="ident">membership::join_room_by_id</span>, <span class="ident">message::send_message_event</span>,
+        <span class="ident">sync::sync_events</span>,
     },
     <span class="ident">assign</span>, <span class="ident">client</span>,
     <span class="ident">events</span>::{
@@ -314,11 +308,11 @@
     <span class="kw">let</span> <span class="ident">http_client</span> <span class="op">=</span>
         <span class="ident">hyper::Client::builder</span>().<span class="ident">build</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">hyper::Body</span><span class="op">&gt;</span>(<span class="ident">hyper_tls::HttpsConnector::new</span>());
     <span class="kw">let</span> <span class="ident">matrix_client</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">state</span>) <span class="op">=</span> <span class="ident">read_state</span>().<span class="kw">await</span>.<span class="ident">ok</span>().<span class="ident">flatten</span>() {
-        <span class="ident">MatrixClient::with_http_client</span>(
-            <span class="ident">http_client</span>.<span class="ident">clone</span>(),
-            <span class="ident">config</span>.<span class="ident">homeserver</span>.<span class="ident">to_owned</span>(),
-            <span class="prelude-val">Some</span>(<span class="ident">state</span>.<span class="ident">access_token</span>),
-        )
+        <span class="ident">ruma::Client::builder</span>()
+            .<span class="ident">homeserver_url</span>(<span class="ident">config</span>.<span class="ident">homeserver</span>.<span class="ident">clone</span>())
+            .<span class="ident">access_token</span>(<span class="prelude-val">Some</span>(<span class="ident">state</span>.<span class="ident">access_token</span>))
+            .<span class="ident">http_client</span>(<span class="ident">http_client</span>.<span class="ident">clone</span>())
+            .<span class="kw">await</span><span class="question-mark">?</span>
     } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">config</span>.<span class="ident">password</span>.<span class="ident">is_some</span>() {
         <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">create_matrix_session</span>(<span class="ident">http_client</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">config</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -336,12 +330,9 @@
 
     <span class="kw">let</span> <span class="ident">filter</span> <span class="op">=</span> <span class="ident">FilterDefinition::ignore_all</span>().<span class="ident">into</span>();
     <span class="kw">let</span> <span class="ident">initial_sync_response</span> <span class="op">=</span> <span class="ident">matrix_client</span>
-        .<span class="ident">send_request</span>(
-            <span class="macro">assign!</span>(<span class="ident">sync_events::v3::Request::new</span>(), {
-                <span class="ident">filter</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">filter</span>),
-            }),
-            <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>],
-        )
+        .<span class="ident">send_request</span>(<span class="macro">assign!</span>(<span class="ident">sync_events::v3::Request::new</span>(), {
+            <span class="ident">filter</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">filter</span>),
+        }))
         .<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">user_id</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">username</span>;
     <span class="kw">let</span> <span class="ident">not_senders</span> <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="ident">user_id</span>.<span class="ident">clone</span>()];
@@ -394,8 +385,11 @@
     <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">MatrixClient</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">password</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">password</span> {
-        <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span>
-            <span class="ident">MatrixClient::with_http_client</span>(<span class="ident">http_client</span>, <span class="ident">config</span>.<span class="ident">homeserver</span>.<span class="ident">to_owned</span>(), <span class="prelude-val">None</span>);
+        <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">ruma::Client::builder</span>()
+            .<span class="ident">homeserver_url</span>(<span class="ident">config</span>.<span class="ident">homeserver</span>.<span class="ident">clone</span>())
+            .<span class="ident">http_client</span>(<span class="ident">http_client</span>)
+            .<span class="kw">await</span><span class="question-mark">?</span>;
+
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">client</span>.<span class="ident">log_in</span>(<span class="ident">config</span>.<span class="ident">username</span>.<span class="ident">as_ref</span>(), <span class="ident">password</span>, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>).<span class="kw">await</span> {
             <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">e</span> {
                 <span class="ident">client::Error::AuthenticationRequired</span> =&gt; <span class="string">&quot;invalid credentials specified&quot;</span>.<span class="ident">to_owned</span>(),
@@ -409,6 +403,7 @@
             };
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">format!</span>(<span class="string">&quot;Failed to log in: {}&quot;</span>, <span class="ident">reason</span>).<span class="ident">into</span>());
         }
+
         <span class="prelude-val">Ok</span>(<span class="ident">client</span>)
     } <span class="kw">else</span> {
         <span class="prelude-val">Err</span>(<span class="string">&quot;Failed to create session: no password stored in config&quot;</span>.<span class="ident">to_owned</span>().<span class="ident">into</span>())
@@ -440,10 +435,11 @@
                 <span class="kw">let</span> <span class="ident">txn_id</span> <span class="op">=</span> <span class="ident">TransactionId::new</span>();
                 <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">send_message_event::v3::Request::new</span>(<span class="ident">room_id</span>, <span class="kw-2">&amp;</span><span class="ident">txn_id</span>, <span class="kw-2">&amp;</span><span class="ident">joke_content</span>)<span class="question-mark">?</span>;
                 <span class="comment">// Do nothing if we can&#39;t send the message.</span>
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">matrix_client</span>.<span class="ident">send_request</span>(<span class="ident">req</span>, <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>]).<span class="kw">await</span>;
+                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">matrix_client</span>.<span class="ident">send_request</span>(<span class="ident">req</span>).<span class="kw">await</span>;
             }
         }
     }
+
     <span class="prelude-val">Ok</span>(())
 }
 
@@ -453,16 +449,14 @@
     <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="ident">RoomId</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="macro">println!</span>(<span class="string">&quot;invited to {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">room_id</span>);
-    <span class="ident">matrix_client</span>
-        .<span class="ident">send_request</span>(<span class="ident">join_room_by_id::v3::Request::new</span>(<span class="ident">room_id</span>), <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>])
-        .<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="ident">matrix_client</span>.<span class="ident">send_request</span>(<span class="ident">join_room_by_id::v3::Request::new</span>(<span class="ident">room_id</span>)).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="kw">let</span> <span class="ident">greeting</span> <span class="op">=</span> <span class="string">&quot;Hello! My name is Mr. Bot! I like to tell jokes. Like this one: &quot;</span>;
     <span class="kw">let</span> <span class="ident">joke</span> <span class="op">=</span> <span class="ident">get_joke</span>(<span class="ident">http_client</span>).<span class="kw">await</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="string">&quot;err... never mind.&quot;</span>.<span class="ident">to_owned</span>());
     <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">RoomMessageEventContent::text_plain</span>(<span class="macro">format!</span>(<span class="string">&quot;{}\n{}&quot;</span>, <span class="ident">greeting</span>, <span class="ident">joke</span>));
     <span class="kw">let</span> <span class="ident">txn_id</span> <span class="op">=</span> <span class="ident">TransactionId::new</span>();
     <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">send_message_event::v3::Request::new</span>(<span class="ident">room_id</span>, <span class="kw-2">&amp;</span><span class="ident">txn_id</span>, <span class="kw-2">&amp;</span><span class="ident">content</span>)<span class="question-mark">?</span>;
-    <span class="ident">matrix_client</span>.<span class="ident">send_request</span>(<span class="ident">message</span>, <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>]).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="ident">matrix_client</span>.<span class="ident">send_request</span>(<span class="ident">message</span>).<span class="kw">await</span><span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(())
 }
 

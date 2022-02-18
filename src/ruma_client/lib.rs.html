@@ -203,6 +203,12 @@
 <span id="196">196</span>
 <span id="197">197</span>
 <span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! A minimal [Matrix](https://matrix.org/) client library.</span>
@@ -215,11 +221,14 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```ignore</span>
 <span class="doccomment">//! # // HACK: &quot;ignore&quot; the doctest here because client.log_in needs client-api feature.</span>
-<span class="doccomment">//! // type MatrixClient = ruma_client::Client&lt;ruma_client::http_client::_&gt;;</span>
-<span class="doccomment">//! # type MatrixClient = ruma_client::Client&lt;ruma_client::http_client::Dummy&gt;;</span>
+<span class="doccomment">//! // type HttpClient = ruma_client::http_client::_;</span>
+<span class="doccomment">//! # type HttpClient = ruma_client::http_client::Dummy;</span>
 <span class="doccomment">//! # let work = async {</span>
 <span class="doccomment">//! let homeserver_url = &quot;https://example.com&quot;.parse().unwrap();</span>
-<span class="doccomment">//! let client = MatrixClient::new(homeserver_url, None);</span>
+<span class="doccomment">//! let client = ruma::Client::builder()</span>
+<span class="doccomment">//!     .homeserver_url(homeserver_url)</span>
+<span class="doccomment">//!     .build::&lt;ruma_client::http_client::Dummy&gt;()</span>
+<span class="doccomment">//!     .await?;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! let session = client</span>
 <span class="doccomment">//!     .log_in(&quot;@alice:example.com&quot;, &quot;secret&quot;, None, None)</span>
@@ -236,14 +245,19 @@
 <span class="doccomment">//! application service that does not need to log in, but uses the access_token directly:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
-<span class="doccomment">//! # type MatrixClient = ruma_client::Client&lt;ruma_client::http_client::Dummy&gt;;</span>
+<span class="doccomment">//! # type HttpClient = ruma_client::http_client::Dummy;</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! # async {</span>
+<span class="doccomment">//! let homeserver_url = &quot;https://example.com&quot;.parse().unwrap();</span>
+<span class="doccomment">//! let client = ruma_client::Client::builder()</span>
+<span class="doccomment">//!     .homeserver_url(homeserver_url)</span>
+<span class="doccomment">//!     .access_token(Some(&quot;as_access_token&quot;.into()))</span>
+<span class="doccomment">//!     .build::&lt;HttpClient&gt;()</span>
+<span class="doccomment">//!     .await?;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! let work = async {</span>
-<span class="doccomment">//!     let homeserver_url = &quot;https://example.com&quot;.parse().unwrap();</span>
-<span class="doccomment">//!     let client = MatrixClient::new(homeserver_url, Some(&quot;as_access_token&quot;.into()));</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//!     // make calls to the API</span>
-<span class="doccomment">//! };</span>
+<span class="doccomment">//! // make calls to the API</span>
+<span class="doccomment">//! # Result::&lt;(), ruma_client::Error&lt;_, _&gt;&gt;::Ok(())</span>
+<span class="doccomment">//! # };</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The `Client` type also provides methods for registering a new account if you don&#39;t already have</span>
@@ -256,27 +270,25 @@
 <span class="doccomment">//! For example:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
-<span class="doccomment">//! # type MatrixClient = ruma_client::Client&lt;ruma_client::http_client::Dummy&gt;;</span>
 <span class="doccomment">//! # let homeserver_url = &quot;https://example.com&quot;.parse().unwrap();</span>
-<span class="doccomment">//! # let client = MatrixClient::new(homeserver_url, None);</span>
+<span class="doccomment">//! # async {</span>
+<span class="doccomment">//! # let client = ruma_client::Client::builder()</span>
+<span class="doccomment">//! #     .homeserver_url(homeserver_url)</span>
+<span class="doccomment">//! #     .build::&lt;ruma_client::http_client::Dummy&gt;()</span>
+<span class="doccomment">//! #     .await?;</span>
 <span class="doccomment">//! use std::convert::TryFrom;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! use ruma_api::MatrixVersion;</span>
 <span class="doccomment">//! use ruma_client_api::alias::get_alias;</span>
 <span class="doccomment">//! use ruma_identifiers::{room_alias_id, room_id};</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! async {</span>
-<span class="doccomment">//!     let response = client</span>
-<span class="doccomment">//!         .send_request(</span>
-<span class="doccomment">//!             get_alias::v3::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)),</span>
-<span class="doccomment">//!             &amp;[MatrixVersion::V1_0],</span>
-<span class="doccomment">//!         )</span>
-<span class="doccomment">//!         .await?;</span>
+<span class="doccomment">//! let response = client</span>
+<span class="doccomment">//!     .send_request(get_alias::v3::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)))</span>
+<span class="doccomment">//!     .await?;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//!     assert_eq!(response.room_id, room_id!(&quot;!n8f893n9:example.com&quot;));</span>
-<span class="doccomment">//! #   Result::&lt;(), ruma_client::Error&lt;_, _&gt;&gt;::Ok(())</span>
-<span class="doccomment">//! }</span>
-<span class="doccomment">//! # ;</span>
+<span class="doccomment">//! assert_eq!(response.room_id, room_id!(&quot;!n8f893n9:example.com&quot;));</span>
+<span class="doccomment">//! # Result::&lt;(), ruma_client::Error&lt;_, _&gt;&gt;::Ok(())</span>
+<span class="doccomment">//! # };</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Crate features</span>
@@ -320,7 +332,7 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">http_client</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client-api&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::client::Client</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::client</span>::{<span class="ident">Client</span>, <span class="ident">ClientBuilder</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
     <span class="ident">error::Error</span>,
     <span class="ident">http_client</span>::{<span class="ident">DefaultConstructibleHttpClient</span>, <span class="ident">HttpClient</span>, <span class="ident">HttpClientExt</span>},

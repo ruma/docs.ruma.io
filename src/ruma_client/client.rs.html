@@ -229,28 +229,6 @@
 <span id="222">222</span>
 <span id="223">223</span>
 <span id="224">224</span>
-<span id="225">225</span>
-<span id="226">226</span>
-<span id="227">227</span>
-<span id="228">228</span>
-<span id="229">229</span>
-<span id="230">230</span>
-<span id="231">231</span>
-<span id="232">232</span>
-<span id="233">233</span>
-<span id="234">234</span>
-<span id="235">235</span>
-<span id="236">236</span>
-<span id="237">237</span>
-<span id="238">238</span>
-<span id="239">239</span>
-<span id="240">240</span>
-<span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
-<span id="244">244</span>
-<span id="245">245</span>
-<span id="246">246</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>},
     <span class="ident">time::Duration</span>,
@@ -270,9 +248,12 @@
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">UserId</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">add_user_id_to_query</span>, <span class="ident">send_customized_request</span>, <span class="ident">DefaultConstructibleHttpClient</span>, <span class="ident">Error</span>,
-    <span class="ident">HttpClient</span>, <span class="ident">ResponseError</span>, <span class="ident">ResponseResult</span>,
+    <span class="ident">add_user_id_to_query</span>, <span class="ident">send_customized_request</span>, <span class="ident">Error</span>, <span class="ident">HttpClient</span>, <span class="ident">ResponseError</span>, <span class="ident">ResponseResult</span>,
 };
+
+<span class="kw">mod</span> <span class="ident">builder</span>;
+
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::builder::ClientBuilder</span>;
 
 <span class="doccomment">/// A client for the Matrix client-server API.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
@@ -287,26 +268,21 @@
     <span class="doccomment">/// The underlying HTTP client.</span>
     <span class="ident">http_client</span>: <span class="ident">C</span>,
 
-    <span class="doccomment">/// User session data.</span>
+    <span class="doccomment">/// The access token, if logged in.</span>
     <span class="ident">access_token</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// The (known) Matrix versions the homeserver supports.</span>
+    <span class="ident">supported_matrix_versions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MatrixVersion</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Client</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a new client builder.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">builder</span>() -&gt; <span class="ident">ClientBuilder</span> {
+        <span class="ident">ClientBuilder::new</span>()
+    }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Creates a new client using the given underlying HTTP client.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This allows the user to configure the details of HTTP as desired.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_http_client</span>(
-        <span class="ident">http_client</span>: <span class="ident">C</span>,
-        <span class="ident">homeserver_url</span>: <span class="ident">String</span>,
-        <span class="ident">access_token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span>(<span class="ident">Arc::new</span>(<span class="ident">ClientData</span> {
-            <span class="ident">homeserver_url</span>,
-            <span class="ident">http_client</span>,
-            <span class="ident">access_token</span>: <span class="ident">Mutex::new</span>(<span class="ident">access_token</span>),
-        }))
-    }
-
     <span class="doccomment">/// Get a copy of the current `access_token`, if any.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Useful for serializing and persisting the session to be restored later.</span>
@@ -315,32 +291,16 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">DefaultConstructibleHttpClient</span><span class="op">&gt;</span> <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Creates a new client based on a default-constructed hyper HTTP client.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">homeserver_url</span>: <span class="ident">String</span>, <span class="ident">access_token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span>(<span class="ident">Arc::new</span>(<span class="ident">ClientData</span> {
-            <span class="ident">homeserver_url</span>,
-            <span class="ident">http_client</span>: <span class="ident">DefaultConstructibleHttpClient::default</span>(),
-            <span class="ident">access_token</span>: <span class="ident">Mutex::new</span>(<span class="ident">access_token</span>),
-        }))
-    }
-}
-
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">HttpClient</span><span class="op">&gt;</span> <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Makes a request to a Matrix API endpoint.</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_request</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">OutgoingRequest</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">request</span>: <span class="ident">R</span>,
-        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
-    ) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="ident">for_versions</span>, <span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>(())).<span class="kw">await</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_request</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">OutgoingRequest</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">request</span>: <span class="ident">R</span>) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="prelude-val">Ok</span>(())).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Makes a request to a Matrix API endpoint including additional URL parameters.</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">send_customized_request</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">F</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">request</span>: <span class="ident">R</span>,
-        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
         <span class="ident">customize</span>: <span class="ident">F</span>,
     ) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span>
     <span class="kw">where</span>
@@ -357,7 +317,7 @@
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">http_client</span>,
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">homeserver_url</span>,
             <span class="ident">send_access_token</span>,
-            <span class="ident">for_versions</span>,
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">supported_matrix_versions</span>,
             <span class="ident">request</span>,
             <span class="ident">customize</span>,
         )
@@ -372,10 +332,8 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>,
         <span class="ident">request</span>: <span class="ident">R</span>,
-        <span class="ident">for_versions</span>: <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion</span>],
     ) -&gt; <span class="ident">ResponseResult</span><span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="ident">for_versions</span>, <span class="ident">add_user_id_to_query</span>::<span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">user_id</span>))
-            .<span class="kw">await</span>
+        <span class="self">self</span>.<span class="ident">send_customized_request</span>(<span class="ident">request</span>, <span class="ident">add_user_id_to_query</span>::<span class="op">&lt;</span><span class="ident">C</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">user_id</span>)).<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Log in with a username and password.</span>
@@ -395,7 +353,7 @@
                 <span class="ident">device_id</span>,
                 <span class="ident">initial_device_display_name</span>,
                 }
-            ), <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>])
+            ))
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">access_token</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>() <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">response</span>.<span class="ident">access_token</span>.<span class="ident">clone</span>());
@@ -411,10 +369,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">register::v3::Response</span>, <span class="ident">Error</span><span class="op">&lt;</span><span class="ident">C::Error</span>, <span class="ident">ruma_client_api::uiaa::UiaaResponse</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">response</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">send_request</span>(
-                <span class="macro">assign!</span>(<span class="ident">register::v3::Request::new</span>(), { <span class="ident">kind</span>: <span class="ident">RegistrationKind::Guest</span> }),
-                <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>],
-            )
+            .<span class="ident">send_request</span>(<span class="macro">assign!</span>(<span class="ident">register::v3::Request::new</span>(), { <span class="ident">kind</span>: <span class="ident">RegistrationKind::Guest</span> }))
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">access_token</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>() <span class="op">=</span> <span class="ident">response</span>.<span class="ident">access_token</span>.<span class="ident">clone</span>();
@@ -435,10 +390,9 @@
         <span class="ident">password</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">register::v3::Response</span>, <span class="ident">Error</span><span class="op">&lt;</span><span class="ident">C::Error</span>, <span class="ident">ruma_client_api::uiaa::UiaaResponse</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">response</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">send_request</span>(
-                <span class="macro">assign!</span>(<span class="ident">register::v3::Request::new</span>(), { <span class="ident">username</span>, <span class="ident">password</span>: <span class="prelude-val">Some</span>(<span class="ident">password</span>)}),
-                <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>],
-            )
+            .<span class="ident">send_request</span>(<span class="macro">assign!</span>(<span class="ident">register::v3::Request::new</span>(), {
+                <span class="ident">username</span>, <span class="ident">password</span>: <span class="prelude-val">Some</span>(<span class="ident">password</span>)
+            }))
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="kw-2">*</span><span class="self">self</span>.<span class="number">0</span>.<span class="ident">access_token</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>() <span class="op">=</span> <span class="ident">response</span>.<span class="ident">access_token</span>.<span class="ident">clone</span>();
@@ -453,13 +407,15 @@
     <span class="doccomment">/// ```no_run</span>
     <span class="doccomment">/// use std::time::Duration;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # type MatrixClient = ruma_client::Client&lt;ruma_client::http_client::Dummy&gt;;</span>
     <span class="doccomment">/// # use ruma_common::presence::PresenceState;</span>
     <span class="doccomment">/// # use tokio_stream::{StreamExt as _};</span>
     <span class="doccomment">/// # let homeserver_url = &quot;https://example.com&quot;.parse().unwrap();</span>
-    <span class="doccomment">/// # let client = MatrixClient::new(homeserver_url, None);</span>
-    <span class="doccomment">/// # let next_batch_token = String::new();</span>
     <span class="doccomment">/// # async {</span>
+    <span class="doccomment">/// # let client = ruma_client::Client::builder()</span>
+    <span class="doccomment">/// #     .homeserver_url(homeserver_url)</span>
+    <span class="doccomment">/// #     .build::&lt;ruma_client::http_client::Dummy&gt;()</span>
+    <span class="doccomment">/// #     .await?;</span>
+    <span class="doccomment">/// # let next_batch_token = String::new();</span>
     <span class="doccomment">/// let mut sync_stream = Box::pin(client.sync(</span>
     <span class="doccomment">///     None,</span>
     <span class="doccomment">///     next_batch_token,</span>
@@ -488,7 +444,7 @@
                         <span class="ident">since</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">since</span>),
                         <span class="ident">set_presence</span>,
                         <span class="ident">timeout</span>,
-                    }), <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_0</span>])
+                    }))
                     .<span class="kw">await</span><span class="question-mark">?</span>;
 
                 <span class="ident">since</span> <span class="op">=</span> <span class="ident">response</span>.<span class="ident">next_batch</span>.<span class="ident">clone</span>();
