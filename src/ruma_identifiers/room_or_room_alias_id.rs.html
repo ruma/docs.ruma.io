@@ -238,13 +238,16 @@
 <span id="231">231</span>
 <span id="232">232</span>
 <span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix identifiers for places where a room ID or room alias ID are used interchangeably.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">hint::unreachable_unchecked</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">server_name::ServerName</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>};
 
-<span class="doccomment">/// A Matrix room ID or a Matrix room alias ID.</span>
+<span class="doccomment">/// A Matrix [room ID] or a Matrix [room alias ID].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// `RoomOrAliasId` is useful for APIs that accept either kind of room identifier. It is converted</span>
 <span class="doccomment">/// from a string slice, and can be converted back into a string as needed. When converted from a</span>
@@ -260,6 +263,9 @@
 <span class="doccomment">///     &quot;!n8f893n9:example.com&quot;</span>
 <span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [room ID]: https://spec.matrix.org/v1.2/appendices/#room-ids-and-event-ids</span>
+<span class="doccomment">/// [room alias ID]: https://spec.matrix.org/v1.2/appendices/#room-aliases</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomOrAliasId</span>(<span class="ident">str</span>);

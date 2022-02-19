@@ -159,13 +159,17 @@
 <span id="152">152</span>
 <span id="153">153</span>
 <span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix-spec compliant server names.</span>
 
 <span class="kw">use</span> <span class="ident">std::net::Ipv4Addr</span>;
 
-<span class="doccomment">/// A Matrix-spec compliant server name.</span>
+<span class="doccomment">/// A Matrix-spec compliant [server name].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// It consists of a host and an optional port (separated by a colon if present).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [server name]: https://spec.matrix.org/v1.2/appendices/#server-name</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ServerName</span>(<span class="ident">str</span>);

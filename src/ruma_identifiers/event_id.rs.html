@@ -253,11 +253,13 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix event identifiers.</span>
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
 
-<span class="doccomment">/// A Matrix event ID.</span>
+<span class="doccomment">/// A Matrix [event ID].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// An `EventId` is generated randomly or converted from a string slice, and can be converted back</span>
 <span class="doccomment">/// into a string as needed.</span>
@@ -287,6 +289,8 @@
 <span class="doccomment">///     &quot;$Rqnc-F-dvnEYJTyHq_iKxU2bZ1CI92-kuZq3a5lr5Zg&quot;</span>
 <span class="doccomment">/// );</span>
 <span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [event ID]: https://spec.matrix.org/v1.2/appendices/#room-ids-and-event-ids</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventId</span>(<span class="ident">str</span>);

@@ -376,6 +376,8 @@
 <span id="369">369</span>
 <span id="370">370</span>
 <span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room version identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cmp::Ordering</span>, <span class="ident">convert::TryFrom</span>, <span class="ident">str::FromStr</span>};
@@ -384,7 +386,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
-<span class="doccomment">/// A Matrix room version ID.</span>
+<span class="doccomment">/// A Matrix [room version] ID.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A `RoomVersionId` can be or converted or deserialized from a string slice, and can be converted</span>
 <span class="doccomment">/// or serialized back into a string as needed.</span>
@@ -399,6 +401,8 @@
 <span class="doccomment">/// Custom room versions or ones that were introduced into the specification after this code was</span>
 <span class="doccomment">/// written are represented by a hidden enum variant. You can still construct them the same, and</span>
 <span class="doccomment">/// check for them using one of `RoomVersionId`s `PartialEq` implementations or through `.as_str()`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [room version]: https://spec.matrix.org/v1.2/rooms/</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">DisplayAsRefStr</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RoomVersionId</span> {

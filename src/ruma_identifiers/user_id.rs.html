@@ -317,13 +317,15 @@
 <span id="310">310</span>
 <span id="311">311</span>
 <span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix user identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">rc::Rc</span>, <span class="ident">sync::Arc</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MatrixToUri</span>, <span class="ident">ServerName</span>};
 
-<span class="doccomment">/// A Matrix user ID.</span>
+<span class="doccomment">/// A Matrix [user ID].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A `UserId` is generated randomly or converted from a string slice, and can be converted back</span>
 <span class="doccomment">/// into a string as needed.</span>
@@ -333,6 +335,8 @@
 <span class="doccomment">/// # use ruma_identifiers::UserId;</span>
 <span class="doccomment">/// assert_eq!(&lt;&amp;UserId&gt;::try_from(&quot;@carl:example.com&quot;).unwrap(), &quot;@carl:example.com&quot;);</span>
 <span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [user ID]: https://spec.matrix.org/v1.2/appendices/#user-identifiers</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UserId</span>(<span class="ident">str</span>);
