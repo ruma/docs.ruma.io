@@ -422,7 +422,7 @@
         <span class="op">!</span><span class="ident">localpart_is_fully_conforming</span>(<span class="self">self</span>.<span class="ident">localpart</span>()).<span class="ident">unwrap</span>()
     }
 
-    <span class="doccomment">/// Create a `matrix.to` reference for this user ID.</span>
+    <span class="doccomment">/// Create a `matrix.to` URI for this user ID.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Example</span>
     <span class="doccomment">///</span>
@@ -431,11 +431,11 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let message = format!(</span>
     <span class="doccomment">///     r#&quot;Thanks for the update &lt;a href=&quot;{link}&quot;&gt;{display_name}&lt;/a&gt;.&quot;#,</span>
-    <span class="doccomment">///     link = user_id!(&quot;@jplatte:notareal.hs&quot;).matrix_to_url(),</span>
+    <span class="doccomment">///     link = user_id!(&quot;@jplatte:notareal.hs&quot;).matrix_to_uri(),</span>
     <span class="doccomment">///     display_name = &quot;jplatte&quot;,</span>
     <span class="doccomment">/// );</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matrix_to_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MatrixToUri</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matrix_to_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MatrixToUri</span> {
         <span class="ident">MatrixToUri::new</span>(<span class="self">self</span>.<span class="ident">into</span>(), <span class="ident">Vec::new</span>())
     }
 
@@ -630,5 +630,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_identifiers" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (30b3f35c4 2022-02-17)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_identifiers" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (b17226fcc 2022-02-18)" ></div>
 </body></html>
