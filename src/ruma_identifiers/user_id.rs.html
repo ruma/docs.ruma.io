@@ -319,11 +319,31 @@
 <span id="312">312</span>
 <span id="313">313</span>
 <span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix user identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">rc::Rc</span>, <span class="ident">sync::Arc</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MatrixToUri</span>, <span class="ident">ServerName</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">matrix_uri::UriAction</span>, <span class="ident">MatrixToUri</span>, <span class="ident">MatrixUri</span>, <span class="ident">ServerName</span>};
 
 <span class="doccomment">/// A Matrix [user ID].</span>
 <span class="doccomment">///</span>
@@ -441,6 +461,26 @@
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matrix_to_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MatrixToUri</span> {
         <span class="ident">MatrixToUri::new</span>(<span class="self">self</span>.<span class="ident">into</span>(), <span class="ident">Vec::new</span>())
+    }
+
+    <span class="doccomment">/// Create a `matrix:` URI for this user ID.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If `chat` is `true`, a click on the URI should start a direct message</span>
+    <span class="doccomment">/// with the user.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// use ruma_identifiers::user_id;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let message = format!(</span>
+    <span class="doccomment">///     r#&quot;Thanks for the update &lt;a href=&quot;{link}&quot;&gt;{display_name}&lt;/a&gt;.&quot;#,</span>
+    <span class="doccomment">///     link = user_id!(&quot;@jplatte:notareal.hs&quot;).matrix_uri(false),</span>
+    <span class="doccomment">///     display_name = &quot;jplatte&quot;,</span>
+    <span class="doccomment">/// );</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">matrix_uri</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">chat</span>: <span class="ident">bool</span>) -&gt; <span class="ident">MatrixUri</span> {
+        <span class="ident">MatrixUri::new</span>(<span class="self">self</span>.<span class="ident">into</span>(), <span class="ident">Vec::new</span>(), <span class="prelude-val">Some</span>(<span class="ident">UriAction::Chat</span>).<span class="ident">filter</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">chat</span>))
     }
 
     <span class="kw">fn</span> <span class="ident">colon_idx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
