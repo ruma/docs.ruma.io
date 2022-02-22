@@ -150,20 +150,20 @@
 <span id="143">143</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for server-side key backups.</span>
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">add_backup_key_session</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">add_backup_key_sessions</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">add_backup_keys</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">create_backup</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_backup</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_backup_key_session</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_backup_key_sessions</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">add_backup_keys_for_room</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">add_backup_keys_for_session</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">create_backup_version</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_backup_keys</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_backup</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_backup_key_session</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_backup_key_sessions</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_backup_keys_for_room</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_backup_keys_for_session</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_backup_version</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_backup_info</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_backup_keys</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_latest_backup</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">update_backup</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_backup_keys_for_room</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_backup_keys_for_session</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_latest_backup_info</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">update_backup_version</span>;
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 

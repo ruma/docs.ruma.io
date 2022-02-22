@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["METADATA","Metadata for the `get_latest_backup_info` API endpoint."]],"struct":[["Request","Data for a request to the `get_latest_backup_info` API endpoint."],["Response","Data in the response from the `get_latest_backup_info` API endpoint."]]});

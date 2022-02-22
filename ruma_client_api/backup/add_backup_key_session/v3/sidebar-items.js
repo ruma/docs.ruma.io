@@ -1,1 +1,0 @@
-initSidebarItems({"constant":[["METADATA","Metadata for the `add_backup_key_session` API endpoint."]],"struct":[["IncomingRequest","‘Incoming’ variant of Request."],["Request","Data for a request to the `add_backup_key_session` API endpoint."],["Response","Data in the response from the `add_backup_key_session` API endpoint."]]});

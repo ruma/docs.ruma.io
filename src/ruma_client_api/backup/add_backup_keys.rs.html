@@ -88,7 +88,7 @@
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
-            <span class="ident">description</span>: <span class="string">&quot;Store several keys in the backup.&quot;</span>,
+            <span class="ident">description</span>: <span class="string">&quot;Store keys in the backup.&quot;</span>,
             <span class="ident">method</span>: <span class="ident">PUT</span>,
             <span class="ident">name</span>: <span class="string">&quot;add_backup_keys&quot;</span>,
             <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/keys&quot;</span>,
@@ -99,13 +99,13 @@
         }
 
         <span class="ident">request</span>: {
-            <span class="doccomment">/// The backup version.</span>
+            <span class="doccomment">/// The backup version to add keys to.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// Must be the current backup.</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
             <span class="kw">pub</span> <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
-            <span class="doccomment">/// A map from room IDs to session IDs to key data.</span>
+            <span class="doccomment">/// A map of room IDs to session IDs to key data to store.</span>
             <span class="kw">pub</span> <span class="ident">rooms</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">RoomKeyBackup</span><span class="op">&gt;</span>,
         }
 
