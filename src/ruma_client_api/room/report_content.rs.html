@@ -104,12 +104,12 @@
             <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>,
 
             <span class="doccomment">/// Integer between -100 and 0 rating offensivness.</span>
-            <span class="kw">pub</span> <span class="ident">score</span>: <span class="ident">Int</span>,
+            <span class="kw">pub</span> <span class="ident">score</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Int</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// Reason to report content.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// May be blank.</span>
-            <span class="kw">pub</span> <span class="ident">reason</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
+            <span class="kw">pub</span> <span class="ident">reason</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
         }
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
@@ -123,8 +123,8 @@
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
             <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
             <span class="ident">event_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventId</span>,
-            <span class="ident">score</span>: <span class="ident">Int</span>,
-            <span class="ident">reason</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
+            <span class="ident">score</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Int</span><span class="op">&gt;</span>,
+            <span class="ident">reason</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
         ) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">event_id</span>, <span class="ident">score</span>, <span class="ident">reason</span> }
         }
