@@ -59,12 +59,12 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
-</pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/room_keys/version`</span>
+</pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/client/*/room_keys/version/{version}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
     <span class="doccomment">//! `/v3/` ([spec])</span>
     <span class="doccomment">//!</span>
-    <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3room_keysversion</span>
+    <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#put_matrixclientv3room_keysversionversion</span>
 
     <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
@@ -74,7 +74,7 @@
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
             <span class="ident">description</span>: <span class="string">&quot;Update information about an existing backup.&quot;</span>,
-            <span class="ident">method</span>: <span class="ident">POST</span>,
+            <span class="ident">method</span>: <span class="ident">PUT</span>,
             <span class="ident">name</span>: <span class="string">&quot;update_backup&quot;</span>,
             <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/room_keys/version/:version&quot;</span>,
             <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/room_keys/version/:version&quot;</span>,
@@ -114,5 +114,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (3b348d932 2022-02-19)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (03a8cc7df 2022-02-21)" ></div>
 </body></html>
