@@ -325,6 +325,7 @@
 <span id="318">318</span>
 <span id="319">319</span>
 <span id="320">320</span>
+<span id="321">321</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">indoc::formatdoc</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">UserId</span>};
 
@@ -334,8 +335,9 @@
 
 <span class="doccomment">/// An event that can be replied to.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This trait only exists to allow the plain-text `reply` constructors on `MessageEventContent` to</span>
-<span class="doccomment">/// use either a [`RoomMessageEvent`] or a [`SyncRoomMessageEvent`] as the event being replied to.</span>
+<span class="doccomment">/// This trait only exists to allow the plain-text `reply` constructors on `MessageLikeEventContent`</span>
+<span class="doccomment">/// to use either a [`RoomMessageEvent`] or a [`SyncRoomMessageEvent`] as the event being replied</span>
+<span class="doccomment">/// to.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ReplyBaseEvent</span> {
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="kw">fn</span> <span class="ident">event_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">EventId</span>;

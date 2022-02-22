@@ -71,7 +71,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">EphemeralRoomEventContent</span>, <span class="ident">EventContent</span>, <span class="ident">GlobalAccountDataEventContent</span>, <span class="ident">HasDeserializeFields</span>,
-    <span class="ident">MessageEventContent</span>, <span class="ident">RedactContent</span>, <span class="ident">RedactedEventContent</span>, <span class="ident">RedactedMessageEventContent</span>,
+    <span class="ident">MessageLikeEventContent</span>, <span class="ident">RedactContent</span>, <span class="ident">RedactedEventContent</span>, <span class="ident">RedactedMessageLikeEventContent</span>,
     <span class="ident">RedactedStateEventContent</span>, <span class="ident">RoomAccountDataEventContent</span>, <span class="ident">StateEventContent</span>,
     <span class="ident">ToDeviceEventContent</span>,
 };
@@ -121,9 +121,9 @@
 <span class="kw">impl</span> <span class="ident">RoomAccountDataEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
 <span class="kw">impl</span> <span class="ident">ToDeviceEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
 <span class="kw">impl</span> <span class="ident">EphemeralRoomEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
-<span class="kw">impl</span> <span class="ident">MessageEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
+<span class="kw">impl</span> <span class="ident">MessageLikeEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
 <span class="kw">impl</span> <span class="ident">StateEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
-<span class="kw">impl</span> <span class="ident">RedactedMessageEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
+<span class="kw">impl</span> <span class="ident">RedactedMessageLikeEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
 <span class="kw">impl</span> <span class="ident">RedactedStateEventContent</span> <span class="kw">for</span> <span class="ident">CustomEventContent</span> {}
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_events" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (03a8cc7df 2022-02-21)" ></div>

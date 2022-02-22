@@ -352,8 +352,8 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">EphemeralRoomEventContent</span>, <span class="ident">GlobalAccountDataEventContent</span>, <span class="ident">MessageEventContent</span>,
-    <span class="ident">RedactedMessageEventContent</span>, <span class="ident">RedactedStateEventContent</span>, <span class="ident">RedactedUnsigned</span>,
+    <span class="ident">EphemeralRoomEventContent</span>, <span class="ident">GlobalAccountDataEventContent</span>, <span class="ident">MessageLikeEventContent</span>,
+    <span class="ident">RedactedMessageLikeEventContent</span>, <span class="ident">RedactedStateEventContent</span>, <span class="ident">RedactedUnsigned</span>,
     <span class="ident">RoomAccountDataEventContent</span>, <span class="ident">StateEventContent</span>, <span class="ident">ToDeviceEventContent</span>, <span class="ident">Unsigned</span>,
 };
 
@@ -388,12 +388,12 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 }
 
-<span class="doccomment">/// A message event.</span>
+<span class="doccomment">/// A message-like event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `MessageEvent` implements the comparison traits using only the `event_id` field, a sorted list</span>
-<span class="doccomment">/// would be sorted lexicographically based on the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `MessageLikeEvent` implements the comparison traits using only the `event_id` field, a sorted</span>
+<span class="doccomment">/// list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -413,12 +413,12 @@
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
 }
 
-<span class="doccomment">/// A message event without a `room_id`.</span>
+<span class="doccomment">/// A message-like event without a `room_id`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `SyncMessageEvent` implements the comparison traits using only the `event_id` field, a sorted</span>
-<span class="doccomment">/// list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `SyncMessageLikeEvent` implements the comparison traits using only the `event_id` field, a</span>
+<span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncMessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -435,12 +435,12 @@
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
 }
 
-<span class="doccomment">/// A redacted message event.</span>
+<span class="doccomment">/// A redacted message-like event.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `RedactedMessageEvent` implements the comparison traits using only the `event_id` field, a</span>
+<span class="doccomment">/// `RedactedMessageLikeEvent` implements the comparison traits using only the `event_id` field, a</span>
 <span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedMessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageLikeEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -460,12 +460,12 @@
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">RedactedUnsigned</span>,
 }
 
-<span class="doccomment">/// A redacted message event without a `room_id`.</span>
+<span class="doccomment">/// A redacted message-like event without a `room_id`.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// `RedactedSyncMessageEvent` implements the comparison traits using only the `event_id` field, a</span>
-<span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
+<span class="doccomment">/// `RedactedSyncMessageLikeEvent` implements the comparison traits using only the `event_id` field,</span>
+<span class="doccomment">/// a sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncMessageEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageLikeEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -650,7 +650,7 @@
 
 <span class="doccomment">/// The decrypted payload of an `m.olm.v1.curve25519-aes-sha2` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedOlmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedOlmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -676,7 +676,7 @@
 
 <span class="doccomment">/// The decrypted payload of an `m.megolm.v1.aes-sha2` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedMegolmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedMegolmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 

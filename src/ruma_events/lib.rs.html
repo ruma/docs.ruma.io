@@ -433,6 +433,7 @@
 <span id="426">426</span>
 <span id="427">427</span>
 <span id="428">428</span>
+<span id="429">429</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
@@ -460,7 +461,7 @@
 <span class="doccomment">//! ruma-events includes Rust types for every one of the event types in the Matrix specification.</span>
 <span class="doccomment">//! To better organize the crate, these types live in separate modules with a hierarchy that</span>
 <span class="doccomment">//! matches the reverse domain name notation of the event type.</span>
-<span class="doccomment">//! For example, the `m.room.message` event lives at `ruma_events::room::message::MessageEvent`.</span>
+<span class="doccomment">//! For example, the `m.room.message` event lives at `ruma_events::room::message::MessageLikeEvent`.</span>
 <span class="doccomment">//! Each type&#39;s module also contains a Rust type for that event type&#39;s `content` field, and any</span>
 <span class="doccomment">//! other supporting types required by the event&#39;s other fields.</span>
 <span class="doccomment">//!</span>
@@ -484,10 +485,10 @@
 <span class="doccomment">//! `ruma::api::client::state::send_state_event`&#39;s `Request`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! As a more advanced example we create a reaction message event. For this event we will use a</span>
-<span class="doccomment">//! `SyncMessageEvent` struct but any `MessageEvent` struct would work.</span>
+<span class="doccomment">//! `SyncMessageLikeEvent` struct but any `MessageLikeEvent` struct would work.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust</span>
-<span class="doccomment">//! use ruma_events::{macros::EventContent, SyncMessageEvent};</span>
+<span class="doccomment">//! use ruma_events::{macros::EventContent, SyncMessageLikeEvent};</span>
 <span class="doccomment">//! use ruma_identifiers::EventId;</span>
 <span class="doccomment">//! use serde::{Deserialize, Serialize};</span>
 <span class="doccomment">//!</span>
@@ -510,7 +511,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! /// The payload for our reaction event.</span>
 <span class="doccomment">//! #[derive(Clone, Debug, Deserialize, Serialize, EventContent)]</span>
-<span class="doccomment">//! #[ruma_event(type = &quot;m.reaction&quot;, kind = Message)]</span>
+<span class="doccomment">//! #[ruma_event(type = &quot;m.reaction&quot;, kind = MessageLike)]</span>
 <span class="doccomment">//! pub struct ReactionEventContent {</span>
 <span class="doccomment">//!     #[serde(rename = &quot;m.relates_to&quot;)]</span>
 <span class="doccomment">//!     pub relates_to: RelatesTo,</span>
@@ -536,8 +537,8 @@
 <span class="doccomment">//! // The downside of this event is we cannot use it with event enums,</span>
 <span class="doccomment">//! // but could be deserialized from a `Raw&lt;_&gt;` that has failed to deserialize.</span>
 <span class="doccomment">//! matches::assert_matches!(</span>
-<span class="doccomment">//!     serde_json::from_value::&lt;SyncMessageEvent&lt;ReactionEventContent&gt;&gt;(json),</span>
-<span class="doccomment">//!     Ok(SyncMessageEvent {</span>
+<span class="doccomment">//!     serde_json::from_value::&lt;SyncMessageLikeEvent&lt;ReactionEventContent&gt;&gt;(json),</span>
+<span class="doccomment">//!     Ok(SyncMessageLikeEvent {</span>
 <span class="doccomment">//!         content: ReactionEventContent {</span>
 <span class="doccomment">//!             relates_to: RelatesTo::Annotation { key, .. },</span>
 <span class="doccomment">//!         },</span>
@@ -702,8 +703,8 @@
 <span class="doccomment">/// Marker trait for the content of a to device event.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ToDeviceEventContent</span>: <span class="ident">EventContent</span> {}
 
-<span class="doccomment">/// Marker trait for the content of a message event.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MessageEventContent</span>: <span class="ident">EventContent</span> {}
+<span class="doccomment">/// Marker trait for the content of a message-like event.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">MessageLikeEventContent</span>: <span class="ident">EventContent</span> {}
 
 <span class="doccomment">/// Marker trait for the content of a state event.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StateEventContent</span>: <span class="ident">EventContent</span> {}
@@ -712,7 +713,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// This trait&#39;s associated functions and methods should not be used to build</span>
 <span class="doccomment">/// redacted events, prefer the `redact` method on `AnyStateEvent` and</span>
-<span class="doccomment">/// `AnyMessageEvent` and their &quot;sync&quot; and &quot;stripped&quot; counterparts. The</span>
+<span class="doccomment">/// `AnyMessageLikeEvent` and their &quot;sync&quot; and &quot;stripped&quot; counterparts. The</span>
 <span class="doccomment">/// `RedactedEventContent` trait is an implementation detail, ruma makes no</span>
 <span class="doccomment">/// API guarantees.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RedactedEventContent</span>: <span class="ident">EventContent</span> {
@@ -733,8 +734,8 @@
     <span class="kw">fn</span> <span class="ident">has_deserialize_fields</span>() -&gt; <span class="ident">HasDeserializeFields</span>;
 }
 
-<span class="doccomment">/// Marker trait for the content of a redacted message event.</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RedactedMessageEventContent</span>: <span class="ident">RedactedEventContent</span> {}
+<span class="doccomment">/// Marker trait for the content of a redacted message-like event.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RedactedMessageLikeEventContent</span>: <span class="ident">RedactedEventContent</span> {}
 
 <span class="doccomment">/// Marker trait for the content of a redacted state event.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RedactedStateEventContent</span>: <span class="ident">RedactedEventContent</span> {}
@@ -768,11 +769,12 @@
     <span class="doccomment">/// Ephemeral room event kind.</span>
     <span class="ident">EphemeralRoomData</span>,
 
-    <span class="doccomment">/// Message event kind.</span>
+    <span class="doccomment">/// Message-like event kind.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Since redacted / non-redacted message events are used in the same places bu have different</span>
-    <span class="doccomment">/// sets of fields, these two variations are treated as two closely-related event kinds.</span>
-    <span class="ident">Message</span> {
+    <span class="doccomment">/// Since redacted / non-redacted message-like events are used in the same places bu have</span>
+    <span class="doccomment">/// different sets of fields, these two variations are treated as two closely-related event</span>
+    <span class="doccomment">/// kinds.</span>
+    <span class="ident">MessageLike</span> {
         <span class="doccomment">/// Redacted variation?</span>
         <span class="ident">redacted</span>: <span class="ident">bool</span>,
     },

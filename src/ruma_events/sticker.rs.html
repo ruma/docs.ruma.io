@@ -56,7 +56,7 @@
 <span class="doccomment">/// A sticker message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.sticker&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
+<span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.sticker&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">MessageLike</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StickerEventContent</span> {
     <span class="doccomment">/// A textual representation or associated description of the sticker image.</span>
     <span class="doccomment">///</span>

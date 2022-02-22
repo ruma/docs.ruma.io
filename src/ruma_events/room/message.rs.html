@@ -1067,7 +1067,7 @@
 <span class="doccomment">/// Messages are not limited to be text.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.message&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">Message</span>)]</span>
+<span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.message&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">MessageLike</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomMessageEventContent</span> {
     <span class="doccomment">/// A key which identifies the type of message being sent.</span>
     <span class="doccomment">///</span>
@@ -1142,7 +1142,7 @@
     <span class="doccomment">/// Different from `text_reply_plain`, this constructor requires specifically a</span>
     <span class="doccomment">/// [`RoomMessageEvent`] since it creates a permalink to the previous message, for which the</span>
     <span class="doccomment">/// room ID is required. If you want to reply to a [`SyncRoomMessageEvent`], you have to convert</span>
-    <span class="doccomment">/// it first by calling [`.into_full_event()`][crate::SyncMessageEvent::into_full_event].</span>
+    <span class="doccomment">/// it first by calling [`.into_full_event()`][crate::SyncMessageLikeEvent::into_full_event].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_reply_html</span>(
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
         <span class="ident">html_reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
@@ -1183,7 +1183,7 @@
     <span class="doccomment">/// Different from `notice_reply_plain`, this constructor requires specifically a</span>
     <span class="doccomment">/// [`RoomMessageEvent`] since it creates a permalink to the previous message, for which the</span>
     <span class="doccomment">/// room ID is required. If you want to reply to a [`SyncRoomMessageEvent`], you have to convert</span>
-    <span class="doccomment">/// it first by calling [`.into_full_event()`][crate::SyncMessageEvent::into_full_event].</span>
+    <span class="doccomment">/// it first by calling [`.into_full_event()`][crate::SyncMessageLikeEvent::into_full_event].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_reply_html</span>(
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
         <span class="ident">html_reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
