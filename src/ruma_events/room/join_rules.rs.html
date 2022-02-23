@@ -286,6 +286,8 @@
 <span id="279">279</span>
 <span id="280">280</span>
 <span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.join_rules`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.join_rules`]: https://spec.matrix.org/v1.2/client-server-api/#mroomjoin_rules</span>
@@ -352,7 +354,9 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;invite&quot;</span>)]</span>
     <span class="ident">Invite</span>,
 
-    <span class="doccomment">/// Reserved but not yet implemented by the Matrix specification.</span>
+    <span class="doccomment">/// Users can join the room if they are invited, or they can request an invite to the room.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// They can be allowed (invited) or denied (kicked/banned) access.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;knock&quot;</span>)]</span>
     <span class="ident">Knock</span>,
 
