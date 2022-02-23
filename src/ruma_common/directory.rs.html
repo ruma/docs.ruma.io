@@ -302,19 +302,59 @@
 <span id="295">295</span>
 <span id="296">296</span>
 <span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for room directory endpoints.</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Outgoing</span>;
+<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span>, <span class="ident">MapAccess</span>, <span class="ident">Visitor</span>},
     <span class="ident">ser::SerializeStruct</span>,
     <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>,
 };
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="doccomment">/// A chunk of a room list response, describing one room.</span>
 <span class="doccomment">///</span>
@@ -363,6 +403,10 @@
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>)
     )]</span>
     <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// The join rule of the room.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">join_rule</span>: <span class="ident">PublicRoomJoinRule</span>,
 }
 
 <span class="doccomment">/// Initial set of mandatory fields of `PublicRoomsChunk`.</span>
@@ -401,6 +445,7 @@
             <span class="ident">world_readable</span>,
             <span class="ident">guest_can_join</span>,
             <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
+            <span class="ident">join_rule</span>: <span class="ident">PublicRoomJoinRule::default</span>(),
         }
     }
 }
@@ -524,6 +569,37 @@
                 <span class="prelude-val">None</span> =&gt; <span class="ident">IncomingRoomNetwork::Matrix</span>,
             })
         }
+    }
+}
+
+<span class="doccomment">/// The rule used for users wishing to join a public room.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This type can hold an arbitrary string. To check for join rules that are not available as a</span>
+<span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
+<span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PublicRoomJoinRule</span> {
+    <span class="doccomment">/// Users can request an invite to the room.</span>
+    <span class="ident">Knock</span>,
+
+    <span class="doccomment">/// Anyone can join the room without any prior action.</span>
+    <span class="ident">Public</span>,
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
+}
+
+<span class="kw">impl</span> <span class="ident">PublicRoomJoinRule</span> {
+    <span class="doccomment">/// Returns the string name of this `PublicRoomJoinRule`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="self">self</span>.<span class="ident">as_ref</span>()
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PublicRoomJoinRule</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::Public</span>
     }
 }
 
