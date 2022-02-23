@@ -178,41 +178,14 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
-<span id="198">198</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.create`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.create`]: https://spec.matrix.org/v1.2/client-server-api/#mroomcreate</span>
 
+<span class="kw">use</span> <span class="ident">ruma_common::room::RoomType</span>;
 <span class="kw">use</span> <span class="ident">ruma_events_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="doccomment">/// The content of an `m.room.create` event.</span>
 <span class="doccomment">///</span>
@@ -264,29 +237,6 @@
             <span class="ident">predecessor</span>: <span class="prelude-val">None</span>,
             <span class="ident">room_type</span>: <span class="prelude-val">None</span>,
         }
-    }
-}
-
-<span class="doccomment">/// An enum of possible room types.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
-<span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
-<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RoomType</span> {
-    <span class="doccomment">/// Defines the room as a space.</span>
-    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.space&quot;</span>)]</span>
-    <span class="ident">Space</span>,
-
-    <span class="doccomment">/// Defines the room as a custom type.</span>
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
-}
-
-<span class="kw">impl</span> <span class="ident">RoomType</span> {
-    <span class="doccomment">/// Creates a string slice from this `RoomType`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
 
