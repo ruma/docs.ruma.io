@@ -77,6 +77,18 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Iterator implementation for `Capabilities`</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">collections::btree_map</span>};
@@ -140,6 +152,18 @@
             <span class="number">1</span> =&gt; {
                 <span class="self">self</span>.<span class="ident">pos</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                 <span class="prelude-val">Some</span>(<span class="ident">CapabilityRef</span> { <span class="ident">name</span>: <span class="string">&quot;m.room_versions&quot;</span>, <span class="ident">value</span>: <span class="prelude-val">None</span>, <span class="ident">caps</span>: <span class="self">self</span>.<span class="ident">caps</span> })
+            }
+            <span class="number">2</span> =&gt; {
+                <span class="self">self</span>.<span class="ident">pos</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+                <span class="prelude-val">Some</span>(<span class="ident">CapabilityRef</span> { <span class="ident">name</span>: <span class="string">&quot;m.set_displayname&quot;</span>, <span class="ident">value</span>: <span class="prelude-val">None</span>, <span class="ident">caps</span>: <span class="self">self</span>.<span class="ident">caps</span> })
+            }
+            <span class="number">3</span> =&gt; {
+                <span class="self">self</span>.<span class="ident">pos</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+                <span class="prelude-val">Some</span>(<span class="ident">CapabilityRef</span> { <span class="ident">name</span>: <span class="string">&quot;m.set_avatar_url&quot;</span>, <span class="ident">value</span>: <span class="prelude-val">None</span>, <span class="ident">caps</span>: <span class="self">self</span>.<span class="ident">caps</span> })
+            }
+            <span class="number">4</span> =&gt; {
+                <span class="self">self</span>.<span class="ident">pos</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+                <span class="prelude-val">Some</span>(<span class="ident">CapabilityRef</span> { <span class="ident">name</span>: <span class="string">&quot;m.3pid_changes&quot;</span>, <span class="ident">value</span>: <span class="prelude-val">None</span>, <span class="ident">caps</span>: <span class="self">self</span>.<span class="ident">caps</span> })
             }
             <span class="kw">_</span> =&gt; <span class="self">self</span>.<span class="ident">custom_caps_iterator</span>.<span class="ident">next</span>().<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">name</span>, <span class="ident">value</span>)<span class="op">|</span> <span class="ident">CapabilityRef</span> {
                 <span class="ident">name</span>,
