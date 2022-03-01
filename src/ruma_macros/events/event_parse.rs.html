@@ -277,6 +277,11 @@
 <span id="270">270</span>
 <span id="271">271</span>
 <span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Implementation of event enum and event content enum macros.</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
@@ -364,6 +369,7 @@
     <span class="ident">ToDevice</span>,
     <span class="ident">RoomRedaction</span>,
     <span class="ident">Presence</span>,
+    <span class="ident">HierarchySpaceChild</span>,
     <span class="ident">Decrypted</span>,
 }
 
@@ -378,6 +384,7 @@
             <span class="ident">EventKind::ToDevice</span> =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;ToDeviceEvent&quot;</span>),
             <span class="ident">EventKind::RoomRedaction</span> =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;RoomRedactionEvent&quot;</span>),
             <span class="ident">EventKind::Presence</span> =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;PresenceEvent&quot;</span>),
+            <span class="ident">EventKind::HierarchySpaceChild</span> =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;HierarchySpaceChildStateEvent&quot;</span>),
             <span class="ident">EventKind::Decrypted</span> =&gt; <span class="macro">unreachable!</span>(),
         }
     }
@@ -483,6 +490,9 @@
         <span class="string">&quot;RedactedSyncStateEvent&quot;</span> =&gt; <span class="prelude-val">Some</span>((<span class="ident">EventKind::State</span>, <span class="ident">EventKindVariation::RedactedSync</span>)),
         <span class="string">&quot;ToDeviceEvent&quot;</span> =&gt; <span class="prelude-val">Some</span>((<span class="ident">EventKind::ToDevice</span>, <span class="ident">EventKindVariation::Full</span>)),
         <span class="string">&quot;PresenceEvent&quot;</span> =&gt; <span class="prelude-val">Some</span>((<span class="ident">EventKind::Presence</span>, <span class="ident">EventKindVariation::Full</span>)),
+        <span class="string">&quot;HierarchySpaceChildStateEvent&quot;</span> =&gt; {
+            <span class="prelude-val">Some</span>((<span class="ident">EventKind::HierarchySpaceChild</span>, <span class="ident">EventKindVariation::Stripped</span>))
+        }
         <span class="string">&quot;RoomRedactionEvent&quot;</span> =&gt; <span class="prelude-val">Some</span>((<span class="ident">EventKind::RoomRedaction</span>, <span class="ident">EventKindVariation::Full</span>)),
         <span class="string">&quot;SyncRoomRedactionEvent&quot;</span> =&gt; <span class="prelude-val">Some</span>((<span class="ident">EventKind::RoomRedaction</span>, <span class="ident">EventKindVariation::Sync</span>)),
         <span class="string">&quot;RedactedRoomRedactionEvent&quot;</span> =&gt; {
@@ -550,5 +560,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (6a7055661 2022-02-27)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (4ce374923 2022-02-28)" ></div>
 </body></html>

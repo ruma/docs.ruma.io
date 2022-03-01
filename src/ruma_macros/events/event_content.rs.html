@@ -481,6 +481,12 @@
 <span id="474">474</span>
 <span id="475">475</span>
 <span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Implementations of the MessageLikeEventContent and StateEventContent derive macro.</span>
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
@@ -877,7 +883,10 @@
         <span class="ident">EventKind::MessageLike</span> =&gt; <span class="macro">quote!</span> { <span class="ident">MessageLikeEventContent</span> },
         <span class="ident">EventKind::State</span> =&gt; <span class="macro">quote!</span> { <span class="ident">StateEventContent</span> },
         <span class="ident">EventKind::ToDevice</span> =&gt; <span class="macro">quote!</span> { <span class="ident">ToDeviceEventContent</span> },
-        <span class="ident">EventKind::RoomRedaction</span> <span class="op">|</span> <span class="ident">EventKind::Presence</span> <span class="op">|</span> <span class="ident">EventKind::Decrypted</span> =&gt; {
+        <span class="ident">EventKind::RoomRedaction</span>
+        <span class="op">|</span> <span class="ident">EventKind::Presence</span>
+        <span class="op">|</span> <span class="ident">EventKind::Decrypted</span>
+        <span class="op">|</span> <span class="ident">EventKind::HierarchySpaceChild</span> =&gt; {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">syn::Error::new_spanned</span>(
                 <span class="ident">ident</span>,
                 <span class="string">&quot;valid event kinds are GlobalAccountData, RoomAccountData, \
@@ -937,7 +946,10 @@
         <span class="ident">EventKind::MessageLike</span> =&gt; <span class="macro">quote!</span> { <span class="ident">MessageLike</span> { <span class="ident">redacted</span>: #<span class="ident">redacted</span> } },
         <span class="ident">EventKind::State</span> =&gt; <span class="macro">quote!</span> { <span class="ident">State</span> { <span class="ident">redacted</span>: #<span class="ident">redacted</span> } },
         <span class="ident">EventKind::ToDevice</span> =&gt; <span class="macro">quote!</span> { <span class="ident">ToDevice</span> },
-        <span class="ident">EventKind::RoomRedaction</span> <span class="op">|</span> <span class="ident">EventKind::Presence</span> <span class="op">|</span> <span class="ident">EventKind::Decrypted</span> =&gt; {
+        <span class="ident">EventKind::RoomRedaction</span>
+        <span class="op">|</span> <span class="ident">EventKind::Presence</span>
+        <span class="op">|</span> <span class="ident">EventKind::Decrypted</span>
+        <span class="op">|</span> <span class="ident">EventKind::HierarchySpaceChild</span> =&gt; {
             <span class="macro">unreachable!</span>(<span class="string">&quot;not a valid event content kind&quot;</span>)
         }
     };
@@ -958,5 +970,5 @@
         <span class="op">&amp;&amp;</span> <span class="macro">matches!</span>(<span class="ident">event_kind</span>, <span class="prelude-val">Some</span>(<span class="ident">EventKind::MessageLike</span>) <span class="op">|</span> <span class="prelude-val">Some</span>(<span class="ident">EventKind::State</span>))
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (6a7055661 2022-02-27)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_macros" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (4ce374923 2022-02-28)" ></div>
 </body></html>

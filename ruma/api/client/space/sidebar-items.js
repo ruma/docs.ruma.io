@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_hierarchy","`GET /_matrix/client/*/rooms/{roomId}/hierarchy`"]],"struct":[["SpaceHierarchyRoomsChunk","A chunk of a space hierarchy response, describing one room."],["SpaceHierarchyRoomsChunkInit","Initial set of mandatory fields of `SpaceHierarchyRoomsChunk`."]]});
