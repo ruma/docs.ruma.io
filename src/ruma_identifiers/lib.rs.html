@@ -204,6 +204,9 @@
 <span id="197">197</span>
 <span id="198">198</span>
 <span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! Types for [Matrix](https://matrix.org/) identifiers for devices, events, keys, rooms, servers,</span>
@@ -316,7 +319,10 @@
 <span class="comment">// Bug report: https://github.com/rust-lang/rust/issues/83939</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">_macros</span> {
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_identifiers_macros</span>::<span class="kw-2">*</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_macros</span>::{
+        <span class="ident">device_key_id</span>, <span class="ident">event_id</span>, <span class="ident">mxc_uri</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">room_version_id</span>, <span class="ident">server_name</span>,
+        <span class="ident">server_signing_key_id</span>, <span class="ident">user_id</span>,
+    };
 }
 
 <span class="doccomment">/// Compile-time checked `DeviceKeyId` construction.</span>
