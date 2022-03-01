@@ -108,9 +108,9 @@
 <span id="101">101</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Key algorithms used in Matrix spec.</span>
 
+<span class="kw">use</span> <span class="ident">ruma_macros</span>::{<span class="ident">AsRefStr</span>, <span class="ident">DisplayAsRefStr</span>, <span class="ident">FromString</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">DeserializeFromCowStr</span>, <span class="ident">SerializeAsRefStr</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde_macros</span>::{<span class="ident">AsRefStr</span>, <span class="ident">DisplayAsRefStr</span>, <span class="ident">FromString</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
