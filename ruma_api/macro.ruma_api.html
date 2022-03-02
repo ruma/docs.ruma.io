@@ -94,7 +94,7 @@ used for endpoints in which the request or response body can be arbitrary bytes 
 a JSON objects. A field with <code>#[ruma_api(raw_body)]</code> needs to have the type <code>Vec&lt;u8&gt;</code>.</p>
 <h2 id="examples"><a href="#examples">Examples</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">some_endpoint</span> {
-    <span class="kw">use</span> <span class="ident">ruma_api_macros::ruma_api</span>;
+    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
@@ -130,7 +130,7 @@ a JSON objects. A field with <code>#[ruma_api(raw_body)]</code> needs to have th
 }
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">newtype_body_endpoint</span> {
-    <span class="kw">use</span> <span class="ident">ruma_api_macros::ruma_api</span>;
+    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
@@ -160,5 +160,7 @@ a JSON objects. A field with <code>#[ruma_api(raw_body)]</code> needs to have th
         }
     }
 }</code></pre></div>
+<p>A procedural macro for easily generating <a href="https://github.com/ruma/ruma/tree/main/ruma-api">ruma-api</a>-compatible endpoints.</p>
+<p>Note that for technical reasons, the <code>ruma_api!</code> macro is only documented in ruma-api, not here.</p>
 </div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="ruma_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (f0c4da499 2022-03-01)" ></div>
 </body></html>

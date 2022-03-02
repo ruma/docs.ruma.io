@@ -615,7 +615,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// pub mod some_endpoint {</span>
-<span class="doccomment">///     use ruma_api_macros::ruma_api;</span>
+<span class="doccomment">///     use ruma_api::ruma_api;</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     ruma_api! {</span>
 <span class="doccomment">///         metadata: {</span>
@@ -651,7 +651,7 @@
 <span class="doccomment">/// }</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// pub mod newtype_body_endpoint {</span>
-<span class="doccomment">///     use ruma_api_macros::ruma_api;</span>
+<span class="doccomment">///     use ruma_api::ruma_api;</span>
 <span class="doccomment">///     use serde::{Deserialize, Serialize};</span>
 <span class="doccomment">///</span>
 <span class="doccomment">///     #[derive(Clone, Debug, Deserialize, Serialize)]</span>
@@ -682,17 +682,17 @@
 <span class="doccomment">///     }</span>
 <span class="doccomment">/// }</span>
 <span class="doccomment">/// ```</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_api_macros::ruma_api</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_macros::ruma_api</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">error</span>;
-<span class="doccomment">/// This module is used to support the generated code from ruma-api-macros.</span>
+<span class="doccomment">/// This module is used to support the generated code from ruma-macros.</span>
 <span class="doccomment">/// It is not considered part of ruma-api&#39;s public API.</span>
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">exports</span> {
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">bytes</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">http</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">percent_encoding</span>;
-    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_api_macros</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_macros</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_serde</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">serde</span>;
     <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">serde_json</span>;
