@@ -50,15 +50,6 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible notice message events ([MSC1767]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC1767]: https://github.com/matrix-org/matrix-spec-proposals/pull/1767</span>
@@ -66,10 +57,7 @@
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">message</span>::{<span class="ident">MessageContent</span>, <span class="ident">TextMessage</span>},
-    <span class="ident">room::message::Relation</span>,
-};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">message::MessageContent</span>, <span class="ident">room::message::Relation</span>};
 
 <span class="doccomment">/// The payload for an extensible notice message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">EventContent</span>)]</span>
@@ -105,12 +93,6 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">message</span>: <span class="ident">MessageContent::markdown</span>(<span class="ident">body</span>), <span class="ident">relates_to</span>: <span class="prelude-val">None</span> }
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">TextMessage</span> <span class="kw">for</span> <span class="ident">NoticeEventContent</span> {
-    <span class="kw">fn</span> <span class="ident">message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">MessageContent</span> {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">message</span>
     }
 }
 </code></pre></div>
