@@ -745,6 +745,8 @@
 <span id="738">738</span>
 <span id="739">739</span>
 <span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Module for [User-Interactive Authentication API][uiaa] types.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [uiaa]: https://spec.matrix.org/v1.2/client-server-api/#user-interactive-authentication-api</span>
@@ -752,11 +754,13 @@
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">fmt</span>};
 
 <span class="kw">use</span> <span class="ident">bytes::BufMut</span>;
-<span class="kw">use</span> <span class="ident">ruma_api</span>::{
-    <span class="ident">error</span>::{<span class="ident">DeserializationError</span>, <span class="ident">IntoHttpError</span>},
-    <span class="ident">EndpointError</span>, <span class="ident">OutgoingResponse</span>,
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">api</span>::{
+        <span class="ident">error</span>::{<span class="ident">DeserializationError</span>, <span class="ident">IntoHttpError</span>},
+        <span class="ident">EndpointError</span>, <span class="ident">OutgoingResponse</span>,
+    },
+    <span class="ident">thirdparty::Medium</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_common::thirdparty::Medium</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">JsonObject</span>, <span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{

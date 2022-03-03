@@ -418,8 +418,8 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/push-gateway-api/#post_matrixpushv1notify</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
         <span class="ident">push</span>::{<span class="ident">PusherData</span>, <span class="ident">Tweak</span>},
         <span class="ident">SecondsSinceUnixEpoch</span>,
     };

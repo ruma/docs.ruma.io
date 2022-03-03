@@ -743,8 +743,6 @@
 <span id="736">736</span>
 <span id="737">737</span>
 <span id="738">738</span>
-<span id="739">739</span>
-<span id="740">740</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/sync`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -755,8 +753,7 @@
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">time::Duration</span>};
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::presence::PresenceState</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">presence::PresenceState</span>};
     <span class="kw">use</span> <span class="ident">ruma_events</span>::{
         <span class="ident">presence::PresenceEvent</span>, <span class="ident">AnyGlobalAccountDataEvent</span>, <span class="ident">AnyRoomAccountDataEvent</span>,
         <span class="ident">AnyStrippedStateEvent</span>, <span class="ident">AnySyncEphemeralRoomEvent</span>, <span class="ident">AnySyncRoomEvent</span>, <span class="ident">AnySyncStateEvent</span>,
@@ -1365,7 +1362,7 @@
     <span class="kw">mod</span> <span class="ident">client_tests</span> {
         <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
-        <span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">SendAccessToken</span>};
+        <span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">SendAccessToken</span>};
 
         <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Filter</span>, <span class="ident">PresenceState</span>, <span class="ident">Request</span>};
 
@@ -1402,8 +1399,7 @@
         <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
         <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-        <span class="kw">use</span> <span class="ident">ruma_api::IncomingRequest</span> <span class="kw">as</span> <span class="kw">_</span>;
-        <span class="kw">use</span> <span class="ident">ruma_common::presence::PresenceState</span>;
+        <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::IncomingRequest</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">presence::PresenceState</span>};
 
         <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">IncomingFilter</span>, <span class="ident">IncomingRequest</span>};
 

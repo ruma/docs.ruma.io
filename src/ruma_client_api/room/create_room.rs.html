@@ -217,7 +217,6 @@
 <span id="210">210</span>
 <span id="211">211</span>
 <span id="212">212</span>
-<span id="213">213</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/createRoom`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -226,8 +225,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3createroom</span>
 
     <span class="kw">use</span> <span class="ident">assign::assign</span>;
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::room::RoomType</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">room::RoomType</span>};
     <span class="kw">use</span> <span class="ident">ruma_events</span>::{
         <span class="ident">room</span>::{
             <span class="ident">create</span>::{<span class="ident">PreviousRoom</span>, <span class="ident">RoomCreateEventContent</span>},

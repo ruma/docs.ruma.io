@@ -87,7 +87,6 @@
 <span id="80">80</span>
 <span id="81">81</span>
 <span id="82">82</span>
-<span id="83">83</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/3pid/bind`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to bind a session to a Matrix user ID.</span>
@@ -97,8 +96,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#post_matrixidentityv23pidbind</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">thirdparty::Medium</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">thirdparty::Medium</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ClientSecret</span>, <span class="ident">ServerSignatures</span>, <span class="ident">SessionId</span>, <span class="ident">UserId</span>};
 
     <span class="macro">ruma_api!</span> {

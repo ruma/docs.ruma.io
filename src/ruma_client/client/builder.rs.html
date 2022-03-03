@@ -102,8 +102,8 @@
 <span id="95">95</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>};
 
-<span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">SendAccessToken</span>};
 <span class="kw">use</span> <span class="ident">ruma_client_api::discover::get_supported_versions</span>;
+<span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">SendAccessToken</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Client</span>, <span class="ident">ClientData</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">DefaultConstructibleHttpClient</span>, <span class="ident">Error</span>, <span class="ident">HttpClient</span>, <span class="ident">HttpClientExt</span>};

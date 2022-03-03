@@ -229,6 +229,8 @@
 <span id="222">222</span>
 <span id="223">223</span>
 <span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>},
     <span class="ident">time::Duration</span>,
@@ -237,14 +239,16 @@
 <span class="kw">use</span> <span class="ident">assign::assign</span>;
 <span class="kw">use</span> <span class="ident">async_stream::try_stream</span>;
 <span class="kw">use</span> <span class="ident">futures_core::stream::Stream</span>;
-<span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
 <span class="kw">use</span> <span class="ident">ruma_client_api</span>::{
     <span class="ident">account::register</span>::{<span class="self">self</span>, <span class="ident">RegistrationKind</span>},
     <span class="ident">session::login</span>::{<span class="self">self</span>, <span class="ident">v3::LoginInfo</span>},
     <span class="ident">sync::sync_events</span>,
     <span class="ident">uiaa::UserIdentifier</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_common::presence::PresenceState</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>},
+    <span class="ident">presence::PresenceState</span>,
+};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">UserId</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{

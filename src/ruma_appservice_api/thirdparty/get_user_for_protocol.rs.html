@@ -62,7 +62,6 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
-<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/app/*/thirdparty/user/{protocol}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to retrieve a Matrix User ID linked to a user on the third party network, given a set</span>
@@ -75,8 +74,7 @@
 
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::thirdparty::User</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">thirdparty::User</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

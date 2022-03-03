@@ -75,7 +75,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#put_matrixfederationv2send_leaveroomideventid</span>
 
-<span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
+<span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
@@ -126,7 +126,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">ruma_api::OutgoingResponse</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common::api::OutgoingResponse</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Response</span>;
 

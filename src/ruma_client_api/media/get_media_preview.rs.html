@@ -105,7 +105,6 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
-<span id="101">101</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/media/*/preview_url`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -113,8 +112,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixmediav3preview_url</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
     <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
     <span class="kw">use</span> <span class="ident">serde_json::value</span>::{<span class="ident">to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>, <span class="ident">RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>};
 

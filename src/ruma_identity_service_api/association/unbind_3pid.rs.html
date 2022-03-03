@@ -108,7 +108,6 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
-<span id="104">104</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/3pid/unbind`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to remove an association between a session and a Matrix user ID.</span>
@@ -118,8 +117,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#post_matrixidentityv23pidunbind</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::thirdparty::Medium</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">thirdparty::Medium</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">user_id::UserId</span>, <span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 

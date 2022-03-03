@@ -100,9 +100,9 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3publicrooms</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::directory</span>::{
-        <span class="ident">Filter</span>, <span class="ident">IncomingFilter</span>, <span class="ident">IncomingRoomNetwork</span>, <span class="ident">PublicRoomsChunk</span>, <span class="ident">RoomNetwork</span>,
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">directory</span>::{<span class="ident">Filter</span>, <span class="ident">IncomingFilter</span>, <span class="ident">IncomingRoomNetwork</span>, <span class="ident">PublicRoomsChunk</span>, <span class="ident">RoomNetwork</span>},
     };
     <span class="kw">use</span> <span class="ident">ruma_identifiers::ServerName</span>;
 

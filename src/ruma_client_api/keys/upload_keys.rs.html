@@ -72,6 +72,8 @@
 <span id="65">65</span>
 <span id="66">66</span>
 <span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/keys/upload`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -82,8 +84,10 @@
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::encryption</span>::{<span class="ident">DeviceKeys</span>, <span class="ident">OneTimeKey</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">encryption</span>::{<span class="ident">DeviceKeys</span>, <span class="ident">OneTimeKey</span>},
+    };
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">DeviceKeyId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 

@@ -55,7 +55,6 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
-<span id="51">51</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/app/*/thirdparty/location`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to retrieve an array of third party network locations from a Matrix room alias.</span>
@@ -65,8 +64,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/application-service-api/#get_matrixappv1thirdpartylocation</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::thirdparty::Location</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">thirdparty::Location</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomAliasId</span>;
 
     <span class="macro">ruma_api!</span> {

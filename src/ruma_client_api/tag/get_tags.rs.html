@@ -103,7 +103,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3useruseridroomsroomidtags</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
     <span class="kw">use</span> <span class="ident">ruma_events::tag::Tags</span>;
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">UserId</span>};
 
@@ -154,7 +154,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>))]</span>
     <span class="kw">mod</span> <span class="ident">server_tests</span> {
         <span class="kw">use</span> <span class="ident">assign::assign</span>;
-        <span class="kw">use</span> <span class="ident">ruma_api::OutgoingResponse</span>;
+        <span class="kw">use</span> <span class="ident">ruma_common::api::OutgoingResponse</span>;
         <span class="kw">use</span> <span class="ident">ruma_events::tag</span>::{<span class="ident">TagInfo</span>, <span class="ident">Tags</span>};
         <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 

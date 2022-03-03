@@ -158,14 +158,12 @@
 <span id="151">151</span>
 <span id="152">152</span>
 <span id="153">153</span>
-<span id="154">154</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `/v1/` ([spec])</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#put_matrixfederationv1send_leaveroomideventid</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
 <span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">room::member::RoomMemberEventContent</span>, <span class="ident">EventType</span>};
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;

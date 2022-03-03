@@ -95,7 +95,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3loginssoredirectidpid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
@@ -146,7 +146,7 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>))]</span>
     <span class="kw">mod</span> <span class="ident">tests</span> {
-        <span class="kw">use</span> <span class="ident">ruma_api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">SendAccessToken</span>};
+        <span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">SendAccessToken</span>};
 
         <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Request</span>;
 

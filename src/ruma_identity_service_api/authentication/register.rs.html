@@ -76,7 +76,6 @@
 <span id="69">69</span>
 <span id="70">70</span>
 <span id="71">71</span>
-<span id="72">72</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/account/register`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Exchanges an OpenID token from the homeserver for an access token to access the identity server.</span>
@@ -88,8 +87,7 @@
 
     <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::authentication::TokenType</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">authentication::TokenType</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers::ServerName</span>;
 
     <span class="macro">ruma_api!</span> {

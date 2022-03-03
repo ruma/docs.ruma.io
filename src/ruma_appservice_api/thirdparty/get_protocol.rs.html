@@ -55,7 +55,6 @@
 <span id="48">48</span>
 <span id="49">49</span>
 <span id="50">50</span>
-<span id="51">51</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/app/*/thirdparty/protocol/{protocol}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to present clients with specific information about the various third party networks</span>
@@ -66,8 +65,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/application-service-api/#get_matrixappv1thirdpartyprotocolprotocol</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::thirdparty::Protocol</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">thirdparty::Protocol</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
