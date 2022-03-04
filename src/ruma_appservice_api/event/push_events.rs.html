@@ -204,6 +204,10 @@
 <span id="197">197</span>
 <span id="198">198</span>
 <span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/app/*/transactions/{txnId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to push an event (or batch of events) to the application service.</span>
@@ -315,43 +319,47 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
     <span class="kw">mod</span> <span class="ident">helper_tests</span> {
         <span class="kw">use</span> <span class="ident">ruma_client_api::sync::sync_events</span>;
-        <span class="kw">use</span> <span class="ident">ruma_identifiers::room_id</span>;
-        <span class="kw">use</span> <span class="ident">serde_json::json</span>;
+        <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">room_id</span>, <span class="ident">TransactionId</span>};
+        <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>};
 
-        <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">AnyRoomEvent</span>, <span class="ident">IncomingRequest</span>, <span class="ident">Raw</span>};
+        <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">IncomingRequest</span>, <span class="ident">Raw</span>};
 
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="ident">convert_incoming_request_to_sync_response</span>() {
-            <span class="kw">let</span> <span class="ident">txn_id</span> <span class="op">=</span> <span class="string">&quot;any_txn_id&quot;</span>.<span class="ident">to_owned</span>();
-            <span class="kw">let</span> <span class="ident">state_event</span>: <span class="ident">AnyRoomEvent</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>(<span class="macro">json!</span>({
-                <span class="string">&quot;content&quot;</span>: {},
-                <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$h29iv0s8:example.com&quot;</span>,
-                <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">1</span>,
-                <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!roomid:room.com&quot;</span>,
-                <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@carl:example.com&quot;</span>,
-                <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;&quot;</span>,
-                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.name&quot;</span>
-            }))
-            .<span class="ident">unwrap</span>();
-            <span class="kw">let</span> <span class="ident">message_event</span>: <span class="ident">AnyRoomEvent</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>(<span class="macro">json!</span>({
-                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.message&quot;</span>,
-                <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$143273582443PhrSn:example.com&quot;</span>,
-                <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">1</span>,
-                <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!roomid:room.com&quot;</span>,
-                <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@user:example.com&quot;</span>,
-                <span class="string">&quot;content&quot;</span>: {
-                    <span class="string">&quot;body&quot;</span>: <span class="string">&quot;test&quot;</span>,
-                    <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;m.audio&quot;</span>,
-                    <span class="string">&quot;url&quot;</span>: <span class="string">&quot;mxc://example.com/AuDi0&quot;</span>,
-                }
-            }))
-            .<span class="ident">unwrap</span>();
+            <span class="kw">let</span> <span class="ident">txn_id</span> <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">TransactionId</span><span class="op">&gt;</span><span class="ident">::from</span>(<span class="string">&quot;any_txn_id&quot;</span>);
+            <span class="kw">let</span> <span class="ident">state_event</span> <span class="op">=</span> <span class="ident">Raw::from_json</span>(
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({
+                    <span class="string">&quot;content&quot;</span>: {},
+                    <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$h29iv0s8:example.com&quot;</span>,
+                    <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">1</span>,
+                    <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!roomid:room.com&quot;</span>,
+                    <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@carl:example.com&quot;</span>,
+                    <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;&quot;</span>,
+                    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.name&quot;</span>
+                }))
+                .<span class="ident">unwrap</span>(),
+            );
+            <span class="kw">let</span> <span class="ident">message_event</span> <span class="op">=</span> <span class="ident">Raw::from_json</span>(
+                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({
+                    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.message&quot;</span>,
+                    <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$143273582443PhrSn:example.com&quot;</span>,
+                    <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">1</span>,
+                    <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!roomid:room.com&quot;</span>,
+                    <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@user:example.com&quot;</span>,
+                    <span class="string">&quot;content&quot;</span>: {
+                        <span class="string">&quot;body&quot;</span>: <span class="string">&quot;test&quot;</span>,
+                        <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;m.audio&quot;</span>,
+                        <span class="string">&quot;url&quot;</span>: <span class="string">&quot;mxc://example.com/AuDi0&quot;</span>,
+                    }
+                }))
+                .<span class="ident">unwrap</span>(),
+            );
 
-            <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">Raw::new</span>(<span class="kw-2">&amp;</span><span class="ident">state_event</span>).<span class="ident">unwrap</span>(), <span class="ident">Raw::new</span>(<span class="kw-2">&amp;</span><span class="ident">message_event</span>).<span class="ident">unwrap</span>()];
-            <span class="kw">let</span> <span class="ident">incoming_request</span> <span class="op">=</span> <span class="ident">IncomingRequest</span> { <span class="ident">txn_id</span>: <span class="ident">txn_id</span>.<span class="ident">clone</span>(), <span class="ident">events</span> };
+            <span class="kw">let</span> <span class="ident">events</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="ident">state_event</span>, <span class="ident">message_event</span>];
+            <span class="kw">let</span> <span class="ident">incoming_request</span> <span class="op">=</span> <span class="ident">IncomingRequest</span> { <span class="ident">txn_id</span>: <span class="ident">txn_id</span>.<span class="ident">into</span>(), <span class="ident">events</span> };
 
-            <span class="kw">let</span> <span class="ident">response</span>: <span class="ident">sync_events::Response</span> <span class="op">=</span>
-                <span class="ident">incoming_request</span>.<span class="ident">try_into_sync_response</span>(<span class="ident">txn_id</span>).<span class="ident">unwrap</span>();
+            <span class="kw">let</span> <span class="ident">response</span>: <span class="ident">sync_events::v3::Response</span> <span class="op">=</span>
+                <span class="ident">incoming_request</span>.<span class="ident">try_into_sync_response</span>(<span class="string">&quot;token&quot;</span>).<span class="ident">unwrap</span>();
 
             <span class="kw">let</span> <span class="ident">response_rooms_join</span> <span class="op">=</span> <span class="ident">response</span>
                 .<span class="ident">rooms</span>
