@@ -99,6 +99,8 @@
 <span id="92">92</span>
 <span id="93">93</span>
 <span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/client/*/rooms/{roomId}/send/{eventType}/{txnId}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -106,8 +108,10 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#put_matrixclientv3roomsroomidsendeventtypetxnid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">AnyMessageLikeEventContent</span>, <span class="ident">MessageLikeEventContent</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">events</span>::{<span class="ident">AnyMessageLikeEventContent</span>, <span class="ident">MessageLikeEventContent</span>},
+    };
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json::value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>;
@@ -194,5 +198,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (8769f4ef2 2022-03-02)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (10913c000 2022-03-03)" ></div>
 </body></html>

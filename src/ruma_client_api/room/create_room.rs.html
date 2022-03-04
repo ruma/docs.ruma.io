@@ -217,6 +217,9 @@
 <span id="210">210</span>
 <span id="211">211</span>
 <span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/createRoom`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -225,13 +228,16 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3createroom</span>
 
     <span class="kw">use</span> <span class="ident">assign::assign</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">room::RoomType</span>};
-    <span class="kw">use</span> <span class="ident">ruma_events</span>::{
-        <span class="ident">room</span>::{
-            <span class="ident">create</span>::{<span class="ident">PreviousRoom</span>, <span class="ident">RoomCreateEventContent</span>},
-            <span class="ident">power_levels::RoomPowerLevelsEventContent</span>,
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">events</span>::{
+            <span class="ident">room</span>::{
+                <span class="ident">create</span>::{<span class="ident">PreviousRoom</span>, <span class="ident">RoomCreateEventContent</span>},
+                <span class="ident">power_levels::RoomPowerLevelsEventContent</span>,
+            },
+            <span class="ident">AnyInitialStateEvent</span>,
         },
-        <span class="ident">AnyInitialStateEvent</span>,
+        <span class="ident">room::RoomType</span>,
     };
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>};
@@ -430,5 +436,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (8769f4ef2 2022-03-02)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (10913c000 2022-03-03)" ></div>
 </body></html>

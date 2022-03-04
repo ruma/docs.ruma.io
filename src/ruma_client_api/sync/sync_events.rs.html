@@ -743,6 +743,9 @@
 <span id="736">736</span>
 <span id="737">737</span>
 <span id="738">738</span>
+<span id="739">739</span>
+<span id="740">740</span>
+<span id="741">741</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/sync`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -753,11 +756,14 @@
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">time::Duration</span>};
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">presence::PresenceState</span>};
-    <span class="kw">use</span> <span class="ident">ruma_events</span>::{
-        <span class="ident">presence::PresenceEvent</span>, <span class="ident">AnyGlobalAccountDataEvent</span>, <span class="ident">AnyRoomAccountDataEvent</span>,
-        <span class="ident">AnyStrippedStateEvent</span>, <span class="ident">AnySyncEphemeralRoomEvent</span>, <span class="ident">AnySyncRoomEvent</span>, <span class="ident">AnySyncStateEvent</span>,
-        <span class="ident">AnyToDeviceEvent</span>,
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">events</span>::{
+            <span class="ident">presence::PresenceEvent</span>, <span class="ident">AnyGlobalAccountDataEvent</span>, <span class="ident">AnyRoomAccountDataEvent</span>,
+            <span class="ident">AnyStrippedStateEvent</span>, <span class="ident">AnySyncEphemeralRoomEvent</span>, <span class="ident">AnySyncRoomEvent</span>, <span class="ident">AnySyncStateEvent</span>,
+            <span class="ident">AnyToDeviceEvent</span>,
+        },
+        <span class="ident">presence::PresenceState</span>,
     };
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>};
@@ -1482,5 +1488,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (8769f4ef2 2022-03-02)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (10913c000 2022-03-03)" ></div>
 </body></html>

@@ -63,7 +63,6 @@
 <span id="56">56</span>
 <span id="57">57</span>
 <span id="58">58</span>
-<span id="59">59</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/user/{userId}/account_data/{type}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -71,8 +70,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3useruseridaccount_datatype</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_events::AnyGlobalAccountDataEventContent</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyGlobalAccountDataEventContent</span>};
     <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
@@ -101,7 +99,7 @@
         <span class="ident">response</span>: {
             <span class="doccomment">/// Account data content for the given type.</span>
             <span class="doccomment">///</span>
-            <span class="doccomment">/// Use `ruma_events::RawExt` for deserialization.</span>
+            <span class="doccomment">/// Use `ruma_common::events::RawExt` for deserialization.</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
             <span class="kw">pub</span> <span class="ident">account_data</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyGlobalAccountDataEventContent</span><span class="op">&gt;</span>,
         }
@@ -124,5 +122,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (8769f4ef2 2022-03-02)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (10913c000 2022-03-03)" ></div>
 </body></html>

@@ -1288,6 +1288,10 @@
 <span id="1283">1283</span>
 <span id="1284">1284</span>
 <span id="1285">1285</span>
+<span id="1286">1286</span>
+<span id="1287">1287</span>
+<span id="1288">1288</span>
+<span id="1289">1289</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">borrow::Borrow</span>,
     <span class="ident">cmp::Reverse</span>,
@@ -1297,10 +1301,12 @@
 
 <span class="kw">use</span> <span class="ident">itertools::Itertools</span>;
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
-<span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_events</span>::{
-    <span class="ident">room::member</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>},
-    <span class="ident">EventType</span>,
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">events</span>::{
+        <span class="ident">room::member</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>},
+        <span class="ident">EventType</span>,
+    },
+    <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 };
 <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
@@ -1938,10 +1944,12 @@
     <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">uint</span>};
     <span class="kw">use</span> <span class="ident">maplit</span>::{<span class="ident">hashmap</span>, <span class="ident">hashset</span>};
     <span class="kw">use</span> <span class="ident">rand::seq::SliceRandom</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-    <span class="kw">use</span> <span class="ident">ruma_events</span>::{
-        <span class="ident">room::join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>},
-        <span class="ident">EventType</span>,
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">events</span>::{
+            <span class="ident">room::join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>},
+            <span class="ident">EventType</span>,
+        },
+        <span class="ident">MilliSecondsSinceUnixEpoch</span>,
     };
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>};
@@ -2574,5 +2582,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_state_res" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (8769f4ef2 2022-03-02)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_state_res" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (10913c000 2022-03-03)" ></div>
 </body></html>

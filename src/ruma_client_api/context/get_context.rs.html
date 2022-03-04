@@ -113,6 +113,8 @@
 <span id="106">106</span>
 <span id="107">107</span>
 <span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/context/{eventId}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -121,8 +123,10 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3roomsroomidcontexteventid</span>
 
     <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">uint</span>, <span class="ident">UInt</span>};
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_events</span>::{<span class="ident">AnyRoomEvent</span>, <span class="ident">AnyStateEvent</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">events</span>::{<span class="ident">AnyRoomEvent</span>, <span class="ident">AnyStateEvent</span>},
+    };
     <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
@@ -222,5 +226,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (8769f4ef2 2022-03-02)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (10913c000 2022-03-03)" ></div>
 </body></html>

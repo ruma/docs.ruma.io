@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["IgnoredUserListEventContent","The content of an `m.ignored_user_list` event."]],"type":[["IgnoredUserListEvent","An `m.ignored_user_list` event."]]});
