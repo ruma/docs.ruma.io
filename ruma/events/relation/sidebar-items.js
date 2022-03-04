@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["BundledAnnotation","Type of bundled annotation."]],"struct":[["AnnotationChunk","The first chunk of annotations with a token for loading more."],["BundledReaction","Summary of all reactions with the given key to an event."],["Relations","Precompiled list of relations to this event grouped by relation type."]]});
