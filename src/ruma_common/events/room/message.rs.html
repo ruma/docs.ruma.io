@@ -1039,6 +1039,10 @@
 <span id="1032">1032</span>
 <span id="1033">1033</span>
 <span id="1034">1034</span>
+<span id="1035">1035</span>
+<span id="1036">1036</span>
+<span id="1037">1037</span>
+<span id="1038">1038</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
@@ -1262,7 +1266,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">MessageType</span> {
-    <span class="doccomment">/// Creates a new `MessageType` with the given `msgtype` string and data.</span>
+    <span class="doccomment">/// Creates a new `MessageType`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The `msgtype` and `body` are required fields as defined by [the `m.room.message` spec](https://spec.matrix.org/v1.2/client-server-api/#mroommessage).</span>
+    <span class="doccomment">/// Additionally it&#39;s possible to add arbitrary key/value pairs to the event content for custom</span>
+    <span class="doccomment">/// events through the `data` map.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Prefer to use the public variants of `MessageType` where possible; this constructor is meant</span>
     <span class="doccomment">/// be used for unsupported message types only and does not allow setting arbitrary data for</span>
@@ -2074,5 +2082,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (9fcbc3205 2022-03-04)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (38a0b81b1 2022-03-06)" ></div>
 </body></html>
