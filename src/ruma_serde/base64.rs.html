@@ -181,7 +181,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Standard</span>;
 
 <span class="kw">impl</span> <span class="ident">Base64Config</span> <span class="kw">for</span> <span class="ident">Standard</span> {
-    <span class="comment">// See https://github.com/matrix-org/matrix-doc/issues/3211</span>
+    <span class="comment">// See https://github.com/matrix-org/matrix-spec/issues/838</span>
     <span class="kw">const</span> <span class="ident">CONF</span>: <span class="ident">Conf</span> <span class="op">=</span> <span class="ident">Conf</span>(<span class="ident">base64::STANDARD_NO_PAD</span>.<span class="ident">decode_allow_trailing_bits</span>(<span class="bool-val">true</span>));
 }
 

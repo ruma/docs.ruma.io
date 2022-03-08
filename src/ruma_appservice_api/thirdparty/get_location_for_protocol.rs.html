@@ -93,7 +93,7 @@
             <span class="kw">pub</span> <span class="ident">protocol</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
             <span class="doccomment">/// One or more custom fields to help identify the third party location.</span>
-            <span class="comment">// The specification is incorrect for this parameter. See matrix-org/matrix-doc#2352.</span>
+            <span class="comment">// The specification is incorrect for this parameter. See [matrix-spec#560](https://github.com/matrix-org/matrix-spec/issues/560).</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query_map</span>)]</span>
             <span class="kw">pub</span> <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
         }

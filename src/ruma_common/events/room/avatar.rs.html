@@ -136,14 +136,14 @@
     <span class="doccomment">/// URL of the avatar image.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this field is optional.</span>
-    <span class="doccomment">/// See [matrix-doc#2006](https://github.com/matrix-org/matrix-doc/issues/2006).</span>
+    <span class="doccomment">/// See [matrix-spec#471](https://github.com/matrix-org/matrix-spec/issues/471).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// URL of the avatar image.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Without the `unstable-pre-spec` feature, this field is not optional.</span>
-    <span class="doccomment">/// See [matrix-doc#2006](https://github.com/matrix-org/matrix-doc/issues/2006).</span>
+    <span class="doccomment">/// See [matrix-spec#471](https://github.com/matrix-org/matrix-spec/issues/471).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
@@ -152,7 +152,7 @@
     <span class="doccomment">/// Create an `RoomAvatarEventContent` from the given image URL.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// With the `unstable-pre-spec` feature, this method takes no parameters.</span>
-    <span class="doccomment">/// See [matrix-doc#2006](https://github.com/matrix-org/matrix-doc/issues/2006).</span>
+    <span class="doccomment">/// See [matrix-spec#471](https://github.com/matrix-org/matrix-spec/issues/471).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">info</span>: <span class="prelude-val">None</span>, <span class="ident">url</span> }
@@ -161,7 +161,7 @@
     <span class="doccomment">/// Create an empty `RoomAvatarEventContent`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Without the `unstable-pre-spec` feature, this method takes an `MxcUri`.</span>
-    <span class="doccomment">/// See [matrix-doc#2006](https://github.com/matrix-org/matrix-doc/issues/2006).</span>
+    <span class="doccomment">/// See [matrix-spec#471](https://github.com/matrix-org/matrix-spec/issues/471).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
@@ -199,7 +199,7 @@
     <span class="doccomment">/// The [BlurHash](https://blurha.sh) for this image.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This uses the unstable prefix in</span>
-    <span class="doccomment">/// [MSC2448](https://github.com/matrix-org/matrix-doc/pull/2448).</span>
+    <span class="doccomment">/// [MSC2448](https://github.com/matrix-org/matrix-spec-proposals/pull/2448).</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2448&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;xyz.amorgan.blurhash&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">blurhash</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
