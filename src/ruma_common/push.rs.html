@@ -1196,6 +1196,9 @@
 <span id="1189">1189</span>
 <span id="1190">1190</span>
 <span id="1191">1191</span>
+<span id="1192">1192</span>
+<span id="1193">1193</span>
+<span id="1194">1194</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [push notifications module][push].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [push]: https://spec.matrix.org/v1.2/client-server-api/#push-notifications</span>
@@ -1219,6 +1222,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
+<span class="kw">use</span> <span class="ident">tracing::instrument</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
@@ -1297,6 +1301,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// * `event` - The raw JSON of a room message event.</span>
     <span class="doccomment">/// * `context` - The context of the message and room at the time of the event.</span>
+    <span class="attribute">#[<span class="ident">instrument</span>(<span class="ident">skip_all</span>, <span class="ident">fields</span>(<span class="ident">context</span>.<span class="ident">room_id</span> <span class="op">=</span> <span class="op">%</span><span class="ident">context</span>.<span class="ident">room_id</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_match</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
@@ -1314,6 +1319,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// * `event` - The raw JSON of a room message event.</span>
     <span class="doccomment">/// * `context` - The context of the message and room at the time of the event.</span>
+    <span class="attribute">#[<span class="ident">instrument</span>(<span class="ident">skip_all</span>, <span class="ident">fields</span>(<span class="ident">context</span>.<span class="ident">room_id</span> <span class="op">=</span> <span class="op">%</span><span class="ident">context</span>.<span class="ident">room_id</span>))]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_actions</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Action</span>] {
         <span class="self">self</span>.<span class="ident">get_match</span>(<span class="ident">event</span>, <span class="ident">context</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">rule</span><span class="op">|</span> <span class="ident">rule</span>.<span class="ident">actions</span>()).<span class="ident">unwrap_or</span>(<span class="kw-2">&amp;</span>[])
     }

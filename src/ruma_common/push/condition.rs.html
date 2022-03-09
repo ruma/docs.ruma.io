@@ -601,13 +601,14 @@
 <span id="594">594</span>
 <span id="595">595</span>
 <span id="596">596</span>
+<span id="597">597</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">convert::TryFrom</span>, <span class="ident">ops::RangeBounds</span>, <span class="ident">str::FromStr</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">Int</span>, <span class="ident">UInt</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">value::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
-<span class="kw">use</span> <span class="ident">tracing::warn</span>;
+<span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">instrument</span>, <span class="ident">warn</span>};
 <span class="kw">use</span> <span class="ident">wildmatch::WildMatch</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">power_levels::NotificationPowerLevels</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
@@ -880,6 +881,7 @@
     }
 
     <span class="doccomment">/// Flatten and insert the `value` at `path`.</span>
+    <span class="attribute">#[<span class="ident">instrument</span>(<span class="ident">skip</span>(<span class="self">self</span>, <span class="ident">value</span>))]</span>
     <span class="kw">fn</span> <span class="ident">flatten_value</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">value</span>: <span class="ident">JsonValue</span>, <span class="ident">path</span>: <span class="ident">String</span>) {
         <span class="kw">match</span> <span class="ident">value</span> {
             <span class="ident">JsonValue::Object</span>(<span class="ident">fields</span>) =&gt; {
