@@ -64,7 +64,6 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
-<span id="60">60</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/identity/*/3pid/getValidated3pid`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to determine the validity of a 3PID.</span>
@@ -75,8 +74,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#get_matrixidentityv23pidgetvalidated3pid</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">thirdparty::Medium</span>};
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">thirdparty::Medium</span>, <span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

@@ -100,7 +100,6 @@
 <span id="93">93</span>
 <span id="94">94</span>
 <span id="95">95</span>
-<span id="96">96</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/account/3pid/msisdn/requestToken`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -109,8 +108,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3account3pidmsisdnrequesttoken</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::account</span>::{<span class="ident">IdentityServerInfo</span>, <span class="ident">IncomingIdentityServerInfo</span>};
 

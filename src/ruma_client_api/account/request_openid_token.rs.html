@@ -72,7 +72,6 @@
 <span id="65">65</span>
 <span id="66">66</span>
 <span id="67">67</span>
-<span id="68">68</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/user/{userId}/openid/request_token`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -82,8 +81,7 @@
 
     <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">authentication::TokenType</span>};
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerName</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">authentication::TokenType</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

@@ -78,10 +78,10 @@
     <span class="ident">ops</span>::{<span class="ident">Deref</span>, <span class="ident">DerefMut</span>},
 };
 
-<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">receipt::ReceiptType</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">receipt::ReceiptType</span>, <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// The content of an `m.receipt` event.</span>
 <span class="doccomment">///</span>

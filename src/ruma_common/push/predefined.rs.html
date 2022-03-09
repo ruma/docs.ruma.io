@@ -286,12 +286,12 @@
 <span class="doccomment">///!</span>
 <span class="doccomment">///! [predefined push rules]: https://spec.matrix.org/v1.2/client-server-api/#predefined-rules</span>
 <span class="kw">use</span> <span class="ident">indexmap::indexset</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
 
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">Action</span>::<span class="kw-2">*</span>, <span class="ident">ConditionalPushRule</span>, <span class="ident">PatternedPushRule</span>, <span class="ident">PushCondition</span>::<span class="kw-2">*</span>, <span class="ident">RoomMemberCountIs</span>,
     <span class="ident">Ruleset</span>, <span class="ident">Tweak</span>,
 };
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::UserId</span>;
 
 <span class="kw">impl</span> <span class="ident">Ruleset</span> {
     <span class="doccomment">/// The list of all [predefined push rules].</span>

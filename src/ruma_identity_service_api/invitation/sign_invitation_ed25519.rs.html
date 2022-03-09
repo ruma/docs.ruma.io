@@ -74,7 +74,6 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
-<span id="70">70</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/sign-ed25519`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to sign invitation details.</span>
@@ -84,8 +83,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#post_matrixidentityv2sign-ed25519</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerSignatures</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">ServerSignatures</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 
     <span class="macro">ruma_api!</span> {

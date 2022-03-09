@@ -83,6 +83,7 @@
 <span id="76">76</span>
 <span id="77">77</span>
 <span id="78">78</span>
+<span id="79">79</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the Send-To-Device Messaging</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [send-to-device]: https://spec.matrix.org/v1.2/client-server-api/#send-to-device-messaging</span>
@@ -92,11 +93,12 @@
     <span class="ident">fmt</span>::{<span class="ident">Display</span>, <span class="ident">Formatter</span>, <span class="prelude-ty">Result</span> <span class="kw">as</span> <span class="ident">FmtResult</span>},
 };
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="self">self</span>, <span class="ident">Unexpected</span>},
     <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>,
 };
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::DeviceId</span>;
 
 <span class="doccomment">/// Represents one or all of a user&#39;s devices.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>)]</span>

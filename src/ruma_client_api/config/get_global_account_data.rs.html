@@ -62,7 +62,6 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
-<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/user/{userId}/account_data/{type}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -70,8 +69,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3useruseridaccount_datatype</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyGlobalAccountDataEventContent</span>};
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyGlobalAccountDataEventContent</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
     <span class="macro">ruma_api!</span> {

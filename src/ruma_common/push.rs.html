@@ -1196,7 +1196,6 @@
 <span id="1189">1189</span>
 <span id="1190">1190</span>
 <span id="1191">1191</span>
-<span id="1192">1192</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [push notifications module][push].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [push]: https://spec.matrix.org/v1.2/client-server-api/#push-notifications</span>
@@ -1662,7 +1661,6 @@
 
     <span class="kw">use</span> <span class="ident">js_int::uint</span>;
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">room_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{
         <span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>,
@@ -1674,7 +1672,7 @@
         <span class="ident">condition</span>::{<span class="ident">PushCondition</span>, <span class="ident">PushConditionRoomCtx</span>, <span class="ident">RoomMemberCountIs</span>},
         <span class="ident">AnyPushRule</span>, <span class="ident">ConditionalPushRule</span>, <span class="ident">PatternedPushRule</span>, <span class="ident">Ruleset</span>, <span class="ident">SimplePushRule</span>,
     };
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::power_levels::NotificationPowerLevels</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">power_levels::NotificationPowerLevels</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>};
 
     <span class="kw">fn</span> <span class="ident">example_ruleset</span>() -&gt; <span class="ident">Ruleset</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">set</span> <span class="op">=</span> <span class="ident">Ruleset::new</span>();

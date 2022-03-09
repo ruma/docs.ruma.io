@@ -421,9 +421,8 @@
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events::EventType</span>,
         <span class="ident">push</span>::{<span class="ident">PusherData</span>, <span class="ident">Tweak</span>},
-        <span class="ident">SecondsSinceUnixEpoch</span>,
+        <span class="ident">EventId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">SecondsSinceUnixEpoch</span>, <span class="ident">UserId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -729,8 +728,9 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
     <span class="kw">mod</span> <span class="ident">tests</span> {
         <span class="kw">use</span> <span class="ident">js_int::uint</span>;
-        <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">events::EventType</span>, <span class="ident">SecondsSinceUnixEpoch</span>};
-        <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>};
+        <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+            <span class="ident">event_id</span>, <span class="ident">events::EventType</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">SecondsSinceUnixEpoch</span>,
+        };
         <span class="kw">use</span> <span class="ident">serde_json</span>::{
             <span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>,
         };

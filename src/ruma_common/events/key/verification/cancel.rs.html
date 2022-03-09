@@ -174,18 +174,16 @@
 <span id="167">167</span>
 <span id="168">168</span>
 <span id="169">169</span>
-<span id="170">170</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.key.verification.cancel`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.key.verification.cancel`]: https://spec.matrix.org/v1.2/client-server-api/#mkeyverificationcancel</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::TransactionId</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Relation</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">PrivOwnedStr</span>, <span class="ident">TransactionId</span>};
 
 <span class="doccomment">/// The content of a to-device `m.key.verification.cancel` event.</span>
 <span class="doccomment">///</span>

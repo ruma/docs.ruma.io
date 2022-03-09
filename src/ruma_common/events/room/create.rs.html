@@ -182,10 +182,10 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.create`]: https://spec.matrix.org/v1.2/client-server-api/#mroomcreate</span>
 
-<span class="kw">use</span> <span class="ident">ruma_common::room::RoomType</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">room::RoomType</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// The content of an `m.room.create` event.</span>
 <span class="doccomment">///</span>
@@ -265,8 +265,8 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">user_id</span>, <span class="ident">RoomVersionId</span>};
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">user_id</span>, <span class="ident">RoomVersionId</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">RoomCreateEventContent</span>, <span class="ident">RoomType</span>};

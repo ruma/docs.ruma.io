@@ -108,7 +108,6 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
-<span id="104">104</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/federation/*/query/profile`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to query profile information with a user id and optional field.</span>
@@ -118,8 +117,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixfederationv1queryprofile</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;

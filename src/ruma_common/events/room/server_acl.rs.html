@@ -181,14 +181,16 @@
 <span id="174">174</span>
 <span id="175">175</span>
 <span id="176">176</span>
+<span id="177">177</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.server_acl`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.server_acl`]: https://spec.matrix.org/v1.2/client-server-api/#mroomserver_acl</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::ServerName</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">wildmatch::WildMatch</span>;
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
 
 <span class="doccomment">/// The content of an `m.room.server_acl` event.</span>
 <span class="doccomment">///</span>
@@ -246,7 +248,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::server_name</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::server_name</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomServerAclEventContent</span>;

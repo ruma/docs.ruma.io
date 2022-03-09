@@ -136,12 +136,12 @@
 <span id="129">129</span>
 <span id="130">130</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">js_int::Int</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::TransactionId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::relation::Relations</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::room::redaction::SyncRoomRedactionEvent</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::TransactionId</span>;
 
 <span class="doccomment">/// Extra information about an event that is not incorporated into the event&#39;s hash.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>

@@ -267,7 +267,7 @@
 <span id="260">260</span>
 <span id="261">261</span>
 <span id="262">262</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>};
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Base64DecodeError</span>;
 <span class="kw">use</span> <span class="ident">thiserror::Error</span>;
 
@@ -445,11 +445,11 @@
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ParseError</span> {
     <span class="doccomment">/// For user ID parsing errors.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Could not parse User ID: {0}&quot;</span>)]</span>
-    <span class="ident">UserId</span>(<span class="attribute">#[<span class="ident">source</span>]</span> <span class="ident">ruma_identifiers::Error</span>),
+    <span class="ident">UserId</span>(<span class="attribute">#[<span class="ident">source</span>]</span> <span class="ident">ruma_common::Error</span>),
 
     <span class="doccomment">/// For event ID parsing errors.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Could not parse Event ID: {0}&quot;</span>)]</span>
-    <span class="ident">EventId</span>(<span class="attribute">#[<span class="ident">source</span>]</span> <span class="ident">ruma_identifiers::Error</span>),
+    <span class="ident">EventId</span>(<span class="attribute">#[<span class="ident">source</span>]</span> <span class="ident">ruma_common::Error</span>),
 
     <span class="doccomment">/// For when an event ID, coupled with a specific room version, doesn&#39;t have a server name</span>
     <span class="doccomment">/// embedded.</span>

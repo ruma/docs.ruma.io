@@ -106,17 +106,15 @@
 <span id="99">99</span>
 <span id="100">100</span>
 <span id="101">101</span>
-<span id="102">102</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room_key_request`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room_key_request`]: https://spec.matrix.org/v1.2/client-server-api/#mroom_key_request</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">DeviceId</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>};
 
 <span class="doccomment">/// The content of an `m.room_key_request` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>

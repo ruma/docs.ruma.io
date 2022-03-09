@@ -51,7 +51,6 @@
 <span id="44">44</span>
 <span id="45">45</span>
 <span id="46">46</span>
-<span id="47">47</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/app/*/rooms/{roomAlias}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to query the existence of a given room alias.</span>
@@ -61,8 +60,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/application-service-api/#get_matrixappv1roomsroomalias</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomAliasId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">RoomAliasId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

@@ -113,11 +113,11 @@
 <span class="doccomment">//! [`m.room.avatar`]: https://spec.matrix.org/v1.2/client-server-api/#mroomavatar</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::MxcUri</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ThumbnailInfo</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MxcUri</span>;
 
 <span class="doccomment">/// The content of an `m.room.avatar` event.</span>
 <span class="doccomment">///</span>

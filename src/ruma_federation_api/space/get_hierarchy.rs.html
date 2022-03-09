@@ -74,7 +74,6 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
-<span id="70">70</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/federation/*/hierarchy/{roomId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to get the children of a given space.</span>
@@ -84,8 +83,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixfederationv1hierarchyroomid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">RoomId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::space</span>::{<span class="ident">SpaceHierarchyChildSummary</span>, <span class="ident">SpaceHierarchyParentSummary</span>};
 

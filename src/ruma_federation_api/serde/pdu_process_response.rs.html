@@ -161,7 +161,7 @@
 <span id="154">154</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>};
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
+<span class="kw">use</span> <span class="ident">ruma_common::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Deserializer</span>, <span class="ident">MapAccess</span>, <span class="ident">Visitor</span>},
     <span class="ident">ser</span>::{<span class="ident">SerializeMap</span>, <span class="ident">Serializer</span>},
@@ -234,7 +234,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">EventId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">event_id</span>, <span class="ident">EventId</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">value::Serializer</span> <span class="kw">as</span> <span class="ident">JsonSerializer</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">deserialize</span>, <span class="ident">serialize</span>};

@@ -91,13 +91,11 @@
 <span id="84">84</span>
 <span id="85">85</span>
 <span id="86">86</span>
-<span id="87">87</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Server discovery endpoints.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-<span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>};
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 

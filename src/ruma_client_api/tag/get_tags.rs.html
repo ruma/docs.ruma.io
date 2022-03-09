@@ -96,7 +96,6 @@
 <span id="89">89</span>
 <span id="90">90</span>
 <span id="91">91</span>
-<span id="92">92</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/user/{userId}/rooms/{roomId}/tags`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -104,8 +103,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3useruseridroomsroomidtags</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::tag::Tags</span>};
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::tag::Tags</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

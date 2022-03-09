@@ -40,16 +40,14 @@
 <span id="33">33</span>
 <span id="34">34</span>
 <span id="35">35</span>
-<span id="36">36</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.sticker`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.sticker`]: https://spec.matrix.org/v1.2/client-server-api/#msticker</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::MxcUri</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::room::ImageInfo</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">events::room::ImageInfo</span>, <span class="ident">MxcUri</span>};
 
 <span class="doccomment">/// The content of an `m.sticker` event.</span>
 <span class="doccomment">///</span>

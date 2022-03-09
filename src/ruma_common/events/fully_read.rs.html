@@ -32,13 +32,15 @@
 <span id="25">25</span>
 <span id="26">26</span>
 <span id="27">27</span>
+<span id="28">28</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.fully_read`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.fully_read`]: https://spec.matrix.org/v1.2/client-server-api/#mfully_read</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EventId</span>;
 
 <span class="doccomment">/// The content of an `m.fully_read` event.</span>
 <span class="doccomment">///</span>

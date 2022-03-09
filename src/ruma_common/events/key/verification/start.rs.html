@@ -556,7 +556,6 @@
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">TransactionId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -566,6 +565,7 @@
     <span class="ident">HashAlgorithm</span>, <span class="ident">KeyAgreementProtocol</span>, <span class="ident">MessageAuthenticationCode</span>, <span class="ident">Relation</span>,
     <span class="ident">ShortAuthenticationString</span>,
 };
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">DeviceId</span>, <span class="ident">TransactionId</span>};
 
 <span class="doccomment">/// The content of a to-device `m.key.verification.start` event.</span>
 <span class="doccomment">///</span>
@@ -752,8 +752,8 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">event_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{
         <span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>,

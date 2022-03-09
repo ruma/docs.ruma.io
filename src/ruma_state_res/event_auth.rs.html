@@ -1289,20 +1289,24 @@
 <span id="1284">1284</span>
 <span id="1285">1285</span>
 <span id="1286">1286</span>
+<span id="1287">1287</span>
+<span id="1288">1288</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Borrow</span>, <span class="ident">collections::BTreeSet</span>, <span class="ident">convert::TryFrom</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
-<span class="kw">use</span> <span class="ident">ruma_common::events</span>::{
-    <span class="ident">room</span>::{
-        <span class="ident">create::RoomCreateEventContent</span>,
-        <span class="ident">join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>},
-        <span class="ident">member</span>::{<span class="ident">MembershipState</span>, <span class="ident">ThirdPartyInvite</span>},
-        <span class="ident">power_levels::RoomPowerLevelsEventContent</span>,
-        <span class="ident">third_party_invite::RoomThirdPartyInviteEventContent</span>,
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">events</span>::{
+        <span class="ident">room</span>::{
+            <span class="ident">create::RoomCreateEventContent</span>,
+            <span class="ident">join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>},
+            <span class="ident">member</span>::{<span class="ident">MembershipState</span>, <span class="ident">ThirdPartyInvite</span>},
+            <span class="ident">power_levels::RoomPowerLevelsEventContent</span>,
+            <span class="ident">third_party_invite::RoomThirdPartyInviteEventContent</span>,
+        },
+        <span class="ident">EventType</span>,
     },
-    <span class="ident">EventType</span>,
+    <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::IgnoredAny</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>, <span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>};

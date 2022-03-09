@@ -295,16 +295,20 @@
 <span id="288">288</span>
 <span id="289">289</span>
 <span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Errors that can be sent from the homeserver.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">bytes::BufMut</span>;
-<span class="kw">use</span> <span class="ident">ruma_common::api</span>::{
-    <span class="ident">error</span>::{<span class="ident">DeserializationError</span>, <span class="ident">IntoHttpError</span>},
-    <span class="ident">EndpointError</span>, <span class="ident">OutgoingResponse</span>,
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">api</span>::{
+        <span class="ident">error</span>::{<span class="ident">DeserializationError</span>, <span class="ident">IntoHttpError</span>},
+        <span class="ident">EndpointError</span>, <span class="ident">OutgoingResponse</span>,
+    },
+    <span class="ident">RoomVersionId</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_identifiers::RoomVersionId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_slice</span> <span class="kw">as</span> <span class="ident">from_json_slice</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 

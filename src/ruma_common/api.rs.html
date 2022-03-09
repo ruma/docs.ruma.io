@@ -479,6 +479,7 @@
 <span id="472">472</span>
 <span id="473">473</span>
 <span id="474">474</span>
+<span id="475">475</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Core types used to define the requests and responses for each endpoint in the various</span>
 <span class="doccomment">//! [Matrix API specifications][apis].</span>
 <span class="doccomment">//!</span>
@@ -496,7 +497,8 @@
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryInto</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="ident">error::Error</span> <span class="kw">as</span> <span class="ident">StdError</span>, <span class="ident">fmt</span>};
 
 <span class="kw">use</span> <span class="ident">bytes::BufMut</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::UserId</span>;
 
 <span class="doccomment">/// Generates [`IncomingRequest`] and [`OutgoingRequest`] from a concise definition.</span>
 <span class="doccomment">///</span>

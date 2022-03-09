@@ -50,17 +50,15 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
-<span id="46">46</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.key.verification.request`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.key.verification.request`]: https://spec.matrix.org/v1.2/client-server-api/#mkeyverificationrequest</span>
 
-<span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">TransactionId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::VerificationMethod</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">DeviceId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">TransactionId</span>};
 
 <span class="doccomment">/// The content of an `m.key.verification.request` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>

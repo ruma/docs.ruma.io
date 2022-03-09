@@ -152,7 +152,6 @@
 <span id="145">145</span>
 <span id="146">146</span>
 <span id="147">147</span>
-<span id="148">148</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/register`</span>
 
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -162,8 +161,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3register</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">DeviceId</span>, <span class="ident">UserId</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">LoginType</span>, <span class="ident">RegistrationKind</span>};
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::uiaa</span>::{<span class="ident">AuthData</span>, <span class="ident">IncomingAuthData</span>, <span class="ident">UiaaResponse</span>};

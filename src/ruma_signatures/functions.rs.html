@@ -1089,7 +1089,7 @@
 };
 
 <span class="kw">use</span> <span class="ident">base64</span>::{<span class="ident">encode_config</span>, <span class="ident">STANDARD_NO_PAD</span>, <span class="ident">URL_SAFE_NO_PAD</span>};
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">base64::Standard</span>, <span class="ident">Base64</span>, <span class="ident">CanonicalJsonObject</span>, <span class="ident">CanonicalJsonValue</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>, <span class="ident">to_string</span> <span class="kw">as</span> <span class="ident">to_json_string</span>};
 <span class="kw">use</span> <span class="ident">sha2</span>::{<span class="ident">digest::Digest</span>, <span class="ident">Sha256</span>};
@@ -1497,7 +1497,7 @@
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```rust</span>
-<span class="doccomment">/// # use ruma_identifiers::RoomVersionId;</span>
+<span class="doccomment">/// # use ruma_common::RoomVersionId;</span>
 <span class="doccomment">/// # use ruma_signatures::{hash_and_sign_event, Ed25519KeyPair};</span>
 <span class="doccomment">/// #</span>
 <span class="doccomment">/// const PKCS8: &amp;str = &quot;\</span>
@@ -1622,7 +1622,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```rust</span>
 <span class="doccomment">/// # use std::collections::BTreeMap;</span>
-<span class="doccomment">/// # use ruma_identifiers::RoomVersionId;</span>
+<span class="doccomment">/// # use ruma_common::RoomVersionId;</span>
 <span class="doccomment">/// # use ruma_serde::Base64;</span>
 <span class="doccomment">/// # use ruma_signatures::{verify_event, Verified};</span>
 <span class="doccomment">/// #</span>
@@ -1929,7 +1929,7 @@
         <span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
     };
 
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomVersionId</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">SigningKeyAlgorithm</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">RoomVersionId</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">SigningKeyAlgorithm</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">CanonicalJsonValue</span>};
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 

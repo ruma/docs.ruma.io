@@ -79,7 +79,6 @@
 <span id="72">72</span>
 <span id="73">73</span>
 <span id="74">74</span>
-<span id="75">75</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/validate/msisdn/requestToken`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Create a session for validation of a phone number.</span>
@@ -90,8 +89,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#post_matrixidentityv2validatemsisdnrequesttoken</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

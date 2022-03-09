@@ -60,13 +60,11 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
-<span id="56">56</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/static/client/login/` (fallback, [spec])</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#login-fallback</span>
 
-<span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceId</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">DeviceId</span>};
 
 <span class="macro">ruma_api!</span> {
     <span class="ident">metadata</span>: {

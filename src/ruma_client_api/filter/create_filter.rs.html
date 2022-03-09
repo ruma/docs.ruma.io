@@ -108,6 +108,7 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
+<span id="104">104</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/user/{userId}/filter`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -115,8 +116,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3useruseridfilter</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">UserId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::filter</span>::{<span class="ident">FilterDefinition</span>, <span class="ident">IncomingFilterDefinition</span>};
 
@@ -194,8 +194,10 @@
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="ident">serialize_request</span>() {
-            <span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
-            <span class="kw">use</span> <span class="ident">ruma_identifiers::user_id</span>;
+            <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+                <span class="ident">api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>},
+                <span class="ident">user_id</span>,
+            };
 
             <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::filter::FilterDefinition</span>;
 

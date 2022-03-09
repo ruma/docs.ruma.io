@@ -177,8 +177,6 @@
 <span id="170">170</span>
 <span id="171">171</span>
 <span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! Types and traits for working with the [Matrix](https://matrix.org) protocol.</span>
@@ -252,7 +250,7 @@
 <span class="attribute">#![<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">feature</span>(<span class="ident">doc_cfg</span>, <span class="ident">doc_auto_cfg</span>))]</span>
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_identifiers</span> <span class="kw">as</span> <span class="ident">identifiers</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_common</span> <span class="kw">as</span> <span class="ident">common</span>;
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_serde</span> <span class="kw">as</span> <span class="ident">serde</span>;
 
@@ -341,16 +339,14 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client-ext-client-api&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_client::Client</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-    <span class="ident">authentication</span>, <span class="ident">directory</span>, <span class="ident">encryption</span>, <span class="ident">power_levels</span>, <span class="ident">presence</span>, <span class="ident">push</span>, <span class="ident">receipt</span>, <span class="ident">room</span>, <span class="ident">thirdparty</span>,
-    <span class="ident">to_device</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">SecondsSinceUnixEpoch</span>,
-};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{
-    <span class="ident">device_id</span>, <span class="ident">device_key_id</span>, <span class="ident">event_id</span>, <span class="ident">matrix_uri</span>, <span class="ident">mxc_uri</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>,
-    <span class="ident">room_version_id</span>, <span class="ident">server_name</span>, <span class="ident">server_signing_key_id</span>, <span class="ident">user_id</span>, <span class="ident">ClientSecret</span>, <span class="ident">DeviceId</span>,
+    <span class="ident">authentication</span>, <span class="ident">device_id</span>, <span class="ident">device_key_id</span>, <span class="ident">directory</span>, <span class="ident">encryption</span>, <span class="ident">event_id</span>, <span class="ident">matrix_uri</span>, <span class="ident">mxc_uri</span>,
+    <span class="ident">power_levels</span>, <span class="ident">presence</span>, <span class="ident">push</span>, <span class="ident">receipt</span>, <span class="ident">room</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">room_version_id</span>,
+    <span class="ident">server_name</span>, <span class="ident">server_signing_key_id</span>, <span class="ident">thirdparty</span>, <span class="ident">to_device</span>, <span class="ident">user_id</span>, <span class="ident">ClientSecret</span>, <span class="ident">DeviceId</span>,
     <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">DeviceKeyId</span>, <span class="ident">DeviceSignatures</span>, <span class="ident">DeviceSigningKeyId</span>, <span class="ident">EntitySignatures</span>,
-    <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">EventId</span>, <span class="ident">KeyId</span>, <span class="ident">KeyName</span>, <span class="ident">MatrixToUri</span>, <span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>,
-    <span class="ident">RoomOrAliasId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSignatures</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">SessionId</span>,
-    <span class="ident">Signatures</span>, <span class="ident">SigningKeyAlgorithm</span>, <span class="ident">TransactionId</span>, <span class="ident">UserId</span>,
+    <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">EventId</span>, <span class="ident">KeyId</span>, <span class="ident">KeyName</span>, <span class="ident">MatrixToUri</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>,
+    <span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomOrAliasId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">SecondsSinceUnixEpoch</span>,
+    <span class="ident">ServerName</span>, <span class="ident">ServerSignatures</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">SessionId</span>, <span class="ident">Signatures</span>, <span class="ident">SigningKeyAlgorithm</span>,
+    <span class="ident">TransactionId</span>, <span class="ident">UserId</span>,
 };
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_serde::Outgoing</span>;
 </code></pre></div>

@@ -30,13 +30,15 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
+<span id="26">26</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.typing`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.typing`]: https://spec.matrix.org/v1.2/client-server-api/#mtyping</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::UserId</span>;
 
 <span class="doccomment">/// The content of an `m.typing` event.</span>
 <span class="doccomment">///</span>

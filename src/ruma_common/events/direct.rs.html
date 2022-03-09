@@ -92,6 +92,7 @@
 <span id="85">85</span>
 <span id="86">86</span>
 <span id="87">87</span>
+<span id="88">88</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.direct`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.direct`]: https://spec.matrix.org/v1.2/client-server-api/#mdirect</span>
@@ -101,9 +102,10 @@
     <span class="ident">ops</span>::{<span class="ident">Deref</span>, <span class="ident">DerefMut</span>},
 };
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">RoomId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// The content of an `m.direct` event.</span>
 <span class="doccomment">///</span>
@@ -130,11 +132,11 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">server_name</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">server_name</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">DirectEvent</span>, <span class="ident">DirectEventContent</span>};

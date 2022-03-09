@@ -111,16 +111,20 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the `m.room.aliases` event.</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomAliasId</span>, <span class="ident">RoomVersionId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{
-    <span class="ident">EventContent</span>, <span class="ident">HasDeserializeFields</span>, <span class="ident">RedactContent</span>, <span class="ident">RedactedEventContent</span>,
-    <span class="ident">RedactedStateEventContent</span>,
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">events</span>::{
+        <span class="ident">EventContent</span>, <span class="ident">HasDeserializeFields</span>, <span class="ident">RedactContent</span>, <span class="ident">RedactedEventContent</span>,
+        <span class="ident">RedactedStateEventContent</span>,
+    },
+    <span class="ident">RoomAliasId</span>, <span class="ident">RoomVersionId</span>,
 };
 
 <span class="doccomment">/// The content of an `m.room.aliases` event.</span>

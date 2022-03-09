@@ -102,6 +102,8 @@
 <span id="95">95</span>
 <span id="96">96</span>
 <span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.policy.rule.room`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.policy.rule.room`]: https://spec.matrix.org/v1.2/client-server-api/#mpolicyruleroom</span>
@@ -124,15 +126,17 @@
     <span class="kw">use</span> <span class="ident">std::convert::TryInto</span>;
 
     <span class="kw">use</span> <span class="ident">js_int::int</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">event_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">PolicyRuleRoomEvent</span>, <span class="ident">PolicyRuleRoomEventContent</span>};
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{
-        <span class="ident">policy::rule</span>::{<span class="ident">PolicyRuleEventContent</span>, <span class="ident">Recommendation</span>},
-        <span class="ident">Unsigned</span>,
+    <span class="kw">use</span> <span class="kw">crate</span>::{
+        <span class="ident">event_id</span>,
+        <span class="ident">events</span>::{
+            <span class="ident">policy::rule</span>::{<span class="ident">PolicyRuleEventContent</span>, <span class="ident">Recommendation</span>},
+            <span class="ident">Unsigned</span>,
+        },
+        <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>,
     };
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

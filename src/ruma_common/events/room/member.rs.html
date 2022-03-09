@@ -789,15 +789,12 @@
 <span id="782">782</span>
 <span id="783">783</span>
 <span id="784">784</span>
-<span id="785">785</span>
-<span id="786">786</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.member`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.member`]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -808,7 +805,7 @@
         <span class="ident">EventContent</span>, <span class="ident">HasDeserializeFields</span>, <span class="ident">RedactContent</span>, <span class="ident">RedactedEventContent</span>,
         <span class="ident">RedactedStateEventContent</span>, <span class="ident">StrippedStateEvent</span>, <span class="ident">SyncStateEvent</span>,
     },
-    <span class="ident">PrivOwnedStr</span>,
+    <span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>,
 };
 
 <span class="doccomment">/// The content of an `m.room.member` event.</span>
@@ -1209,11 +1206,10 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">server_name</span>, <span class="ident">server_signing_key_id</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
     <span class="kw">use</span> <span class="ident">js_int::uint</span>;
     <span class="kw">use</span> <span class="ident">maplit::btreemap</span>;
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">server_name</span>, <span class="ident">server_signing_key_id</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>, <span class="ident">SignedContent</span>, <span class="ident">ThirdPartyInvite</span>};

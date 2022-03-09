@@ -89,7 +89,6 @@
 <span id="82">82</span>
 <span id="83">83</span>
 <span id="84">84</span>
-<span id="85">85</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/hierarchy`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v1</span> {
@@ -98,8 +97,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv1roomsroomidhierarchy</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">RoomId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::space::SpaceHierarchyRoomsChunk</span>;
 

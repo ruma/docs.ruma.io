@@ -269,7 +269,6 @@
 <span id="264">264</span>
 <span id="265">265</span>
 <span id="266">266</span>
-<span id="267">267</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryInto</span>, <span class="ident">error::Error</span>, <span class="ident">io</span>, <span class="ident">process::exit</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">futures_util::future</span>::{<span class="ident">join</span>, <span class="ident">join_all</span>};
@@ -283,10 +282,9 @@
         <span class="ident">room::message</span>::{<span class="ident">MessageType</span>, <span class="ident">RoomMessageEventContent</span>},
         <span class="ident">AnySyncMessageLikeEvent</span>, <span class="ident">AnySyncRoomEvent</span>,
     },
-    <span class="ident">identifiers::TransactionId</span>,
     <span class="ident">presence::PresenceState</span>,
     <span class="ident">serde::Raw</span>,
-    <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
+    <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>, <span class="ident">UserId</span>,
 };
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 <span class="kw">use</span> <span class="ident">tokio::fs</span>;

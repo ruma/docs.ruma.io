@@ -61,7 +61,6 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
-<span id="57">57</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/federation/*/state_ids/{roomId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Retrieves a snapshot of a room&#39;s state at a given event, in the form of event IDs.</span>
@@ -71,8 +70,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixfederationv1state_idsroomid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

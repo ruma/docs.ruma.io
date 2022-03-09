@@ -50,7 +50,6 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
-<span id="46">46</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/identity/*/account`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Gets information about what user owns the access token used in the request.</span>
@@ -60,8 +59,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#get_matrixidentityv2account</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">UserId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

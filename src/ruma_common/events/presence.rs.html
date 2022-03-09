@@ -183,19 +183,16 @@
 <span id="176">176</span>
 <span id="177">177</span>
 <span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
 </pre><pre class="rust"><code><span class="doccomment">//! A presence event is represented by a struct with a set content field.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The only content valid for this event is `PresenceEventContent`.</span>
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">ruma_common::presence::PresenceState</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros</span>::{<span class="ident">Event</span>, <span class="ident">EventContent</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EventKind</span>, <span class="ident">StaticEventContent</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">presence::PresenceState</span>, <span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// Presence event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
@@ -267,10 +264,9 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">mxc_uri</span>, <span class="ident">presence::PresenceState</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">js_int::uint</span>;
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::presence::PresenceState</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">mxc_uri</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">PresenceEvent</span>, <span class="ident">PresenceEventContent</span>};

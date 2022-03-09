@@ -48,7 +48,7 @@ specifies the state event’s <code>type</code> and it’s <a href="enum.EventKi
 <a href="struct.SyncMessageLikeEvent.html" title="SyncMessageLikeEvent"><code>SyncMessageLikeEvent</code></a> struct but any <a href="struct.MessageLikeEvent.html" title="MessageLikeEvent"><code>MessageLikeEvent</code></a> struct would work.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">ruma_common::events</span>::{<span class="ident">macros::EventContent</span>, <span class="ident">SyncMessageLikeEvent</span>};
-<span class="kw">use</span> <span class="ident">ruma_identifiers::EventId</span>;
+<span class="kw">use</span> <span class="ident">ruma_common::EventId</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>

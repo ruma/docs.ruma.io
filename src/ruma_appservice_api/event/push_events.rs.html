@@ -207,7 +207,6 @@
 <span id="200">200</span>
 <span id="201">201</span>
 <span id="202">202</span>
-<span id="203">203</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/app/*/transactions/{txnId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to push an event (or batch of events) to the application service.</span>
@@ -217,8 +216,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/application-service-api/#put_matrixappv1transactionstxnid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyRoomEvent</span>};
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::TransactionId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyRoomEvent</span>, <span class="ident">TransactionId</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
     <span class="macro">ruma_api!</span> {
@@ -281,7 +279,7 @@
             <span class="ident">next_batch</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
         ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="ident">ruma_client_api::sync::sync_events::v3::Response</span><span class="op">&gt;</span> {
             <span class="kw">use</span> <span class="ident">ruma_client_api::sync::sync_events</span>;
-            <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomId</span>;
+            <span class="kw">use</span> <span class="ident">ruma_common::RoomId</span>;
             <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
             <span class="kw">use</span> <span class="ident">tracing::warn</span>;
 
@@ -319,7 +317,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
     <span class="kw">mod</span> <span class="ident">helper_tests</span> {
         <span class="kw">use</span> <span class="ident">ruma_client_api::sync::sync_events</span>;
-        <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">room_id</span>, <span class="ident">TransactionId</span>};
+        <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">room_id</span>, <span class="ident">TransactionId</span>};
         <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>};
 
         <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">IncomingRequest</span>, <span class="ident">Raw</span>};

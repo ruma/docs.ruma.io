@@ -229,6 +229,8 @@
 <span id="222">222</span>
 <span id="223">223</span>
 <span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/messages`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -240,8 +242,8 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events</span>::{<span class="ident">AnyRoomEvent</span>, <span class="ident">AnyStateEvent</span>},
+        <span class="ident">RoomId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::RoomId</span>;
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -383,8 +385,10 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>))]</span>
     <span class="kw">mod</span> <span class="ident">tests</span> {
         <span class="kw">use</span> <span class="ident">js_int::uint</span>;
-        <span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
-        <span class="kw">use</span> <span class="ident">ruma_identifiers::room_id</span>;
+        <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+            <span class="ident">api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>},
+            <span class="ident">room_id</span>,
+        };
 
         <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Direction</span>, <span class="ident">Request</span>};
         <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::filter</span>::{<span class="ident">LazyLoadOptions</span>, <span class="ident">RoomEventFilter</span>};

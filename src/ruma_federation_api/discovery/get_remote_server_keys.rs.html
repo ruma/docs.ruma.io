@@ -70,7 +70,6 @@
 <span id="63">63</span>
 <span id="64">64</span>
 <span id="65">65</span>
-<span id="66">66</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/key/*/query/{serverName}/{keyId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Query for another server&#39;s keys. The receiving (notary) server must sign the keys returned by</span>
@@ -81,8 +80,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixkeyv2queryservernamekeyid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::ServerName</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">ServerName</span>};
     <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::discovery::ServerSigningKeys</span>;

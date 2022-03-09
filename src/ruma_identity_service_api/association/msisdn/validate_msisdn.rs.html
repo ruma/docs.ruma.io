@@ -58,7 +58,6 @@
 <span id="51">51</span>
 <span id="52">52</span>
 <span id="53">53</span>
-<span id="54">54</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/validate/msisdn/submitToken`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Validate the ownership of a phone number.</span>
@@ -68,8 +67,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#post_matrixidentityv2validatemsisdnsubmittoken</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

@@ -75,7 +75,6 @@
 <span id="68">68</span>
 <span id="69">69</span>
 <span id="70">70</span>
-<span id="71">71</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/lookup`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to look up set of Matrix IDs which are bound to 3PIDs.</span>
@@ -87,8 +86,7 @@
 
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">UserId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::lookup::IdentifierHashingAlgorithm</span>;
 

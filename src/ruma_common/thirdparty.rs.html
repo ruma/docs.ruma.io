@@ -326,18 +326,16 @@
 <span id="319">319</span>
 <span id="320">320</span>
 <span id="321">321</span>
-<span id="322">322</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [third party networks module][thirdparty].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [thirdparty]: https://spec.matrix.org/v1.2/client-server-api/#third-party-networks</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">RoomAliasId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">PrivOwnedStr</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomAliasId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// Metadata about a third party protocol.</span>
 <span class="doccomment">///</span>

@@ -1043,6 +1043,7 @@
 <span id="1036">1036</span>
 <span id="1037">1037</span>
 <span id="1038">1038</span>
+<span id="1039">1039</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
@@ -1050,14 +1051,15 @@
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">fmt</span>};
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">DeviceId</span>, <span class="ident">EventId</span>, <span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::DeserializeOwned</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EncryptedFile</span>, <span class="ident">ImageInfo</span>, <span class="ident">ThumbnailInfo</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">events::key::verification::VerificationMethod</span>, <span class="ident">PrivOwnedStr</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">events::key::verification::VerificationMethod</span>, <span class="ident">DeviceId</span>, <span class="ident">EventId</span>, <span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">UserId</span>,
+};
 
 <span class="kw">mod</span> <span class="ident">content_serde</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">feedback</span>;
@@ -2052,8 +2054,8 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::event_id</span>;
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">ruma_identifiers::event_id</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InReplyTo</span>, <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>};

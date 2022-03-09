@@ -158,6 +158,8 @@
 <span id="151">151</span>
 <span id="152">152</span>
 <span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
 </pre><pre class="rust"><code><span class="doccomment">//! This module contains an abstraction for HTTP clients as well as friendly-named re-exports of</span>
 <span class="doccomment">//! client types that implement this trait.</span>
 
@@ -165,8 +167,10 @@
 
 <span class="kw">use</span> <span class="ident">async_trait::async_trait</span>;
 <span class="kw">use</span> <span class="ident">bytes::BufMut</span>;
-<span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
-<span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>},
+    <span class="ident">UserId</span>,
+};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">add_user_id_to_query</span>, <span class="ident">ResponseError</span>, <span class="ident">ResponseResult</span>};
 

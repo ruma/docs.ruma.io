@@ -83,13 +83,15 @@
 <span id="76">76</span>
 <span id="77">77</span>
 <span id="78">78</span>
+<span id="79">79</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room_key`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room_key`]: https://spec.matrix.org/v1.2/client-server-api/#mroom_key</span>
 
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>};
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>};
 
 <span class="doccomment">/// The content of an `m.room_key` event.</span>
 <span class="doccomment">///</span>
@@ -128,7 +130,7 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">EventEncryptionAlgorithm</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">EventEncryptionAlgorithm</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ToDeviceRoomKeyEventContent</span>;

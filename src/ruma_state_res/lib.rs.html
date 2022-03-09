@@ -1283,8 +1283,6 @@
 <span id="1278">1278</span>
 <span id="1279">1279</span>
 <span id="1280">1280</span>
-<span id="1281">1281</span>
-<span id="1282">1282</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">borrow::Borrow</span>,
     <span class="ident">cmp::Reverse</span>,
@@ -1299,9 +1297,8 @@
         <span class="ident">room::member</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>},
         <span class="ident">EventType</span>,
     },
-    <span class="ident">MilliSecondsSinceUnixEpoch</span>,
+    <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
 <span class="kw">use</span> <span class="ident">serde_json::from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>;
 <span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">debug</span>, <span class="ident">info</span>, <span class="ident">trace</span>, <span class="ident">warn</span>};
@@ -1935,9 +1932,8 @@
             <span class="ident">room::join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>},
             <span class="ident">EventType</span>,
         },
-        <span class="ident">MilliSecondsSinceUnixEpoch</span>,
+        <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomVersionId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_identifiers</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>};
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>};
     <span class="kw">use</span> <span class="ident">tracing::debug</span>;
 

@@ -40,11 +40,9 @@
 <span id="33">33</span>
 <span id="34">34</span>
 <span id="35">35</span>
-<span id="36">36</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for managing devices.</span>
 
-<span class="kw">use</span> <span class="ident">ruma_common::MilliSecondsSinceUnixEpoch</span>;
-<span class="kw">use</span> <span class="ident">ruma_identifiers::DeviceId</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">DeviceId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">delete_device</span>;

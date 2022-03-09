@@ -211,6 +211,7 @@
 <span id="204">204</span>
 <span id="205">205</span>
 <span id="206">206</span>
+<span id="207">207</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! A minimal [Matrix](https://matrix.org/) client library.</span>
@@ -281,8 +282,7 @@
 <span class="doccomment">//! use std::convert::TryFrom;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! use ruma_client_api::alias::get_alias;</span>
-<span class="doccomment">//! use ruma_common::api::MatrixVersion;</span>
-<span class="doccomment">//! use ruma_identifiers::{room_alias_id, room_id};</span>
+<span class="doccomment">//! use ruma_common::{api::MatrixVersion, room_alias_id, room_id};</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! let response = client</span>
 <span class="doccomment">//!     .send_request(get_alias::v3::Request::new(room_alias_id!(&quot;#example_room:example.com&quot;)))</span>
@@ -317,8 +317,10 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">any::type_name</span>, <span class="ident">future::Future</span>};
 
-<span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
-<span class="kw">use</span> <span class="ident">ruma_identifiers::UserId</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>},
+    <span class="ident">UserId</span>,
+};
 <span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">info_span</span>, <span class="ident">Instrument</span>};
 
 <span class="comment">// &quot;Undo&quot; rename from `Cargo.toml` that only serves to make crate names available as a Cargo</span>
