@@ -59,16 +59,14 @@
 <span id="52">52</span>
 <span id="53">53</span>
 <span id="54">54</span>
-<span id="55">55</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.guest_access`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.guest_access`]: https://spec.matrix.org/v1.2/client-server-api/#mroomguest_access</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="doccomment">/// The content of an `m.room.guest_access` event.</span>
 <span class="doccomment">///</span>

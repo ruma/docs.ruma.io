@@ -796,7 +796,6 @@
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
@@ -805,6 +804,7 @@
         <span class="ident">EventContent</span>, <span class="ident">HasDeserializeFields</span>, <span class="ident">RedactContent</span>, <span class="ident">RedactedEventContent</span>,
         <span class="ident">RedactedStateEventContent</span>, <span class="ident">StrippedStateEvent</span>, <span class="ident">SyncStateEvent</span>,
     },
+    <span class="ident">serde::StringEnum</span>,
     <span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>,
 };
 
@@ -846,7 +846,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::empty_string_as_none&quot;</span>)
     )]</span>
     <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 

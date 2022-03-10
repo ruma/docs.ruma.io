@@ -421,9 +421,9 @@
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events::EventType</span>,
         <span class="ident">push</span>::{<span class="ident">PusherData</span>, <span class="ident">Tweak</span>},
+        <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>},
         <span class="ident">EventId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">SecondsSinceUnixEpoch</span>, <span class="ident">UserId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
@@ -512,7 +512,7 @@
 
         <span class="doccomment">/// Whether the user receiving the notification is the subject of a member event (i.e. the</span>
         <span class="doccomment">/// `state_key` of the member event is equal to the user&#39;s Matrix ID).</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">user_is_target</span>: <span class="ident">bool</span>,
 
         <span class="doccomment">/// The priority of the notification.</span>
@@ -520,7 +520,7 @@
         <span class="doccomment">/// If omitted, `high` is assumed. This may be used by push gateways to deliver less</span>
         <span class="doccomment">/// time-sensitive notifications in a way that will preserve battery power on mobile</span>
         <span class="doccomment">/// devices.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">prio</span>: <span class="ident">NotificationPriority</span>,
 
         <span class="doccomment">/// The `content` field from the event, if present.</span>
@@ -532,7 +532,7 @@
         <span class="doccomment">/// Current number of unacknowledged communications for the recipient user.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Counts whose value is zero should be omitted.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">counts</span>: <span class="ident">NotificationCounts</span>,
 
         <span class="doccomment">/// An array of devices that the notification should be sent to.</span>
@@ -586,12 +586,12 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">NotificationCounts</span> {
         <span class="doccomment">/// The number of unread messages a user has across all of the rooms they</span>
         <span class="doccomment">/// are a member of.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">unread</span>: <span class="ident">UInt</span>,
 
         <span class="doccomment">/// The number of unacknowledged missed calls a user has across all rooms of</span>
         <span class="doccomment">/// which they are a member.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">missed_calls</span>: <span class="ident">UInt</span>,
     }
 

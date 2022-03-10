@@ -357,7 +357,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_power_level&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;is_default_power_level&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
@@ -371,7 +371,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::btreemap_deserialize_v1_powerlevel_values&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::btreemap_deserialize_v1_powerlevel_values&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
@@ -383,9 +383,9 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;crate::serde::is_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
     <span class="kw">pub</span> <span class="ident">events_default</span>: <span class="ident">Int</span>,
 
@@ -395,7 +395,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_power_level&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;is_default_power_level&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">invite</span>: <span class="ident">Int</span>,
@@ -406,7 +406,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_power_level&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;is_default_power_level&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
@@ -418,7 +418,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_power_level&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;is_default_power_level&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
@@ -430,7 +430,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_power_level&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;is_default_power_level&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
@@ -444,7 +444,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::btreemap_deserialize_v1_powerlevel_values&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::btreemap_deserialize_v1_powerlevel_values&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
@@ -456,16 +456,16 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;crate::serde::is_default&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
     <span class="kw">pub</span> <span class="ident">users_default</span>: <span class="ident">Int</span>,
 
     <span class="doccomment">/// The power level requirements for specific notification types.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a mapping from `key` to power level for that notifications key.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;crate::serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">notifications</span>: <span class="ident">NotificationPowerLevels</span>,
 }
 

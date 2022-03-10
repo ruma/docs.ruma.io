@@ -148,6 +148,8 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for server-side key backups.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">add_backup_keys</span>;
@@ -168,8 +170,10 @@
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>};
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>},
+    <span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>,
+};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="doccomment">/// A wrapper around a mapping of session IDs to key data.</span>

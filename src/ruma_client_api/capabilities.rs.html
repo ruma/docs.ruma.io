@@ -351,14 +351,12 @@
 <span id="344">344</span>
 <span id="345">345</span>
 <span id="346">346</span>
-<span id="347">347</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for querying the server&#39;s supported feature set</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">collections::BTreeMap</span>};
 
 <span class="kw">use</span> <span class="ident">maplit::btreemap</span>;
-<span class="kw">use</span> <span class="ident">ruma_common::RoomVersionId</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">RoomVersionId</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 

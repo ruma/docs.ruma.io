@@ -112,7 +112,7 @@
             <span class="kw">pub</span> <span class="ident">matrix_server_name</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// Seconds until token expiration.</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::duration::secs&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::duration::secs&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">expires_in</span>: <span class="ident">Duration</span>,
         }
 

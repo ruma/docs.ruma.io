@@ -102,7 +102,7 @@
             <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
             <span class="doccomment">/// The event.</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;pdus&quot;</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::single_element_seq&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;pdus&quot;</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::single_element_seq&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">pdu</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RawJsonValue</span><span class="op">&gt;</span>,
         }
     }

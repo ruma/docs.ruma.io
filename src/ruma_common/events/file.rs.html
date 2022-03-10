@@ -210,7 +210,6 @@
 <span id="203">203</span>
 <span id="204">204</span>
 <span id="205">205</span>
-<span id="206">206</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible file message events ([MSC3551]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3551]: https://github.com/matrix-org/matrix-spec-proposals/pull/3551</span>
@@ -219,14 +218,13 @@
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">message::MessageContent</span>,
     <span class="ident">room</span>::{<span class="ident">message::Relation</span>, <span class="ident">JsonWebKey</span>},
 };
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MxcUri</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::Base64</span>, <span class="ident">MxcUri</span>};
 
 <span class="doccomment">/// The encryption info of a file sent to a room with end-to-end encryption enabled.</span>
 <span class="doccomment">///</span>

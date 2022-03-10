@@ -286,7 +286,6 @@
 <span id="279">279</span>
 <span id="280">280</span>
 <span id="281">281</span>
-<span id="282">282</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.join_rules`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.join_rules`]: https://spec.matrix.org/v1.2/client-server-api/#mroomjoin_rules</span>
@@ -294,14 +293,13 @@
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">collections::BTreeMap</span>};
 
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::from_raw_json_value</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Deserializer</span>, <span class="ident">Error</span>},
     <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>,
 };
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">PrivOwnedStr</span>, <span class="ident">RoomId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::from_raw_json_value</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomId</span>};
 
 <span class="doccomment">/// The content of an `m.room.join_rules` event.</span>
 <span class="doccomment">///</span>

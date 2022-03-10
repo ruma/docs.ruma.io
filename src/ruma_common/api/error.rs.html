@@ -294,7 +294,7 @@
         <span class="ident">http::Response::builder</span>()
             .<span class="ident">header</span>(<span class="ident">http::header::CONTENT_TYPE</span>, <span class="string">&quot;application/json&quot;</span>)
             .<span class="ident">status</span>(<span class="self">self</span>.<span class="ident">status_code</span>)
-            .<span class="ident">body</span>(<span class="ident">ruma_serde::json_to_buf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">body</span>)<span class="question-mark">?</span>)
+            .<span class="ident">body</span>(<span class="ident"><span class="kw">crate</span>::serde::json_to_buf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">body</span>)<span class="question-mark">?</span>)
             .<span class="ident">map_err</span>(<span class="ident">Into::into</span>)
     }
 }
@@ -340,7 +340,7 @@
 
     <span class="doccomment">/// Query parameter serialization failed.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Query parameter serialization failed: {0}&quot;</span>)]</span>
-    <span class="ident">Query</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">ruma_serde::urlencoded::ser::Error</span>),
+    <span class="ident">Query</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident"><span class="kw">crate</span>::serde::urlencoded::ser::Error</span>),
 
     <span class="doccomment">/// Header serialization failed.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Header serialization failed: {0}&quot;</span>)]</span>
@@ -453,7 +453,7 @@
 
     <span class="doccomment">/// Query parameter deserialization failed.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;{0}&quot;</span>)]</span>
-    <span class="ident">Query</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">ruma_serde::urlencoded::de::Error</span>),
+    <span class="ident">Query</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident"><span class="kw">crate</span>::serde::urlencoded::de::Error</span>),
 
     <span class="doccomment">/// Got an invalid identifier.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;{0}&quot;</span>)]</span>

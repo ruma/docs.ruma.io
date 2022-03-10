@@ -63,16 +63,14 @@
 <span id="56">56</span>
 <span id="57">57</span>
 <span id="58">58</span>
-<span id="59">59</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message.feedback`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message.feedback`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessagefeedback</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventId</span>, <span class="ident">PrivOwnedStr</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">EventId</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="doccomment">/// The content of an `m.room.message.feedback` event.</span>
 <span class="doccomment">///</span>

@@ -430,6 +430,9 @@
 <span id="423">423</span>
 <span id="424">424</span>
 <span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/login`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -437,8 +440,11 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3login</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">DeviceId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
-    <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">Outgoing</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">Outgoing</span>},
+        <span class="ident">DeviceId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>,
+    };
     <span class="kw">use</span> <span class="ident">serde</span>::{
         <span class="ident">de</span>::{<span class="self">self</span>, <span class="ident">DeserializeOwned</span>},
         <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>,

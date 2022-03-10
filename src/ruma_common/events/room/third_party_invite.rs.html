@@ -79,13 +79,15 @@
 <span id="72">72</span>
 <span id="73">73</span>
 <span id="74">74</span>
+<span id="75">75</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.third_party_invite`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.third_party_invite`]: https://spec.matrix.org/v1.2/client-server-api/#mroomthird_party_invite</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde::Base64</span>;
 
 <span class="doccomment">/// The content of an `m.room.third_party_invite` event.</span>
 <span class="doccomment">///</span>

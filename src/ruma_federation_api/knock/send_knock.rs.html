@@ -63,7 +63,6 @@
 <span id="56">56</span>
 <span id="57">57</span>
 <span id="58">58</span>
-<span id="59">59</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/federation/*/send_knock/{roomId}/{eventId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to submit a signed knock event to the resident homeserver.</span>
@@ -73,8 +72,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#put_matrixfederationv1send_knockroomideventid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyStrippedStateEvent</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>};
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyStrippedStateEvent</span>, <span class="ident">serde::Raw</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
     <span class="macro">ruma_api!</span> {

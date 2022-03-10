@@ -79,7 +79,6 @@
 <span id="72">72</span>
 <span id="73">73</span>
 <span id="74">74</span>
-<span id="75">75</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/client/*/room_keys/keys/{roomId}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -90,8 +89,7 @@
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">RoomId</span>};
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">serde::Raw</span>, <span class="ident">RoomId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::backup::KeyBackupData</span>;
 

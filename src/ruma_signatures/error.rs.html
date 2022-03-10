@@ -266,9 +266,7 @@
 <span id="259">259</span>
 <span id="260">260</span>
 <span id="261">261</span>
-<span id="262">262</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Base64DecodeError</span>;
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">serde::Base64DecodeError</span>, <span class="ident">EventId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>};
 <span class="kw">use</span> <span class="ident">thiserror::Error</span>;
 
 <span class="doccomment">/// `ruma-signature`&#39;s error type, wraps a number of other error types.</span>

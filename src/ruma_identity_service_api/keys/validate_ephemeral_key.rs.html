@@ -54,7 +54,6 @@
 <span id="47">47</span>
 <span id="48">48</span>
 <span id="49">49</span>
-<span id="50">50</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/identity/*/pubkey/ephemeral/isvalid`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to check for validity of short-term public key.</span>
@@ -64,8 +63,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#get_matrixidentityv2pubkeyephemeralisvalid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_serde::Base64</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">serde::Base64</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

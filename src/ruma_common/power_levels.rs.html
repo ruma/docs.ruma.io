@@ -70,7 +70,7 @@
     <span class="doccomment">/// integers too.</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::deserialize_v1_powerlevel&quot;</span>)
+        <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_power_level&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">room</span>: <span class="ident">Int</span>,

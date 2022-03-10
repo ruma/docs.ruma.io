@@ -131,7 +131,7 @@
             <span class="doccomment">/// [MSC2448](https://github.com/matrix-org/matrix-spec-proposals/pull/2448).</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2448&quot;</span>)]</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;xyz.amorgan.blurhash&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;xyz.amorgan.blurhash&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">generate_blurhash</span>: <span class="ident">bool</span>,
         }
 

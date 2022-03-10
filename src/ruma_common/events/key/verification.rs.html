@@ -211,7 +211,6 @@
 <span id="204">204</span>
 <span id="205">205</span>
 <span id="206">206</span>
-<span id="207">207</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.key.verification` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -221,10 +220,9 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC2241]: https://github.com/matrix-org/matrix-spec-proposals/pull/2241</span>
 
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventId</span>, <span class="ident">PrivOwnedStr</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">EventId</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">accept</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">cancel</span>;

@@ -102,7 +102,6 @@
 <span id="95">95</span>
 <span id="96">96</span>
 <span id="97">97</span>
-<span id="98">98</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for room membership.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ban_user</span>;
@@ -119,8 +118,7 @@
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">thirdparty::Medium</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde::Outgoing</span>;
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">serde::Outgoing</span>, <span class="ident">thirdparty::Medium</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>};
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
 <span class="doccomment">/// A signature of an `m.third_party_invite` token to prove that this user owns a third party</span>

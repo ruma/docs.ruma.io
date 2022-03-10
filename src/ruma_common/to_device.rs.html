@@ -157,7 +157,7 @@
     <span class="kw">where</span>
         <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">ruma_serde::deserialize_cow_str</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::serde::deserialize_cow_str</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
         <span class="ident">DeviceIdOrAllDevices::try_from</span>(<span class="ident">s</span>.<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
             <span class="ident">de::Error::invalid_value</span>(<span class="ident">Unexpected::Str</span>(<span class="kw-2">&amp;</span><span class="ident">s</span>), <span class="kw-2">&amp;</span><span class="string">&quot;a valid device identifier or &#39;*&#39;&quot;</span>)
         })

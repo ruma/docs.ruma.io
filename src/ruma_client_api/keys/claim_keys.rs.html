@@ -87,9 +87,9 @@
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">time::Duration</span>};
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-        <span class="ident">api::ruma_api</span>, <span class="ident">encryption::OneTimeKey</span>, <span class="ident">DeviceId</span>, <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>,
+        <span class="ident">api::ruma_api</span>, <span class="ident">encryption::OneTimeKey</span>, <span class="ident">serde::Raw</span>, <span class="ident">DeviceId</span>, <span class="ident">DeviceKeyAlgorithm</span>,
+        <span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
     <span class="macro">ruma_api!</span> {
@@ -108,7 +108,7 @@
             <span class="doccomment">/// The time (in milliseconds) to wait when downloading keys from remote servers.</span>
             <span class="doccomment">/// 10 seconds is the recommended default.</span>
             <span class="attribute">#[<span class="ident">serde</span>(
-                <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::duration::opt_ms&quot;</span>,
+                <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::duration::opt_ms&quot;</span>,
                 <span class="ident">default</span>,
                 <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>,
             )]</span>

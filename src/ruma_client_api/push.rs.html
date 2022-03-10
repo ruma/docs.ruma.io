@@ -227,14 +227,18 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for push notifications.</span>
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">error::Error</span>, <span class="ident">fmt</span>};
 
-<span class="kw">use</span> <span class="ident">ruma_common::push</span>::{
-    <span class="ident">Action</span>, <span class="ident">ConditionalPushRule</span>, <span class="ident">ConditionalPushRuleInit</span>, <span class="ident">PatternedPushRule</span>, <span class="ident">PatternedPushRuleInit</span>,
-    <span class="ident">PushCondition</span>, <span class="ident">PusherData</span>, <span class="ident">SimplePushRule</span>, <span class="ident">SimplePushRuleInit</span>,
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">push</span>::{
+        <span class="ident">Action</span>, <span class="ident">ConditionalPushRule</span>, <span class="ident">ConditionalPushRuleInit</span>, <span class="ident">PatternedPushRule</span>,
+        <span class="ident">PatternedPushRuleInit</span>, <span class="ident">PushCondition</span>, <span class="ident">PusherData</span>, <span class="ident">SimplePushRule</span>, <span class="ident">SimplePushRuleInit</span>,
+    },
+    <span class="ident">serde::StringEnum</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;

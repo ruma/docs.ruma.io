@@ -115,7 +115,6 @@
 <span id="108">108</span>
 <span id="109">109</span>
 <span id="110">110</span>
-<span id="111">111</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/room_keys/version`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -124,8 +123,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3room_keysversion</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">serde::Raw</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser</span>, <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>;
 

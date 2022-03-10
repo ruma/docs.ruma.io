@@ -484,6 +484,8 @@
 <span id="477">477</span>
 <span id="478">478</span>
 <span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for event filters.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">create_filter</span>;
@@ -493,8 +495,10 @@
 <span class="kw">mod</span> <span class="ident">url</span>;
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">RoomId</span>, <span class="ident">UserId</span>};
-<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>};
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>},
+    <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
+};
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
@@ -647,24 +651,24 @@
     <span class="doccomment">/// Include rooms that the user has left in the sync.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Defaults to `false`.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">include_leave</span>: <span class="ident">bool</span>,
 
     <span class="doccomment">/// The per user account data to include for rooms.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">account_data</span>: <span class="ident">RoomEventFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The message and state update events to include for rooms.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">timeline</span>: <span class="ident">RoomEventFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The events that aren&#39;t recorded in the room history, e.g. typing and receipts, to include</span>
     <span class="doccomment">/// for rooms.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">RoomEventFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The state events to include for rooms.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">RoomEventFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// A list of room IDs to exclude.</span>
@@ -811,19 +815,19 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// &#39;client&#39; will return the events in a format suitable for clients. &#39;federation&#39; will return</span>
     <span class="doccomment">/// the raw event as received over federation. The default is &#39;client&#39;.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">event_format</span>: <span class="ident">EventFormat</span>,
 
     <span class="doccomment">/// The presence updates to include.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">presence</span>: <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The user account data that isn&#39;t associated with rooms to include.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">account_data</span>: <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Filters to be applied to room data.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">room</span>: <span class="ident">RoomFilter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 }
 
@@ -868,7 +872,7 @@
 
 <span class="macro">macro_rules!</span> <span class="ident">can_be_empty</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span> $(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">gen</span>:<span class="ident">tt</span><span class="op">&gt;</span>)<span class="question-mark">?</span>) =&gt; {
-        <span class="kw">impl</span> $(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">gen</span><span class="op">&gt;</span>)<span class="question-mark">?</span> <span class="ident">ruma_serde::CanBeEmpty</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> $(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">gen</span><span class="op">&gt;</span>)<span class="question-mark">?</span> {
+        <span class="kw">impl</span> $(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">gen</span><span class="op">&gt;</span>)<span class="question-mark">?</span> <span class="ident">ruma_common::serde::CanBeEmpty</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> $(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">gen</span><span class="op">&gt;</span>)<span class="question-mark">?</span> {
             <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
                 <span class="self">self</span>.<span class="ident">is_empty</span>()
             }

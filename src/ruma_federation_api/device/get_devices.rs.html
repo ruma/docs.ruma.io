@@ -122,9 +122,9 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
         <span class="ident">encryption</span>::{<span class="ident">CrossSigningKey</span>, <span class="ident">DeviceKeys</span>},
+        <span class="ident">serde::Raw</span>,
         <span class="ident">DeviceId</span>, <span class="ident">UserId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
     <span class="macro">ruma_api!</span> {

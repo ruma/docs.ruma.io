@@ -182,10 +182,10 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">event_encryption_algorithm_serde</span>() {
-        <span class="kw">use</span> <span class="ident">ruma_serde::test::serde_json_eq</span>;
         <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
         <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::EventEncryptionAlgorithm</span>;
+        <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde::test::serde_json_eq</span>;
 
         <span class="ident">serde_json_eq</span>(<span class="ident">EventEncryptionAlgorithm::MegolmV1AesSha2</span>, <span class="macro">json!</span>(<span class="string">&quot;m.megolm.v1.aes-sha2&quot;</span>));
         <span class="ident">serde_json_eq</span>(

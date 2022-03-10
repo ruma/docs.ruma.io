@@ -122,7 +122,6 @@
 <span id="115">115</span>
 <span id="116">116</span>
 <span id="117">117</span>
-<span id="118">118</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/rooms/{roomId}/invite`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -135,8 +134,7 @@
     <span class="doccomment">//! [spec-mxid]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3roomsroomidinvite</span>
     <span class="doccomment">//! [spec-3pid]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3roomsroomidinvite-1</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
-    <span class="kw">use</span> <span class="ident">ruma_serde::Outgoing</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">serde::Outgoing</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::membership</span>::{<span class="ident">IncomingInvite3pid</span>, <span class="ident">Invite3pid</span>};

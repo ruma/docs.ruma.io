@@ -92,7 +92,7 @@
             <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// If `true`, the user is a guest user.</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">is_guest</span>: <span class="ident">bool</span>,
         }
 

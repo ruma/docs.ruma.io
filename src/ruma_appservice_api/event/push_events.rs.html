@@ -206,7 +206,6 @@
 <span id="199">199</span>
 <span id="200">200</span>
 <span id="201">201</span>
-<span id="202">202</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/app/*/transactions/{txnId}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to push an event (or batch of events) to the application service.</span>
@@ -216,8 +215,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/application-service-api/#put_matrixappv1transactionstxnid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyRoomEvent</span>, <span class="ident">TransactionId</span>};
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">events::AnyRoomEvent</span>, <span class="ident">serde::Raw</span>, <span class="ident">TransactionId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {

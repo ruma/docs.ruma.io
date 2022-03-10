@@ -130,9 +130,9 @@
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-        <span class="ident">api::ruma_api</span>, <span class="ident">events::AnySyncRoomEvent</span>, <span class="ident">push::Action</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomId</span>,
+        <span class="ident">api::ruma_api</span>, <span class="ident">events::AnySyncRoomEvent</span>, <span class="ident">push::Action</span>, <span class="ident">serde::Raw</span>,
+        <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
     <span class="macro">ruma_api!</span> {

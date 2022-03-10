@@ -102,7 +102,7 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.ignored_user_list&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">GlobalAccountData</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IgnoredUserListEventContent</span> {
     <span class="doccomment">/// A list of users to ignore.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::vec_as_map_of_empty&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::vec_as_map_of_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">ignored_users</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 

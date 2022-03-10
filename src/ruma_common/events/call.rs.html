@@ -61,15 +61,13 @@
 <span id="54">54</span>
 <span id="55">55</span>
 <span id="56">56</span>
-<span id="57">57</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.call` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
 
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">answer</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">candidates</span>;

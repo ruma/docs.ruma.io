@@ -107,7 +107,6 @@
 <span id="100">100</span>
 <span id="101">101</span>
 <span id="102">102</span>
-<span id="103">103</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/federation/*/query/profile`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to query profile information with a user id and optional field.</span>
@@ -117,8 +116,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixfederationv1queryprofile</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
-    <span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">serde::StringEnum</span>, <span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
@@ -157,7 +155,7 @@
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">cfg_attr</span>(
                 <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
-                <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::empty_string_as_none&quot;</span>)
+                <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::empty_string_as_none&quot;</span>)
             )]</span>
             <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 

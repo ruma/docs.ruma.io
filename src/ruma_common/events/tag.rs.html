@@ -232,7 +232,6 @@
 <span id="225">225</span>
 <span id="226">226</span>
 <span id="227">227</span>
-<span id="228">228</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.tag`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.tag`]: https://spec.matrix.org/v1.2/client-server-api/#mtag</span>
@@ -240,10 +239,9 @@
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">error::Error</span>, <span class="ident">fmt</span>, <span class="ident">str::FromStr</span>};
 
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
-<span class="kw">use</span> <span class="ident">ruma_serde::deserialize_cow_str</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::deserialize_cow_str</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="doccomment">/// Map of tag names to tag info.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Tags</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">TagName</span>, <span class="ident">TagInfo</span><span class="op">&gt;</span>;

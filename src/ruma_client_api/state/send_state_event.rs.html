@@ -213,9 +213,9 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events</span>::{<span class="ident">AnyStateEventContent</span>, <span class="ident">StateEventContent</span>},
+        <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>},
         <span class="ident">EventId</span>, <span class="ident">RoomId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>;
 
     <span class="macro">ruma_api!</span> {
@@ -352,7 +352,7 @@
                             .<span class="ident">ok_or</span>(<span class="ident">ruma_common::api::error::IntoHttpError::NeedsAuthentication</span>)<span class="question-mark">?</span>
                     ))<span class="question-mark">?</span>,
                 )
-                .<span class="ident">body</span>(<span class="ident">ruma_serde::json_to_buf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">body</span>)<span class="question-mark">?</span>)<span class="question-mark">?</span>;
+                .<span class="ident">body</span>(<span class="ident">ruma_common::serde::json_to_buf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">body</span>)<span class="question-mark">?</span>)<span class="question-mark">?</span>;
 
             <span class="prelude-val">Ok</span>(<span class="ident">http_request</span>)
         }

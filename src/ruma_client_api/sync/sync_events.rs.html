@@ -764,9 +764,9 @@
             <span class="ident">AnyToDeviceEvent</span>,
         },
         <span class="ident">presence::PresenceState</span>,
+        <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>},
         <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::filter</span>::{<span class="ident">FilterDefinition</span>, <span class="ident">IncomingFilterDefinition</span>};
@@ -799,20 +799,20 @@
             <span class="kw">pub</span> <span class="ident">since</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// Controls whether to include the full state for all rooms the user is a member of.</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
             <span class="kw">pub</span> <span class="ident">full_state</span>: <span class="ident">bool</span>,
 
             <span class="doccomment">/// Controls whether the client is automatically marked as online by polling this API.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// Defaults to `PresenceState::Online`.</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
             <span class="kw">pub</span> <span class="ident">set_presence</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">PresenceState</span>,
 
             <span class="doccomment">/// The maximum time to poll in milliseconds before returning this request.</span>
             <span class="attribute">#[<span class="ident">serde</span>(
-                <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::duration::opt_ms&quot;</span>,
+                <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::duration::opt_ms&quot;</span>,
                 <span class="ident">default</span>,
                 <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>,
             )]</span>
@@ -902,7 +902,7 @@
         <span class="comment">// functionally equivalent to looking at whether the first symbol is a &#39;{&#39; as the spec</span>
         <span class="comment">// says. (there are probably some corner cases like leading whitespace)</span>
         <span class="doccomment">/// A complete filter definition serialized to JSON.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::json_string&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::json_string&quot;</span>)]</span>
         <span class="ident">FilterDefinition</span>(<span class="ident">FilterDefinition</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>),
 
         <span class="doccomment">/// The ID of a filter saved on the server.</span>
@@ -1082,7 +1082,7 @@
         <span class="doccomment">/// True if the number of events returned was limited by the `limit` on the filter.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// Default to `false`.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">limited</span>: <span class="ident">bool</span>,
 
         <span class="doccomment">/// A token that can be supplied to to the `from` parameter of the</span>

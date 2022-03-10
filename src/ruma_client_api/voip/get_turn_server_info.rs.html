@@ -100,7 +100,7 @@
             <span class="kw">pub</span> <span class="ident">uris</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// The time-to-live in seconds.</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::duration::secs&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::duration::secs&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">ttl</span>: <span class="ident">Duration</span>,
         }
 

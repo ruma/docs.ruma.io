@@ -86,6 +86,8 @@
 <span id="79">79</span>
 <span id="80">80</span>
 <span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/federation/*/user/keys/claim`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to claim one-time keys for use in pre-key messages</span>
@@ -98,9 +100,11 @@
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-        <span class="ident">api::ruma_api</span>, <span class="ident">encryption::OneTimeKey</span>, <span class="ident">DeviceId</span>, <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>,
+        <span class="ident">api::ruma_api</span>,
+        <span class="ident">encryption::OneTimeKey</span>,
+        <span class="ident">serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>},
+        <span class="ident">DeviceId</span>, <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">DeviceKeyId</span>, <span class="ident">UserId</span>,
     };
-    <span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
     <span class="macro">ruma_api!</span> {

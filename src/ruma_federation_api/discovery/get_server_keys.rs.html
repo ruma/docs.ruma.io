@@ -62,7 +62,6 @@
 <span id="55">55</span>
 <span id="56">56</span>
 <span id="57">57</span>
-<span id="58">58</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/key/*/server`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint for retrieving a server&#39;s published signing keys.</span>
@@ -75,8 +74,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixkeyv2serverkeyid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common::api::ruma_api</span>;
-    <span class="kw">use</span> <span class="ident">ruma_serde::Raw</span>;
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">serde::Raw</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::discovery::ServerSigningKeys</span>;
 

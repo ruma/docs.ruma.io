@@ -566,10 +566,10 @@
     <span class="ident">encryption</span>::{<span class="ident">CrossSigningKey</span>, <span class="ident">DeviceKeys</span>},
     <span class="ident">events</span>::{<span class="ident">receipt::Receipt</span>, <span class="ident">AnyToDeviceEventContent</span>, <span class="ident">EventType</span>},
     <span class="ident">presence::PresenceState</span>,
+    <span class="ident">serde</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">Raw</span>},
     <span class="ident">to_device::DeviceIdOrAllDevices</span>,
     <span class="ident">DeviceId</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>, <span class="ident">UserId</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">Raw</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 

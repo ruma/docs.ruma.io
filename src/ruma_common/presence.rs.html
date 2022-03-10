@@ -50,15 +50,11 @@
 <span id="43">43</span>
 <span id="44">44</span>
 <span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [presence module][presence].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [presence]: https://spec.matrix.org/v1.2/client-server-api/#presence</span>
 
-<span class="kw">use</span> <span class="ident">ruma_serde::StringEnum</span>;
-
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="doccomment">/// A description of a user&#39;s connectivity and availability for chat.</span>
 <span class="doccomment">///</span>

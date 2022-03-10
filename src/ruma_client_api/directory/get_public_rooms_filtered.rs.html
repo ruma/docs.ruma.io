@@ -140,7 +140,7 @@
             <span class="kw">pub</span> <span class="ident">filter</span>: <span class="ident">Filter</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// Network to fetch the public room lists from.</span>
-            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_default&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">room_network</span>: <span class="ident">RoomNetwork</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
         }
 

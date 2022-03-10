@@ -205,8 +205,8 @@
     <span class="doccomment">/// Whether or not this room&#39;s data should be transferred to other homeservers.</span>
     <span class="attribute">#[<span class="ident">serde</span>(
         <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.federate&quot;</span>,
-        <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::default_true&quot;</span>,
-        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_serde::is_true&quot;</span>
+        <span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;crate::serde::default_true&quot;</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;crate::serde::is_true&quot;</span>
     )]</span>
     <span class="kw">pub</span> <span class="ident">federate</span>: <span class="ident">bool</span>,
 

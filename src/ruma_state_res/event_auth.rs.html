@@ -1305,9 +1305,9 @@
         },
         <span class="ident">EventType</span>,
     },
+    <span class="ident">serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>},
     <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>,
 };
-<span class="kw">use</span> <span class="ident">ruma_serde</span>::{<span class="ident">Base64</span>, <span class="ident">Raw</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::IgnoredAny</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>, <span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>};
 <span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">debug</span>, <span class="ident">error</span>, <span class="ident">info</span>, <span class="ident">warn</span>};
