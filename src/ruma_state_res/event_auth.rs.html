@@ -1291,6 +1291,9 @@
 <span id="1286">1286</span>
 <span id="1287">1287</span>
 <span id="1288">1288</span>
+<span id="1289">1289</span>
+<span id="1290">1290</span>
+<span id="1291">1291</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Borrow</span>, <span class="ident">collections::BTreeSet</span>, <span class="ident">convert::TryFrom</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
@@ -1364,7 +1367,9 @@
             <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">RoomMemberContentFields</span> <span class="op">=</span> <span class="ident">from_json_str</span>(<span class="ident">content</span>.<span class="ident">get</span>())<span class="question-mark">?</span>;
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="ident">membership</span>)) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">membership</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">deserialize</span>()) {
-                <span class="kw">if</span> [<span class="ident">MembershipState::Join</span>, <span class="ident">MembershipState::Invite</span>].<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">membership</span>) {
+                <span class="kw">if</span> [<span class="ident">MembershipState::Join</span>, <span class="ident">MembershipState::Invite</span>, <span class="ident">MembershipState::Knock</span>]
+                    .<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">membership</span>)
+                {
                     <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>());
                     <span class="kw">if</span> <span class="op">!</span><span class="ident">auth_types</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
                         <span class="ident">auth_types</span>.<span class="ident">push</span>(<span class="ident">key</span>);
@@ -1809,7 +1814,8 @@
                 <span class="macro">warn!</span>(<span class="question-mark">?</span><span class="ident">target_user_membership_event_id</span>, <span class="string">&quot;Banned user can&#39;t join&quot;</span>);
                 <span class="bool-val">false</span>
             } <span class="kw">else</span> {
-                <span class="kw">let</span> <span class="ident">invite_allowed</span> <span class="op">=</span> <span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Invite</span>
+                <span class="kw">let</span> <span class="ident">invite_allowed</span> <span class="op">=</span> (<span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Invite</span>
+                    <span class="op">|</span><span class="op">|</span> <span class="ident">room_version</span>.<span class="ident">allow_knocking</span> <span class="op">&amp;&amp;</span> <span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Knock</span>)
                     <span class="op">&amp;&amp;</span> (<span class="ident">target_user_current_membership</span> <span class="op">==</span> <span class="ident">MembershipState::Join</span>
                         <span class="op">|</span><span class="op">|</span> <span class="ident">target_user_current_membership</span> <span class="op">==</span> <span class="ident">MembershipState::Invite</span>);
 
@@ -2580,5 +2586,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_state_res" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (458262b13 2022-03-09)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_state_res" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (5f4e06771 2022-03-10)" ></div>
 </body></html>

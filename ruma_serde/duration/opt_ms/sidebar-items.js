@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["deserialize","Deserializes an Option."],["serialize","Serialize an Option."]]});
