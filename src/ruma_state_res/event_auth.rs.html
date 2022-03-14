@@ -1294,6 +1294,11 @@
 <span id="1289">1289</span>
 <span id="1290">1290</span>
 <span id="1291">1291</span>
+<span id="1292">1292</span>
+<span id="1293">1293</span>
+<span id="1294">1294</span>
+<span id="1295">1295</span>
+<span id="1296">1296</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Borrow</span>, <span class="ident">collections::BTreeSet</span>, <span class="ident">convert::TryFrom</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
@@ -1361,6 +1366,7 @@
         <span class="kw">struct</span> <span class="ident">RoomMemberContentFields</span> {
             <span class="ident">membership</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">MembershipState</span><span class="op">&gt;</span><span class="op">&gt;</span>,
             <span class="ident">third_party_invite</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">ThirdPartyInvite</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="ident">join_authorised_via_users_server</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">state_key</span>) <span class="op">=</span> <span class="ident">state_key</span> {
@@ -1373,6 +1379,15 @@
                     <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>());
                     <span class="kw">if</span> <span class="op">!</span><span class="ident">auth_types</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
                         <span class="ident">auth_types</span>.<span class="ident">push</span>(<span class="ident">key</span>);
+                    }
+
+                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="ident">u</span>)) <span class="op">=</span>
+                        <span class="ident">content</span>.<span class="ident">join_authorised_via_users_server</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">deserialize</span>())
+                    {
+                        <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> (<span class="ident">EventType::RoomMember</span>, <span class="ident">u</span>.<span class="ident">to_string</span>());
+                        <span class="kw">if</span> <span class="op">!</span><span class="ident">auth_types</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>) {
+                            <span class="ident">auth_types</span>.<span class="ident">push</span>(<span class="ident">key</span>);
+                        }
                     }
                 }
 
@@ -1470,6 +1485,9 @@
     }
 
     <span class="comment">/*
+    // TODO: In the past this code caused problems federating with synapse, maybe this has been
+    // resolved already. Needs testing.
+    //
     // 2. Reject if auth_events
     // a. auth_events cannot have duplicate keys since it&#39;s a BTree
     // b. All entries are valid auth events according to spec
@@ -1491,34 +1509,41 @@
     }
     */</span>
 
-    <span class="comment">// 3. If event does not have m.room.create in auth_events reject</span>
     <span class="kw">let</span> <span class="ident">room_create_event</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">fetch_state</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>) {
-        <span class="prelude-val">Some</span>(<span class="ident">event</span>) =&gt; <span class="ident">event</span>,
         <span class="prelude-val">None</span> =&gt; {
             <span class="macro">warn!</span>(<span class="string">&quot;no m.room.create event in auth chain&quot;</span>);
-
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
         }
+        <span class="prelude-val">Some</span>(<span class="ident">e</span>) =&gt; <span class="ident">e</span>,
     };
+
+    <span class="comment">// 3. If event does not have m.room.create in auth_events reject</span>
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">incoming_event</span>.<span class="ident">auth_events</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">id</span>.<span class="ident">borrow</span>() <span class="op">==</span> <span class="ident">room_create_event</span>.<span class="ident">event_id</span>().<span class="ident">borrow</span>())
+    {
+        <span class="macro">warn!</span>(<span class="string">&quot;no m.room.create event in auth events&quot;</span>);
+        <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
+    }
 
     <span class="comment">// [synapse] checks for federation here</span>
 
-    <span class="comment">// 4. If type is m.room.aliases</span>
-    <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">incoming_event</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">EventType::RoomAliases</span>
-        <span class="op">&amp;&amp;</span> <span class="ident">room_version</span>.<span class="ident">special_case_aliases_auth</span>
-    {
-        <span class="macro">info!</span>(<span class="string">&quot;starting m.room.aliases check&quot;</span>);
+    <span class="comment">// Only in some room versions 6 and below</span>
+    <span class="kw">if</span> <span class="ident">room_version</span>.<span class="ident">special_case_aliases_auth</span> {
+        <span class="comment">// 4. If type is m.room.aliases</span>
+        <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">incoming_event</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">EventType::RoomAliases</span> {
+            <span class="macro">info!</span>(<span class="string">&quot;starting m.room.aliases check&quot;</span>);
 
-        <span class="comment">// If sender&#39;s domain doesn&#39;t matches state_key, reject</span>
-        <span class="kw">if</span> <span class="ident">incoming_event</span>.<span class="ident">state_key</span>() <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sender</span>.<span class="ident">server_name</span>().<span class="ident">as_str</span>()) {
-            <span class="macro">warn!</span>(<span class="string">&quot;state_key does not match sender&quot;</span>);
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
+            <span class="comment">// If sender&#39;s domain doesn&#39;t matches state_key, reject</span>
+            <span class="kw">if</span> <span class="ident">incoming_event</span>.<span class="ident">state_key</span>() <span class="op">!</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sender</span>.<span class="ident">server_name</span>().<span class="ident">as_str</span>()) {
+                <span class="macro">warn!</span>(<span class="string">&quot;state_key does not match sender&quot;</span>);
+                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
+            }
+
+            <span class="macro">info!</span>(<span class="string">&quot;m.room.aliases event was allowed&quot;</span>);
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>);
         }
-
-        <span class="macro">info!</span>(<span class="string">&quot;m.room.aliases event was allowed&quot;</span>);
-        <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>);
     }
 
+    <span class="comment">// If type is m.room.member</span>
     <span class="kw">let</span> <span class="ident">power_levels_event</span> <span class="op">=</span> <span class="ident">fetch_state</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>);
     <span class="kw">let</span> <span class="ident">sender_member_event</span> <span class="op">=</span> <span class="ident">fetch_state</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomMember</span>, <span class="ident">sender</span>.<span class="ident">as_str</span>());
 
@@ -1541,15 +1566,16 @@
         <span class="kw">let</span> <span class="ident">target_user</span> <span class="op">=</span>
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">state_key</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">Error::InvalidPdu</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="ident">join_authed_user</span> <span class="op">=</span>
+        <span class="kw">let</span> <span class="ident">user_for_join_auth</span> <span class="op">=</span>
             <span class="ident">content</span>.<span class="ident">join_authorised_via_users_server</span>.<span class="ident">as_ref</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">u</span><span class="op">|</span> <span class="ident">u</span>.<span class="ident">deserialize</span>().<span class="ident">ok</span>());
-        <span class="kw">let</span> <span class="ident">join_authed_user_membership</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">auth_user</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">join_authed_user</span> {
-            <span class="ident">fetch_state</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomMember</span>, <span class="ident">auth_user</span>.<span class="ident">as_str</span>())
-                .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">mem</span><span class="op">|</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">GetMembership</span><span class="op">&gt;</span>(<span class="ident">mem</span>.<span class="ident">content</span>().<span class="ident">get</span>()).<span class="ident">ok</span>())
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">mem</span><span class="op">|</span> <span class="ident">mem</span>.<span class="ident">membership</span>)
-        } <span class="kw">else</span> {
-            <span class="prelude-val">None</span>
-        };
+
+        <span class="kw">let</span> <span class="ident">user_for_join_auth_membership</span> <span class="op">=</span> <span class="ident">user_for_join_auth</span>
+            .<span class="ident">as_ref</span>()
+            .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">auth_user</span><span class="op">|</span> <span class="ident">fetch_state</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomMember</span>, <span class="ident">auth_user</span>.<span class="ident">as_str</span>()))
+            .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">mem</span><span class="op">|</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">GetMembership</span><span class="op">&gt;</span>(<span class="ident">mem</span>.<span class="ident">content</span>().<span class="ident">get</span>()).<span class="ident">ok</span>())
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">mem</span><span class="op">|</span> <span class="ident">mem</span>.<span class="ident">membership</span>)
+            .<span class="ident">unwrap_or</span>(<span class="ident">MembershipState::Leave</span>);
+
         <span class="kw">if</span> <span class="op">!</span><span class="ident">valid_membership_change</span>(
             <span class="ident">room_version</span>,
             <span class="ident">target_user</span>,
@@ -1560,8 +1586,8 @@
             <span class="ident">current_third_party_invite</span>,
             <span class="ident">power_levels_event</span>.<span class="ident">as_ref</span>(),
             <span class="ident">fetch_state</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>).<span class="ident">as_ref</span>(),
-            <span class="ident">join_authed_user</span>.<span class="ident">as_deref</span>(),
-            <span class="ident">join_authed_user_membership</span>,
+            <span class="ident">user_for_join_auth</span>.<span class="ident">as_deref</span>(),
+            <span class="kw-2">&amp;</span><span class="ident">user_for_join_auth_membership</span>,
             <span class="ident">room_create_event</span>,
         )<span class="question-mark">?</span> {
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
@@ -1592,6 +1618,7 @@
         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
     }
 
+    <span class="comment">// If type is m.room.third_party_invite</span>
     <span class="kw">let</span> <span class="ident">sender_power_level</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">pl</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">power_levels_event</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">PowerLevelsContentFields</span><span class="op">&gt;</span>(<span class="ident">pl</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">level</span>) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="ident">sender</span>) {
@@ -1633,6 +1660,7 @@
         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>);
     }
 
+    <span class="comment">// If type is m.room.power_levels</span>
     <span class="kw">if</span> <span class="kw-2">*</span><span class="ident">incoming_event</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">EventType::RoomPowerLevels</span> {
         <span class="macro">info!</span>(<span class="string">&quot;starting m.room.power_levels check&quot;</span>);
 
@@ -1702,8 +1730,8 @@
     <span class="ident">current_third_party_invite</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Event</span><span class="op">&gt;</span>,
     <span class="ident">power_levels_event</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Event</span><span class="op">&gt;</span>,
     <span class="ident">join_rules_event</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Event</span><span class="op">&gt;</span>,
-    <span class="ident">authed_user_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-    <span class="ident">auth_user_membership</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipState</span><span class="op">&gt;</span>,
+    <span class="ident">user_for_join_auth</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="ident">user_for_join_auth_membership</span>: <span class="kw-2">&amp;</span><span class="ident">MembershipState</span>,
     <span class="ident">create_room</span>: <span class="kw">impl</span> <span class="ident">Event</span>,
 ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
@@ -1751,25 +1779,17 @@
     <span class="kw">let</span> <span class="ident">target_user_membership_event_id</span> <span class="op">=</span>
         <span class="ident">target_user_membership_event</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">event_id</span>());
 
-    <span class="comment">// FIXME: `JoinRule::Restricted(_)` can contain conditions that allow a user to join if</span>
-    <span class="comment">// they are met. So far the spec talks about roomId based auth inheritance, the problem with</span>
-    <span class="comment">// this is that ruma-state-res can only request events from one room at a time :(</span>
-    <span class="kw">let</span> <span class="ident">restricted</span> <span class="op">=</span> <span class="macro">matches!</span>(<span class="ident">join_rules</span>, <span class="ident">JoinRule::Restricted</span>(<span class="kw">_</span>));
-
-    <span class="kw">let</span> <span class="ident">allow_based_on_membership</span> <span class="op">=</span>
-        <span class="macro">matches!</span>(<span class="ident">target_user_current_membership</span>, <span class="ident">MembershipState::Invite</span> <span class="op">|</span> <span class="ident">MembershipState::Join</span>)
-            <span class="op">|</span><span class="op">|</span> <span class="ident">authed_user_id</span>.<span class="ident">is_none</span>();
-
-    <span class="kw">let</span> <span class="ident">restricted_join_rules_auth</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">authed_user_id</span>) <span class="op">=</span> <span class="ident">authed_user_id</span> {
-        <span class="comment">// Is the authorised user allowed to invite users into this rooom</span>
+    <span class="kw">let</span> <span class="ident">user_for_join_auth_is_valid</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">user_for_join_auth</span>) <span class="op">=</span> <span class="ident">user_for_join_auth</span> {
+        <span class="comment">// Is the authorised user allowed to invite users into this room</span>
         <span class="kw">let</span> (<span class="ident">auth_user_pl</span>, <span class="ident">invite_level</span>) <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">pl</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">power_levels_event</span> {
+            <span class="comment">// TODO Refactor all powerlevel parsing</span>
             <span class="kw">let</span> <span class="ident">invite</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">PowerLevelsContentInvite</span><span class="op">&gt;</span>(<span class="ident">pl</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
                 <span class="prelude-val">Ok</span>(<span class="ident">power_levels</span>) =&gt; <span class="ident">power_levels</span>.<span class="ident">invite</span>,
                 <span class="kw">_</span> =&gt; <span class="macro">int!</span>(<span class="number">50</span>),
             };
 
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">PowerLevelsContentFields</span><span class="op">&gt;</span>(<span class="ident">pl</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
-                <span class="kw">let</span> <span class="ident">user_pl</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">level</span>) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="ident">authed_user_id</span>) {
+                <span class="kw">let</span> <span class="ident">user_pl</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">level</span>) <span class="op">=</span> <span class="ident">content</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="ident">user_for_join_auth</span>) {
                     <span class="kw-2">*</span><span class="ident">level</span>
                 } <span class="kw">else</span> {
                     <span class="ident">content</span>.<span class="ident">users_default</span>
@@ -1782,14 +1802,16 @@
         } <span class="kw">else</span> {
             (<span class="macro">int!</span>(<span class="number">0</span>), <span class="macro">int!</span>(<span class="number">0</span>))
         };
-        (<span class="ident">auth_user_membership</span> <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="ident">MembershipState::Join</span>)) <span class="op">&amp;&amp;</span> (<span class="ident">auth_user_pl</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">invite_level</span>)
+        (<span class="ident">user_for_join_auth_membership</span> <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">MembershipState::Join</span>) <span class="op">&amp;&amp;</span> (<span class="ident">auth_user_pl</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">invite_level</span>)
     } <span class="kw">else</span> {
-        <span class="comment">// If the `join_authorised_via_users_server` was empty we treat the target user as invited</span>
-        <span class="bool-val">true</span>
+        <span class="comment">// No auth user was given</span>
+        <span class="bool-val">false</span>
     };
 
     <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">target_membership</span> {
         <span class="ident">MembershipState::Join</span> =&gt; {
+            <span class="comment">// 1. If the only previous event is an m.room.create and the state_key is the creator,</span>
+            <span class="comment">// allow</span>
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prev_events</span> <span class="op">=</span> <span class="ident">current_event</span>.<span class="ident">prev_events</span>();
 
             <span class="kw">let</span> <span class="ident">prev_event_is_create_event</span> <span class="op">=</span> <span class="ident">prev_events</span>
@@ -1808,40 +1830,40 @@
             }
 
             <span class="kw">if</span> <span class="ident">sender</span> <span class="op">!</span><span class="op">=</span> <span class="ident">target_user</span> {
+                <span class="comment">// If the sender does not match state_key, reject.</span>
                 <span class="macro">warn!</span>(<span class="string">&quot;Can&#39;t make other user join&quot;</span>);
                 <span class="bool-val">false</span>
             } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="ident">MembershipState::Ban</span> <span class="op">=</span> <span class="ident">target_user_current_membership</span> {
+                <span class="comment">// If the sender is banned, reject.</span>
                 <span class="macro">warn!</span>(<span class="question-mark">?</span><span class="ident">target_user_membership_event_id</span>, <span class="string">&quot;Banned user can&#39;t join&quot;</span>);
                 <span class="bool-val">false</span>
-            } <span class="kw">else</span> {
-                <span class="kw">let</span> <span class="ident">invite_allowed</span> <span class="op">=</span> (<span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Invite</span>
+            } <span class="kw">else</span> <span class="kw">if</span> (<span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Invite</span>
                     <span class="op">|</span><span class="op">|</span> <span class="ident">room_version</span>.<span class="ident">allow_knocking</span> <span class="op">&amp;&amp;</span> <span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Knock</span>)
+                <span class="comment">// If the join_rule is invite then allow if membership state is invite or join</span>
                     <span class="op">&amp;&amp;</span> (<span class="ident">target_user_current_membership</span> <span class="op">==</span> <span class="ident">MembershipState::Join</span>
-                        <span class="op">|</span><span class="op">|</span> <span class="ident">target_user_current_membership</span> <span class="op">==</span> <span class="ident">MembershipState::Invite</span>);
-
-                <span class="kw">if</span> <span class="ident">invite_allowed</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>);
+                        <span class="op">|</span><span class="op">|</span> <span class="ident">target_user_current_membership</span> <span class="op">==</span> <span class="ident">MembershipState::Invite</span>)
+            {
+                <span class="bool-val">true</span>
+            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">room_version</span>.<span class="ident">restricted_join_rules</span>
+                <span class="op">&amp;&amp;</span> <span class="macro">matches!</span>(<span class="ident">join_rules</span>, <span class="ident">JoinRule::Restricted</span>(<span class="kw">_</span>))
+            {
+                <span class="comment">// If the join_rule is restricted</span>
+                <span class="kw">if</span> <span class="macro">matches!</span>(
+                    <span class="ident">target_user_current_membership</span>,
+                    <span class="ident">MembershipState::Invite</span> <span class="op">|</span> <span class="ident">MembershipState::Join</span>
+                ) {
+                    <span class="comment">// If membership state is join or invite, allow.</span>
+                    <span class="bool-val">true</span>
+                } <span class="kw">else</span> {
+                    <span class="comment">// If the join_authorised_via_users_server key in content is not a user with</span>
+                    <span class="comment">// sufficient permission to invite other users, reject.</span>
+                    <span class="comment">// Otherwise, allow.</span>
+                    <span class="ident">user_for_join_auth_is_valid</span>
                 }
-
-                <span class="kw">if</span> <span class="ident">room_version</span>.<span class="ident">restricted_join_rules</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">restricted</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">allow_based_on_membership</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">restricted_join_rules_auth</span>
-                {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>);
-                }
-
-                <span class="kw">if</span> <span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Public</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>);
-                }
-
-                <span class="macro">warn!</span>(
-                    <span class="ident">join_rules_event_id</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">join_rules_event</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">event_id</span>()),
-                    <span class="question-mark">?</span><span class="ident">target_user_membership_event_id</span>,
-                    <span class="string">&quot;Can&#39;t join if join rules is not public and user is not invited / joined&quot;</span>,
-                );
-
-                <span class="bool-val">false</span>
+            } <span class="kw">else</span> {
+                <span class="comment">// If the join_rule is public, allow.</span>
+                <span class="comment">// Otherwise, reject.</span>
+                <span class="ident">join_rules</span> <span class="op">==</span> <span class="ident">JoinRule::Public</span>
             }
         }
         <span class="ident">MembershipState::Invite</span> =&gt; {
@@ -2261,7 +2283,7 @@
     <span class="kw">use</span> <span class="kw">crate</span>::{
         <span class="ident">event_auth::valid_membership_change</span>,
         <span class="ident">test_utils</span>::{
-            <span class="ident">alice</span>, <span class="ident">bob</span>, <span class="ident">charlie</span>, <span class="ident">ella</span>, <span class="ident">event_id</span>, <span class="ident">member_content_ban</span>, <span class="ident">member_content_join</span>, <span class="ident">room_id</span>,
+            <span class="ident">alice</span>, <span class="ident">charlie</span>, <span class="ident">ella</span>, <span class="ident">event_id</span>, <span class="ident">member_content_ban</span>, <span class="ident">member_content_join</span>, <span class="ident">room_id</span>,
             <span class="ident">to_pdu_event</span>, <span class="ident">StateEvent</span>, <span class="ident">INITIAL_EVENTS</span>, <span class="ident">INITIAL_EVENTS_CREATE_ROOM</span>,
         },
         <span class="ident">Event</span>, <span class="ident">RoomVersion</span>, <span class="ident">StateMap</span>,
@@ -2305,7 +2327,7 @@
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="prelude-val">None</span>,
-            <span class="prelude-val">None</span>,
+            <span class="kw-2">&amp;</span><span class="ident">MembershipState::Leave</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()).<span class="ident">unwrap</span>(),
         )
         .<span class="ident">unwrap</span>());
@@ -2349,7 +2371,7 @@
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="prelude-val">None</span>,
-            <span class="prelude-val">None</span>,
+            <span class="kw-2">&amp;</span><span class="ident">MembershipState::Leave</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()).<span class="ident">unwrap</span>(),
         )
         .<span class="ident">unwrap</span>());
@@ -2393,7 +2415,7 @@
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="prelude-val">None</span>,
-            <span class="prelude-val">None</span>,
+            <span class="kw-2">&amp;</span><span class="ident">MembershipState::Leave</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()).<span class="ident">unwrap</span>(),
         )
         .<span class="ident">unwrap</span>());
@@ -2437,7 +2459,7 @@
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="prelude-val">None</span>,
-            <span class="prelude-val">None</span>,
+            <span class="kw-2">&amp;</span><span class="ident">MembershipState::Leave</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()).<span class="ident">unwrap</span>(),
         )
         .<span class="ident">unwrap</span>());
@@ -2463,20 +2485,8 @@
             <span class="kw-2">&amp;</span>[<span class="string">&quot;IPOWER&quot;</span>],
         );
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">member</span> <span class="op">=</span> <span class="ident">RoomMemberEventContent::new</span>(<span class="ident">MembershipState::Invite</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">member</span> <span class="op">=</span> <span class="ident">RoomMemberEventContent::new</span>(<span class="ident">MembershipState::Join</span>);
         <span class="ident">member</span>.<span class="ident">join_authorized_via_users_server</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">alice</span>());
-        <span class="ident">events</span>.<span class="ident">insert</span>(
-            <span class="ident">event_id</span>(<span class="string">&quot;new&quot;</span>),
-            <span class="ident">to_pdu_event</span>(
-                <span class="string">&quot;new&quot;</span>,
-                <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomMember</span>,
-                <span class="prelude-val">Some</span>(<span class="ident">ella</span>().<span class="ident">as_str</span>()),
-                <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">member</span>).<span class="ident">unwrap</span>(),
-                <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IJR&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>],
-                <span class="kw-2">&amp;</span>[<span class="string">&quot;IMC&quot;</span>],
-            ),
-        );
 
         <span class="kw">let</span> <span class="ident">auth_events</span> <span class="op">=</span> <span class="ident">events</span>
             .<span class="ident">values</span>()
@@ -2510,7 +2520,7 @@
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">alice</span>()),
-            <span class="prelude-val">Some</span>(<span class="ident">MembershipState::Join</span>),
+            <span class="kw-2">&amp;</span><span class="ident">MembershipState::Join</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()).<span class="ident">unwrap</span>(),
         )
         .<span class="ident">unwrap</span>());
@@ -2526,7 +2536,7 @@
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">ella</span>()),
-            <span class="prelude-val">Some</span>(<span class="ident">MembershipState::Join</span>),
+            <span class="kw-2">&amp;</span><span class="ident">MembershipState::Leave</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()).<span class="ident">unwrap</span>(),
         )
         .<span class="ident">unwrap</span>());
@@ -2579,7 +2589,7 @@
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomJoinRules</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()),
             <span class="prelude-val">None</span>,
-            <span class="prelude-val">None</span>,
+            <span class="kw-2">&amp;</span><span class="ident">MembershipState::Leave</span>,
             <span class="ident">fetch_state</span>(<span class="ident">EventType::RoomCreate</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>()).<span class="ident">unwrap</span>(),
         )
         .<span class="ident">unwrap</span>());

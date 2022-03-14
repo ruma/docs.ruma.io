@@ -1083,6 +1083,107 @@
 <span id="1076">1076</span>
 <span id="1077">1077</span>
 <span id="1078">1078</span>
+<span id="1079">1079</span>
+<span id="1080">1080</span>
+<span id="1081">1081</span>
+<span id="1082">1082</span>
+<span id="1083">1083</span>
+<span id="1084">1084</span>
+<span id="1085">1085</span>
+<span id="1086">1086</span>
+<span id="1087">1087</span>
+<span id="1088">1088</span>
+<span id="1089">1089</span>
+<span id="1090">1090</span>
+<span id="1091">1091</span>
+<span id="1092">1092</span>
+<span id="1093">1093</span>
+<span id="1094">1094</span>
+<span id="1095">1095</span>
+<span id="1096">1096</span>
+<span id="1097">1097</span>
+<span id="1098">1098</span>
+<span id="1099">1099</span>
+<span id="1100">1100</span>
+<span id="1101">1101</span>
+<span id="1102">1102</span>
+<span id="1103">1103</span>
+<span id="1104">1104</span>
+<span id="1105">1105</span>
+<span id="1106">1106</span>
+<span id="1107">1107</span>
+<span id="1108">1108</span>
+<span id="1109">1109</span>
+<span id="1110">1110</span>
+<span id="1111">1111</span>
+<span id="1112">1112</span>
+<span id="1113">1113</span>
+<span id="1114">1114</span>
+<span id="1115">1115</span>
+<span id="1116">1116</span>
+<span id="1117">1117</span>
+<span id="1118">1118</span>
+<span id="1119">1119</span>
+<span id="1120">1120</span>
+<span id="1121">1121</span>
+<span id="1122">1122</span>
+<span id="1123">1123</span>
+<span id="1124">1124</span>
+<span id="1125">1125</span>
+<span id="1126">1126</span>
+<span id="1127">1127</span>
+<span id="1128">1128</span>
+<span id="1129">1129</span>
+<span id="1130">1130</span>
+<span id="1131">1131</span>
+<span id="1132">1132</span>
+<span id="1133">1133</span>
+<span id="1134">1134</span>
+<span id="1135">1135</span>
+<span id="1136">1136</span>
+<span id="1137">1137</span>
+<span id="1138">1138</span>
+<span id="1139">1139</span>
+<span id="1140">1140</span>
+<span id="1141">1141</span>
+<span id="1142">1142</span>
+<span id="1143">1143</span>
+<span id="1144">1144</span>
+<span id="1145">1145</span>
+<span id="1146">1146</span>
+<span id="1147">1147</span>
+<span id="1148">1148</span>
+<span id="1149">1149</span>
+<span id="1150">1150</span>
+<span id="1151">1151</span>
+<span id="1152">1152</span>
+<span id="1153">1153</span>
+<span id="1154">1154</span>
+<span id="1155">1155</span>
+<span id="1156">1156</span>
+<span id="1157">1157</span>
+<span id="1158">1158</span>
+<span id="1159">1159</span>
+<span id="1160">1160</span>
+<span id="1161">1161</span>
+<span id="1162">1162</span>
+<span id="1163">1163</span>
+<span id="1164">1164</span>
+<span id="1165">1165</span>
+<span id="1166">1166</span>
+<span id="1167">1167</span>
+<span id="1168">1168</span>
+<span id="1169">1169</span>
+<span id="1170">1170</span>
+<span id="1171">1171</span>
+<span id="1172">1172</span>
+<span id="1173">1173</span>
+<span id="1174">1174</span>
+<span id="1175">1175</span>
+<span id="1176">1176</span>
+<span id="1177">1177</span>
+<span id="1178">1178</span>
+<span id="1179">1179</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Functions for signing and verifying JSON and events.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1135,7 +1236,10 @@
             <span class="kw">_</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;membership&quot;</span>],
         },
         <span class="string">&quot;m.room.create&quot;</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;creator&quot;</span>],
-        <span class="string">&quot;m.room.join_rules&quot;</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;join_rule&quot;</span>],
+        <span class="string">&quot;m.room.join_rules&quot;</span> =&gt; <span class="kw">match</span> <span class="ident">version</span> {
+            <span class="ident">RoomVersionId::V8</span> <span class="op">|</span> <span class="ident">RoomVersionId::V9</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;join_rule&quot;</span>, <span class="string">&quot;allow&quot;</span>],
+            <span class="kw">_</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;join_rule&quot;</span>],
+        },
         <span class="string">&quot;m.room.power_levels&quot;</span> =&gt; <span class="kw-2">&amp;</span>[
             <span class="string">&quot;ban&quot;</span>,
             <span class="string">&quot;events&quot;</span>,
@@ -1879,6 +1983,9 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// It will return the sender&#39;s server (unless it&#39;s a third party invite) and the event id server</span>
 <span class="doccomment">/// (on v1 and v2 room versions)</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Starting with room version 8, if join_authorised_via_users_server is present, a signature from</span>
+<span class="doccomment">/// that user is required.</span>
 <span class="kw">fn</span> <span class="ident">servers_to_check_signatures</span>(
     <span class="ident">object</span>: <span class="kw-2">&amp;</span><span class="ident">CanonicalJsonObject</span>,
     <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>,
@@ -1914,7 +2021,28 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">JsonError::field_missing_from_object</span>(<span class="string">&quot;event_id&quot;</span>));
             }
         },
-        <span class="kw">_</span> =&gt; (),
+        <span class="ident">RoomVersionId::V3</span>
+        <span class="op">|</span> <span class="ident">RoomVersionId::V4</span>
+        <span class="op">|</span> <span class="ident">RoomVersionId::V5</span>
+        <span class="op">|</span> <span class="ident">RoomVersionId::V6</span>
+        <span class="op">|</span> <span class="ident">RoomVersionId::V7</span> =&gt; {}
+        <span class="comment">// TODO: And for all future versions that have join_authorised_via_users_server</span>
+        <span class="ident">RoomVersionId::V8</span> <span class="op">|</span> <span class="ident">RoomVersionId::V9</span> =&gt; {
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">authorized_user</span>) <span class="op">=</span> <span class="ident">object</span>
+                .<span class="ident">get</span>(<span class="string">&quot;content&quot;</span>)
+                .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_object</span>())
+                .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">get</span>(<span class="string">&quot;join_authorised_via_users_server&quot;</span>))
+            {
+                <span class="kw">let</span> <span class="ident">authorized_user</span> <span class="op">=</span> <span class="ident">authorized_user</span>.<span class="ident">as_str</span>().<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+                    <span class="ident">JsonError::not_of_type</span>(<span class="string">&quot;join_authorised_via_users_server&quot;</span>, <span class="ident">JsonType::String</span>)
+                })<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">authorized_user</span> <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="ident">authorized_user</span>)
+                    .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">Error::from</span>(<span class="ident">ParseError::UserId</span>(<span class="ident">e</span>)))<span class="question-mark">?</span>;
+
+                <span class="ident">servers_to_check</span>.<span class="ident">insert</span>(<span class="ident">authorized_user</span>.<span class="ident">server_name</span>().<span class="ident">to_owned</span>());
+            }
+        }
+        <span class="kw">_</span> =&gt; <span class="macro">unimplemented!</span>(),
     }
 
     <span class="prelude-val">Ok</span>(<span class="ident">servers_to_check</span>)
@@ -2051,6 +2179,80 @@
         <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_ok</span>());
         <span class="kw">let</span> <span class="ident">verification</span> <span class="op">=</span> <span class="ident">verification_result</span>.<span class="ident">unwrap</span>();
         <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">verification</span>, <span class="ident">Verified::Signatures</span>));
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">verify_event_check_signatures_for_authorized_user</span>() {
+        <span class="kw">let</span> <span class="ident">key_pair_sender</span> <span class="op">=</span> <span class="ident">generate_key_pair</span>();
+        <span class="kw">let</span> <span class="ident">key_pair_authorized</span> <span class="op">=</span> <span class="ident">generate_key_pair</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">signed_event</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(
+            <span class="string">r#&quot;{
+                &quot;event_id&quot;: &quot;$event_id:domain-event&quot;,
+                &quot;auth_events&quot;: [],
+                &quot;content&quot;: {&quot;join_authorised_via_users_server&quot;: &quot;@authorized:domain-authorized&quot;},
+                &quot;depth&quot;: 3,
+                &quot;hashes&quot;: {
+                    &quot;sha256&quot;: &quot;5jM4wQpv6lnBo7CLIghJuHdW+s2CMBJPUOGOC89ncos&quot;
+                },
+                &quot;origin&quot;: &quot;domain&quot;,
+                &quot;origin_server_ts&quot;: 1000000,
+                &quot;prev_events&quot;: [],
+                &quot;room_id&quot;: &quot;!x:domain&quot;,
+                &quot;sender&quot;: &quot;@name:domain-sender&quot;,
+                &quot;type&quot;: &quot;m.room.member&quot;,
+                &quot;unsigned&quot;: {
+                    &quot;age_ts&quot;: 1000000
+                }
+            }&quot;#</span>,
+        )
+        .<span class="ident">unwrap</span>();
+        <span class="ident">sign_json</span>(<span class="string">&quot;domain-sender&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_sender</span>, <span class="kw-2">&amp;mut</span> <span class="ident">signed_event</span>).<span class="ident">unwrap</span>();
+        <span class="ident">sign_json</span>(<span class="string">&quot;domain-authorized&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_authorized</span>, <span class="kw-2">&amp;mut</span> <span class="ident">signed_event</span>).<span class="ident">unwrap</span>();
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">public_key_map</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
+        <span class="ident">add_key_to_map</span>(<span class="kw-2">&amp;mut</span> <span class="ident">public_key_map</span>, <span class="string">&quot;domain-sender&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_sender</span>);
+        <span class="ident">add_key_to_map</span>(<span class="kw-2">&amp;mut</span> <span class="ident">public_key_map</span>, <span class="string">&quot;domain-authorized&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_authorized</span>);
+
+        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span> <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::V9</span>);
+
+        <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_ok</span>());
+        <span class="kw">let</span> <span class="ident">verification</span> <span class="op">=</span> <span class="ident">verification_result</span>.<span class="ident">unwrap</span>();
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(<span class="ident">verification</span>, <span class="ident">Verified::Signatures</span>));
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">verification_fails_if_missing_signatures_for_authorized_user</span>() {
+        <span class="kw">let</span> <span class="ident">key_pair_sender</span> <span class="op">=</span> <span class="ident">generate_key_pair</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">signed_event</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(
+            <span class="string">r#&quot;{
+                &quot;event_id&quot;: &quot;$event_id:domain-event&quot;,
+                &quot;auth_events&quot;: [],
+                &quot;content&quot;: {&quot;join_authorised_via_users_server&quot;: &quot;@authorized:domain-authorized&quot;},
+                &quot;depth&quot;: 3,
+                &quot;hashes&quot;: {
+                    &quot;sha256&quot;: &quot;5jM4wQpv6lnBo7CLIghJuHdW+s2CMBJPUOGOC89ncos&quot;
+                },
+                &quot;origin&quot;: &quot;domain&quot;,
+                &quot;origin_server_ts&quot;: 1000000,
+                &quot;prev_events&quot;: [],
+                &quot;room_id&quot;: &quot;!x:domain&quot;,
+                &quot;sender&quot;: &quot;@name:domain-sender&quot;,
+                &quot;type&quot;: &quot;X&quot;,
+                &quot;unsigned&quot;: {
+                    &quot;age_ts&quot;: 1000000
+                }
+            }&quot;#</span>,
+        )
+        .<span class="ident">unwrap</span>();
+        <span class="ident">sign_json</span>(<span class="string">&quot;domain-sender&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_sender</span>, <span class="kw-2">&amp;mut</span> <span class="ident">signed_event</span>).<span class="ident">unwrap</span>();
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">public_key_map</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
+        <span class="ident">add_key_to_map</span>(<span class="kw-2">&amp;mut</span> <span class="ident">public_key_map</span>, <span class="string">&quot;domain-sender&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">key_pair_sender</span>);
+
+        <span class="kw">let</span> <span class="ident">verification_result</span> <span class="op">=</span> <span class="ident">verify_event</span>(<span class="kw-2">&amp;</span><span class="ident">public_key_map</span>, <span class="kw-2">&amp;</span><span class="ident">signed_event</span>, <span class="kw-2">&amp;</span><span class="ident">RoomVersionId::V9</span>);
+
+        <span class="macro">assert!</span>(<span class="ident">verification_result</span>.<span class="ident">is_err</span>()) <span class="comment">// Should be Err(VerificationError::</span>
+                                              <span class="comment">// signature_not_found(&quot;domain-authorized&quot;)));</span>
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
