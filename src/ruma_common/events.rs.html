@@ -407,6 +407,8 @@
 <span id="400">400</span>
 <span id="401">401</span>
 <span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
 </pre><pre class="rust"><code><span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
 <span class="doccomment">//! These types are used by other Ruma crates.</span>
 <span class="doccomment">//!</span>
@@ -563,6 +565,8 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">forwarded_room_key</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">fully_read</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ignored_user_list</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">image</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">key</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">message</span>;
