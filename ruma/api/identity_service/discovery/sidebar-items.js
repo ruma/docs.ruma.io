@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["get_server_status","`GET /_matrix/identity/*`"],["get_supported_versions","`GET /_matrix/identity/versions` (spec)"]]});
