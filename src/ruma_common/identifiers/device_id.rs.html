@@ -72,6 +72,8 @@
 <span id="65">65</span>
 <span id="66">66</span>
 <span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
 </pre><pre class="rust"><code><span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::generate_localpart</span>;
 
@@ -85,8 +87,10 @@
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// use ruma_common::{device_id, DeviceId};</span>
 <span class="doccomment">///</span>
+<span class="doccomment">/// # #[cfg(feature = &quot;rand&quot;)] {</span>
 <span class="doccomment">/// let random_id = DeviceId::new();</span>
 <span class="doccomment">/// assert_eq!(random_id.as_str().len(), 8);</span>
+<span class="doccomment">/// # }</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// let static_id = device_id!(&quot;01234567&quot;);</span>
 <span class="doccomment">/// assert_eq!(static_id.as_str(), &quot;01234567&quot;);</span>
