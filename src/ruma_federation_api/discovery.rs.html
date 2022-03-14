@@ -90,6 +90,8 @@
 <span id="83">83</span>
 <span id="84">84</span>
 <span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Server discovery endpoints.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -102,6 +104,8 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_remote_server_keys_batch</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_server_keys</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_server_version</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3723&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_server_versions</span>;
 
 <span class="doccomment">/// Public key of the homeserver for verifying digital signatures.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
