@@ -286,6 +286,7 @@
 <span id="279">279</span>
 <span id="280">280</span>
 <span id="281">281</span>
+<span id="282">282</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.join_rules`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.join_rules`]: https://spec.matrix.org/v1.2/client-server-api/#mroomjoin_rules</span>
@@ -397,6 +398,7 @@
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
         <span class="kw">struct</span> <span class="ident">ExtractType</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">borrow</span>)]</span>
             <span class="ident">join_rule</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
 

@@ -205,7 +205,7 @@
             <span class="doccomment">/// The content of the state event.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// Since the inner type of the `Raw` does not implement `Deserialize`, you need to use</span>
-            <span class="doccomment">/// `ruma_common::events::RawExt` to deserialize it.</span>
+            <span class="doccomment">/// [`Raw::deserialize_content`] to deserialize it.</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
             <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStateEventContent</span><span class="op">&gt;</span>,
         }
