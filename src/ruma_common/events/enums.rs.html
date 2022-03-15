@@ -394,6 +394,10 @@
 <span id="387">387</span>
 <span id="388">388</span>
 <span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros</span>::{<span class="ident">event_enum</span>, <span class="ident">EventEnumFromEvent</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -429,6 +433,8 @@
 
     <span class="doccomment">/// Any message-like event.</span>
     <span class="kw">enum</span> <span class="ident">MessageLike</span> {
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
+        <span class="string">&quot;m.audio&quot;</span>,
         <span class="string">&quot;m.call.answer&quot;</span>,
         <span class="string">&quot;m.call.invite&quot;</span>,
         <span class="string">&quot;m.call.hangup&quot;</span>,
@@ -766,6 +772,8 @@
             <span class="ident"><span class="self">Self</span>::Notice</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
             <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
+            <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
             <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
