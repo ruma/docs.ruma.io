@@ -398,6 +398,10 @@
 <span id="391">391</span>
 <span id="392">392</span>
 <span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros</span>::{<span class="ident">event_enum</span>, <span class="ident">EventEnumFromEvent</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -452,6 +456,8 @@
         <span class="string">&quot;m.key.verification.key&quot;</span>,
         <span class="string">&quot;m.key.verification.mac&quot;</span>,
         <span class="string">&quot;m.key.verification.done&quot;</span>,
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
+        <span class="string">&quot;m.location&quot;</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
         <span class="string">&quot;m.message&quot;</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
@@ -774,6 +780,8 @@
             <span class="ident"><span class="self">Self</span>::Emote</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
             <span class="ident"><span class="self">Self</span>::Audio</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
+            <span class="ident"><span class="self">Self</span>::Location</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
             <span class="ident"><span class="self">Self</span>::File</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
@@ -792,5 +800,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (52b34550a 2022-03-15)" ></div>
 </body></html>
