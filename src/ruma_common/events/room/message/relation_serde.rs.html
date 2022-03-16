@@ -143,14 +143,55 @@
 <span id="136">136</span>
 <span id="137">137</span>
 <span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Replacement</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomMessageEventContent</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Thread</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InReplyTo</span>, <span class="ident">Relation</span>};
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>))]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EventId</span>;
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Relation</span> {
@@ -160,13 +201,22 @@
     {
         <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">EventWithRelatesToJsonRepr::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">in_reply_to</span> {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> });
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Thread</span>(<span class="ident">ThreadJsonRepr</span> { <span class="ident">event_id</span>, <span class="ident">is_falling_back</span> })) <span class="op">=</span>
+            <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span>
+        {
+            <span class="kw">let</span> <span class="ident">in_reply_to</span> <span class="op">=</span> <span class="ident">ev</span>
+                .<span class="ident">relates_to</span>
+                .<span class="ident">in_reply_to</span>
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">serde::de::Error::missing_field</span>(<span class="string">&quot;m.in_reply_to&quot;</span>))<span class="question-mark">?</span>;
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Relation::Thread</span>(<span class="ident">Thread</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>, <span class="ident">is_falling_back</span> }));
         }
 
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">relation</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span> {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">relation</span> {
+        <span class="kw">let</span> <span class="ident">rel</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">in_reply_to</span> {
+            <span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> }
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">relation</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span> {
+            <span class="kw">match</span> <span class="ident">relation</span> {
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
                 <span class="ident">RelationJsonRepr::Replacement</span>(<span class="ident">ReplacementJsonRepr</span> { <span class="ident">event_id</span> }) =&gt; {
                     <span class="kw">let</span> <span class="ident">new_content</span> <span class="op">=</span> <span class="ident">ev</span>
                         .<span class="ident">new_content</span>
@@ -176,10 +226,14 @@
                 <span class="comment">// FIXME: Maybe we should log this, though at this point we don&#39;t even have</span>
                 <span class="comment">// access to the rel_type of the unknown relation.</span>
                 <span class="ident">RelationJsonRepr::Unknown</span> =&gt; <span class="ident">Relation::_Custom</span>,
-            });
-        }
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+                <span class="ident">RelationJsonRepr::Thread</span>(<span class="kw">_</span>) =&gt; <span class="macro">unreachable!</span>(),
+            }
+        } <span class="kw">else</span> {
+            <span class="ident">Relation::_Custom</span>
+        };
 
-        <span class="prelude-val">Ok</span>(<span class="ident">Relation::_Custom</span>)
+        <span class="prelude-val">Ok</span>(<span class="ident">rel</span>)
     }
 }
 
@@ -205,6 +259,17 @@
                     },
                     <span class="ident">new_content</span>: <span class="prelude-val">Some</span>(<span class="ident">new_content</span>.<span class="ident">clone</span>()),
                 }
+            }
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+            <span class="ident">Relation::Thread</span>(<span class="ident">Thread</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>, <span class="ident">is_falling_back</span> }) =&gt; {
+                <span class="ident">EventWithRelatesToJsonRepr::new</span>(<span class="ident">RelatesToJsonRepr</span> {
+                    <span class="ident">in_reply_to</span>: <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>.<span class="ident">clone</span>()),
+                    <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Thread</span>(<span class="ident">ThreadJsonRepr</span> {
+                        <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>(),
+                        <span class="ident">is_falling_back</span>: <span class="kw-2">*</span><span class="ident">is_falling_back</span>,
+                    })),
+                    ..<span class="ident">Default::default</span>()
+                })
             }
             <span class="ident">Relation::_Custom</span> =&gt; <span class="ident">EventWithRelatesToJsonRepr::default</span>(),
         };
@@ -233,40 +298,36 @@
     }
 }
 
-<span class="doccomment">/// Enum modeling the different ways relationships can be expressed in a `m.relates_to` field of an</span>
-<span class="doccomment">/// event.</span>
+<span class="doccomment">/// Struct modeling the different ways relationships can be expressed in a `m.relates_to` field of</span>
+<span class="doccomment">/// an event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">struct</span> <span class="ident">RelatesToJsonRepr</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.in_reply_to&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">in_reply_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">InReplyTo</span><span class="op">&gt;</span>,
 
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="ident">relation</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RelationJsonRepr</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RelatesToJsonRepr</span> {
     <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>))]</span>
-        {
-            <span class="self">self</span>.<span class="ident">in_reply_to</span>.<span class="ident">is_none</span>()
-        }
-
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
-        {
-            <span class="self">self</span>.<span class="ident">in_reply_to</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">relation</span>.<span class="ident">is_none</span>()
-        }
+        <span class="self">self</span>.<span class="ident">in_reply_to</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">relation</span>.<span class="ident">is_none</span>()
     }
 }
 
 <span class="doccomment">/// A relation, which associates new information to an existing event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;rel_type&quot;</span>)]</span>
 <span class="kw">enum</span> <span class="ident">RelationJsonRepr</span> {
     <span class="doccomment">/// An event that replaces another event.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.replace&quot;</span>)]</span>
     <span class="ident">Replacement</span>(<span class="ident">ReplacementJsonRepr</span>),
+
+    <span class="doccomment">/// An event that belongs to a thread.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.thread&quot;</span>)]</span>
+    <span class="ident">Thread</span>(<span class="ident">ThreadJsonRepr</span>),
 
     <span class="doccomment">/// An unknown relation type.</span>
     <span class="doccomment">///</span>
@@ -280,6 +341,23 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
 <span class="kw">struct</span> <span class="ident">ReplacementJsonRepr</span> {
     <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+}
+
+<span class="doccomment">/// A thread relation without the reply fallback.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+<span class="kw">struct</span> <span class="ident">ThreadJsonRepr</span> {
+    <span class="doccomment">/// The ID of the root message in the thread.</span>
+    <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Whether the `m.in_reply_to` field is a fallback for older clients or a real reply in a</span>
+    <span class="doccomment">/// thread.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(
+        <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.show_reply&quot;</span>,
+        <span class="ident">default</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>
+    )]</span>
+    <span class="ident">is_falling_back</span>: <span class="ident">bool</span>,
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (52b34550a 2022-03-15)" ></div>

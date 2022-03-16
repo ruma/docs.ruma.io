@@ -1045,6 +1045,14 @@
 <span id="1038">1038</span>
 <span id="1039">1039</span>
 <span id="1040">1040</span>
+<span id="1041">1041</span>
+<span id="1042">1042</span>
+<span id="1043">1043</span>
+<span id="1044">1044</span>
+<span id="1045">1045</span>
+<span id="1046">1046</span>
+<span id="1047">1047</span>
+<span id="1048">1048</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
@@ -1385,8 +1393,6 @@
 }
 
 <span class="doccomment">/// Message event relationship.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Currently used for replies and editing (message replacement).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::manual_non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
@@ -1400,6 +1406,10 @@
     <span class="doccomment">/// An event that replaces another event.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
     <span class="ident">Replacement</span>(<span class="ident">Replacement</span>),
+
+    <span class="doccomment">/// An event that belongs to a thread.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+    <span class="ident">Thread</span>(<span class="ident">Thread</span>),
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">_Custom</span>,
@@ -1437,6 +1447,44 @@
     <span class="doccomment">/// Creates a new `Replacement` with the given event ID and new content.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">new_content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomMessageEventContent</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> }
+    }
+}
+
+<span class="doccomment">/// The content of a thread relation.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Thread</span> {
+    <span class="doccomment">/// The ID of the root message in the thread.</span>
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// A reply relation.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If this event is a reply and belongs to a thread, this points to the message that is being</span>
+    <span class="doccomment">/// replied to, and `is_falling_back` must be set to `false`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// If this event is not a reply, this is used as a fallback mechanism for clients that do not</span>
+    <span class="doccomment">/// support threads. This should point to the latest message-like event in the thread and</span>
+    <span class="doccomment">/// `is_falling_back` must be set to `true`.</span>
+    <span class="kw">pub</span> <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo</span>,
+
+    <span class="doccomment">/// Whether the `m.in_reply_to` field is a fallback for older clients or a genuine reply in a</span>
+    <span class="doccomment">/// thread.</span>
+    <span class="kw">pub</span> <span class="ident">is_falling_back</span>: <span class="ident">bool</span>,
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+<span class="kw">impl</span> <span class="ident">Thread</span> {
+    <span class="doccomment">/// Convenience method to create a regular `Thread` with the given event ID and latest</span>
+    <span class="doccomment">/// message-like event ID.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">latest_event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo::new</span>(<span class="ident">latest_event_id</span>), <span class="ident">is_falling_back</span>: <span class="bool-val">false</span> }
+    }
+
+    <span class="doccomment">/// Convenience method to create a reply `Thread` with the given event ID and replied-to event</span>
+    <span class="doccomment">/// ID.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reply</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">reply_to_event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo::new</span>(<span class="ident">reply_to_event_id</span>), <span class="ident">is_falling_back</span>: <span class="bool-val">true</span> }
     }
 }
 
@@ -2052,38 +2100,6 @@
     <span class="doccomment">/// Remaining event content.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="ident">data</span>: <span class="ident">JsonObject</span>,
-}
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-<span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::event_id</span>;
-    <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
-    <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
-
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InReplyTo</span>, <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>};
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">deserialize_reply</span>() {
-        <span class="kw">let</span> <span class="ident">ev_id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>);
-
-        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
-            <span class="string">&quot;msgtype&quot;</span>: <span class="string">&quot;m.text&quot;</span>,
-            <span class="string">&quot;body&quot;</span>: <span class="string">&quot;&lt;text msg&gt;&quot;</span>,
-            <span class="string">&quot;m.relates_to&quot;</span>: {
-                <span class="string">&quot;m.in_reply_to&quot;</span>: {
-                    <span class="string">&quot;event_id&quot;</span>: <span class="ident">ev_id</span>,
-                },
-            },
-        });
-
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">RoomMessageEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">RoomMessageEventContent</span> {
-                <span class="ident">msgtype</span>: <span class="ident">MessageType::Text</span>(<span class="kw">_</span>),
-                <span class="ident">relates_to</span>: <span class="prelude-val">Some</span>(<span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo</span> { <span class="ident">event_id</span> } }),
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">ev_id</span>
-        );
-    }
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (52b34550a 2022-03-15)" ></div>
