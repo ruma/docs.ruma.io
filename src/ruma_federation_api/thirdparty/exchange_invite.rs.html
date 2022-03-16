@@ -94,7 +94,7 @@
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
-        <span class="ident">events</span>::{<span class="ident">room::member::ThirdPartyInvite</span>, <span class="ident">EventType</span>},
+        <span class="ident">events</span>::{<span class="ident">room::member::ThirdPartyInvite</span>, <span class="ident">StateEventType</span>},
         <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
     };
 
@@ -116,9 +116,9 @@
 
             <span class="doccomment">/// The event type.</span>
             <span class="doccomment">///</span>
-            <span class="doccomment">/// Must be `EventType::RoomMember`.</span>
+            <span class="doccomment">/// Must be `StateEventType::RoomMember`.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">kind</span>: <span class="ident">EventType</span>,
+            <span class="kw">pub</span> <span class="ident">kind</span>: <span class="ident">StateEventType</span>,
 
             <span class="doccomment">/// The user ID of the user who sent the original invite event.</span>
             <span class="kw">pub</span> <span class="ident">sender</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
@@ -142,7 +142,7 @@
             <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
             <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ThirdPartyInvite</span>,
         ) -&gt; <span class="self">Self</span> {
-            <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">kind</span>: <span class="ident">EventType::RoomMember</span>, <span class="ident">sender</span>, <span class="ident">state_key</span>, <span class="ident">content</span> }
+            <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">kind</span>: <span class="ident">StateEventType::RoomMember</span>, <span class="ident">sender</span>, <span class="ident">state_key</span>, <span class="ident">content</span> }
         }
     }
 

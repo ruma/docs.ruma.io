@@ -419,7 +419,7 @@
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
-        <span class="ident">events::EventType</span>,
+        <span class="ident">events::RoomEventType</span>,
         <span class="ident">push</span>::{<span class="ident">PusherData</span>, <span class="ident">Tweak</span>},
         <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>},
         <span class="ident">EventId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">SecondsSinceUnixEpoch</span>, <span class="ident">UserId</span>,
@@ -492,7 +492,7 @@
 
         <span class="doccomment">/// The type of the event as in the event&#39;s `type` field.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventType</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomEventType</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// The sender of the event as in the corresponding event field.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -729,7 +729,7 @@
     <span class="kw">mod</span> <span class="ident">tests</span> {
         <span class="kw">use</span> <span class="ident">js_int::uint</span>;
         <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-            <span class="ident">event_id</span>, <span class="ident">events::EventType</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">SecondsSinceUnixEpoch</span>,
+            <span class="ident">event_id</span>, <span class="ident">events::RoomEventType</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">SecondsSinceUnixEpoch</span>,
         };
         <span class="kw">use</span> <span class="ident">serde_json</span>::{
             <span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>,
@@ -792,7 +792,7 @@
             <span class="kw">let</span> <span class="ident">notice</span> <span class="op">=</span> <span class="ident">Notification</span> {
                 <span class="ident">event_id</span>: <span class="prelude-val">Some</span>(<span class="ident">eid</span>),
                 <span class="ident">room_id</span>: <span class="prelude-val">Some</span>(<span class="ident">rid</span>),
-                <span class="ident">event_type</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">EventType::RoomMessage</span>),
+                <span class="ident">event_type</span>: <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">RoomEventType::RoomMessage</span>),
                 <span class="ident">sender</span>: <span class="prelude-val">Some</span>(<span class="ident">uid</span>),
                 <span class="ident">sender_display_name</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;Major Tom&quot;</span>),
                 <span class="ident">room_alias</span>: <span class="prelude-val">Some</span>(<span class="ident">alias</span>),

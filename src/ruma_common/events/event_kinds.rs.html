@@ -343,35 +343,41 @@
 <span id="336">336</span>
 <span id="337">337</span>
 <span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::Event</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{
-    <span class="ident">EphemeralRoomEventContent</span>, <span class="ident">GlobalAccountDataEventContent</span>, <span class="ident">MessageLikeEventContent</span>,
-    <span class="ident">RedactedMessageLikeEventContent</span>, <span class="ident">RedactedStateEventContent</span>, <span class="ident">RedactedUnsigned</span>,
-    <span class="ident">RoomAccountDataEventContent</span>, <span class="ident">StateEventContent</span>, <span class="ident">ToDeviceEventContent</span>, <span class="ident">Unsigned</span>,
+    <span class="ident">EphemeralRoomEventType</span>, <span class="ident">EventContent</span>, <span class="ident">GlobalAccountDataEventType</span>, <span class="ident">MessageLikeEventType</span>,
+    <span class="ident">RedactedEventContent</span>, <span class="ident">RedactedUnsigned</span>, <span class="ident">RoomAccountDataEventType</span>, <span class="ident">StateEventType</span>,
+    <span class="ident">ToDeviceEventType</span>, <span class="ident">Unsigned</span>,
 };
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// A global account data event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlobalAccountDataEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">GlobalAccountDataEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GlobalAccountDataEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">GlobalAccountDataEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 }
 
 <span class="doccomment">/// A room account data event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomAccountDataEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RoomAccountDataEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomAccountDataEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">RoomAccountDataEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 }
 
 <span class="doccomment">/// An ephemeral room event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EphemeralRoomEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EphemeralRoomEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EphemeralRoomEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">EphemeralRoomEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -381,7 +387,7 @@
 
 <span class="doccomment">/// An ephemeral room event without a `room_id`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncEphemeralRoomEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EphemeralRoomEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncEphemeralRoomEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">EphemeralRoomEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 }
@@ -391,7 +397,7 @@
 <span class="doccomment">/// `MessageLikeEvent` implements the comparison traits using only the `event_id` field, a sorted</span>
 <span class="doccomment">/// list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -416,7 +422,7 @@
 <span class="doccomment">/// `SyncMessageLikeEvent` implements the comparison traits using only the `event_id` field, a</span>
 <span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -438,7 +444,9 @@
 <span class="doccomment">/// `RedactedMessageLikeEvent` implements the comparison traits using only the `event_id` field, a</span>
 <span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageLikeEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedMessageLikeEvent</span><span class="op">&lt;</span>
+    <span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">RedactedEventContent</span>,
+<span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -463,7 +471,9 @@
 <span class="doccomment">/// `RedactedSyncMessageLikeEvent` implements the comparison traits using only the `event_id` field,</span>
 <span class="doccomment">/// a sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedMessageLikeEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncMessageLikeEvent</span><span class="op">&lt;</span>
+    <span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">RedactedEventContent</span>,
+<span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -485,7 +495,7 @@
 <span class="doccomment">/// `StateEvent` implements the comparison traits using only the `event_id` field, a sorted list</span>
 <span class="doccomment">/// would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -519,7 +529,7 @@
 <span class="doccomment">/// `SyncStateEvent` implements the comparison traits using only the `event_id` field, a sorted list</span>
 <span class="doccomment">/// would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SyncStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -547,7 +557,7 @@
 
 <span class="doccomment">/// A stripped-down state event, used for previews of rooms the user has been invited to.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StrippedStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StrippedStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -563,7 +573,7 @@
 
 <span class="doccomment">/// A minimal state event, used for creating a new room.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InitialStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InitialStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -582,7 +592,7 @@
 <span class="doccomment">/// `RedactedStateEvent` implements the comparison traits using only the `event_id` field, a sorted</span>
 <span class="doccomment">/// list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedStateEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">RedactedEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -613,7 +623,9 @@
 <span class="doccomment">/// `RedactedSyncStateEvent` implements the comparison traits using only the `event_id` field, a</span>
 <span class="doccomment">/// sorted list would be sorted lexicographically based on the event&#39;s `EventId`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncStateEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">RedactedStateEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncStateEvent</span><span class="op">&lt;</span>
+    <span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">RedactedEventContent</span>,
+<span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -638,7 +650,7 @@
 
 <span class="doccomment">/// An event sent using send-to-device messaging.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">ToDeviceEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">ToDeviceEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -648,7 +660,7 @@
 
 <span class="doccomment">/// The decrypted payload of an `m.olm.v1.curve25519-aes-sha2` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedOlmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedOlmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
@@ -674,7 +686,7 @@
 
 <span class="doccomment">/// The decrypted payload of an `m.megolm.v1.aes-sha2` event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedMegolmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">MessageLikeEventContent</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecryptedMegolmV1Event</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 

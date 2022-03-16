@@ -100,6 +100,9 @@
 <span id="93">93</span>
 <span id="94">94</span>
 <span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `PUT /_matrix/client/*/user/{userId}/rooms/{roomId}/account_data/{type}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -109,7 +112,7 @@
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
-        <span class="ident">events</span>::{<span class="ident">AnyRoomAccountDataEventContent</span>, <span class="ident">RoomAccountDataEventContent</span>},
+        <span class="ident">events</span>::{<span class="ident">AnyRoomAccountDataEventContent</span>, <span class="ident">EventContent</span>, <span class="ident">RoomAccountDataEventType</span>},
         <span class="ident">serde::Raw</span>,
         <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
     };
@@ -138,7 +141,7 @@
             <span class="doccomment">///</span>
             <span class="doccomment">/// Custom types should be namespaced to avoid clashes.</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">path</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
+            <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="ident">RoomAccountDataEventType</span>,
 
             <span class="doccomment">/// The ID of the room to set account_data on.</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">path</span>)]</span>
@@ -164,11 +167,14 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// Since `Request` stores the request body in serialized form, this function can fail if</span>
         <span class="doccomment">/// `T`s [`Serialize`][serde::Serialize] implementation can fail.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">RoomAccountDataEventContent</span><span class="op">&gt;</span>(
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(
             <span class="ident">data</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span>,
             <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
             <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
-        ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>
+        <span class="kw">where</span>
+            <span class="ident">T</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">RoomAccountDataEventType</span><span class="op">&gt;</span>,
+        {
             <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
                 <span class="ident">data</span>: <span class="ident">Raw::from_json</span>(<span class="ident">to_raw_json_value</span>(<span class="ident">data</span>)<span class="question-mark">?</span>),
                 <span class="ident">event_type</span>: <span class="ident">data</span>.<span class="ident">event_type</span>(),
@@ -180,7 +186,7 @@
         <span class="doccomment">/// Creates a new `Request` with the given raw data, event type, room ID and user ID.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_raw</span>(
             <span class="ident">data</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyRoomAccountDataEventContent</span><span class="op">&gt;</span>,
-            <span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
+            <span class="ident">event_type</span>: <span class="ident">RoomAccountDataEventType</span>,
             <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
             <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         ) -&gt; <span class="self">Self</span> {

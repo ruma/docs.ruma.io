@@ -167,7 +167,7 @@
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_common</span>::{
     <span class="ident">api::ruma_api</span>,
-    <span class="ident">events</span>::{<span class="ident">room::member::RoomMemberEventContent</span>, <span class="ident">EventType</span>},
+    <span class="ident">events</span>::{<span class="ident">room::member::RoomMemberEventContent</span>, <span class="ident">StateEventType</span>},
     <span class="ident">serde::Raw</span>,
     <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>,
 };
@@ -208,7 +208,7 @@
         <span class="doccomment">/// The value `m.room.member`.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="ident">EventType</span>,
+        <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="ident">StateEventType</span>,
 
         <span class="doccomment">/// The user ID of the leaving member.</span>
         <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
@@ -257,7 +257,7 @@
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The value `m.room.member`.</span>
-    <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="ident">EventType</span>,
+    <span class="kw">pub</span> <span class="ident">event_type</span>: <span class="ident">StateEventType</span>,
 
     <span class="doccomment">/// The user ID of the leaving member.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,

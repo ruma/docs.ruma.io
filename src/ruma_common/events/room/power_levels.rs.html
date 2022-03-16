@@ -339,7 +339,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">events::EventType</span>,
+    <span class="ident">events::RoomEventType</span>,
     <span class="ident">power_levels</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>},
     <span class="ident">UserId</span>,
 };
@@ -375,7 +375,7 @@
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">events</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">EventType</span>, <span class="ident">Int</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">events</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">RoomEventType</span>, <span class="ident">Int</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The default level required to send message events.</span>
     <span class="doccomment">///</span>
@@ -512,7 +512,7 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>, <span class="ident">RoomPowerLevelsEventContent</span>};
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">EventType</span>, <span class="ident">StateEvent</span>, <span class="ident">Unsigned</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">StateEvent</span>, <span class="ident">Unsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_optional_fields_as_none</span>() {
@@ -561,7 +561,7 @@
             <span class="ident">content</span>: <span class="ident">RoomPowerLevelsEventContent</span> {
                 <span class="ident">ban</span>: <span class="macro">int!</span>(<span class="number">23</span>),
                 <span class="ident">events</span>: <span class="macro">btreemap!</span> {
-                    <span class="ident">EventType::Dummy</span> =&gt; <span class="macro">int!</span>(<span class="number">23</span>)
+                    <span class="string">&quot;m.dummy&quot;</span>.<span class="ident">into</span>() =&gt; <span class="macro">int!</span>(<span class="number">23</span>)
                 },
                 <span class="ident">events_default</span>: <span class="macro">int!</span>(<span class="number">23</span>),
                 <span class="ident">invite</span>: <span class="macro">int!</span>(<span class="number">23</span>),
@@ -580,7 +580,7 @@
                 <span class="comment">// Make just one field different so we at least know they&#39;re two different objects.</span>
                 <span class="ident">ban</span>: <span class="macro">int!</span>(<span class="number">42</span>),
                 <span class="ident">events</span>: <span class="macro">btreemap!</span> {
-                    <span class="ident">EventType::Dummy</span> =&gt; <span class="macro">int!</span>(<span class="number">42</span>)
+                    <span class="string">&quot;m.dummy&quot;</span>.<span class="ident">into</span>() =&gt; <span class="macro">int!</span>(<span class="number">42</span>)
                 },
                 <span class="ident">events_default</span>: <span class="macro">int!</span>(<span class="number">42</span>),
                 <span class="ident">invite</span>: <span class="macro">int!</span>(<span class="number">42</span>),

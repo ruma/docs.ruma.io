@@ -1283,6 +1283,7 @@
 <span id="1278">1278</span>
 <span id="1279">1279</span>
 <span id="1280">1280</span>
+<span id="1281">1281</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">borrow::Borrow</span>,
     <span class="ident">cmp::Reverse</span>,
@@ -1295,7 +1296,7 @@
 <span class="kw">use</span> <span class="ident">ruma_common</span>::{
     <span class="ident">events</span>::{
         <span class="ident">room::member</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>},
-        <span class="ident">EventType</span>,
+        <span class="ident">RoomEventType</span>,
     },
     <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>,
 };
@@ -1316,7 +1317,7 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">state_event::Event</span>;
 
 <span class="doccomment">/// A mapping of event type and state_key to some value `T`, usually an `EventId`.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap</span><span class="op">&lt;</span>(<span class="ident">EventType</span>, <span class="ident">String</span>), <span class="ident">T</span><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">StateMap</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap</span><span class="op">&lt;</span>(<span class="ident">RoomEventType</span>, <span class="ident">String</span>), <span class="ident">T</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// Resolve sets of state events as they come in.</span>
 <span class="doccomment">///</span>
@@ -1417,7 +1418,7 @@
     <span class="macro">trace!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">events_to_resolve</span>);
 
     <span class="comment">// This &quot;epochs&quot; power level event</span>
-    <span class="kw">let</span> <span class="ident">power_event</span> <span class="op">=</span> <span class="ident">resolved_control</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">into</span>()));
+    <span class="kw">let</span> <span class="ident">power_event</span> <span class="op">=</span> <span class="ident">resolved_control</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span>(<span class="ident">RoomEventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">into</span>()));
 
     <span class="macro">debug!</span>(<span class="string">&quot;power event: {:?}&quot;</span>, <span class="ident">power_event</span>);
 
@@ -1653,7 +1654,7 @@
 
     <span class="kw">for</span> <span class="ident">aid</span> <span class="kw">in</span> <span class="ident">event</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">pdu</span><span class="op">|</span> <span class="ident">pdu</span>.<span class="ident">auth_events</span>()).<span class="ident">into_iter</span>().<span class="ident">flatten</span>() {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">aev</span>) <span class="op">=</span> <span class="ident">fetch_event</span>(<span class="ident">aid</span>.<span class="ident">borrow</span>()) {
-            <span class="kw">if</span> <span class="ident">is_type_and_key</span>(<span class="kw-2">&amp;</span><span class="ident">aev</span>, <span class="kw-2">&amp;</span><span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>) {
+            <span class="kw">if</span> <span class="ident">is_type_and_key</span>(<span class="kw-2">&amp;</span><span class="ident">aev</span>, <span class="kw-2">&amp;</span><span class="ident">RoomEventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>) {
                 <span class="ident">pl</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">aev</span>);
                 <span class="kw">break</span>;
             }
@@ -1743,7 +1744,7 @@
         <span class="comment">// The key for this is (eventType + a state_key of the signed token not sender) so</span>
         <span class="comment">// search for it</span>
         <span class="kw">let</span> <span class="ident">current_third_party</span> <span class="op">=</span> <span class="ident">auth_events</span>.<span class="ident">iter</span>().<span class="ident">find_map</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">pdu</span>)<span class="op">|</span> {
-            (<span class="kw-2">*</span><span class="ident">pdu</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">EventType::RoomThirdPartyInvite</span>).<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">pdu</span>)
+            (<span class="kw-2">*</span><span class="ident">pdu</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">RoomEventType::RoomThirdPartyInvite</span>).<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">pdu</span>)
         });
 
         <span class="kw">if</span> <span class="ident">auth_check</span>(<span class="ident">room_version</span>, <span class="kw-2">&amp;</span><span class="ident">event</span>, <span class="ident">current_third_party</span>, <span class="op">|</span><span class="ident">ty</span>, <span class="ident">key</span><span class="op">|</span> {
@@ -1794,7 +1795,7 @@
         <span class="kw">for</span> <span class="ident">aid</span> <span class="kw">in</span> <span class="ident">event</span>.<span class="ident">auth_events</span>() {
             <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">fetch_event</span>(<span class="ident">aid</span>.<span class="ident">borrow</span>())
                 .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Failed to find {}&quot;</span>, <span class="ident">aid</span>)))<span class="question-mark">?</span>;
-            <span class="kw">if</span> <span class="ident">is_type_and_key</span>(<span class="kw-2">&amp;</span><span class="ident">ev</span>, <span class="kw-2">&amp;</span><span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>) {
+            <span class="kw">if</span> <span class="ident">is_type_and_key</span>(<span class="kw-2">&amp;</span><span class="ident">ev</span>, <span class="kw-2">&amp;</span><span class="ident">RoomEventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>) {
                 <span class="ident">pl</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">aid</span>.<span class="ident">to_owned</span>());
                 <span class="kw">break</span>;
             }
@@ -1853,7 +1854,7 @@
         <span class="kw">for</span> <span class="ident">aid</span> <span class="kw">in</span> <span class="ident">sort_ev</span>.<span class="ident">auth_events</span>() {
             <span class="kw">let</span> <span class="ident">aev</span> <span class="op">=</span> <span class="ident">fetch_event</span>(<span class="ident">aid</span>.<span class="ident">borrow</span>())
                 .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">Error::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Failed to find {}&quot;</span>, <span class="ident">aid</span>)))<span class="question-mark">?</span>;
-            <span class="kw">if</span> <span class="ident">is_type_and_key</span>(<span class="kw-2">&amp;</span><span class="ident">aev</span>, <span class="kw-2">&amp;</span><span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>) {
+            <span class="kw">if</span> <span class="ident">is_type_and_key</span>(<span class="kw-2">&amp;</span><span class="ident">aev</span>, <span class="kw-2">&amp;</span><span class="ident">RoomEventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>) {
                 <span class="ident">event</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">aev</span>);
                 <span class="kw">break</span>;
             }
@@ -1895,16 +1896,16 @@
     }
 }
 
-<span class="kw">fn</span> <span class="ident">is_type_and_key</span>(<span class="ident">ev</span>: <span class="kw">impl</span> <span class="ident">Event</span>, <span class="ident">ev_type</span>: <span class="kw-2">&amp;</span><span class="ident">EventType</span>, <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
+<span class="kw">fn</span> <span class="ident">is_type_and_key</span>(<span class="ident">ev</span>: <span class="kw">impl</span> <span class="ident">Event</span>, <span class="ident">ev_type</span>: <span class="kw-2">&amp;</span><span class="ident">RoomEventType</span>, <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
     <span class="ident">ev</span>.<span class="ident">event_type</span>() <span class="op">==</span> <span class="ident">ev_type</span> <span class="op">&amp;&amp;</span> <span class="ident">ev</span>.<span class="ident">state_key</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="ident">state_key</span>)
 }
 
 <span class="kw">fn</span> <span class="ident">is_power_event</span>(<span class="ident">event</span>: <span class="kw">impl</span> <span class="ident">Event</span>) -&gt; <span class="ident">bool</span> {
     <span class="kw">match</span> <span class="ident">event</span>.<span class="ident">event_type</span>() {
-        <span class="ident">EventType::RoomPowerLevels</span> <span class="op">|</span> <span class="ident">EventType::RoomJoinRules</span> <span class="op">|</span> <span class="ident">EventType::RoomCreate</span> =&gt; {
-            <span class="ident">event</span>.<span class="ident">state_key</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>)
-        }
-        <span class="ident">EventType::RoomMember</span> =&gt; {
+        <span class="ident">RoomEventType::RoomPowerLevels</span>
+        <span class="op">|</span> <span class="ident">RoomEventType::RoomJoinRules</span>
+        <span class="op">|</span> <span class="ident">RoomEventType::RoomCreate</span> =&gt; <span class="ident">event</span>.<span class="ident">state_key</span>() <span class="op">==</span> <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
+        <span class="ident">RoomEventType::RoomMember</span> =&gt; {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="ident">from_json_str</span>::<span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span>(<span class="ident">event</span>.<span class="ident">content</span>().<span class="ident">get</span>()) {
                 <span class="kw">if</span> [<span class="ident">MembershipState::Leave</span>, <span class="ident">MembershipState::Ban</span>].<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">content</span>.<span class="ident">membership</span>) {
                     <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>.<span class="ident">sender</span>().<span class="ident">as_str</span>()) <span class="op">!</span><span class="op">=</span> <span class="ident">event</span>.<span class="ident">state_key</span>();
@@ -1930,7 +1931,7 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">events</span>::{
             <span class="ident">room::join_rules</span>::{<span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>},
-            <span class="ident">EventType</span>,
+            <span class="ident">RoomEventType</span>,
         },
         <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomVersionId</span>,
     };
@@ -1986,7 +1987,8 @@
 
         <span class="ident">events_to_sort</span>.<span class="ident">shuffle</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rand::thread_rng</span>());
 
-        <span class="kw">let</span> <span class="ident">power_level</span> <span class="op">=</span> <span class="ident">resolved_power</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span>(<span class="ident">EventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>())).<span class="ident">cloned</span>();
+        <span class="kw">let</span> <span class="ident">power_level</span> <span class="op">=</span>
+            <span class="ident">resolved_power</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span>(<span class="ident">RoomEventType::RoomPowerLevels</span>, <span class="string">&quot;&quot;</span>.<span class="ident">to_owned</span>())).<span class="ident">cloned</span>();
 
         <span class="kw">let</span> <span class="ident">sorted_event_ids</span> <span class="op">=</span>
             <span class="ident"><span class="kw">crate</span>::mainline_sort</span>(<span class="kw-2">&amp;</span><span class="ident">events_to_sort</span>, <span class="ident">power_level</span>, <span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">events</span>.<span class="ident">get</span>(<span class="ident">id</span>).<span class="ident">map</span>(<span class="ident">Arc::clone</span>))
@@ -2025,28 +2027,28 @@
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;MA&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomMember</span>,
+                <span class="ident">RoomEventType::RoomMember</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">alice</span>().<span class="ident">to_string</span>().<span class="ident">as_str</span>()),
                 <span class="ident">member_content_join</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;MB&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomMember</span>,
+                <span class="ident">RoomEventType::RoomMember</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">bob</span>().<span class="ident">to_string</span>().<span class="ident">as_str</span>()),
                 <span class="ident">member_content_ban</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
@@ -2072,42 +2074,42 @@
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T1&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA1&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T2&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA2&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">0</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T3&quot;</span>,
                 <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
@@ -2133,28 +2135,28 @@
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T1&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T2&quot;</span>,
                 <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;MB&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomMember</span>,
+                <span class="ident">RoomEventType::RoomMember</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">bob</span>().<span class="ident">to_string</span>().<span class="ident">as_str</span>()),
                 <span class="ident">member_content_ban</span>(),
             ),
@@ -2180,14 +2182,14 @@
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;JR&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomJoinRules</span>,
+                <span class="ident">RoomEventType::RoomJoinRules</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="ident">RoomJoinRulesEventContent::new</span>(<span class="ident">JoinRule::Private</span>)).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;ME&quot;</span>,
                 <span class="ident">ella</span>(),
-                <span class="ident">EventType::RoomMember</span>,
+                <span class="ident">RoomEventType::RoomMember</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">ella</span>().<span class="ident">to_string</span>().<span class="ident">as_str</span>()),
                 <span class="ident">member_content_join</span>(),
             ),
@@ -2212,14 +2214,14 @@
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span>, <span class="ident">charlie</span>(): <span class="number">50</span> } }))
                     .<span class="ident">unwrap</span>(),
@@ -2227,7 +2229,7 @@
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PC&quot;</span>,
                 <span class="ident">charlie</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span>, <span class="ident">charlie</span>(): <span class="number">0</span> } }))
                     .<span class="ident">unwrap</span>(),
@@ -2253,56 +2255,56 @@
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T1&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA1&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T2&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PA2&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">0</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T3&quot;</span>,
                 <span class="ident">bob</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;MZ1&quot;</span>,
                 <span class="ident">zara</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
             <span class="ident">to_init_pdu_event</span>(
                 <span class="string">&quot;T4&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomTopic</span>,
+                <span class="ident">RoomEventType::RoomTopic</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({})).<span class="ident">unwrap</span>(),
             ),
@@ -2497,7 +2499,7 @@
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;PA&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IMA&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>], <span class="comment">// auth_events</span>
@@ -2506,7 +2508,7 @@
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;PB&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;users&quot;</span>: { <span class="ident">alice</span>(): <span class="number">100</span>, <span class="ident">bob</span>(): <span class="number">50</span> } })).<span class="ident">unwrap</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IMA&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>],
@@ -2515,7 +2517,7 @@
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;MB&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomMember</span>,
+                <span class="ident">RoomEventType::RoomMember</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">ella</span>().<span class="ident">as_str</span>()),
                 <span class="ident">member_content_ban</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IMA&quot;</span>, <span class="string">&quot;PB&quot;</span>],
@@ -2524,7 +2526,7 @@
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;IME&quot;</span>,
                 <span class="ident">ella</span>(),
-                <span class="ident">EventType::RoomMember</span>,
+                <span class="ident">RoomEventType::RoomMember</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">ella</span>().<span class="ident">as_str</span>()),
                 <span class="ident">member_content_join</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IJR&quot;</span>, <span class="string">&quot;PA&quot;</span>],
@@ -2542,7 +2544,7 @@
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;JR&quot;</span>,
                 <span class="ident">alice</span>(),
-                <span class="ident">EventType::RoomJoinRules</span>,
+                <span class="ident">RoomEventType::RoomJoinRules</span>,
                 <span class="prelude-val">Some</span>(<span class="string">&quot;&quot;</span>),
                 <span class="ident">to_raw_json_value</span>(<span class="kw-2">&amp;</span><span class="macro">json!</span>({ <span class="string">&quot;join_rule&quot;</span>: <span class="string">&quot;invite&quot;</span> })).<span class="ident">unwrap</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;IMA&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>],
@@ -2551,7 +2553,7 @@
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;IMZ&quot;</span>,
                 <span class="ident">zara</span>(),
-                <span class="ident">EventType::RoomPowerLevels</span>,
+                <span class="ident">RoomEventType::RoomPowerLevels</span>,
                 <span class="prelude-val">Some</span>(<span class="ident">zara</span>().<span class="ident">as_str</span>()),
                 <span class="ident">member_content_join</span>(),
                 <span class="kw-2">&amp;</span>[<span class="string">&quot;CREATE&quot;</span>, <span class="string">&quot;JR&quot;</span>, <span class="string">&quot;IPOWER&quot;</span>],
