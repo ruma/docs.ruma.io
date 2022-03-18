@@ -387,6 +387,8 @@
 <span id="380">380</span>
 <span id="381">381</span>
 <span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
 </pre><pre class="rust"><code><span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
 <span class="doccomment">//! These types are used by other Ruma crates.</span>
 <span class="doccomment">//!</span>
@@ -574,6 +576,8 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">typing</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3553&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">video</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3245&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">voice</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::relation::Relations</span>;
