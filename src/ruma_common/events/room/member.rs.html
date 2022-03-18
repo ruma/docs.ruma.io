@@ -722,73 +722,6 @@
 <span id="715">715</span>
 <span id="716">716</span>
 <span id="717">717</span>
-<span id="718">718</span>
-<span id="719">719</span>
-<span id="720">720</span>
-<span id="721">721</span>
-<span id="722">722</span>
-<span id="723">723</span>
-<span id="724">724</span>
-<span id="725">725</span>
-<span id="726">726</span>
-<span id="727">727</span>
-<span id="728">728</span>
-<span id="729">729</span>
-<span id="730">730</span>
-<span id="731">731</span>
-<span id="732">732</span>
-<span id="733">733</span>
-<span id="734">734</span>
-<span id="735">735</span>
-<span id="736">736</span>
-<span id="737">737</span>
-<span id="738">738</span>
-<span id="739">739</span>
-<span id="740">740</span>
-<span id="741">741</span>
-<span id="742">742</span>
-<span id="743">743</span>
-<span id="744">744</span>
-<span id="745">745</span>
-<span id="746">746</span>
-<span id="747">747</span>
-<span id="748">748</span>
-<span id="749">749</span>
-<span id="750">750</span>
-<span id="751">751</span>
-<span id="752">752</span>
-<span id="753">753</span>
-<span id="754">754</span>
-<span id="755">755</span>
-<span id="756">756</span>
-<span id="757">757</span>
-<span id="758">758</span>
-<span id="759">759</span>
-<span id="760">760</span>
-<span id="761">761</span>
-<span id="762">762</span>
-<span id="763">763</span>
-<span id="764">764</span>
-<span id="765">765</span>
-<span id="766">766</span>
-<span id="767">767</span>
-<span id="768">768</span>
-<span id="769">769</span>
-<span id="770">770</span>
-<span id="771">771</span>
-<span id="772">772</span>
-<span id="773">773</span>
-<span id="774">774</span>
-<span id="775">775</span>
-<span id="776">776</span>
-<span id="777">777</span>
-<span id="778">778</span>
-<span id="779">779</span>
-<span id="780">780</span>
-<span id="781">781</span>
-<span id="782">782</span>
-<span id="783">783</span>
-<span id="784">784</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.member`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.member`]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
@@ -818,15 +751,8 @@
 <span class="doccomment">/// example, user A cannot force user B to join a room, and trying to force this state change</span>
 <span class="doccomment">/// directly will fail.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// The `third_party_invite` property will be set if this invite is an *invite* event and is the</span>
-<span class="doccomment">/// successor of an `m.room.third_party_invite` event, and absent otherwise.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This event may also include an `invite_room_state` key inside the event&#39;s unsigned data. If</span>
-<span class="doccomment">/// present, this contains an array of `StrippedState` events. These events provide information</span>
-<span class="doccomment">/// on a subset of state events such as the room name. Note that Ruma treats unsigned</span>
-<span class="doccomment">/// data on events as arbitrary JSON values, and the Ruma types for this event don&#39;t</span>
-<span class="doccomment">/// provide direct access to `invite_room_state`. If you need this data, you must extract and</span>
-<span class="doccomment">/// convert it from a `serde_json::Value` yourself.</span>
+<span class="doccomment">/// This event may also include an `invite_room_state` key inside the event&#39;s unsigned data, but</span>
+<span class="doccomment">/// Ruma doesn&#39;t currently expose this; see https://github.com/ruma/ruma/issues/998.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// The user for which a membership applies is represented by the `state_key`. Under some</span>
 <span class="doccomment">/// conditions, the `sender` and `state_key` may not match - this may be interpreted as the</span>
@@ -1178,7 +1104,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
-        <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
+        <span class="ident">membership_change</span>(
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>,
+            <span class="self">self</span>.<span class="ident">unsigned</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(),
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>,
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>,
+        )
     }
 }
 
@@ -1189,7 +1120,12 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
-        <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>, <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
+        <span class="ident">membership_change</span>(
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>,
+            <span class="self">self</span>.<span class="ident">unsigned</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>(),
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>,
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>,
+        )
     }
 }
 
@@ -1213,7 +1149,7 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>, <span class="ident">SignedContent</span>, <span class="ident">ThirdPartyInvite</span>};
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::StateEvent</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">StateEvent</span>, <span class="ident">StateUnsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serde_with_no_prev_content</span>() {
@@ -1246,7 +1182,6 @@
                 <span class="ident">sender</span>,
                 <span class="ident">state_key</span>,
                 <span class="ident">unsigned</span>,
-                <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
             } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$h29iv0s8:example.com&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>))
                 <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!n8f893n9:example.com&quot;</span>
@@ -1265,31 +1200,39 @@
             },
             <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$h29iv0s8:example.com&quot;</span>,
             <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">1</span>,
-            <span class="string">&quot;prev_content&quot;</span>: {
-                <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;join&quot;</span>
-            },
             <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!n8f893n9:example.com&quot;</span>,
             <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@carl:example.com&quot;</span>,
-            <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;example.com&quot;</span>
+            <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;example.com&quot;</span>,
+            <span class="string">&quot;unsigned&quot;</span>: {
+                <span class="string">&quot;prev_content&quot;</span>: {
+                    <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;join&quot;</span>
+                },
+            },
         });
 
+        <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">StateEvent</span> {
-                <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span> {
-                    <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">displayname</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">is_direct</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">membership</span>: <span class="ident">MembershipState::Join</span>,
-                    <span class="ident">third_party_invite</span>: <span class="prelude-val">None</span>,
-                    ..
-                },
-                <span class="ident">event_id</span>,
-                <span class="ident">origin_server_ts</span>,
-                <span class="ident">room_id</span>,
-                <span class="ident">sender</span>,
-                <span class="ident">state_key</span>,
-                <span class="ident">unsigned</span>,
+            <span class="ident">ev</span>.<span class="ident">content</span>,
+            <span class="ident">RoomMemberEventContent</span> {
+                <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
+                <span class="ident">displayname</span>: <span class="prelude-val">None</span>,
+                <span class="ident">is_direct</span>: <span class="prelude-val">None</span>,
+                <span class="ident">membership</span>: <span class="ident">MembershipState::Join</span>,
+                <span class="ident">third_party_invite</span>: <span class="prelude-val">None</span>,
+                ..
+            }
+        );
+
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">event_id</span>, <span class="string">&quot;$h29iv0s8:example.com&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">origin_server_ts</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)));
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">room_id</span>, <span class="string">&quot;!n8f893n9:example.com&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">sender</span>, <span class="string">&quot;@carl:example.com&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">state_key</span>, <span class="string">&quot;example.com&quot;</span>);
+
+        <span class="macro">assert_matches!</span>(
+            <span class="ident">ev</span>.<span class="ident">unsigned</span>,
+            <span class="ident">StateUnsigned</span> {
                 <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomMemberEventContent</span> {
                     <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
                     <span class="ident">displayname</span>: <span class="prelude-val">None</span>,
@@ -1298,12 +1241,8 @@
                     <span class="ident">third_party_invite</span>: <span class="prelude-val">None</span>,
                     ..
                 }),
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$h29iv0s8:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>))
-                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!n8f893n9:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@carl:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
+                ..
+            }
         );
     }
 
@@ -1356,7 +1295,6 @@
                 <span class="ident">sender</span>,
                 <span class="ident">state_key</span>,
                 <span class="ident">unsigned</span>,
-                <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
             } <span class="kw">if</span> <span class="ident">avatar_url</span> <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
@@ -1381,31 +1319,33 @@
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.member&quot;</span>,
             <span class="string">&quot;content&quot;</span>: {
-                <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;join&quot;</span>
+                <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;join&quot;</span>,
             },
             <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>,
             <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">233</span>,
-            <span class="string">&quot;prev_content&quot;</span>: {
-                <span class="string">&quot;avatar_url&quot;</span>: <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>,
-                <span class="string">&quot;displayname&quot;</span>: <span class="string">&quot;Alice Margatroid&quot;</span>,
-                <span class="string">&quot;is_direct&quot;</span>: <span class="bool-val">true</span>,
-                <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;invite&quot;</span>,
-                <span class="string">&quot;third_party_invite&quot;</span>: {
-                    <span class="string">&quot;display_name&quot;</span>: <span class="string">&quot;alice&quot;</span>,
-                    <span class="string">&quot;signed&quot;</span>: {
-                        <span class="string">&quot;mxid&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>,
-                        <span class="string">&quot;signatures&quot;</span>: {
-                            <span class="string">&quot;magic.forest&quot;</span>: {
-                                <span class="string">&quot;ed25519:3&quot;</span>: <span class="string">&quot;foobar&quot;</span>
-                            }
-                        },
-                        <span class="string">&quot;token&quot;</span>: <span class="string">&quot;abc123&quot;</span>
-                    }
-                }
-            },
             <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>,
             <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>,
-            <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>
+            <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>,
+            <span class="string">&quot;unsigned&quot;</span>: {
+                <span class="string">&quot;prev_content&quot;</span>: {
+                    <span class="string">&quot;avatar_url&quot;</span>: <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>,
+                    <span class="string">&quot;displayname&quot;</span>: <span class="string">&quot;Alice Margatroid&quot;</span>,
+                    <span class="string">&quot;is_direct&quot;</span>: <span class="bool-val">true</span>,
+                    <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;invite&quot;</span>,
+                    <span class="string">&quot;third_party_invite&quot;</span>: {
+                        <span class="string">&quot;display_name&quot;</span>: <span class="string">&quot;alice&quot;</span>,
+                        <span class="string">&quot;signed&quot;</span>: {
+                            <span class="string">&quot;mxid&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>,
+                            <span class="string">&quot;signatures&quot;</span>: {
+                                <span class="string">&quot;magic.forest&quot;</span>: {
+                                    <span class="string">&quot;ed25519:3&quot;</span>: <span class="string">&quot;foobar&quot;</span>,
+                                },
+                            },
+                            <span class="string">&quot;token&quot;</span>: <span class="string">&quot;abc123&quot;</span>
+                        },
+                    },
+                },
+            },
         });
 
         <span class="macro">assert_matches!</span>(
@@ -1424,99 +1364,26 @@
                 <span class="ident">room_id</span>,
                 <span class="ident">sender</span>,
                 <span class="ident">state_key</span>,
-                <span class="ident">unsigned</span>,
-                <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomMemberEventContent</span> {
-                    <span class="ident">avatar_url</span>: <span class="prelude-val">Some</span>(<span class="ident">avatar_url</span>),
-                    <span class="ident">displayname</span>: <span class="prelude-val">Some</span>(<span class="ident">displayname</span>),
-                    <span class="ident">is_direct</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
-                    <span class="ident">membership</span>: <span class="ident">MembershipState::Invite</span>,
-                    <span class="ident">third_party_invite</span>: <span class="prelude-val">Some</span>(<span class="ident">ThirdPartyInvite</span> {
-                        <span class="ident">display_name</span>: <span class="ident">third_party_displayname</span>,
-                        <span class="ident">signed</span>: <span class="ident">SignedContent</span> { <span class="ident">mxid</span>, <span class="ident">signatures</span>, <span class="ident">token</span> },
+                <span class="ident">unsigned</span>: <span class="ident">StateUnsigned</span> {
+                    <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomMemberEventContent</span> {
+                        <span class="ident">avatar_url</span>: <span class="prelude-val">Some</span>(<span class="ident">avatar_url</span>),
+                        <span class="ident">displayname</span>: <span class="prelude-val">Some</span>(<span class="ident">displayname</span>),
+                        <span class="ident">is_direct</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
+                        <span class="ident">membership</span>: <span class="ident">MembershipState::Invite</span>,
+                        <span class="ident">third_party_invite</span>: <span class="prelude-val">Some</span>(<span class="ident">ThirdPartyInvite</span> {
+                            <span class="ident">display_name</span>: <span class="ident">third_party_displayname</span>,
+                            <span class="ident">signed</span>: <span class="ident">SignedContent</span> { <span class="ident">mxid</span>, <span class="ident">signatures</span>, <span class="ident">token</span> },
+                        }),
+                        ..
                     }),
                     ..
-                }),
+                },
             } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
                 <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
                 <span class="op">&amp;&amp;</span> <span class="ident">avatar_url</span> <span class="op">==</span> <span class="string">&quot;mxc://example.org/SEsfnsuifSDFSSEF&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">signatures</span> <span class="op">==</span> <span class="macro">btreemap!</span> {
-                    <span class="macro">server_name!</span>(<span class="string">&quot;magic.forest&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="macro">btreemap!</span> {
-                        <span class="macro">server_signing_key_id!</span>(<span class="string">&quot;ed25519:3&quot;</span>).<span class="ident">to_owned</span>() =&gt; <span class="string">&quot;foobar&quot;</span>.<span class="ident">to_owned</span>()
-                    }
-                }
-                <span class="op">&amp;&amp;</span> <span class="ident">token</span> <span class="op">==</span> <span class="string">&quot;abc123&quot;</span>
-        );
-
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>)]</span>
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="macro">json!</span>({
-                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.member&quot;</span>,
-                <span class="string">&quot;content&quot;</span>: {
-                    <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;join&quot;</span>
-                },
-                <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>,
-                <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">233</span>,
-                <span class="string">&quot;prev_content&quot;</span>: {
-                    <span class="string">&quot;avatar_url&quot;</span>: <span class="string">&quot;&quot;</span>,
-                    <span class="string">&quot;displayname&quot;</span>: <span class="string">&quot;Alice Margatroid&quot;</span>,
-                    <span class="string">&quot;is_direct&quot;</span>: <span class="bool-val">true</span>,
-                    <span class="string">&quot;membership&quot;</span>: <span class="string">&quot;invite&quot;</span>,
-                    <span class="string">&quot;third_party_invite&quot;</span>: {
-                        <span class="string">&quot;display_name&quot;</span>: <span class="string">&quot;alice&quot;</span>,
-                        <span class="string">&quot;signed&quot;</span>: {
-                            <span class="string">&quot;mxid&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>,
-                            <span class="string">&quot;signatures&quot;</span>: {
-                                <span class="string">&quot;magic.forest&quot;</span>: {
-                                    <span class="string">&quot;ed25519:3&quot;</span>: <span class="string">&quot;foobar&quot;</span>
-                                }
-                            },
-                            <span class="string">&quot;token&quot;</span>: <span class="string">&quot;abc123&quot;</span>
-                        }
-                    }
-                },
-                <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>,
-                <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>,
-                <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;@alice:example.org&quot;</span>
-            })).<span class="ident">unwrap</span>(),
-            <span class="ident">StateEvent</span> {
-                <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span> {
-                    <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">displayname</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">is_direct</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">membership</span>: <span class="ident">MembershipState::Join</span>,
-                    <span class="ident">third_party_invite</span>: <span class="prelude-val">None</span>,
-                    ..
-                },
-                <span class="ident">event_id</span>,
-                <span class="ident">origin_server_ts</span>,
-                <span class="ident">room_id</span>,
-                <span class="ident">sender</span>,
-                <span class="ident">state_key</span>,
-                <span class="ident">unsigned</span>,
-                <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomMemberEventContent</span> {
-                    <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">displayname</span>: <span class="prelude-val">Some</span>(<span class="ident">displayname</span>),
-                    <span class="ident">is_direct</span>: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
-                    <span class="ident">membership</span>: <span class="ident">MembershipState::Invite</span>,
-                    <span class="ident">third_party_invite</span>: <span class="prelude-val">Some</span>(<span class="ident">ThirdPartyInvite</span> {
-                        <span class="ident">display_name</span>: <span class="ident">third_party_displayname</span>,
-                        <span class="ident">signed</span>: <span class="ident">SignedContent</span> { <span class="ident">mxid</span>, <span class="ident">signatures</span>, <span class="ident">token</span> },
-                    }),
-                    ..
-                }),
-            } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">233</span>))
-                <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!jEsUZKDJdhlrceRyVU:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">state_key</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">unsigned</span>.<span class="ident">is_empty</span>()
                 <span class="op">&amp;&amp;</span> <span class="ident">displayname</span> <span class="op">==</span> <span class="string">&quot;Alice Margatroid&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">third_party_displayname</span> <span class="op">==</span> <span class="string">&quot;alice&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">mxid</span> <span class="op">==</span> <span class="string">&quot;@alice:example.org&quot;</span>
@@ -1562,7 +1429,6 @@
                 <span class="ident">sender</span>,
                 <span class="ident">state_key</span>,
                 <span class="ident">unsigned</span>,
-                <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
             } <span class="kw">if</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="string">&quot;$h29iv0s8:example.com&quot;</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">origin_server_ts</span> <span class="op">==</span> <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>))
                 <span class="op">&amp;&amp;</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!n8f893n9:example.com&quot;</span>
@@ -1574,5 +1440,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (52b34550a 2022-03-15)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (58f11791a 2022-03-17)" ></div>
 </body></html>

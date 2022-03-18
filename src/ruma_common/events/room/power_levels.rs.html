@@ -328,6 +328,9 @@
 <span id="321">321</span>
 <span id="322">322</span>
 <span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.power_levels`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.power_levels`]: https://spec.matrix.org/v1.2/client-server-api/#mroompower_levels</span>
@@ -512,7 +515,7 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>, <span class="ident">RoomPowerLevelsEventContent</span>};
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">StateEvent</span>, <span class="ident">Unsigned</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">StateEvent</span>, <span class="ident">StateUnsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_optional_fields_as_none</span>() {
@@ -533,9 +536,8 @@
             },
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
-            <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
             <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!n8f893n9:example.com&quot;</span>).<span class="ident">to_owned</span>(),
-            <span class="ident">unsigned</span>: <span class="ident">Unsigned::default</span>(),
+            <span class="ident">unsigned</span>: <span class="ident">StateUnsigned::default</span>(),
             <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">state_key</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
         };
@@ -576,25 +578,29 @@
             },
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
-            <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomPowerLevelsEventContent</span> {
-                <span class="comment">// Make just one field different so we at least know they&#39;re two different objects.</span>
-                <span class="ident">ban</span>: <span class="macro">int!</span>(<span class="number">42</span>),
-                <span class="ident">events</span>: <span class="macro">btreemap!</span> {
-                    <span class="string">&quot;m.dummy&quot;</span>.<span class="ident">into</span>() =&gt; <span class="macro">int!</span>(<span class="number">42</span>)
-                },
-                <span class="ident">events_default</span>: <span class="macro">int!</span>(<span class="number">42</span>),
-                <span class="ident">invite</span>: <span class="macro">int!</span>(<span class="number">42</span>),
-                <span class="ident">kick</span>: <span class="macro">int!</span>(<span class="number">42</span>),
-                <span class="ident">redact</span>: <span class="macro">int!</span>(<span class="number">42</span>),
-                <span class="ident">state_default</span>: <span class="macro">int!</span>(<span class="number">42</span>),
-                <span class="ident">users</span>: <span class="macro">btreemap!</span> {
-                    <span class="ident">user</span>.<span class="ident">to_owned</span>() =&gt; <span class="macro">int!</span>(<span class="number">42</span>)
-                },
-                <span class="ident">users_default</span>: <span class="macro">int!</span>(<span class="number">42</span>),
-                <span class="ident">notifications</span>: <span class="macro">assign!</span>(<span class="ident">NotificationPowerLevels::new</span>(), { <span class="ident">room</span>: <span class="macro">int!</span>(<span class="number">42</span>) }),
-            }),
             <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!n8f893n9:example.com&quot;</span>).<span class="ident">to_owned</span>(),
-            <span class="ident">unsigned</span>: <span class="ident">Unsigned</span> { <span class="ident">age</span>: <span class="prelude-val">Some</span>(<span class="macro">int!</span>(<span class="number">100</span>)), ..<span class="ident">Unsigned::default</span>() },
+            <span class="ident">unsigned</span>: <span class="ident">StateUnsigned</span> {
+                <span class="ident">age</span>: <span class="prelude-val">Some</span>(<span class="macro">int!</span>(<span class="number">100</span>)),
+                <span class="ident">prev_content</span>: <span class="prelude-val">Some</span>(<span class="ident">RoomPowerLevelsEventContent</span> {
+                    <span class="comment">// Make just one field different so we at least know they&#39;re two different</span>
+                    <span class="comment">// objects.</span>
+                    <span class="ident">ban</span>: <span class="macro">int!</span>(<span class="number">42</span>),
+                    <span class="ident">events</span>: <span class="macro">btreemap!</span> {
+                        <span class="string">&quot;m.dummy&quot;</span>.<span class="ident">into</span>() =&gt; <span class="macro">int!</span>(<span class="number">42</span>)
+                    },
+                    <span class="ident">events_default</span>: <span class="macro">int!</span>(<span class="number">42</span>),
+                    <span class="ident">invite</span>: <span class="macro">int!</span>(<span class="number">42</span>),
+                    <span class="ident">kick</span>: <span class="macro">int!</span>(<span class="number">42</span>),
+                    <span class="ident">redact</span>: <span class="macro">int!</span>(<span class="number">42</span>),
+                    <span class="ident">state_default</span>: <span class="macro">int!</span>(<span class="number">42</span>),
+                    <span class="ident">users</span>: <span class="macro">btreemap!</span> {
+                        <span class="ident">user</span>.<span class="ident">to_owned</span>() =&gt; <span class="macro">int!</span>(<span class="number">42</span>)
+                    },
+                    <span class="ident">users_default</span>: <span class="macro">int!</span>(<span class="number">42</span>),
+                    <span class="ident">notifications</span>: <span class="macro">assign!</span>(<span class="ident">NotificationPowerLevels::new</span>(), { <span class="ident">room</span>: <span class="macro">int!</span>(<span class="number">42</span>) }),
+                }),
+                ..<span class="ident">StateUnsigned::default</span>()
+            },
             <span class="ident">sender</span>: <span class="ident">user</span>.<span class="ident">to_owned</span>(),
             <span class="ident">state_key</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
         };
@@ -621,30 +627,30 @@
             },
             <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$h29iv0s8:example.com&quot;</span>,
             <span class="string">&quot;origin_server_ts&quot;</span>: <span class="number">1</span>,
-            <span class="string">&quot;prev_content&quot;</span>: {
-                <span class="string">&quot;ban&quot;</span>: <span class="number">42</span>,
-                <span class="string">&quot;events&quot;</span>: {
-                    <span class="string">&quot;m.dummy&quot;</span>: <span class="number">42</span>
-                },
-                <span class="string">&quot;events_default&quot;</span>: <span class="number">42</span>,
-                <span class="string">&quot;invite&quot;</span>: <span class="number">42</span>,
-                <span class="string">&quot;kick&quot;</span>: <span class="number">42</span>,
-                <span class="string">&quot;redact&quot;</span>: <span class="number">42</span>,
-                <span class="string">&quot;state_default&quot;</span>: <span class="number">42</span>,
-                <span class="string">&quot;users&quot;</span>: {
-                    <span class="string">&quot;@carl:example.com&quot;</span>: <span class="number">42</span>
-                },
-                <span class="string">&quot;users_default&quot;</span>: <span class="number">42</span>,
-                <span class="string">&quot;notifications&quot;</span>: {
-                    <span class="string">&quot;room&quot;</span>: <span class="number">42</span>
-                }
-            },
             <span class="string">&quot;room_id&quot;</span>: <span class="string">&quot;!n8f893n9:example.com&quot;</span>,
             <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@carl:example.com&quot;</span>,
             <span class="string">&quot;state_key&quot;</span>: <span class="string">&quot;&quot;</span>,
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.power_levels&quot;</span>,
             <span class="string">&quot;unsigned&quot;</span>: {
-                <span class="string">&quot;age&quot;</span>: <span class="number">100</span>
+                <span class="string">&quot;age&quot;</span>: <span class="number">100</span>,
+                <span class="string">&quot;prev_content&quot;</span>: {
+                    <span class="string">&quot;ban&quot;</span>: <span class="number">42</span>,
+                    <span class="string">&quot;events&quot;</span>: {
+                        <span class="string">&quot;m.dummy&quot;</span>: <span class="number">42</span>
+                    },
+                    <span class="string">&quot;events_default&quot;</span>: <span class="number">42</span>,
+                    <span class="string">&quot;invite&quot;</span>: <span class="number">42</span>,
+                    <span class="string">&quot;kick&quot;</span>: <span class="number">42</span>,
+                    <span class="string">&quot;redact&quot;</span>: <span class="number">42</span>,
+                    <span class="string">&quot;state_default&quot;</span>: <span class="number">42</span>,
+                    <span class="string">&quot;users&quot;</span>: {
+                        <span class="string">&quot;@carl:example.com&quot;</span>: <span class="number">42</span>
+                    },
+                    <span class="string">&quot;users_default&quot;</span>: <span class="number">42</span>,
+                    <span class="string">&quot;notifications&quot;</span>: {
+                        <span class="string">&quot;room&quot;</span>: <span class="number">42</span>
+                    },
+                },
             }
         });
 
@@ -652,5 +658,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (52b34550a 2022-03-15)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (58f11791a 2022-03-17)" ></div>
 </body></html>

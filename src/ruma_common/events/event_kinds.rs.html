@@ -343,12 +343,6 @@
 <span id="336">336</span>
 <span id="337">337</span>
 <span id="338">338</span>
-<span id="339">339</span>
-<span id="340">340</span>
-<span id="341">341</span>
-<span id="342">342</span>
-<span id="343">343</span>
-<span id="344">344</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::Event</span>;
@@ -356,8 +350,8 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">EphemeralRoomEventType</span>, <span class="ident">EventContent</span>, <span class="ident">GlobalAccountDataEventType</span>, <span class="ident">MessageLikeEventType</span>,
-    <span class="ident">RedactedEventContent</span>, <span class="ident">RedactedUnsigned</span>, <span class="ident">RoomAccountDataEventType</span>, <span class="ident">StateEventType</span>,
-    <span class="ident">ToDeviceEventType</span>, <span class="ident">Unsigned</span>,
+    <span class="ident">MessageLikeUnsigned</span>, <span class="ident">RedactedEventContent</span>, <span class="ident">RedactedUnsigned</span>, <span class="ident">RoomAccountDataEventType</span>,
+    <span class="ident">StateEventType</span>, <span class="ident">StateUnsigned</span>, <span class="ident">ToDeviceEventType</span>,
 };
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>};
 
@@ -414,7 +408,7 @@
     <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
-    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
+    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">MessageLikeUnsigned</span>,
 }
 
 <span class="doccomment">/// A message-like event without a `room_id`.</span>
@@ -436,7 +430,7 @@
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
-    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
+    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">MessageLikeUnsigned</span>,
 }
 
 <span class="doccomment">/// A redacted message-like event.</span>
@@ -517,11 +511,8 @@
     <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// Optional previous content for this event.</span>
-    <span class="kw">pub</span> <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
-
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
-    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
+    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">StateUnsigned</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// A state event without a `room_id`.</span>
@@ -548,11 +539,8 @@
     <span class="doccomment">/// affects.</span>
     <span class="kw">pub</span> <span class="ident">state_key</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// Optional previous content for this event.</span>
-    <span class="kw">pub</span> <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
-
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
-    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">Unsigned</span>,
+    <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">StateUnsigned</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// A stripped-down state event, used for previews of rooms the user has been invited to.</span>
@@ -694,5 +682,5 @@
     <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (52b34550a 2022-03-15)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (58f11791a 2022-03-17)" ></div>
 </body></html>
