@@ -572,6 +572,8 @@
 <span id="565">565</span>
 <span id="566">566</span>
 <span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for event filters.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">create_filter</span>;
@@ -641,7 +643,7 @@
     <span class="ident">Replacement</span>,
 
     <span class="doccomment">/// `m.thread`, a participant to a thread.</span>
-    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.thread&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.thread&quot;</span>, <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.thread&quot;</span>)]</span>
     <span class="ident">Thread</span>,
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
@@ -727,6 +729,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(
         <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.relation_types&quot;</span>,
+        <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;related_by_rel_types&quot;</span>,
         <span class="ident">default</span>,
         <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>
     )]</span>
@@ -739,6 +742,7 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(
         <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.relation_senders&quot;</span>,
+        <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;related_by_senders&quot;</span>,
         <span class="ident">default</span>,
         <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>
     )]</span>

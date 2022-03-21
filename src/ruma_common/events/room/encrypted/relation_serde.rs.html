@@ -172,6 +172,27 @@
 <span id="165">165</span>
 <span id="166">166</span>
 <span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
@@ -192,8 +213,10 @@
         <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">EventWithRelatesToJsonRepr::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Thread</span>(<span class="ident">ThreadJsonRepr</span> { <span class="ident">event_id</span>, <span class="ident">is_falling_back</span> })) <span class="op">=</span>
-            <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span>
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(
+            <span class="ident">RelationJsonRepr::ThreadStable</span>(<span class="ident">ThreadStableJsonRepr</span> { <span class="ident">event_id</span>, <span class="ident">is_falling_back</span> })
+            <span class="op">|</span> <span class="ident">RelationJsonRepr::ThreadUnstable</span>(<span class="ident">ThreadUnstableJsonRepr</span> { <span class="ident">event_id</span>, <span class="ident">is_falling_back</span> }),
+        ) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span>
         {
             <span class="kw">let</span> <span class="ident">in_reply_to</span> <span class="op">=</span> <span class="ident">ev</span>
                 .<span class="ident">relates_to</span>
@@ -201,7 +224,6 @@
                 .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">serde::de::Error::missing_field</span>(<span class="string">&quot;m.in_reply_to&quot;</span>))<span class="question-mark">?</span>;
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">Relation::Thread</span>(<span class="ident">Thread</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>, <span class="ident">is_falling_back</span> }));
         }
-
         <span class="kw">let</span> <span class="ident">rel</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">in_reply_to</span> {
             <span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> }
         } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">relation</span>) <span class="op">=</span> <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">relation</span> {
@@ -214,7 +236,9 @@
                     <span class="ident">Relation::Replacement</span>(<span class="ident">Replacement</span> { <span class="ident">event_id</span> })
                 }
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
-                <span class="ident">RelationJsonRepr::Thread</span>(<span class="kw">_</span>) =&gt; <span class="macro">unreachable!</span>(),
+                <span class="ident">RelationJsonRepr::ThreadStable</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">RelationJsonRepr::ThreadUnstable</span>(<span class="kw">_</span>) =&gt; {
+                    <span class="macro">unreachable!</span>()
+                }
                 <span class="comment">// FIXME: Maybe we should log this, though at this point we don&#39;t even have</span>
                 <span class="comment">// access to the rel_type of the unknown relation.</span>
                 <span class="ident">RelationJsonRepr::Unknown</span> =&gt; <span class="ident">Relation::_Custom</span>,
@@ -255,7 +279,7 @@
             <span class="ident">Relation::Thread</span>(<span class="ident">Thread</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>, <span class="ident">is_falling_back</span> }) =&gt; {
                 <span class="ident">RelatesToJsonRepr</span> {
                     <span class="ident">in_reply_to</span>: <span class="prelude-val">Some</span>(<span class="ident">in_reply_to</span>.<span class="ident">clone</span>()),
-                    <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::Thread</span>(<span class="ident">ThreadJsonRepr</span> {
+                    <span class="ident">relation</span>: <span class="prelude-val">Some</span>(<span class="ident">RelationJsonRepr::ThreadUnstable</span>(<span class="ident">ThreadUnstableJsonRepr</span> {
                         <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>(),
                         <span class="ident">is_falling_back</span>: <span class="kw-2">*</span><span class="ident">is_falling_back</span>,
                     })),
@@ -292,10 +316,23 @@
     }
 }
 
-<span class="doccomment">/// A thread relation without the reply fallback.</span>
+<span class="doccomment">/// A thread relation without the reply fallback, with stable names.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
-<span class="kw">struct</span> <span class="ident">ThreadJsonRepr</span> {
+<span class="kw">struct</span> <span class="ident">ThreadStableJsonRepr</span> {
+    <span class="doccomment">/// The ID of the root message in the thread.</span>
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Whether the `m.in_reply_to` field is a fallback for older clients or a real reply in a</span>
+    <span class="doccomment">/// thread.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">is_falling_back</span>: <span class="ident">bool</span>,
+}
+
+<span class="doccomment">/// A thread relation without the reply fallback, with unstable names.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+<span class="kw">struct</span> <span class="ident">ThreadUnstableJsonRepr</span> {
     <span class="doccomment">/// The ID of the root message in the thread.</span>
     <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
 
@@ -327,10 +364,15 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.replace&quot;</span>)]</span>
     <span class="ident">Replacement</span>(<span class="ident">Replacement</span>),
 
-    <span class="doccomment">/// An event that belongs to a thread.</span>
+    <span class="doccomment">/// An event that belongs to a thread, with stable names.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.thread&quot;</span>)]</span>
+    <span class="ident">ThreadStable</span>(<span class="ident">ThreadStableJsonRepr</span>),
+
+    <span class="doccomment">/// An event that belongs to a thread, with unstable names.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.thread&quot;</span>)]</span>
-    <span class="ident">Thread</span>(<span class="ident">ThreadJsonRepr</span>),
+    <span class="ident">ThreadUnstable</span>(<span class="ident">ThreadUnstableJsonRepr</span>),
 
     <span class="doccomment">/// An unknown relation type.</span>
     <span class="doccomment">///</span>

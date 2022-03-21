@@ -289,7 +289,7 @@
 
     <span class="doccomment">/// Thread relation.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.thread&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.thread&quot;</span>, <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.thread&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">thread</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BundledThread</span><span class="op">&gt;</span>,
 }
 
