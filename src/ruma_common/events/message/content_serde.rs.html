@@ -60,6 +60,21 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `Serialize` and `Deserialize` implementations for extensible events (MSC1767).</span>
 
 <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
@@ -71,31 +86,46 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Error</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MessageContentSerdeError</span> {
-    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;missing field `{0}`&quot;</span>)]</span>
-    <span class="ident">MissingField</span>(<span class="ident">String</span>),
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;missing field `m.message` or `m.text`&quot;</span>)]</span>
+    <span class="ident">MissingMessage</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">MessageContentSerDeHelper</span> {
-    <span class="doccomment">/// Plain text short form.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.text&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="ident">text</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Plain text short form, stable name.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.text&quot;</span>)]</span>
+    <span class="ident">text_stable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Long form.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.message&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-    <span class="ident">message</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Plain text short form, unstable name.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.text&quot;</span>)]</span>
+    <span class="ident">text_unstable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Long form, stable name.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.message&quot;</span>)]</span>
+    <span class="ident">message_stable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// Long form, unstable name.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.message&quot;</span>)]</span>
+    <span class="ident">message_unstable</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Text</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">MessageContentSerDeHelper</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MessageContent</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">MessageContentSerdeError</span>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">helper</span>: <span class="ident">MessageContentSerDeHelper</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="op">!</span><span class="ident">helper</span>.<span class="ident">message</span>.<span class="ident">is_empty</span>() {
-            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">helper</span>.<span class="ident">message</span>))
-        } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">text</span>) <span class="op">=</span> <span class="ident">helper</span>.<span class="ident">text</span> {
+        <span class="kw">let</span> <span class="ident">MessageContentSerDeHelper</span> {
+            <span class="ident">text_stable</span>,
+            <span class="ident">text_unstable</span>,
+            <span class="ident">message_stable</span>,
+            <span class="ident">message_unstable</span>,
+        } <span class="op">=</span> <span class="ident">helper</span>;
+
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">message</span>) <span class="op">=</span> <span class="ident">message_stable</span>.<span class="ident">or</span>(<span class="ident">message_unstable</span>) {
+            <span class="prelude-val">Ok</span>(<span class="self">Self</span>(<span class="ident">message</span>))
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">text</span>) <span class="op">=</span> <span class="ident">text_stable</span>.<span class="ident">or</span>(<span class="ident">text_unstable</span>) {
             <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::plain</span>(<span class="ident">text</span>))
         } <span class="kw">else</span> {
-            <span class="prelude-val">Err</span>(<span class="ident">MessageContentSerdeError::MissingField</span>(<span class="string">&quot;m.message&quot;</span>.<span class="ident">into</span>()))
+            <span class="prelude-val">Err</span>(<span class="ident">MessageContentSerdeError::MissingMessage</span>)
         }
     }
 }
