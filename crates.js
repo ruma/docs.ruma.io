@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["joke_bot","ruma","ruma_appservice_api","ruma_client","ruma_client_api","ruma_common","ruma_federation_api","ruma_identity_service_api","ruma_push_gateway_api","ruma_signatures","ruma_state_res"];
+window.ALL_CRATES = ["hello_isahc","hello_world","joke_bot","message_log","ruma","ruma_appservice_api","ruma_client","ruma_client_api","ruma_common","ruma_federation_api","ruma_identity_service_api","ruma_push_gateway_api","ruma_signatures","ruma_state_res"];

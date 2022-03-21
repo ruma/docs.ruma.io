@@ -1,5 +1,8 @@
 var N = null;var sourcesIndex = {};
+sourcesIndex["hello_isahc"] = {"name":"","files":["main.rs"]};
+sourcesIndex["hello_world"] = {"name":"","files":["main.rs"]};
 sourcesIndex["joke_bot"] = {"name":"","files":["main.rs"]};
+sourcesIndex["message_log"] = {"name":"","files":["main.rs"]};
 sourcesIndex["ruma"] = {"name":"","files":["lib.rs"]};
 sourcesIndex["ruma_appservice_api"] = {"name":"","dirs":[{"name":"event","files":["push_events.rs"]},{"name":"query","files":["query_room_alias.rs","query_user_id.rs"]},{"name":"thirdparty","files":["get_location_for_protocol.rs","get_location_for_room_alias.rs","get_protocol.rs","get_user_for_protocol.rs","get_user_for_user_id.rs"]}],"files":["event.rs","lib.rs","query.rs","thirdparty.rs"]};
 sourcesIndex["ruma_client"] = {"name":"","dirs":[{"name":"client","files":["builder.rs"]},{"name":"http_client","files":["hyper.rs","isahc.rs","reqwest.rs"]}],"files":["client.rs","error.rs","http_client.rs","lib.rs"]};
