@@ -254,6 +254,12 @@
 <span id="247">247</span>
 <span id="248">248</span>
 <span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.room` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -285,8 +291,22 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">redaction</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">server_acl</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">third_party_invite</span>;
+<span class="kw">mod</span> <span class="ident">thumbnail_src_serde</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">tombstone</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">topic</span>;
+
+<span class="doccomment">/// The source of a media file.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MediaSource</span> {
+    <span class="doccomment">/// The MXC URI to the unencrypted media file.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;url&quot;</span>)]</span>
+    <span class="ident">Plain</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>),
+
+    <span class="doccomment">/// The encryption info of the encrypted media file.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;file&quot;</span>)]</span>
+    <span class="ident">Encrypted</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span>),
+}
 
 <span class="doccomment">/// Metadata about an image.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
@@ -308,21 +328,13 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Metadata about the image referred to in `thumbnail_url`.</span>
+    <span class="doccomment">/// Metadata about the image referred to in `thumbnail_src`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">thumbnail_info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ThumbnailInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// The URL to the thumbnail of the image.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Only present if the thumbnail is unencrypted.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-
-    <span class="doccomment">/// Information on the encrypted thumbnail image.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Only present if the thumbnail is encrypted.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail_file</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// The source of the thumbnail of the image.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;thumbnail_src_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">thumbnail_src</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The [BlurHash](https://blurha.sh) for this image.</span>
     <span class="doccomment">///</span>
