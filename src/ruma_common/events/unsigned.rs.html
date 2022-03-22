@@ -280,7 +280,7 @@
     <span class="kw">pub</span> <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Server-compiled information from other events relating to this event.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relations&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relations</span><span class="op">&gt;</span>,
 }
@@ -292,7 +292,7 @@
             <span class="ident">age</span>: <span class="prelude-val">None</span>,
             <span class="ident">transaction_id</span>: <span class="prelude-val">None</span>,
             <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
             <span class="ident">relations</span>: <span class="prelude-val">None</span>,
         }
     }
@@ -332,7 +332,7 @@
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="ident">transaction_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
             <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relations&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="ident">relations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relations</span><span class="op">&gt;</span>,
         }
@@ -344,7 +344,7 @@
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
             <span class="ident">age</span>: <span class="ident">raw</span>.<span class="ident">age</span>,
             <span class="ident">transaction_id</span>: <span class="ident">raw</span>.<span class="ident">transaction_id</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
             <span class="ident">relations</span>: <span class="ident">raw</span>.<span class="ident">relations</span>,
             <span class="ident">prev_content</span>,
         })
@@ -358,7 +358,7 @@
             <span class="ident">age</span>: <span class="self">self</span>.<span class="ident">age</span>,
             <span class="ident">transaction_id</span>: <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">clone</span>(),
             <span class="ident">prev_content</span>: <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">f</span>),
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
             <span class="ident">relations</span>: <span class="self">self</span>.<span class="ident">relations</span>.<span class="ident">clone</span>(),
         }
     }
