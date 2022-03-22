@@ -1191,11 +1191,19 @@
 <span id="1184">1184</span>
 <span id="1185">1185</span>
 <span id="1186">1186</span>
+<span id="1187">1187</span>
+<span id="1188">1188</span>
+<span id="1189">1189</span>
+<span id="1190">1190</span>
+<span id="1191">1191</span>
+<span id="1192">1192</span>
+<span id="1193">1193</span>
+<span id="1194">1194</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
 
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">fmt</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">borrow::Cow</span>, <span class="ident">fmt</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
@@ -1703,8 +1711,12 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AudioInfo</span> {
     <span class="doccomment">/// The duration of the audio in milliseconds.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(
+        <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::duration::opt_ms&quot;</span>,
+        <span class="ident">default</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+    )]</span>
+    <span class="kw">pub</span> <span class="ident">duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The mimetype of the audio, e.g. &quot;audio/aac&quot;.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -2276,8 +2288,12 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VideoInfo</span> {
     <span class="doccomment">/// The duration of the video in milliseconds.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(
+        <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::duration::opt_ms&quot;</span>,
+        <span class="ident">default</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+    )]</span>
+    <span class="kw">pub</span> <span class="ident">duration</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The height of the video in pixels.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;h&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -2378,5 +2394,5 @@
     <span class="ident">data</span>: <span class="ident">JsonObject</span>,
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (c84f39e6c 2022-03-20)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (3c17c84a3 2022-03-21)" ></div>
 </body></html>
