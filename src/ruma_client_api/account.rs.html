@@ -96,13 +96,13 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">unbind_3pid</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">whoami</span>;
 
-<span class="kw">use</span> <span class="ident">ruma_common::serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>};
+<span class="kw">use</span> <span class="ident">ruma_common::serde</span>::{<span class="ident">Incoming</span>, <span class="ident">StringEnum</span>};
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="doccomment">/// Additional authentication information for requestToken endpoints.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IdentityServerInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// The ID server to send the onward request to as a hostname with an</span>

@@ -421,7 +421,7 @@
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events::RoomEventType</span>,
         <span class="ident">push</span>::{<span class="ident">PusherData</span>, <span class="ident">Tweak</span>},
-        <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">StringEnum</span>},
+        <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">StringEnum</span>},
         <span class="ident">EventId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">SecondsSinceUnixEpoch</span>, <span class="ident">UserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -473,7 +473,7 @@
     }
 
     <span class="doccomment">/// Type for passing information about a push notification</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Notification</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="doccomment">/// The Matrix event ID of the event being notified about.</span>
@@ -604,7 +604,7 @@
     }
 
     <span class="doccomment">/// Type for passing information about devices.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Device</span> {
         <span class="doccomment">/// The `app_id` given when the pusher was created.</span>

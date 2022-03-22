@@ -536,7 +536,7 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events</span>::{<span class="ident">AnyRoomEvent</span>, <span class="ident">AnyStateEvent</span>},
-        <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
+        <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
         <span class="ident">EventId</span>, <span class="ident">MxcUri</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -592,7 +592,7 @@
     }
 
     <span class="doccomment">/// Categories of events that can be searched for.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Categories</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="doccomment">/// Criteria for searching room events.</span>
@@ -608,7 +608,7 @@
     }
 
     <span class="doccomment">/// Criteria for searching a category of events.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Criteria</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="doccomment">/// The string to search events for.</span>
@@ -800,7 +800,7 @@
     }
 
     <span class="doccomment">/// Requests that the server partitions the result set based on the provided list of keys.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">incoming_derive</span>(<span class="ident">Default</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Groupings</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {

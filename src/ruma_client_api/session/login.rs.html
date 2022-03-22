@@ -429,10 +429,6 @@
 <span id="422">422</span>
 <span id="423">423</span>
 <span id="424">424</span>
-<span id="425">425</span>
-<span id="426">426</span>
-<span id="427">427</span>
-<span id="428">428</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/login`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -442,7 +438,7 @@
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
-        <span class="ident">serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">Outgoing</span>},
+        <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">JsonObject</span>},
         <span class="ident">DeviceId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{
@@ -529,7 +525,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// To construct the custom `LoginInfo` variant you first have to construct</span>
     <span class="doccomment">/// [`IncomingLoginInfo::new`] and then call [`IncomingLoginInfo::to_outgoing`] on it.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="attribute">#[<span class="ident">incoming_derive</span>(<span class="op">!</span><span class="ident">Deserialize</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">untagged</span>)]</span>
@@ -612,7 +608,7 @@
     }
 
     <span class="doccomment">/// An identifier and password to supply as authentication.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.password&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Password</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -638,7 +634,7 @@
     }
 
     <span class="doccomment">/// A token to supply as authentication.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.token&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Token</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -661,7 +657,7 @@
     }
 
     <span class="doccomment">/// An identifier to supply for Application Service authentication.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.login.application_service&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ApplicationService</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -701,10 +697,6 @@
         <span class="ident">login_type</span>: <span class="ident">String</span>,
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
         <span class="ident">extra</span>: <span class="ident">JsonObject</span>,
-    }
-
-    <span class="kw">impl</span> <span class="ident">Outgoing</span> <span class="kw">for</span> <span class="ident">CustomLoginInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
-        <span class="kw">type</span> <span class="ident">Incoming</span> <span class="op">=</span> <span class="ident">IncomingCustomLoginInfo</span>;
     }
 
     <span class="doccomment">/// Client configuration provided by the server.</span>

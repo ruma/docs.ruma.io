@@ -54,12 +54,12 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Helper module for the Serialize / Deserialize impl&#39;s for the User struct</span>
 <span class="doccomment">//! in the parent module.</span>
 
-<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">serde::Outgoing</span>, <span class="ident">thirdparty::Medium</span>};
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">serde::Incoming</span>, <span class="ident">thirdparty::Medium</span>};
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
 <span class="comment">// The following structs could just be used in place of the one in the parent module, but</span>
 <span class="comment">// that one is arguably much easier to deal with.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Outgoing</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum</span> <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.id.user&quot;</span>)]</span>

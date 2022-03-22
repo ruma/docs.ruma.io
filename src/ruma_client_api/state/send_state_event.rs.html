@@ -217,7 +217,7 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events</span>::{<span class="ident">AnyStateEventContent</span>, <span class="ident">EventContent</span>, <span class="ident">StateEventType</span>},
-        <span class="ident">serde</span>::{<span class="ident">Outgoing</span>, <span class="ident">Raw</span>},
+        <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">Raw</span>},
         <span class="ident">EventId</span>, <span class="ident">RoomId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde_json::value::to_raw_value</span> <span class="kw">as</span> <span class="ident">to_raw_json_value</span>;
@@ -245,7 +245,7 @@
     <span class="doccomment">/// Data for a request to the `send_state_event` API endpoint.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Send a state event to a room associated with a given state key.</span>
-    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Outgoing</span>)]</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="attribute">#[<span class="ident">incoming_derive</span>(<span class="op">!</span><span class="ident">Deserialize</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
