@@ -253,6 +253,52 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
 </pre><pre class="rust"><code><span class="doccomment">//! This module contains types for all kinds of errors that can occur when</span>
 <span class="doccomment">//! converting between http requests / responses and ruma&#39;s representation of</span>
 <span class="doccomment">//! matrix API requests / responses.</span>
@@ -386,21 +432,45 @@
     <span class="ident">Deserialization</span>(<span class="ident">DeserializationError</span>),
 
     <span class="doccomment">/// The server returned a non-success status</span>
-    <span class="ident">Http</span>(<span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>),
+    <span class="ident">Server</span>(<span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>),
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> <span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Map `FromHttpResponseError&lt;E&gt;` to `FromHttpResponseError&lt;F&gt;` by applying a function to a</span>
+    <span class="doccomment">/// contained `Server` value, leaving a `Deserialization` value untouched.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
+        <span class="self">self</span>,
+        <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>) -&gt; <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Deserialization</span>(<span class="ident">d</span>) =&gt; <span class="ident">FromHttpResponseError::Deserialization</span>(<span class="ident">d</span>),
+            <span class="ident"><span class="self">Self</span>::Server</span>(<span class="ident">s</span>) =&gt; <span class="ident">FromHttpResponseError::Server</span>(<span class="ident">f</span>(<span class="ident">s</span>)),
+        }
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Transpose `FromHttpResponseError&lt;Result&lt;E, F&gt;&gt;` to `Result&lt;FromHttpResponseError&lt;E&gt;, F&gt;`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transpose</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="ident">F</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Deserialization</span>(<span class="ident">d</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">FromHttpResponseError::Deserialization</span>(<span class="ident">d</span>)),
+            <span class="ident"><span class="self">Self</span>::Server</span>(<span class="ident">s</span>) =&gt; <span class="ident">s</span>.<span class="ident">transpose</span>().<span class="ident">map</span>(<span class="ident">FromHttpResponseError::Server</span>),
+        }
+    }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">fmt::Display</span><span class="op">&gt;</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident"><span class="self">Self</span>::Deserialization</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;deserialization failed: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident"><span class="self">Self</span>::Http</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;the server returned an error: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident"><span class="self">Self</span>::Server</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;the server returned an error: {}&quot;</span>, <span class="ident">err</span>),
         }
     }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FromHttpResponseError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident"><span class="self">Self</span>::Http</span>(<span class="ident">err</span>)
+        <span class="ident"><span class="self">Self</span>::Server</span>(<span class="ident">err</span>)
     }
 }
 
@@ -425,6 +495,28 @@
 
     <span class="doccomment">/// An error of unexpected type of structure</span>
     <span class="ident">Unknown</span>(<span class="ident">DeserializationError</span>),
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Map `ServerError&lt;E&gt;` to `ServerError&lt;F&gt;` by applying a function to a contained `Known`</span>
+    <span class="doccomment">/// value, leaving an `Unknown` value untouched.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">map</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">f</span>: <span class="kw">impl</span> <span class="ident">FnOnce</span>(<span class="ident">E</span>) -&gt; <span class="ident">F</span>) -&gt; <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Known</span>(<span class="ident">k</span>) =&gt; <span class="ident">ServerError::Known</span>(<span class="ident">f</span>(<span class="ident">k</span>)),
+            <span class="ident"><span class="self">Self</span>::Unknown</span>(<span class="ident">u</span>) =&gt; <span class="ident">ServerError::Unknown</span>(<span class="ident">u</span>),
+        }
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">F</span><span class="op">&gt;</span> <span class="ident">ServerError</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">E</span>, <span class="ident">F</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Transpose `ServerError&lt;Result&lt;E, F&gt;&gt;` to `Result&lt;ServerError&lt;E&gt;, F&gt;`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">transpose</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span>, <span class="ident">F</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Known</span>(<span class="prelude-val">Ok</span>(<span class="ident">k</span>)) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">ServerError::Known</span>(<span class="ident">k</span>)),
+            <span class="ident"><span class="self">Self</span>::Known</span>(<span class="prelude-val">Err</span>(<span class="ident">e</span>)) =&gt; <span class="prelude-val">Err</span>(<span class="ident">e</span>),
+            <span class="ident"><span class="self">Self</span>::Unknown</span>(<span class="ident">u</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">ServerError::Unknown</span>(<span class="ident">u</span>)),
+        }
+    }
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">E</span>: <span class="ident">fmt::Display</span><span class="op">&gt;</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">ServerError</span><span class="op">&lt;</span><span class="ident">E</span><span class="op">&gt;</span> {
