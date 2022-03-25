@@ -23,7 +23,7 @@ adjusting the state directly as there are a restricted set of valid transformati
 example, user A cannot force user B to join a room, and trying to force this state change
 directly will fail.</p>
 <p>This event may also include an <code>invite_room_state</code> key inside the event’s unsigned data, but
-Ruma doesn’t currently expose this; see https://github.com/ruma/ruma/issues/998.</p>
+Ruma doesn’t currently expose this; see <a href="https://github.com/ruma/ruma/issues/998">#998</a>.</p>
 <p>The user for which a membership applies is represented by the <code>state_key</code>. Under some
 conditions, the <code>sender</code> and <code>state_key</code> may not match - this may be interpreted as the
 <code>sender</code> affecting the membership state of the <code>state_key</code> user.</p>

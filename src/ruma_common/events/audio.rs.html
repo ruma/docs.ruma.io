@@ -278,10 +278,10 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">thiserror::Error</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">WaveformError</span> {
-    <span class="doccomment">/// There are more than [`Waveform::MAX`] values.</span>
+    <span class="doccomment">/// There are more than [`Waveform::MAX_LENGTH`] values.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;too many values&quot;</span>)]</span>
     <span class="ident">TooManyValues</span>,
-    <span class="doccomment">/// There are less that [`Waveform::MIN`] values.</span>
+    <span class="doccomment">/// There are less that [`Waveform::MIN_LENGTH`] values.</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;not enough values&quot;</span>)]</span>
     <span class="ident">NotEnoughValues</span>,
 }
