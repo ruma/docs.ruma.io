@@ -105,14 +105,6 @@
 <span id="98">98</span>
 <span id="99">99</span>
 <span id="100">100</span>
-<span id="101">101</span>
-<span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
-<span id="106">106</span>
-<span id="107">107</span>
-<span id="108">108</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible video message events ([MSC3553]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3553]: https://github.com/matrix-org/matrix-spec-proposals/pull/3553</span>
@@ -140,27 +132,19 @@
     <span class="kw">pub</span> <span class="ident">message</span>: <span class="ident">MessageContent</span>,
 
     <span class="doccomment">/// The file content of the message.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.file&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.file&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">file</span>: <span class="ident">FileContent</span>,
 
     <span class="doccomment">/// The video content of the message.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.video&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.video&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">video</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoContent</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The thumbnails of the message.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(
-        <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.thumbnail&quot;</span>,
-        <span class="ident">default</span>,
-        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Thumbnails::is_empty&quot;</span>
-    )]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.thumbnail&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Thumbnails::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">thumbnail</span>: <span class="ident">Thumbnails</span>,
 
     <span class="doccomment">/// The captions of the message.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(
-        <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc1767.caption&quot;</span>,
-        <span class="ident">default</span>,
-        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Captions::is_empty&quot;</span>
-    )]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.caption&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Captions::is_empty&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">caption</span>: <span class="ident">Captions</span>,
 
     <span class="doccomment">/// Information about related messages.</span>

@@ -7,6 +7,33 @@
         </a><h2 class="location"><a href="#">Module message</a></h2><div class="sidebar-elems"><section><div class="block"><ul><li><a href="#structs">Structs</a></li><li><a href="#types">Type Definitions</a></li></ul></div></section><div id="sidebar-vars" data-name="message" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../ruma/index.html">
                         <img src="https://www.ruma.io/images/logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
     <h1 class="fqn"><span class="in-band">Module <a href="../../index.html">ruma</a>::<wbr><a href="../index.html">events</a>::<wbr><a class="mod" href="#">message</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../../src/ruma_common/events.rs.html#167">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate features <code>events</code> and <code>unstable-msc1767</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Types for extensible text message events (<a href="https://github.com/matrix-org/matrix-spec-proposals/pull/1767">MSC1767</a>).</p>
+<h2 id="extensible-events"><a href="#extensible-events">Extensible events</a></h2>
+<p>MSCs <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/1767">1767</a> (Text, Emote and Notice), <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3551">3551</a> (Files), <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3552">3552</a> (Images and Stickers), <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3553">3553</a>
+(Videos), <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3246">3246</a> (Audio), and <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3488">3488</a> (Location) introduce new primary types called extensible
+events. These types are meant to replace the <code>m.room.message</code> primary type and its <code>msgtype</code>s.
+Other MSCs introduce new types with an <code>m.room.message</code> fallback, like <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3245">MSC3245</a> (Voice
+Messages), and types that only have an extensible events format, like <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3381">MSC3381</a> (Polls).</p>
+<h2 id="transition-period"><a href="#transition-period">Transition Period</a></h2>
+<p>MSC1767 defines a transition period that will start after the extensible events are released in
+a Matrix version. It should last approximately one year, but the end of that period will be
+formalized in a new Matrix version.</p>
+<p>The new primary types should not be sent over the Matrix network before the end of the
+transition period. Instead, transitional <code>m.room.message</code> events should be sent. These
+transitional events include the content of the now legacy <code>m.room.message</code> event and the content
+of the new extensible event types in a single event.</p>
+<h2 id="how-to-use-them"><a href="#how-to-use-them">How to use them</a></h2>
+<p>First, enable the <code>unstable-mscXXXX</code> features (where <code>XXXX</code> is the number of the MSC) for the
+needed extensible types.</p>
+<p>The recommended way to send transitional extensible events while they are unstable and during
+the transition period is to build one of the new primary types and then to convert it to a
+<a href="../room/message/struct.RoomMessageEventContent.html"><code>RoomMessageEventContent</code></a> by using <code>.into()</code> or <code>RoomMessageEventContent::from()</code>. The
+provided constructors will copy the relevant data in the legacy fields.</p>
+<p>For incoming events, a <code>RoomMessageEventContent</code> can be converted to an extensible event with
+the relevant <code>from_*_room_message</code> method on the primary type. This conversion will work even
+with legacy <code>m.room.message</code> events that don’t have extensible events content.</p>
+<p>It is also possible to enable extensible events support and continue using
+<code>RoomMessageEventContent</code>’s constructors. The data will be duplicated in both the legacy and
+extensible events fields.</p>
 </div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
 <div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.MessageContent.html" title="ruma::events::message::MessageContent struct">MessageContent</a></div><div class="item-right docblock-short"><p>Text message content.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.MessageEventContent.html" title="ruma::events::message::MessageEventContent struct">MessageEventContent</a></div><div class="item-right docblock-short"><p>The payload for an extensible text message.</p>

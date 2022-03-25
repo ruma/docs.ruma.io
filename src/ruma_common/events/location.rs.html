@@ -174,10 +174,6 @@
 <span id="167">167</span>
 <span id="168">168</span>
 <span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible location message events ([MSC3488]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3488]: https://github.com/matrix-org/matrix-spec-proposals/pull/3488</span>
@@ -203,19 +199,15 @@
     <span class="kw">pub</span> <span class="ident">message</span>: <span class="ident">MessageContent</span>,
 
     <span class="doccomment">/// The location info of the message.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc3488.location&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.location&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">location</span>: <span class="ident">LocationContent</span>,
 
     <span class="doccomment">/// The asset this message refers to.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(
-        <span class="ident">default</span>,
-        <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc3488.asset&quot;</span>,
-        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>
-    )]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.asset&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">asset</span>: <span class="ident">AssetContent</span>,
 
     <span class="doccomment">/// The timestamp this message refers to.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc3488.ts&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.ts&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">ts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MilliSecondsSinceUnixEpoch</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Information about related messages.</span>
