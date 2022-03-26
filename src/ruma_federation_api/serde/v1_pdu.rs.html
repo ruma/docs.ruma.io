@@ -154,6 +154,7 @@
 <span id="147">147</span>
 <span id="148">148</span>
 <span id="149">149</span>
+<span id="150">150</span>
 </pre><pre class="rust"><code><span class="doccomment">//! A module to deserialize a response from incorrectly specified endpoint:</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! - [PUT /_matrix/federation/v1/send_join/{roomId}/{eventId}](https://spec.matrix.org/v1.2/server-server-api/#put_matrixfederationv1send_joinroomideventid)</span>
@@ -226,6 +227,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">deserialize</span>, <span class="ident">serialize</span>};
@@ -244,8 +246,8 @@
 
         <span class="kw">let</span> <span class="ident">RoomState</span> { <span class="ident">origin</span>, <span class="ident">auth_chain</span>, <span class="ident">state</span> } <span class="op">=</span> <span class="ident">deserialize</span>(<span class="ident">response</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">origin</span>, <span class="string">&quot;example.com&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">auth_chain</span>, <span class="macro">vec!</span>[]);
-        <span class="macro">assert_eq!</span>(<span class="ident">state</span>, <span class="macro">vec!</span>[]);
+        <span class="macro">assert_matches!</span>(<span class="ident">auth_chain</span>.<span class="ident">as_slice</span>(), []);
+        <span class="macro">assert_matches!</span>(<span class="ident">state</span>.<span class="ident">as_slice</span>(), []);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -299,8 +301,8 @@
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>([<span class="number">200</span>, { <span class="string">&quot;origin&quot;</span>: <span class="string">&quot;&quot;</span>, <span class="string">&quot;auth_chain&quot;</span>: [], <span class="string">&quot;state&quot;</span>: [] }, <span class="number">200</span>]);
         <span class="kw">let</span> <span class="ident">RoomState</span> { <span class="ident">origin</span>, <span class="ident">auth_chain</span>, <span class="ident">state</span> } <span class="op">=</span> <span class="ident">deserialize</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">origin</span>, <span class="string">&quot;&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">auth_chain</span>, <span class="macro">vec!</span>[]);
-        <span class="macro">assert_eq!</span>(<span class="ident">state</span>, <span class="macro">vec!</span>[]);
+        <span class="macro">assert_matches!</span>(<span class="ident">auth_chain</span>.<span class="ident">as_slice</span>(), []);
+        <span class="macro">assert_matches!</span>(<span class="ident">state</span>.<span class="ident">as_slice</span>(), []);
     }
 }
 </code></pre></div>
