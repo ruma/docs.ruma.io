@@ -105,6 +105,8 @@
 <span id="98">98</span>
 <span id="99">99</span>
 <span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible video message events ([MSC3553]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3553]: https://github.com/matrix-org/matrix-spec-proposals/pull/3553</span>
@@ -116,10 +118,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{
-    <span class="ident">file::FileContent</span>,
-    <span class="ident">image</span>::{<span class="ident">Captions</span>, <span class="ident">Thumbnails</span>},
-    <span class="ident">message::MessageContent</span>,
-    <span class="ident">room::message::Relation</span>,
+    <span class="ident">file::FileContent</span>, <span class="ident">image::ThumbnailContent</span>, <span class="ident">message::MessageContent</span>, <span class="ident">room::message::Relation</span>,
 };
 
 <span class="doccomment">/// The payload for an extensible video message.</span>
@@ -140,12 +139,17 @@
     <span class="kw">pub</span> <span class="ident">video</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoContent</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The thumbnails of the message.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.thumbnail&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Thumbnails::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail</span>: <span class="ident">Thumbnails</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.thumbnail&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">thumbnail</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ThumbnailContent</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The captions of the message.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.caption&quot;</span>, <span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Captions::is_empty&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">caption</span>: <span class="ident">Captions</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(
+        <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.caption&quot;</span>,
+        <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::message::content_serde::as_vec&quot;</span>,
+        <span class="ident">default</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+    )]</span>
+    <span class="kw">pub</span> <span class="ident">caption</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MessageContent</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Information about related messages.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
