@@ -77,6 +77,45 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for voice message events ([MSC3245]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3245]: https://github.com/matrix-org/matrix-spec-proposals/pull/3245</span>
@@ -85,10 +124,25 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{
-    <span class="ident">audio::AudioContent</span>, <span class="ident">file::FileContent</span>, <span class="ident">message::MessageContent</span>, <span class="ident">room::message::Relation</span>,
+    <span class="ident">audio::AudioContent</span>,
+    <span class="ident">file::FileContent</span>,
+    <span class="ident">message</span>::{<span class="ident">MessageContent</span>, <span class="ident">TryFromExtensibleError</span>},
+    <span class="ident">room::message</span>::{<span class="ident">AudioMessageEventContent</span>, <span class="ident">Relation</span>},
 };
 
-<span class="doccomment">/// The payload for an extensible audio message.</span>
+<span class="doccomment">/// The payload for an extensible voice message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This is the new primary type introduced in [MSC3245] and should not be sent before the end of</span>
+<span class="doccomment">/// the transition period. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// `VoiceEventContent` can be converted to a [`RoomMessageEventContent`] with a</span>
+<span class="doccomment">/// [`MessageType::Audio`] with the `m.voice` flag. You can convert it back with</span>
+<span class="doccomment">/// [`VoiceEventContent::try_from_audio_room_message()`].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [MSC3245]: https://github.com/matrix-org/matrix-spec-proposals/pull/3245</span>
+<span class="doccomment">/// [`message`]: super::message</span>
+<span class="doccomment">/// [`RoomMessageEventContent`]: super::room::message::RoomMessageEventContent</span>
+<span class="doccomment">/// [`MessageType::Audio`]: super::room::message::MessageType::Audio</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.voice&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">MessageLike</span>)]</span>
@@ -135,6 +189,30 @@
             <span class="ident">voice</span>: <span class="ident">Default::default</span>(),
             <span class="ident">relates_to</span>: <span class="prelude-val">None</span>,
         }
+    }
+
+    <span class="doccomment">/// Create a new `VoiceEventContent` from the given `AudioMessageEventContent` and optional</span>
+    <span class="doccomment">/// relation.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This can fail if the `AudioMessageEventContent` is not a voice message.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_from_audio_room_message</span>(
+        <span class="ident">content</span>: <span class="ident">AudioMessageEventContent</span>,
+        <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TryFromExtensibleError</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">AudioMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">source</span>, <span class="ident">info</span>, <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">audio</span>, <span class="ident">voice</span> } <span class="op">=</span> <span class="ident">content</span>;
+
+        <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">MessageContent::plain</span>(<span class="ident">body</span>));
+        <span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+            <span class="ident">FileContent::from_room_message_content</span>(<span class="ident">source</span>, <span class="ident">info</span>.<span class="ident">as_deref</span>(), <span class="prelude-val">None</span>)
+        });
+        <span class="kw">let</span> <span class="ident">audio</span> <span class="op">=</span> <span class="ident">audio</span>.<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">info</span>.<span class="ident">as_deref</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>)).<span class="ident">unwrap_or_default</span>();
+        <span class="kw">let</span> <span class="ident">voice</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">voice</span>) <span class="op">=</span> <span class="ident">voice</span> {
+            <span class="ident">voice</span>
+        } <span class="kw">else</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">TryFromExtensibleError::MissingField</span>(<span class="string">&quot;m.voice&quot;</span>.<span class="ident">to_owned</span>()));
+        };
+
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span> { <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">audio</span>, <span class="ident">voice</span>, <span class="ident">relates_to</span> })
     }
 }
 
