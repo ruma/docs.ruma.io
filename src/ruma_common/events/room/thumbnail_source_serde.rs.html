@@ -246,7 +246,7 @@
 <span class="kw">where</span>
     <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
 {
-    <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">ThumbnailSource</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">deserializer</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">src</span><span class="op">|</span> <span class="ident">src</span>.<span class="ident">map</span>(<span class="ident">Into::into</span>))
+    <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">ThumbnailSource</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">deserializer</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">source</span>.<span class="ident">map</span>(<span class="ident">Into::into</span>))
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
