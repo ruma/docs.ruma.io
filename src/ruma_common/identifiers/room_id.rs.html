@@ -215,6 +215,12 @@
 <span id="208">208</span>
 <span id="209">209</span>
 <span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room identifiers.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">matrix_uri::UriAction</span>, <span class="ident">EventId</span>, <span class="ident">MatrixToUri</span>, <span class="ident">MatrixUri</span>, <span class="ident">ServerName</span>};
@@ -327,7 +333,7 @@
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomId</span>;
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Error</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::IdParseError</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id</span>() {
@@ -403,25 +409,31 @@
     <span class="kw">fn</span> <span class="ident">missing_room_id_sigil</span>() {
         <span class="macro">assert_eq!</span>(
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;carl:example.com&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">Error::MissingLeadingSigil</span>
+            <span class="ident">IdParseError::MissingLeadingSigil</span>
         );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">missing_room_id_delimiter</span>() {
-        <span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::MissingDelimiter</span>);
+        <span class="macro">assert_eq!</span>(
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">IdParseError::MissingDelimiter</span>
+        );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_room_id_host</span>() {
-        <span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:/&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">Error::InvalidServerName</span>);
+        <span class="macro">assert_eq!</span>(
+            <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:/&quot;</span>).<span class="ident">unwrap_err</span>(),
+            <span class="ident">IdParseError::InvalidServerName</span>
+        );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_room_id_port</span>() {
         <span class="macro">assert_eq!</span>(
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com:notaport&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">Error::InvalidServerName</span>
+            <span class="ident">IdParseError::InvalidServerName</span>
         );
     }
 }

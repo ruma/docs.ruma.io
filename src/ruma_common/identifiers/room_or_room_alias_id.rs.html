@@ -396,7 +396,7 @@
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomOrAliasId</span>;
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Error</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::IdParseError</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">valid_room_id_or_alias_id_with_a_room_alias_id</span>() {
@@ -422,7 +422,7 @@
     <span class="kw">fn</span> <span class="ident">missing_sigil_for_room_id_or_alias_id</span>() {
         <span class="macro">assert_eq!</span>(
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;ruma:example.com&quot;</span>).<span class="ident">unwrap_err</span>(),
-            <span class="ident">Error::MissingLeadingSigil</span>
+            <span class="ident">IdParseError::MissingLeadingSigil</span>
         );
     }
 
