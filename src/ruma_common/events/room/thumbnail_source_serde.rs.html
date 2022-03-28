@@ -206,18 +206,11 @@
 <span id="199">199</span>
 <span id="200">200</span>
 <span id="201">201</span>
-<span id="202">202</span>
-<span id="203">203</span>
-<span id="204">204</span>
-<span id="205">205</span>
-<span id="206">206</span>
-<span id="207">207</span>
 </pre><pre class="rust"><code><span class="doccomment">//! De-/serialization functions for `Option&lt;MediaSource&gt;` objects representing a thumbnail source.</span>
 
 <span class="kw">use</span> <span class="ident">serde</span>::{
-    <span class="ident">de::Deserializer</span>,
     <span class="ident">ser</span>::{<span class="ident">SerializeStruct</span>, <span class="ident">Serializer</span>},
-    <span class="ident">Deserialize</span>,
+    <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>,
 };
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MxcUri</span>;
@@ -246,25 +239,20 @@
 <span class="kw">where</span>
     <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
 {
-    <span class="prelude-ty">Option</span>::<span class="op">&lt;</span><span class="ident">ThumbnailSource</span><span class="op">&gt;</span><span class="ident">::deserialize</span>(<span class="ident">deserializer</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">source</span><span class="op">|</span> <span class="ident">source</span>.<span class="ident">map</span>(<span class="ident">Into::into</span>))
-}
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThumbnailSourceJsonRepr</span> {
+        <span class="ident">thumbnail_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">thumbnail_file</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">enum</span> <span class="ident">ThumbnailSource</span> {
-    <span class="doccomment">/// The MXC URI to the unencrypted media file.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;thumbnail_url&quot;</span>)]</span>
-    <span class="ident">Plain</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>),
-
-    <span class="doccomment">/// The encryption info of the encrypted media file.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;thumbnail_file&quot;</span>)]</span>
-    <span class="ident">Encrypted</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span>),
-}
-
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ThumbnailSource</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MediaSource</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">source</span>: <span class="ident">ThumbnailSource</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw">match</span> <span class="ident">source</span> {
-            <span class="ident">ThumbnailSource::Plain</span>(<span class="ident">url</span>) =&gt; <span class="ident"><span class="self">Self</span>::Plain</span>(<span class="ident">url</span>),
-            <span class="ident">ThumbnailSource::Encrypted</span>(<span class="ident">file</span>) =&gt; <span class="ident"><span class="self">Self</span>::Encrypted</span>(<span class="ident">file</span>),
+    <span class="kw">match</span> <span class="ident">ThumbnailSourceJsonRepr::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span> {
+        <span class="ident">ThumbnailSourceJsonRepr</span> { <span class="ident">thumbnail_url</span>: <span class="prelude-val">None</span>, <span class="ident">thumbnail_file</span>: <span class="prelude-val">None</span> } =&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
+        <span class="comment">// Prefer file if it is set</span>
+        <span class="ident">ThumbnailSourceJsonRepr</span> { <span class="ident">thumbnail_file</span>: <span class="prelude-val">Some</span>(<span class="ident">file</span>), .. } =&gt; {
+            <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">MediaSource::Encrypted</span>(<span class="ident">file</span>)))
+        }
+        <span class="ident">ThumbnailSourceJsonRepr</span> { <span class="ident">thumbnail_url</span>: <span class="prelude-val">Some</span>(<span class="ident">url</span>), .. } =&gt; {
+            <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>)))
         }
     }
 }

@@ -260,6 +260,93 @@
 <span id="253">253</span>
 <span id="254">254</span>
 <span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.room` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -267,7 +354,7 @@
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
-<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">serde</span>::{<span class="ident">base64::UrlSafe</span>, <span class="ident">Base64</span>},
@@ -296,7 +383,7 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">topic</span>;
 
 <span class="doccomment">/// The source of a media file.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_enums</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MediaSource</span> {
     <span class="doccomment">/// The MXC URI to the unencrypted media file.</span>
@@ -306,6 +393,30 @@
     <span class="doccomment">/// The encryption info of the encrypted media file.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;file&quot;</span>)]</span>
     <span class="ident">Encrypted</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span>),
+}
+
+<span class="doccomment">/// Custom implementation of `Deserialize`, because serde doesn&#39;t guarantee what variant will be</span>
+<span class="doccomment">/// deserialized for &quot;externally tagged&quot;¹ enums where multiple &quot;tag&quot; fields exist.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ¹ https://serde.rs/enum-representations.html</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MediaSource</span> {
+    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">D</span>: <span class="ident">serde::Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
+    {
+        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
+        <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MediaSourceJsonRepr</span> {
+            <span class="ident">url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="ident">file</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        }
+
+        <span class="kw">match</span> <span class="ident">MediaSourceJsonRepr::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span> {
+            <span class="ident">MediaSourceJsonRepr</span> { <span class="ident">url</span>: <span class="prelude-val">None</span>, <span class="ident">file</span>: <span class="prelude-val">None</span> } =&gt; <span class="prelude-val">Err</span>(<span class="ident">de::Error::missing_field</span>(<span class="string">&quot;url&quot;</span>)),
+            <span class="comment">// Prefer file if it is set</span>
+            <span class="ident">MediaSourceJsonRepr</span> { <span class="ident">file</span>: <span class="prelude-val">Some</span>(<span class="ident">file</span>), .. } =&gt; <span class="prelude-val">Ok</span>(<span class="ident">MediaSource::Encrypted</span>(<span class="ident">file</span>)),
+            <span class="ident">MediaSourceJsonRepr</span> { <span class="ident">url</span>: <span class="prelude-val">Some</span>(<span class="ident">url</span>), .. } =&gt; <span class="prelude-val">Ok</span>(<span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>)),
+        }
+    }
 }
 
 <span class="doccomment">/// Metadata about an image.</span>
@@ -513,6 +624,69 @@
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">init</span>: <span class="ident">JsonWebKeyInit</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">JsonWebKeyInit</span> { <span class="ident">kty</span>, <span class="ident">key_ops</span>, <span class="ident">alg</span>, <span class="ident">k</span>, <span class="ident">ext</span> } <span class="op">=</span> <span class="ident">init</span>;
         <span class="self">Self</span> { <span class="ident">kty</span>, <span class="ident">key_ops</span>, <span class="ident">alg</span>, <span class="ident">k</span>, <span class="ident">ext</span> }
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
+<span class="kw">mod</span> <span class="ident">tests</span> {
+    <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
+
+    <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
+    <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
+    <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
+
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde::Base64</span>;
+
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EncryptedFile</span>, <span class="ident">JsonWebKey</span>, <span class="ident">MediaSource</span>};
+
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
+    <span class="kw">struct</span> <span class="ident">MsgWithAttachment</span> {
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+        <span class="ident">body</span>: <span class="ident">String</span>,
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
+        <span class="ident">source</span>: <span class="ident">MediaSource</span>,
+    }
+
+    <span class="kw">fn</span> <span class="ident">dummy_jwt</span>() -&gt; <span class="ident">JsonWebKey</span> {
+        <span class="ident">JsonWebKey</span> {
+            <span class="ident">kty</span>: <span class="string">&quot;oct&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">key_ops</span>: <span class="macro">vec!</span>[<span class="string">&quot;encrypt&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;decrypt&quot;</span>.<span class="ident">to_owned</span>()],
+            <span class="ident">alg</span>: <span class="string">&quot;A256CTR&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">k</span>: <span class="ident">Base64::new</span>(<span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">64</span>]),
+            <span class="ident">ext</span>: <span class="bool-val">true</span>,
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">encrypted_file</span>() -&gt; <span class="ident">EncryptedFile</span> {
+        <span class="ident">EncryptedFile</span> {
+            <span class="ident">url</span>: <span class="string">&quot;mxc://localhost/encrypted_file&quot;</span>.<span class="ident">into</span>(),
+            <span class="ident">key</span>: <span class="ident">dummy_jwt</span>(),
+            <span class="ident">iv</span>: <span class="ident">Base64::new</span>(<span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">64</span>]),
+            <span class="ident">hashes</span>: <span class="ident">BTreeMap::new</span>(),
+            <span class="ident">v</span>: <span class="string">&quot;v2&quot;</span>.<span class="ident">to_owned</span>(),
+        }
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">prefer_encrypted_attachment_over_plain</span>() {
+        <span class="kw">let</span> <span class="ident">msg</span>: <span class="ident">MsgWithAttachment</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="macro">json!</span>({
+            <span class="string">&quot;body&quot;</span>: <span class="string">&quot;&quot;</span>,
+            <span class="string">&quot;url&quot;</span>: <span class="string">&quot;mxc://localhost/file&quot;</span>,
+            <span class="string">&quot;file&quot;</span>: <span class="ident">encrypted_file</span>(),
+        }))
+        .<span class="ident">unwrap</span>();
+
+        <span class="macro">assert_matches!</span>(<span class="ident">msg</span>.<span class="ident">source</span>, <span class="ident">MediaSource::Encrypted</span>(<span class="kw">_</span>));
+
+        <span class="comment">// As above, but with the file field before the url field</span>
+        <span class="kw">let</span> <span class="ident">msg</span>: <span class="ident">MsgWithAttachment</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="macro">json!</span>({
+            <span class="string">&quot;body&quot;</span>: <span class="string">&quot;&quot;</span>,
+            <span class="string">&quot;file&quot;</span>: <span class="ident">encrypted_file</span>(),
+            <span class="string">&quot;url&quot;</span>: <span class="string">&quot;mxc://localhost/file&quot;</span>,
+        }))
+        .<span class="ident">unwrap</span>();
+
+        <span class="macro">assert_matches!</span>(<span class="ident">msg</span>.<span class="ident">source</span>, <span class="ident">MediaSource::Encrypted</span>(<span class="kw">_</span>));
     }
 }
 </code></pre></div>
