@@ -1146,6 +1146,18 @@
 <span id="1139">1139</span>
 <span id="1140">1140</span>
 <span id="1141">1141</span>
+<span id="1142">1142</span>
+<span id="1143">1143</span>
+<span id="1144">1144</span>
+<span id="1145">1145</span>
+<span id="1146">1146</span>
+<span id="1147">1147</span>
+<span id="1148">1148</span>
+<span id="1149">1149</span>
+<span id="1150">1150</span>
+<span id="1151">1151</span>
+<span id="1152">1152</span>
+<span id="1153">1153</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
@@ -1624,7 +1636,7 @@
 
     <span class="doccomment">/// The source of the audio clip.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">src</span>: <span class="ident">MediaSource</span>,
+    <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
     <span class="doccomment">/// Metadata for the audio clip referred to in `url`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -1635,13 +1647,13 @@
     <span class="doccomment">/// Creates a new non-encrypted `RoomAudioMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">AudioInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomAudioMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
     }
 }
 
@@ -1757,7 +1769,7 @@
 
     <span class="doccomment">/// The source of the file.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">src</span>: <span class="ident">MediaSource</span>,
+    <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
     <span class="doccomment">/// Metadata about the file referred to in `url`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -1768,13 +1780,13 @@
     <span class="doccomment">/// Creates a new non-encrypted `RoomFileMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">filename</span>: <span class="prelude-val">None</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">filename</span>: <span class="prelude-val">None</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomFileMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">filename</span>: <span class="prelude-val">None</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">filename</span>: <span class="prelude-val">None</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
     }
 }
 
@@ -1795,8 +1807,12 @@
     <span class="kw">pub</span> <span class="ident">thumbnail_info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ThumbnailInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The source of the thumbnail of the file.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::thumbnail_src_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail_src</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(
+        <span class="ident">flatten</span>,
+        <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::thumbnail_source_serde&quot;</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+    )]</span>
+    <span class="kw">pub</span> <span class="ident">thumbnail_source</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">FileInfo</span> {
@@ -1819,7 +1835,7 @@
 
     <span class="doccomment">/// The source of the image.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">src</span>: <span class="ident">MediaSource</span>,
+    <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
     <span class="doccomment">/// Metadata about the image referred to in `url`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -1830,13 +1846,13 @@
     <span class="doccomment">/// Creates a new non-encrypted `RoomImageMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomImageMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
     }
 }
 
@@ -1869,8 +1885,12 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LocationInfo</span> {
     <span class="doccomment">/// The URL to a thumbnail of the location.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::thumbnail_src_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail_src</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(
+        <span class="ident">flatten</span>,
+        <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::thumbnail_source_serde&quot;</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+    )]</span>
+    <span class="kw">pub</span> <span class="ident">thumbnail_source</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Metadata about the image referred to in `thumbnail_src.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -2164,7 +2184,7 @@
 
     <span class="doccomment">/// The source of the video clip.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">src</span>: <span class="ident">MediaSource</span>,
+    <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
     <span class="doccomment">/// Metadata about the video clip referred to in `url`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -2175,13 +2195,13 @@
     <span class="doccomment">/// Creates a new non-encrypted `RoomVideoMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>), <span class="ident">info</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `RoomVideoMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">src</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
+        <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">source</span>: <span class="ident">MediaSource::Encrypted</span>(<span class="ident">Box::new</span>(<span class="ident">file</span>)), <span class="ident">info</span>: <span class="prelude-val">None</span> }
     }
 }
 
@@ -2218,8 +2238,12 @@
     <span class="kw">pub</span> <span class="ident">thumbnail_info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ThumbnailInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The source of the thumbnail of the video clip.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::thumbnail_src_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail_src</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(
+        <span class="ident">flatten</span>,
+        <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::thumbnail_source_serde&quot;</span>,
+        <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+    )]</span>
+    <span class="kw">pub</span> <span class="ident">thumbnail_source</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The [BlurHash](https://blurha.sh) for this video.</span>
     <span class="doccomment">///</span>

@@ -291,7 +291,7 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">redaction</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">server_acl</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">third_party_invite</span>;
-<span class="kw">mod</span> <span class="ident">thumbnail_src_serde</span>;
+<span class="kw">mod</span> <span class="ident">thumbnail_source_serde</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">tombstone</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">topic</span>;
 
@@ -333,8 +333,8 @@
     <span class="kw">pub</span> <span class="ident">thumbnail_info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ThumbnailInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The source of the thumbnail of the image.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;thumbnail_src_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">thumbnail_src</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;thumbnail_source_serde&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">thumbnail_source</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MediaSource</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The [BlurHash](https://blurha.sh) for this image.</span>
     <span class="doccomment">///</span>
