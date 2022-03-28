@@ -305,8 +305,6 @@
 <span id="298">298</span>
 <span id="299">299</span>
 <span id="300">300</span>
-<span id="301">301</span>
-<span id="302">302</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible file message events ([MSC3551]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3551]: https://github.com/matrix-org/matrix-spec-proposals/pull/3551</span>
@@ -351,9 +349,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.file&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">file</span>: <span class="ident">FileContent</span>,
 
-    <span class="doccomment">/// Information about related messages for [rich replies].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [rich replies]: https://spec.matrix.org/v1.2/client-server-api/#rich-replies</span>
+    <span class="doccomment">/// Information about related messages.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
@@ -439,7 +435,7 @@
 
     <span class="doccomment">/// Information on the encrypted file.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Required if file is encrypted.</span>
+    <span class="doccomment">/// Required if the file is encrypted.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">encryption_info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedContent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
@@ -488,7 +484,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// The mimetype of the file, e.g. “application/msword”.</span>
+    <span class="doccomment">/// The mimetype of the file, e.g. &quot;application/msword&quot;.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">mimetype</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -505,7 +501,7 @@
 
     <span class="doccomment">/// Create a new `FileContentInfo` with the given file info and filename.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns `None` if both parameters are `None`</span>
+    <span class="doccomment">/// Returns `None` if both parameters are `None`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_room_message_content</span>(
         <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">FileContentInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">filename</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,

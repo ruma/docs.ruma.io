@@ -300,8 +300,6 @@
 <span id="293">293</span>
 <span id="294">294</span>
 <span id="295">295</span>
-<span id="296">296</span>
-<span id="297">297</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible image message events ([MSC3552]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3552]: https://github.com/matrix-org/matrix-spec-proposals/pull/3552</span>
@@ -362,9 +360,7 @@
     )]</span>
     <span class="kw">pub</span> <span class="ident">caption</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MessageContent</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Information about related messages for [rich replies].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [rich replies]: https://spec.matrix.org/v1.2/client-server-api/#rich-replies</span>
+    <span class="doccomment">/// Information about related messages.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
@@ -548,7 +544,7 @@
         <span class="self">Self</span> { <span class="ident">url</span>, <span class="ident">info</span>, <span class="ident">encryption_info</span>: <span class="prelude-val">Some</span>(<span class="ident">Box::new</span>(<span class="ident">encryption_info</span>)) }
     }
 
-    <span class="doccomment">/// Create a `ThumbnailContent` with the given thumbnail source and info.</span>
+    <span class="doccomment">/// Create a `ThumbnailFileContent` with the given thumbnail source and info.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns `None` if no thumbnail was found.</span>
     <span class="kw">fn</span> <span class="ident">from_room_message_content</span>(

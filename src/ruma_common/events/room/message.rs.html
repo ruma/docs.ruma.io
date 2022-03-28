@@ -1771,6 +1771,48 @@
 <span id="1764">1764</span>
 <span id="1765">1765</span>
 <span id="1766">1766</span>
+<span id="1767">1767</span>
+<span id="1768">1768</span>
+<span id="1769">1769</span>
+<span id="1770">1770</span>
+<span id="1771">1771</span>
+<span id="1772">1772</span>
+<span id="1773">1773</span>
+<span id="1774">1774</span>
+<span id="1775">1775</span>
+<span id="1776">1776</span>
+<span id="1777">1777</span>
+<span id="1778">1778</span>
+<span id="1779">1779</span>
+<span id="1780">1780</span>
+<span id="1781">1781</span>
+<span id="1782">1782</span>
+<span id="1783">1783</span>
+<span id="1784">1784</span>
+<span id="1785">1785</span>
+<span id="1786">1786</span>
+<span id="1787">1787</span>
+<span id="1788">1788</span>
+<span id="1789">1789</span>
+<span id="1790">1790</span>
+<span id="1791">1791</span>
+<span id="1792">1792</span>
+<span id="1793">1793</span>
+<span id="1794">1794</span>
+<span id="1795">1795</span>
+<span id="1796">1796</span>
+<span id="1797">1797</span>
+<span id="1798">1798</span>
+<span id="1799">1799</span>
+<span id="1800">1800</span>
+<span id="1801">1801</span>
+<span id="1802">1802</span>
+<span id="1803">1803</span>
+<span id="1804">1804</span>
+<span id="1805">1805</span>
+<span id="1806">1806</span>
+<span id="1807">1807</span>
+<span id="1808">1808</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
@@ -2339,6 +2381,13 @@
 }
 
 <span class="doccomment">/// The payload for an audio message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc3246` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`AudioEventContent`] and with the `unstable-msc3245` feature, this type also contains the</span>
+<span class="doccomment">/// transitional format of [`VoiceEventContent`]. See the documentation of the [`message`] module</span>
+<span class="doccomment">/// for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.audio&quot;</span>)]</span>
@@ -2354,7 +2403,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
-    <span class="doccomment">/// Metadata for the audio clip referred to in `url`.</span>
+    <span class="doccomment">/// Metadata for the audio clip referred to in `source`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">AudioInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
@@ -2388,7 +2437,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">AudioMessageEventContent</span> {
-    <span class="doccomment">/// Creates a new non-encrypted `RoomAudioMessageEventContent` with the given body, url and</span>
+    <span class="doccomment">/// Creates a new non-encrypted `AudioMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">AudioInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -2409,7 +2458,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new encrypted `RoomAudioMessageEventContent` with the given body and encrypted</span>
+    <span class="doccomment">/// Creates a new encrypted `AudioMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -2459,11 +2508,11 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3245&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_extensible_voice_content</span>(
         <span class="ident">message</span>: <span class="ident">MessageContent</span>,
-        <span class="ident">ext_file</span>: <span class="ident">FileContent</span>,
+        <span class="ident">file</span>: <span class="ident">FileContent</span>,
         <span class="ident">audio</span>: <span class="ident">AudioContent</span>,
         <span class="ident">voice</span>: <span class="ident">VoiceContent</span>,
     ) -&gt; <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::from_extensible_content</span>(<span class="ident">message</span>, <span class="ident">ext_file</span>, <span class="ident">audio</span>);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::from_extensible_content</span>(<span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">audio</span>);
         <span class="ident">content</span>.<span class="ident">voice</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">voice</span>);
         <span class="ident">content</span>
     }
@@ -2516,6 +2565,11 @@
 }
 
 <span class="doccomment">/// The payload for an emote message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc1767` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`EmoteEventContent`]. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.emote&quot;</span>)]</span>
@@ -2584,6 +2638,11 @@
 }
 
 <span class="doccomment">/// The payload for a file message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc3551` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`FileEventContent`]. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.file&quot;</span>)]</span>
@@ -2605,7 +2664,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
-    <span class="doccomment">/// Metadata about the file referred to in `url`.</span>
+    <span class="doccomment">/// Metadata about the file referred to in `source`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
@@ -2625,7 +2684,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">FileMessageEventContent</span> {
-    <span class="doccomment">/// Creates a new non-encrypted `RoomFileMessageEventContent` with the given body, url and</span>
+    <span class="doccomment">/// Creates a new non-encrypted `FileMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -2643,7 +2702,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new encrypted `RoomFileMessageEventContent` with the given body and encrypted</span>
+    <span class="doccomment">/// Creates a new encrypted `FileMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -2658,7 +2717,7 @@
         }
     }
 
-    <span class="doccomment">/// Create a new `RoomFileMessageEventContent` with the given message and file info.</span>
+    <span class="doccomment">/// Create a new `FileMessageEventContent` with the given message and file info.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_extensible_content</span>(<span class="ident">message</span>: <span class="ident">MessageContent</span>, <span class="ident">file</span>: <span class="ident">FileContent</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">body</span>) <span class="op">=</span> <span class="ident">message</span>.<span class="ident">find_plain</span>() {
@@ -2715,6 +2774,11 @@
 }
 
 <span class="doccomment">/// The payload for an image message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc3552` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`ImageEventContent`]. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.image&quot;</span>)]</span>
@@ -2733,7 +2797,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
-    <span class="doccomment">/// Metadata about the image referred to in `url`.</span>
+    <span class="doccomment">/// Metadata about the image referred to in `source`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
@@ -2777,7 +2841,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ImageMessageEventContent</span> {
-    <span class="doccomment">/// Creates a new non-encrypted `RoomImageMessageEventContent` with the given body, url and</span>
+    <span class="doccomment">/// Creates a new non-encrypted `ImageMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -2808,7 +2872,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new encrypted `RoomImageMessageEventContent` with the given body and encrypted</span>
+    <span class="doccomment">/// Creates a new encrypted `ImageMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -2862,6 +2926,11 @@
 }
 
 <span class="doccomment">/// The payload for a location message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc3488` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`LocationEventContent`]. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.location&quot;</span>)]</span>
@@ -2907,7 +2976,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">LocationMessageEventContent</span> {
-    <span class="doccomment">/// Creates a new `RoomLocationMessageEventContent` with the given body and geo URI.</span>
+    <span class="doccomment">/// Creates a new `LocationMessageEventContent` with the given body and geo URI.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">geo_uri</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
@@ -2956,7 +3025,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">LocationInfo</span> {
-    <span class="doccomment">/// The URL to a thumbnail of the location.</span>
+    <span class="doccomment">/// The source of a thumbnail of the location.</span>
     <span class="attribute">#[<span class="ident">serde</span>(
         <span class="ident">flatten</span>,
         <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;super::thumbnail_source_serde&quot;</span>,
@@ -2977,6 +3046,11 @@
 }
 
 <span class="doccomment">/// The payload for a notice message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc1767` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`NoticeEventContent`]. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.notice&quot;</span>)]</span>
@@ -3069,7 +3143,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ServerNoticeMessageEventContent</span> {
-    <span class="doccomment">/// Creates a new `RoomServerNoticeMessageEventContent` with the given body and notice type.</span>
+    <span class="doccomment">/// Creates a new `ServerNoticeMessageEventContent` with the given body and notice type.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">server_notice_type</span>: <span class="ident">ServerNoticeType</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">server_notice_type</span>, <span class="ident">admin_contact</span>: <span class="prelude-val">None</span>, <span class="ident">limit_type</span>: <span class="prelude-val">None</span> }
     }
@@ -3163,9 +3237,9 @@
         <span class="self">Self</span> { <span class="ident">format</span>: <span class="ident">MessageFormat::Html</span>, <span class="ident">body</span>: <span class="ident">body</span>.<span class="ident">into</span>() }
     }
 
-    <span class="doccomment">/// Creates a new HTML-formatted message body by parsing the markdown in `body`.</span>
+    <span class="doccomment">/// Creates a new HTML-formatted message body by parsing the Markdown in `body`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns `None` if no markdown formatting was found.</span>
+    <span class="doccomment">/// Returns `None` if no Markdown formatting was found.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="ident">body</span>.<span class="ident">as_ref</span>();
@@ -3178,6 +3252,11 @@
 }
 
 <span class="doccomment">/// The payload for a text message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc1767` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`MessageEventContent`]. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.text&quot;</span>)]</span>
@@ -3209,7 +3288,7 @@
         }
     }
 
-    <span class="doccomment">/// A convenience constructor to create an html message.</span>
+    <span class="doccomment">/// A convenience constructor to create an HTML message.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="ident">body</span>.<span class="ident">into</span>();
         <span class="kw">let</span> <span class="ident">html_body</span> <span class="op">=</span> <span class="ident">html_body</span>.<span class="ident">into</span>();
@@ -3221,9 +3300,9 @@
         }
     }
 
-    <span class="doccomment">/// A convenience constructor to create a markdown message.</span>
+    <span class="doccomment">/// A convenience constructor to create a Markdown message.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns an html message if some markdown formatting was detected, otherwise returns a plain</span>
+    <span class="doccomment">/// Returns an HTML message if some Markdown formatting was detected, otherwise returns a plain</span>
     <span class="doccomment">/// text message.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
@@ -3246,6 +3325,11 @@
 }
 
 <span class="doccomment">/// The payload for a video message.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `unstable-msc3553` feature, this type contains the transitional format of</span>
+<span class="doccomment">/// [`VideoEventContent`]. See the documentation of the [`message`] module for more information.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`message`]: crate::events::message</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;msgtype&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.video&quot;</span>)]</span>
@@ -3262,7 +3346,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">source</span>: <span class="ident">MediaSource</span>,
 
-    <span class="doccomment">/// Metadata about the video clip referred to in `url`.</span>
+    <span class="doccomment">/// Metadata about the video clip referred to in `source`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
@@ -3306,7 +3390,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">VideoMessageEventContent</span> {
-    <span class="doccomment">/// Creates a new non-encrypted `RoomVideoMessageEventContent` with the given body, url and</span>
+    <span class="doccomment">/// Creates a new non-encrypted `VideoMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -3337,7 +3421,7 @@
         }
     }
 
-    <span class="doccomment">/// Creates a new encrypted `RoomVideoMessageEventContent` with the given body and encrypted</span>
+    <span class="doccomment">/// Creates a new encrypted `VideoMessageEventContent` with the given body and encrypted</span>
     <span class="doccomment">/// file.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">file</span>: <span class="ident">EncryptedFile</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
@@ -3511,7 +3595,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">KeyVerificationRequestEventContent</span> {
-    <span class="doccomment">/// Creates a new `RoomKeyVerificationRequestEventContent` with the given body, method, device</span>
+    <span class="doccomment">/// Creates a new `KeyVerificationRequestEventContent` with the given body, method, device</span>
     <span class="doccomment">/// and user ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">body</span>: <span class="ident">String</span>,

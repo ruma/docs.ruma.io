@@ -287,6 +287,8 @@
 <span id="280">280</span>
 <span id="281">281</span>
 <span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible text message events ([MSC1767]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Extensible events</span>
@@ -310,8 +312,10 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # How to use them</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! First, enable the `unstable-mscXXXX` features (where `XXXX` is the number of the MSC) for the</span>
-<span class="doccomment">//! needed extensible types.</span>
+<span class="doccomment">//! First, you can enable the `unstable-extensible-events` feature from the `ruma` crate, that</span>
+<span class="doccomment">//! will enable all the MSCs for the extensible events that correspond to the legacy `msgtype`s</span>
+<span class="doccomment">//! (1767, 3246, 3488, 3551, 3552, 3553). It is also possible to enable only the MSCs you want with</span>
+<span class="doccomment">//! the `unstable-mscXXXX` features (where `XXXX` is the number of the MSC).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The recommended way to send transitional extensible events while they are unstable and during</span>
 <span class="doccomment">//! the transition period is to build one of the new primary types and then to convert it to a</span>
@@ -369,9 +373,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">message</span>: <span class="ident">MessageContent</span>,
 
-    <span class="doccomment">/// Information about related messages for [rich replies].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [rich replies]: https://spec.matrix.org/v1.2/client-server-api/#rich-replies</span>
+    <span class="doccomment">/// Information about related messages.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
@@ -514,9 +516,11 @@
     <span class="doccomment">/// The text content.</span>
     <span class="kw">pub</span> <span class="ident">body</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// The language of the text.</span>
+    <span class="doccomment">/// The language of the text ([MSC3554]).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This must be a valid language code according to [BCP 47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [MSC3554]: https://github.com/matrix-org/matrix-spec-proposals/pull/3554</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3554&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">lang</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,

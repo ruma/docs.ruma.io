@@ -77,8 +77,6 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
-<span id="73">73</span>
-<span id="74">74</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible emote message events ([MSC1767]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC1767]: https://github.com/matrix-org/matrix-spec-proposals/pull/1767</span>
@@ -112,34 +110,32 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
     <span class="kw">pub</span> <span class="ident">message</span>: <span class="ident">MessageContent</span>,
 
-    <span class="doccomment">/// Information about related messages for [rich replies].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// [rich replies]: https://spec.matrix.org/v1.2/client-server-api/#rich-replies</span>
+    <span class="doccomment">/// Information about related messages.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">EmoteEventContent</span> {
-    <span class="doccomment">/// A convenience constructor to create a plain text message.</span>
+    <span class="doccomment">/// A convenience constructor to create a plain text emote.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">message</span>: <span class="ident">MessageContent::plain</span>(<span class="ident">body</span>), <span class="ident">relates_to</span>: <span class="prelude-val">None</span> }
     }
 
-    <span class="doccomment">/// A convenience constructor to create an HTML message.</span>
+    <span class="doccomment">/// A convenience constructor to create an HTML emote.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">html</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">html_body</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">message</span>: <span class="ident">MessageContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>), <span class="ident">relates_to</span>: <span class="prelude-val">None</span> }
     }
 
-    <span class="doccomment">/// A convenience constructor to create a Markdown message.</span>
+    <span class="doccomment">/// A convenience constructor to create a Markdown emote.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns an HTML message if some Markdown formatting was detected, otherwise returns a plain</span>
-    <span class="doccomment">/// text message.</span>
+    <span class="doccomment">/// Returns an HTML emote if some Markdown formatting was detected, otherwise returns a plain</span>
+    <span class="doccomment">/// text emote.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;markdown&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">markdown</span>(<span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">message</span>: <span class="ident">MessageContent::markdown</span>(<span class="ident">body</span>), <span class="ident">relates_to</span>: <span class="prelude-val">None</span> }
     }
 
-    <span class="doccomment">/// Create a new `MessageEventContent` from the given `EmoteMessageEventContent` and optional</span>
+    <span class="doccomment">/// Create a new `EmoteEventContent` from the given `EmoteMessageEventContent` and optional</span>
     <span class="doccomment">/// relation.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_emote_room_message</span>(
         <span class="ident">content</span>: <span class="ident">EmoteMessageEventContent</span>,

@@ -22,8 +22,10 @@ transition period. Instead, transitional <code>m.room.message</code> events shou
 transitional events include the content of the now legacy <code>m.room.message</code> event and the content
 of the new extensible event types in a single event.</p>
 <h2 id="how-to-use-them"><a href="#how-to-use-them">How to use them</a></h2>
-<p>First, enable the <code>unstable-mscXXXX</code> features (where <code>XXXX</code> is the number of the MSC) for the
-needed extensible types.</p>
+<p>First, you can enable the <code>unstable-extensible-events</code> feature from the <code>ruma</code> crate, that
+will enable all the MSCs for the extensible events that correspond to the legacy <code>msgtype</code>s
+(1767, 3246, 3488, 3551, 3552, 3553). It is also possible to enable only the MSCs you want with
+the <code>unstable-mscXXXX</code> features (where <code>XXXX</code> is the number of the MSC).</p>
 <p>The recommended way to send transitional extensible events while they are unstable and during
 the transition period is to build one of the new primary types and then to convert it to a
 <a href="../../../events/room/message/struct.RoomMessageEventContent.html"><code>RoomMessageEventContent</code></a> by using <code>.into()</code> or <code>RoomMessageEventContent::from()</code>. The

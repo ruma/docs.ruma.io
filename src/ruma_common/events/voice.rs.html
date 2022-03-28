@@ -116,6 +116,9 @@
 <span id="109">109</span>
 <span id="110">110</span>
 <span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for voice message events ([MSC3245]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3245]: https://github.com/matrix-org/matrix-spec-proposals/pull/3245</span>
@@ -159,7 +162,7 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.audio&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">audio</span>: <span class="ident">AudioContent</span>,
 
-    <span class="doccomment">/// The audio content of the message.</span>
+    <span class="doccomment">/// The voice content of the message.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.voice&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">voice</span>: <span class="ident">VoiceContent</span>,
 
@@ -217,6 +220,9 @@
 }
 
 <span class="doccomment">/// Voice content.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This is currently empty and used as a flag to mark an audio event that should be displayed as a</span>
+<span class="doccomment">/// voice message.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VoiceContent</span> {}
