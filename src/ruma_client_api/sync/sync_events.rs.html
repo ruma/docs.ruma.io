@@ -746,6 +746,25 @@
 <span id="739">739</span>
 <span id="740">740</span>
 <span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
+<span id="744">744</span>
+<span id="745">745</span>
+<span id="746">746</span>
+<span id="747">747</span>
+<span id="748">748</span>
+<span id="749">749</span>
+<span id="750">750</span>
+<span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
+<span id="754">754</span>
+<span id="755">755</span>
+<span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
+<span id="759">759</span>
+<span id="760">760</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/sync`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -1015,6 +1034,19 @@
         <span class="doccomment">/// room.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Ephemeral::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">ephemeral</span>: <span class="ident">Ephemeral</span>,
+
+        <span class="doccomment">/// The number of unread events since the latest read receipt.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// This uses the unstable prefix in [MSC2654].</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// [MSC2654]: https://github.com/matrix-org/matrix-spec-proposals/pull/2654</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2654&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(
+            <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc2654.unread_count&quot;</span>,
+            <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;unread_count&quot;</span>,
+            <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+        )]</span>
+        <span class="kw">pub</span> <span class="ident">unread_count</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>,
     }
 
     <span class="kw">impl</span> <span class="ident">JoinedRoom</span> {
@@ -1025,12 +1057,18 @@
 
         <span class="doccomment">/// Returns true if there are no updates in the room.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
-            <span class="self">self</span>.<span class="ident">summary</span>.<span class="ident">is_empty</span>()
+            <span class="kw">let</span> <span class="ident">is_empty</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">summary</span>.<span class="ident">is_empty</span>()
                 <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">unread_notifications</span>.<span class="ident">is_empty</span>()
                 <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">timeline</span>.<span class="ident">is_empty</span>()
                 <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">is_empty</span>()
                 <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">account_data</span>.<span class="ident">is_empty</span>()
-                <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">ephemeral</span>.<span class="ident">is_empty</span>()
+                <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">ephemeral</span>.<span class="ident">is_empty</span>();
+
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2654&quot;</span>))]</span>
+            <span class="kw">return</span> <span class="ident">is_empty</span>;
+
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2654&quot;</span>)]</span>
+            <span class="kw">return</span> <span class="ident">is_empty</span> <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">unread_count</span>.<span class="ident">is_none</span>();
         }
     }
 
