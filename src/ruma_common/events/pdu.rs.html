@@ -180,14 +180,6 @@
 <span id="173">173</span>
 <span id="174">174</span>
 <span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for persistent data unit schemas</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! The differences between the `RoomV1Pdu` schema and the `RoomV3Pdu` schema are that the</span>
@@ -231,10 +223,6 @@
 
     <span class="doccomment">/// The user id of the user who sent this event.</span>
     <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
-    <span class="doccomment">/// The `server_name` of the homeserver that created this event.</span>
-    <span class="kw">pub</span> <span class="ident">origin</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// Timestamp (milliseconds since the UNIX epoch) on originating homeserver</span>
     <span class="doccomment">/// of when this event was created.</span>
@@ -290,10 +278,6 @@
 
     <span class="doccomment">/// The user id of the user who sent this event.</span>
     <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
-    <span class="doccomment">/// The `server_name` of the homeserver that created this event.</span>
-    <span class="kw">pub</span> <span class="ident">origin</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// Timestamp (milliseconds since the UNIX epoch) on originating homeserver</span>
     <span class="doccomment">/// of when this event was created.</span>
