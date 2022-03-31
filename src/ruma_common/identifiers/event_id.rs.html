@@ -252,6 +252,12 @@
 <span id="245">245</span>
 <span id="246">246</span>
 <span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix event identifiers.</span>
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ServerName</span>;
@@ -292,7 +298,13 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventId</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier_validated!</span>(<span class="ident">EventId</span>, <span class="ident">ruma_identifiers_validation::event_id::validate</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedEventId</span>, <span class="ident">EventId</span>);
+
+<span class="macro">opaque_identifier_validated!</span>(
+    <span class="ident">EventId</span>,
+    <span class="ident">OwnedEventId</span>,
+    <span class="ident">ruma_identifiers_validation::event_id::validate</span>
+);
 
 <span class="kw">impl</span> <span class="ident">EventId</span> {
     <span class="doccomment">/// Attempts to generate an `EventId` for the given origin server with a localpart consisting</span>

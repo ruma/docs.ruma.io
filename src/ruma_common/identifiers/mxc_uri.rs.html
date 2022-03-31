@@ -121,6 +121,8 @@
 <span id="114">114</span>
 <span id="115">115</span>
 <span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
 </pre><pre class="rust"><code><span class="doccomment">//! A URI that should be a Matrix-spec compliant [MXC URI].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MXC URI]: https://spec.matrix.org/v1.2/client-server-api/#matrix-content-mxc-uris</span>
@@ -141,7 +143,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MxcUri</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier!</span>(<span class="ident">MxcUri</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedMxcUri</span>, <span class="ident">MxcUri</span>);
+
+<span class="macro">opaque_identifier!</span>(<span class="ident">MxcUri</span>, <span class="ident">OwnedMxcUri</span>);
 
 <span class="kw">impl</span> <span class="ident">MxcUri</span> {
     <span class="doccomment">/// If this is a valid MXC URI, returns the media ID.</span>

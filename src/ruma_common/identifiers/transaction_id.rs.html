@@ -30,6 +30,8 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
 </pre><pre class="rust"><code><span class="doccomment">/// A Matrix transaction ID.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Transaction IDs in Matrix are opaque strings. This type is provided simply for its semantic</span>
@@ -54,7 +56,9 @@
     }
 }
 
-<span class="macro">opaque_identifier!</span>(<span class="ident">TransactionId</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedTransactionId</span>, <span class="ident">TransactionId</span>);
+
+<span class="macro">opaque_identifier!</span>(<span class="ident">TransactionId</span>, <span class="ident">OwnedTransactionId</span>);
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (5f3700105 2022-03-22)" ></div>
 </body></html>

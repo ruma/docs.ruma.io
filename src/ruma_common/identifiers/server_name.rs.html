@@ -161,6 +161,12 @@
 <span id="154">154</span>
 <span id="155">155</span>
 <span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix-spec compliant server names.</span>
 
 <span class="kw">use</span> <span class="ident">std::net::Ipv4Addr</span>;
@@ -174,7 +180,13 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ServerName</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier_validated!</span>(<span class="ident">ServerName</span>, <span class="ident">ruma_identifiers_validation::server_name::validate</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedServerName</span>, <span class="ident">ServerName</span>);
+
+<span class="macro">opaque_identifier_validated!</span>(
+    <span class="ident">ServerName</span>,
+    <span class="ident">OwnedServerName</span>,
+    <span class="ident">ruma_identifiers_validation::server_name::validate</span>
+);
 
 <span class="kw">impl</span> <span class="ident">ServerName</span> {
     <span class="doccomment">/// Returns the host of the server name.</span>

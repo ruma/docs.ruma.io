@@ -111,6 +111,12 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Identifiers for device keys for end-to-end encryption.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">crypto_algorithms::DeviceKeyAlgorithm</span>, <span class="ident">DeviceId</span>};
@@ -120,7 +126,13 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceKeyId</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier_validated!</span>(<span class="ident">DeviceKeyId</span>, <span class="ident">ruma_identifiers_validation::device_key_id::validate</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedDeviceKeyId</span>, <span class="ident">DeviceKeyId</span>);
+
+<span class="macro">opaque_identifier_validated!</span>(
+    <span class="ident">DeviceKeyId</span>,
+    <span class="ident">OwnedDeviceKeyId</span>,
+    <span class="ident">ruma_identifiers_validation::device_key_id::validate</span>
+);
 
 <span class="kw">impl</span> <span class="ident">DeviceKeyId</span> {
     <span class="doccomment">/// Create a `DeviceKeyId` from a `DeviceKeyAlgorithm` and a `DeviceId`.</span>

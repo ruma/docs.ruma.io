@@ -338,6 +338,8 @@
 <span id="331">331</span>
 <span id="332">332</span>
 <span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix user identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">rc::Rc</span>, <span class="ident">sync::Arc</span>};
@@ -360,7 +362,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UserId</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier_validated!</span>(<span class="ident">UserId</span>, <span class="ident">ruma_identifiers_validation::user_id::validate</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedUserId</span>, <span class="ident">UserId</span>);
+
+<span class="macro">opaque_identifier_validated!</span>(<span class="ident">UserId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">ruma_identifiers_validation::user_id::validate</span>);
 
 <span class="kw">impl</span> <span class="ident">UserId</span> {
     <span class="doccomment">/// Attempts to generate a `UserId` for the given origin server with a localpart consisting of</span>

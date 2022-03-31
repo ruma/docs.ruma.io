@@ -221,6 +221,8 @@
 <span id="214">214</span>
 <span id="215">215</span>
 <span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room identifiers.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">matrix_uri::UriAction</span>, <span class="ident">EventId</span>, <span class="ident">MatrixToUri</span>, <span class="ident">MatrixUri</span>, <span class="ident">ServerName</span>};
@@ -241,7 +243,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomId</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier_validated!</span>(<span class="ident">RoomId</span>, <span class="ident">ruma_identifiers_validation::room_id::validate</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedRoomId</span>, <span class="ident">RoomId</span>);
+
+<span class="macro">opaque_identifier_validated!</span>(<span class="ident">RoomId</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">ruma_identifiers_validation::room_id::validate</span>);
 
 <span class="kw">impl</span> <span class="ident">RoomId</span> {
     <span class="doccomment">/// Attempts to generate a `RoomId` for the given origin server with a localpart consisting of</span>

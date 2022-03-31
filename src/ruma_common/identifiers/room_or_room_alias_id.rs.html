@@ -237,6 +237,9 @@
 <span id="230">230</span>
 <span id="231">231</span>
 <span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix identifiers for places where a room ID or room alias ID are used interchangeably.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">hint::unreachable_unchecked</span>};
@@ -266,8 +269,11 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomOrAliasId</span>(<span class="ident">str</span>);
 
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedRoomOrAliasId</span>, <span class="ident">RoomOrAliasId</span>);
+
 <span class="macro">opaque_identifier_validated!</span>(
     <span class="ident">RoomOrAliasId</span>,
+    <span class="ident">OwnedRoomOrAliasId</span>,
     <span class="ident">ruma_identifiers_validation::room_id_or_alias_id::validate</span>
 );
 

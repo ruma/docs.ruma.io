@@ -173,6 +173,12 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room alias identifiers.</span>
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">matrix_uri::UriAction</span>, <span class="ident">server_name::ServerName</span>, <span class="ident">EventId</span>, <span class="ident">MatrixToUri</span>, <span class="ident">MatrixUri</span>};
@@ -193,7 +199,13 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomAliasId</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier_validated!</span>(<span class="ident">RoomAliasId</span>, <span class="ident">ruma_identifiers_validation::room_alias_id::validate</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedRoomAliasId</span>, <span class="ident">RoomAliasId</span>);
+
+<span class="macro">opaque_identifier_validated!</span>(
+    <span class="ident">RoomAliasId</span>,
+    <span class="ident">OwnedRoomAliasId</span>,
+    <span class="ident">ruma_identifiers_validation::room_alias_id::validate</span>
+);
 
 <span class="kw">impl</span> <span class="ident">RoomAliasId</span> {
     <span class="doccomment">/// Returns the room&#39;s alias.</span>

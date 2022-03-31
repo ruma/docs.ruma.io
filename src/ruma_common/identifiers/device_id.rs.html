@@ -74,6 +74,8 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
 </pre><pre class="rust"><code><span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::generate_localpart</span>;
 
@@ -105,7 +107,9 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceId</span>(<span class="ident">str</span>);
 
-<span class="macro">opaque_identifier!</span>(<span class="ident">DeviceId</span>);
+<span class="macro">owned_identifier!</span>(<span class="ident">OwnedDeviceId</span>, <span class="ident">DeviceId</span>);
+
+<span class="macro">opaque_identifier!</span>(<span class="ident">DeviceId</span>, <span class="ident">OwnedDeviceId</span>);
 
 <span class="kw">impl</span> <span class="ident">DeviceId</span> {
     <span class="doccomment">/// Generates a random `DeviceId`, suitable for assignment to a new device.</span>
