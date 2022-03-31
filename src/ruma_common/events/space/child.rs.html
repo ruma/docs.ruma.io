@@ -227,7 +227,7 @@
 <span class="doccomment">/// key.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HierarchySpaceChildStateEvent</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HierarchySpaceChildEvent</span> {
     <span class="doccomment">/// The content of the space child event.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">SpaceChildEventContent</span>,
 
@@ -248,7 +248,7 @@
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">HierarchySpaceChildStateEvent</span>, <span class="ident">SpaceChildEventContent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">HierarchySpaceChildEvent</span>, <span class="ident">SpaceChildEventContent</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">space_child_serialization</span>() {
@@ -278,7 +278,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">hierarchy_space_child_serialization</span>() {
-        <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">HierarchySpaceChildStateEvent</span> {
+        <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">HierarchySpaceChildEvent</span> {
             <span class="ident">content</span>: <span class="ident">SpaceChildEventContent</span> {
                 <span class="ident">via</span>: <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;example.com&quot;</span>).<span class="ident">to_owned</span>()]),
                 <span class="ident">order</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;uwu&quot;</span>.<span class="ident">to_owned</span>()),
@@ -318,8 +318,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">HierarchySpaceChildStateEvent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">HierarchySpaceChildStateEvent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">HierarchySpaceChildEvent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">HierarchySpaceChildEvent</span> {
                 <span class="ident">content</span>: <span class="ident">SpaceChildEventContent</span> {
                     <span class="ident">via</span>: <span class="prelude-val">Some</span>(<span class="ident">via</span>),
                     <span class="ident">order</span>: <span class="prelude-val">None</span>,

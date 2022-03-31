@@ -265,8 +265,8 @@
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-    <span class="ident">directory::PublicRoomJoinRule</span>, <span class="ident">events::space::child::HierarchySpaceChildStateEvent</span>,
-    <span class="ident">room::RoomType</span>, <span class="ident">serde::Raw</span>, <span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>,
+    <span class="ident">directory::PublicRoomJoinRule</span>, <span class="ident">events::space::child::HierarchySpaceChildEvent</span>, <span class="ident">room::RoomType</span>,
+    <span class="ident">serde::Raw</span>, <span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -330,7 +330,7 @@
     <span class="doccomment">/// The stripped `m.space.child` events of the space-room.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the room is not a space-room, this should be empty.</span>
-    <span class="kw">pub</span> <span class="ident">children_state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">HierarchySpaceChildStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">children_state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">HierarchySpaceChildEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// If the room is a restricted room, these are the room IDs which are specified by the join</span>
     <span class="doccomment">/// rules.</span>
@@ -365,7 +365,7 @@
     <span class="doccomment">/// The stripped `m.space.child` events of the space-room.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the room is not a space-room, this should be empty.</span>
-    <span class="kw">pub</span> <span class="ident">children_state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">HierarchySpaceChildStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">children_state</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">HierarchySpaceChildEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// If the room is a restricted room, these are the room IDs which are specified by the join</span>
     <span class="doccomment">/// rules.</span>

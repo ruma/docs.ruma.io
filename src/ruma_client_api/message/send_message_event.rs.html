@@ -113,7 +113,7 @@
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
-        <span class="ident">events</span>::{<span class="ident">AnyMessageLikeEventContent</span>, <span class="ident">EventContent</span>, <span class="ident">MessageLikeEventType</span>},
+        <span class="ident">events</span>::{<span class="ident">AnyMessageLikeEventContent</span>, <span class="ident">MessageLikeEventContent</span>, <span class="ident">MessageLikeEventType</span>},
         <span class="ident">serde::Raw</span>,
         <span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>,
     };
@@ -174,7 +174,7 @@
             <span class="ident">content</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">T</span>,
         ) -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>
         <span class="kw">where</span>
-            <span class="ident">T</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span>,
+            <span class="ident">T</span>: <span class="ident">MessageLikeEventContent</span>,
         {
             <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
                 <span class="ident">room_id</span>,
