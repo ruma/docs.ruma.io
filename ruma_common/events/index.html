@@ -6,28 +6,20 @@
                     <img src="https://www.ruma.io/images/logo.png" alt="logo"></div>
         </a><h2 class="location"><a href="#">Module events</a></h2><div class="sidebar-elems"><section><div class="block"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div></section><div id="sidebar-vars" data-name="events" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../ruma_common/index.html">
                         <img src="https://www.ruma.io/images/logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
-    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">ruma_common</a>::<wbr><a class="mod" href="#">events</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/ruma_common/events.rs.html#1-262">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>(De)serializable types for the events in the <a href="https://matrix.org">Matrix</a> specification.
+    <h1 class="fqn"><span class="in-band">Module <a href="../index.html">ruma_common</a>::<wbr><a class="mod" href="#">events</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/ruma_common/events.rs.html#1-236">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>(De)serializable types for the events in the <a href="https://matrix.org">Matrix</a> specification.
 These types are used by other Ruma crates.</p>
 <p>All data exchanged over Matrix is expressed as an event.
 Different event types represent different actions, such as joining a room or sending a message.
 Events are stored and transmitted as simple JSON structures.
 While anyone can create a new event type for their own purposes, the Matrix specification
-defines a number of event types which are considered core to the protocol, and Matrix clients
-and servers must understand their semantics.
-This module contains Rust types for each of the event types defined by the specification and
+defines a number of event types which are considered core to the protocol.
+This module contains Rust types for all of the event types defined by the specification and
 facilities for extending the event system for custom event types.</p>
-<h2 id="event-types"><a href="#event-types">Event types</a></h2>
-<p>This module includes a Rust enum called <a href="enum.EventType.html" title="EventType"><code>EventType</code></a>, which provides a simple enumeration of
-all the event types defined by the Matrix specification. Matrix event types are serialized to
-JSON strings in <a href="https://en.wikipedia.org/wiki/Reverse_domain_name_notation">reverse domain name
-notation</a>, although the core event
-types all use the special “m” TLD, e.g. <code>m.room.message</code>.</p>
 <h2 id="core-event-types"><a href="#core-event-types">Core event types</a></h2>
-<p>This module includes Rust types for every one of the event types in the Matrix specification.
-To better organize the crate, these types live in separate modules with a hierarchy that
-matches the reverse domain name notation of the event type.
-For example, the <code>m.room.message</code> event lives at
-<code>ruma_common::events::::room::message::MessageLikeEvent</code>. Each type’s module also contains a
+<p>This module includes Rust types for all event types in the Matrix specification.
+To better organize the crate, these types live in separate modules with a hierarchy that matches
+the reverse domain name notation of the event type. For example, the <code>m.room.message</code> event
+lives at <code>ruma::events::room::message::RoomMessageEvent</code>. Each type’s module also contains a
 Rust type for that event type’s <code>content</code> field, and any other supporting types required by the
 event’s other fields.</p>
 <h2 id="extending-ruma-with-custom-events"><a href="#extending-ruma-with-custom-events">Extending Ruma with custom events</a></h2>
@@ -104,20 +96,6 @@ specifies the state event’s <code>type</code> and it’s <a href="enum.EventKi
         ..
     }) <span class="kw">if</span> <span class="ident">key</span> <span class="op">==</span> <span class="string">&quot;👍&quot;</span>
 );</code></pre></div>
-<h2 id="serialization-and-deserialization"><a href="#serialization-and-deserialization">Serialization and deserialization</a></h2>
-<p>All concrete event types in this module can be serialized via the <code>Serialize</code> trait from
-<a href="https://serde.rs/">serde</a> and can be deserialized from a <code>Raw&lt;EventType&gt;</code>. In order to
-handle incoming data that may not conform to this module’s strict definitions of event
-structures, deserialization will return <code>Raw::Err</code> on error. This error covers both
-structurally invalid JSON data as well as structurally valid JSON that doesn’t fulfill
-additional constraints the matrix specification defines for some event types. The error exposes
-the deserialized <code>serde_json::Value</code> so that developers can still work with the received
-event data. This makes it possible to deserialize a collection of events without the entire
-collection failing to deserialize due to a single invalid event. The “content” type for each
-event also implements <code>Serialize</code> and either <code>TryFromRaw</code> (enabling usage as
-<code>Raw&lt;ContentType&gt;</code> for dedicated content types) or <code>Deserialize</code> (when the content is a
-type alias), allowing content to be converted to and from JSON independently of the surrounding
-event structure, if needed.</p>
 </div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2>
 <div class="item-table"><div class="item-row"><div class="item-left import-item"><code>pub use self::relation::<a class="struct" href="relation/struct.Relations.html" title="struct ruma_common::events::relation::Relations">Relations</a>;</code></div><div class="item-right docblock-short"></div></div></div><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
 <div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="audio/index.html" title="ruma_common::events::audio mod">audio</a><span class="stab portability" title="This is supported on crate feature `unstable-msc3246` only"><code>unstable-msc3246</code></span></div><div class="item-right docblock-short"><p>Types for extensible audio message events (<a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3246">MSC3246</a>).</p>
