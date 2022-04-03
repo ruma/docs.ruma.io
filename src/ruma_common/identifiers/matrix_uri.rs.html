@@ -1039,7 +1039,7 @@
     .<span class="ident">add</span>(<span class="string">b&#39;=&#39;</span>);
 
 <span class="doccomment">/// All Matrix Identifiers that can be represented as a Matrix URI.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MatrixId</span> {
     <span class="doccomment">/// A room ID.</span>
