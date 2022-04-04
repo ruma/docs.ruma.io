@@ -907,7 +907,7 @@
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">room_id</span>, <span class="ident">serde::Raw</span>, <span class="ident">user_id</span>};
-    <span class="kw">use</span> <span class="ident">js_int::uint</span>;
+    <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">uint</span>};
     <span class="kw">use</span> <span class="ident">maplit::btreemap</span>;
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{
@@ -1070,15 +1070,15 @@
         <span class="kw">let</span> <span class="ident">first_sender</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@worthy_whale:server.name&quot;</span>).<span class="ident">to_owned</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">users_power_levels</span> <span class="op">=</span> <span class="ident">BTreeMap::new</span>();
-        <span class="ident">users_power_levels</span>.<span class="ident">insert</span>(<span class="ident">first_sender</span>, <span class="number">25</span>.<span class="ident">into</span>());
+        <span class="ident">users_power_levels</span>.<span class="ident">insert</span>(<span class="ident">first_sender</span>, <span class="macro">int!</span>(<span class="number">25</span>));
 
         <span class="kw">let</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">PushConditionRoomCtx</span> {
             <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!room:server.name&quot;</span>).<span class="ident">to_owned</span>(),
-            <span class="ident">member_count</span>: <span class="number">3_u8</span>.<span class="ident">into</span>(),
+            <span class="ident">member_count</span>: <span class="macro">uint!</span>(<span class="number">3</span>),
             <span class="ident">user_display_name</span>: <span class="string">&quot;Groovy Gorilla&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">users_power_levels</span>,
-            <span class="ident">default_power_level</span>: <span class="number">50</span>.<span class="ident">into</span>(),
-            <span class="ident">notification_power_levels</span>: <span class="ident">NotificationPowerLevels</span> { <span class="ident">room</span>: <span class="number">50</span>.<span class="ident">into</span>() },
+            <span class="ident">default_power_level</span>: <span class="macro">int!</span>(<span class="number">50</span>),
+            <span class="ident">notification_power_levels</span>: <span class="ident">NotificationPowerLevels</span> { <span class="ident">room</span>: <span class="macro">int!</span>(<span class="number">50</span>) },
         };
 
         <span class="kw">let</span> <span class="ident">first_event_raw</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">JsonValue</span><span class="op">&gt;</span><span class="op">&gt;</span>(
