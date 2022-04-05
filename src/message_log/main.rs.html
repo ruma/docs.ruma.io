@@ -87,6 +87,7 @@
 <span id="82">82</span>
 <span id="83">83</span>
 <span id="84">84</span>
+<span id="85">85</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">env</span>, <span class="ident">process::exit</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">assign::assign</span>;
@@ -94,7 +95,8 @@
     <span class="ident">api::client</span>::{<span class="ident">filter::FilterDefinition</span>, <span class="ident">sync::sync_events</span>},
     <span class="ident">events</span>::{
         <span class="ident">room::message</span>::{<span class="ident">MessageType</span>, <span class="ident">RoomMessageEventContent</span>, <span class="ident">TextMessageEventContent</span>},
-        <span class="ident">AnySyncMessageLikeEvent</span>, <span class="ident">AnySyncRoomEvent</span>, <span class="ident">SyncMessageLikeEvent</span>,
+        <span class="ident">AnySyncMessageLikeEvent</span>, <span class="ident">AnySyncRoomEvent</span>, <span class="ident">OriginalSyncMessageLikeEvent</span>,
+        <span class="ident">SyncMessageLikeEvent</span>,
     },
     <span class="ident">presence::PresenceState</span>,
 };
@@ -132,7 +134,7 @@
             <span class="kw">for</span> <span class="ident">event</span> <span class="kw">in</span> <span class="ident">room</span>.<span class="ident">timeline</span>.<span class="ident">events</span>.<span class="ident">into_iter</span>().<span class="ident">flat_map</span>(<span class="op">|</span><span class="ident">r</span><span class="op">|</span> <span class="ident">r</span>.<span class="ident">deserialize</span>()) {
                 <span class="comment">// Filter out the text messages</span>
                 <span class="kw">if</span> <span class="kw">let</span> <span class="ident">AnySyncRoomEvent::MessageLike</span>(<span class="ident">AnySyncMessageLikeEvent::RoomMessage</span>(
-                    <span class="ident">SyncMessageLikeEvent</span> {
+                    <span class="ident">SyncMessageLikeEvent::Original</span>(<span class="ident">OriginalSyncMessageLikeEvent</span> {
                         <span class="ident">content</span>:
                             <span class="ident">RoomMessageEventContent</span> {
                                 <span class="ident">msgtype</span>:
@@ -143,7 +145,7 @@
                             },
                         <span class="ident">sender</span>,
                         ..
-                    },
+                    }),
                 )) <span class="op">=</span> <span class="ident">event</span>
                 {
                     <span class="macro">println!</span>(<span class="string">&quot;{:?} in {:?}: {}&quot;</span>, <span class="ident">sender</span>, <span class="ident">room_id</span>, <span class="ident">msg_body</span>);

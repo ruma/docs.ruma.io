@@ -510,7 +510,7 @@
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::room_id</span>;
     <span class="kw">use</span> <span class="ident">matches::assert_matches</span>;
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">AllowRule</span>, <span class="ident">JoinRule</span>, <span class="ident">RoomJoinRulesEventContent</span>, <span class="ident">SyncRoomJoinRulesEvent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">AllowRule</span>, <span class="ident">JoinRule</span>, <span class="ident">OriginalSyncRoomJoinRulesEvent</span>, <span class="ident">RoomJoinRulesEventContent</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize</span>() {
@@ -566,7 +566,7 @@
             &quot;event_id&quot;: &quot;$0ACb9KSPlT3al3kikyRYvFhMqXPP9ZcQOBrsdIuh58U&quot;
         }&quot;#</span>;
 
-        <span class="macro">assert_matches!</span>(<span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">SyncRoomJoinRulesEvent</span><span class="op">&gt;</span>(<span class="ident">json</span>), <span class="prelude-val">Ok</span>(<span class="kw">_</span>));
+        <span class="macro">assert_matches!</span>(<span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OriginalSyncRoomJoinRulesEvent</span><span class="op">&gt;</span>(<span class="ident">json</span>), <span class="prelude-val">Ok</span>(<span class="kw">_</span>));
     }
 }
 </code></pre></div>

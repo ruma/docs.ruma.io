@@ -738,8 +738,8 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">events</span>::{
-        <span class="ident">EventContent</span>, <span class="ident">HasDeserializeFields</span>, <span class="ident">RedactContent</span>, <span class="ident">RedactedEventContent</span>, <span class="ident">StateEventType</span>,
-        <span class="ident">StrippedStateEvent</span>, <span class="ident">SyncStateEvent</span>,
+        <span class="ident">EventContent</span>, <span class="ident">HasDeserializeFields</span>, <span class="ident">OriginalSyncStateEvent</span>, <span class="ident">RedactContent</span>,
+        <span class="ident">RedactedEventContent</span>, <span class="ident">StateEventType</span>, <span class="ident">StrippedStateEvent</span>,
     },
     <span class="ident">serde::StringEnum</span>,
     <span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomVersionId</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>,
@@ -1105,7 +1105,7 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">RoomMemberEvent</span> {
+<span class="kw">impl</span> <span class="ident">OriginalRoomMemberEvent</span> {
     <span class="doccomment">/// Helper function for membership change.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
@@ -1121,7 +1121,7 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">SyncStateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="ident">OriginalSyncStateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Helper function for membership change.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
@@ -1157,7 +1157,7 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">MembershipState</span>, <span class="ident">RoomMemberEventContent</span>, <span class="ident">SignedContent</span>, <span class="ident">ThirdPartyInvite</span>};
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">StateEvent</span>, <span class="ident">StateUnsigned</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">OriginalStateEvent</span>, <span class="ident">StateUnsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serde_with_no_prev_content</span>() {
@@ -1174,8 +1174,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">StateEvent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">OriginalStateEvent</span> {
                 <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span> {
                     <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
                     <span class="ident">displayname</span>: <span class="prelude-val">None</span>,
@@ -1218,7 +1218,7 @@
             },
         });
 
-        <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
 
         <span class="macro">assert_matches!</span>(
             <span class="ident">ev</span>.<span class="ident">content</span>,
@@ -1284,8 +1284,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">StateEvent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">OriginalStateEvent</span> {
                 <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span> {
                     <span class="ident">avatar_url</span>: <span class="prelude-val">Some</span>(<span class="ident">avatar_url</span>),
                     <span class="ident">displayname</span>: <span class="prelude-val">Some</span>(<span class="ident">displayname</span>),
@@ -1357,8 +1357,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">StateEvent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">OriginalStateEvent</span> {
                 <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span> {
                     <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
                     <span class="ident">displayname</span>: <span class="prelude-val">None</span>,
@@ -1420,8 +1420,8 @@
         });
 
         <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">StateEvent</span> {
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomMemberEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">OriginalStateEvent</span> {
                 <span class="ident">content</span>: <span class="ident">RoomMemberEventContent</span> {
                     <span class="ident">avatar_url</span>: <span class="prelude-val">None</span>,
                     <span class="ident">displayname</span>: <span class="prelude-val">None</span>,

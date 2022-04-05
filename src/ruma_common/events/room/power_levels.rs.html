@@ -515,13 +515,13 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>, <span class="ident">RoomPowerLevelsEventContent</span>};
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">StateEvent</span>, <span class="ident">StateUnsigned</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">OriginalStateEvent</span>, <span class="ident">StateUnsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_optional_fields_as_none</span>() {
         <span class="kw">let</span> <span class="ident">default</span> <span class="op">=</span> <span class="ident">default_power_level</span>();
 
-        <span class="kw">let</span> <span class="ident">power_levels_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
+        <span class="kw">let</span> <span class="ident">power_levels_event</span> <span class="op">=</span> <span class="ident">OriginalStateEvent</span> {
             <span class="ident">content</span>: <span class="ident">RoomPowerLevelsEventContent</span> {
                 <span class="ident">ban</span>: <span class="ident">default</span>,
                 <span class="ident">events</span>: <span class="ident">BTreeMap::new</span>(),
@@ -559,7 +559,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_all_fields</span>() {
         <span class="kw">let</span> <span class="ident">user</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@carl:example.com&quot;</span>);
-        <span class="kw">let</span> <span class="ident">power_levels_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
+        <span class="kw">let</span> <span class="ident">power_levels_event</span> <span class="op">=</span> <span class="ident">OriginalStateEvent</span> {
             <span class="ident">content</span>: <span class="ident">RoomPowerLevelsEventContent</span> {
                 <span class="ident">ban</span>: <span class="macro">int!</span>(<span class="number">23</span>),
                 <span class="ident">events</span>: <span class="macro">btreemap!</span> {

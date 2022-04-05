@@ -1942,11 +1942,11 @@
     <span class="doccomment">/// [`RoomMessageEvent`] since it creates a permalink to the previous message, for which the</span>
     <span class="doccomment">/// room ID is required. If you want to reply to a [`SyncRoomMessageEvent`], you have to convert</span>
     <span class="doccomment">/// it first by calling</span>
-    <span class="doccomment">/// [`.into_full_event()`][crate::events::SyncMessageLikeEvent::into_full_event].</span>
+    <span class="doccomment">/// [`.into_full_event()`][crate::events::OriginalSyncMessageLikeEvent::into_full_event].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">text_reply_html</span>(
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
         <span class="ident">html_reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
-        <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>,
+        <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">quoted</span> <span class="op">=</span> <span class="ident">reply::get_plain_quote_fallback</span>(<span class="ident">original_message</span>);
         <span class="kw">let</span> <span class="ident">quoted_html</span> <span class="op">=</span> <span class="ident">reply::get_html_quote_fallback</span>(<span class="ident">original_message</span>);
@@ -1984,11 +1984,11 @@
     <span class="doccomment">/// [`RoomMessageEvent`] since it creates a permalink to the previous message, for which the</span>
     <span class="doccomment">/// room ID is required. If you want to reply to a [`SyncRoomMessageEvent`], you have to convert</span>
     <span class="doccomment">/// it first by calling</span>
-    <span class="doccomment">/// [`.into_full_event()`][crate::events::SyncMessageLikeEvent::into_full_event].</span>
+    <span class="doccomment">/// [`.into_full_event()`][crate::events::OriginalSyncMessageLikeEvent::into_full_event].</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">notice_reply_html</span>(
         <span class="ident">reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
         <span class="ident">html_reply</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
-        <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>,
+        <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">quoted</span> <span class="op">=</span> <span class="ident">reply::get_plain_quote_fallback</span>(<span class="ident">original_message</span>);
         <span class="kw">let</span> <span class="ident">quoted_html</span> <span class="op">=</span> <span class="ident">reply::get_html_quote_fallback</span>(<span class="ident">original_message</span>);

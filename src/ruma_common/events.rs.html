@@ -281,10 +281,10 @@
 <span class="doccomment">//! `ruma::api::client::state::send_state_event`&#39;s `Request`.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! As a more advanced example we create a reaction message event. For this event we will use a</span>
-<span class="doccomment">//! [`SyncMessageLikeEvent`] struct but any [`MessageLikeEvent`] struct would work.</span>
+<span class="doccomment">//! [`OriginalSyncMessageLikeEvent`] struct but any [`OriginalMessageLikeEvent`] struct would work.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust</span>
-<span class="doccomment">//! use ruma_common::events::{macros::EventContent, SyncMessageLikeEvent};</span>
+<span class="doccomment">//! use ruma_common::events::{macros::EventContent, OriginalSyncMessageLikeEvent};</span>
 <span class="doccomment">//! use ruma_common::EventId;</span>
 <span class="doccomment">//! use serde::{Deserialize, Serialize};</span>
 <span class="doccomment">//!</span>
@@ -333,8 +333,8 @@
 <span class="doccomment">//! // The downside of this event is we cannot use it with event enums,</span>
 <span class="doccomment">//! // but could be deserialized from a `Raw&lt;_&gt;` that has failed to deserialize.</span>
 <span class="doccomment">//! matches::assert_matches!(</span>
-<span class="doccomment">//!     serde_json::from_value::&lt;SyncMessageLikeEvent&lt;ReactionEventContent&gt;&gt;(json),</span>
-<span class="doccomment">//!     Ok(SyncMessageLikeEvent {</span>
+<span class="doccomment">//!     serde_json::from_value::&lt;OriginalSyncMessageLikeEvent&lt;ReactionEventContent&gt;&gt;(json),</span>
+<span class="doccomment">//!     Ok(OriginalSyncMessageLikeEvent {</span>
 <span class="doccomment">//!         content: ReactionEventContent {</span>
 <span class="doccomment">//!             relates_to: RelatesTo::Annotation { key, .. },</span>
 <span class="doccomment">//!         },</span>

@@ -213,6 +213,18 @@
 <span id="206">206</span>
 <span id="207">207</span>
 <span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.name`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.name`]: https://spec.matrix.org/v1.2/client-server-api/#mroomname</span>
@@ -251,11 +263,11 @@
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomNameEventContent</span>;
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">StateEvent</span>, <span class="ident">StateUnsigned</span>};
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">OriginalStateEvent</span>, <span class="ident">StateUnsigned</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_optional_fields_as_none</span>() {
-        <span class="kw">let</span> <span class="ident">name_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
+        <span class="kw">let</span> <span class="ident">name_event</span> <span class="op">=</span> <span class="ident">OriginalStateEvent</span> {
             <span class="ident">content</span>: <span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="string">&quot;The room name&quot;</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>() },
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
@@ -283,7 +295,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization_with_all_fields</span>() {
-        <span class="kw">let</span> <span class="ident">name_event</span> <span class="op">=</span> <span class="ident">StateEvent</span> {
+        <span class="kw">let</span> <span class="ident">name_event</span> <span class="op">=</span> <span class="ident">OriginalStateEvent</span> {
             <span class="ident">content</span>: <span class="ident">RoomNameEventContent</span> { <span class="ident">name</span>: <span class="string">&quot;The room name&quot;</span>.<span class="ident">try_into</span>().<span class="ident">ok</span>() },
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="macro">uint!</span>(<span class="number">1</span>)),
@@ -329,7 +341,10 @@
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.name&quot;</span>
         });
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>().<span class="ident">content</span>.<span class="ident">name</span>,
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+                .<span class="ident">unwrap</span>()
+                .<span class="ident">content</span>
+                .<span class="ident">name</span>,
             <span class="prelude-val">None</span>
         );
     }
@@ -376,7 +391,10 @@
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.name&quot;</span>
         });
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>().<span class="ident">content</span>.<span class="ident">name</span>,
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+                .<span class="ident">unwrap</span>()
+                .<span class="ident">content</span>
+                .<span class="ident">name</span>,
             <span class="prelude-val">None</span>
         );
     }
@@ -395,7 +413,10 @@
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.room.name&quot;</span>
         });
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>().<span class="ident">content</span>.<span class="ident">name</span>,
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+                .<span class="ident">unwrap</span>()
+                .<span class="ident">content</span>
+                .<span class="ident">name</span>,
             <span class="prelude-val">None</span>
         );
     }
@@ -416,7 +437,10 @@
         });
 
         <span class="macro">assert_eq!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>().<span class="ident">content</span>.<span class="ident">name</span>,
+            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">OriginalStateEvent</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json_data</span>)
+                .<span class="ident">unwrap</span>()
+                .<span class="ident">content</span>
+                .<span class="ident">name</span>,
             <span class="ident">name</span>
         );
     }

@@ -327,10 +327,12 @@
 <span id="320">320</span>
 <span id="321">321</span>
 <span id="322">322</span>
+<span id="323">323</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">indoc::formatdoc</span>;
 
 <span class="kw">use</span> <span class="kw">super</span>::{
-    <span class="ident">FormattedBody</span>, <span class="ident">MessageType</span>, <span class="ident">RoomMessageEvent</span>, <span class="ident">RoomMessageEventContent</span>, <span class="ident">SyncRoomMessageEvent</span>,
+    <span class="ident">FormattedBody</span>, <span class="ident">MessageType</span>, <span class="ident">OriginalRoomMessageEvent</span>, <span class="ident">OriginalSyncRoomMessageEvent</span>,
+    <span class="ident">RoomMessageEventContent</span>,
 };
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventId</span>, <span class="ident">UserId</span>};
 
@@ -350,7 +352,7 @@
     <span class="kw">fn</span> <span class="ident">content</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">RoomMessageEventContent</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span> <span class="kw">for</span> <span class="ident">RoomMessageEvent</span> {
+<span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span> <span class="kw">for</span> <span class="ident">OriginalRoomMessageEvent</span> {
     <span class="kw">fn</span> <span class="ident">event_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">EventId</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">event_id</span>
     }
@@ -364,7 +366,7 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span> <span class="kw">for</span> <span class="ident">SyncRoomMessageEvent</span> {
+<span class="kw">impl</span> <span class="ident">ReplyBaseEvent</span> <span class="kw">for</span> <span class="ident">OriginalSyncRoomMessageEvent</span> {
     <span class="kw">fn</span> <span class="ident">event_id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">EventId</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">event_id</span>
     }
@@ -420,7 +422,7 @@
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::nonstandard_macro_braces</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_html_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span>) -&gt; <span class="ident">String</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_html_quote_fallback</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span>) -&gt; <span class="ident">String</span> {
     <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">original_message</span>.<span class="ident">content</span>.<span class="ident">msgtype</span> {
         <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) =&gt; {
             <span class="macro">formatdoc!</span>(
@@ -632,12 +634,12 @@
         <span class="ident">event_id</span>, <span class="ident">events::MessageLikeUnsigned</span>, <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>,
     };
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">RoomMessageEvent</span>, <span class="ident">RoomMessageEventContent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">OriginalRoomMessageEvent</span>, <span class="ident">RoomMessageEventContent</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">plain_quote_fallback_multiline</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident"><span class="kw">super</span>::get_plain_quote_fallback</span>(<span class="kw-2">&amp;</span><span class="ident">RoomMessageEvent</span> {
+            <span class="ident"><span class="kw">super</span>::get_plain_quote_fallback</span>(<span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span> {
                 <span class="ident">content</span>: <span class="ident">RoomMessageEventContent::text_plain</span>(<span class="string">&quot;multi\nline&quot;</span>),
                 <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>).<span class="ident">to_owned</span>(),
                 <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@alice:example.com&quot;</span>).<span class="ident">to_owned</span>(),

@@ -1943,7 +1943,7 @@
         <span class="ident">room_version::RoomVersion</span>,
         <span class="ident">test_utils</span>::{
             <span class="ident">alice</span>, <span class="ident">bob</span>, <span class="ident">charlie</span>, <span class="ident">do_check</span>, <span class="ident">ella</span>, <span class="ident">event_id</span>, <span class="ident">member_content_ban</span>, <span class="ident">member_content_join</span>,
-            <span class="ident">room_id</span>, <span class="ident">to_init_pdu_event</span>, <span class="ident">to_pdu_event</span>, <span class="ident">zara</span>, <span class="ident">StateEvent</span>, <span class="ident">TestStore</span>, <span class="ident">INITIAL_EVENTS</span>,
+            <span class="ident">room_id</span>, <span class="ident">to_init_pdu_event</span>, <span class="ident">to_pdu_event</span>, <span class="ident">zara</span>, <span class="ident">PduEvent</span>, <span class="ident">TestStore</span>, <span class="ident">INITIAL_EVENTS</span>,
         },
         <span class="ident">Event</span>, <span class="ident">StateMap</span>,
     };
@@ -2328,7 +2328,7 @@
         <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span>
             <span class="ident">tracing::subscriber::set_default</span>(<span class="ident">tracing_subscriber::fmt</span>().<span class="ident">with_test_writer</span>().<span class="ident">finish</span>());
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">store</span> <span class="op">=</span> <span class="ident">TestStore</span>::<span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&gt;</span>(<span class="macro">hashmap!</span> {});
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">store</span> <span class="op">=</span> <span class="ident">TestStore</span>::<span class="op">&lt;</span><span class="ident">PduEvent</span><span class="op">&gt;</span>(<span class="macro">hashmap!</span> {});
 
         <span class="comment">// build up the DAG</span>
         <span class="kw">let</span> (<span class="ident">state_at_bob</span>, <span class="ident">state_at_charlie</span>, <span class="ident">expected</span>) <span class="op">=</span> <span class="ident">store</span>.<span class="ident">set_up</span>();
@@ -2494,7 +2494,7 @@
     }
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">BAN_STATE_SET</span>() -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">BAN_STATE_SET</span>() -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PduEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">vec!</span>[
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;PA&quot;</span>,
@@ -2539,7 +2539,7 @@
     }
 
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">JOIN_RULE</span>() -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">StateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">JOIN_RULE</span>() -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">PduEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="macro">vec!</span>[
             <span class="ident">to_pdu_event</span>(
                 <span class="string">&quot;JR&quot;</span>,

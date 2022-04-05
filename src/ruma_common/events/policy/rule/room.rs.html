@@ -99,6 +99,9 @@
 <span id="92">92</span>
 <span id="93">93</span>
 <span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.policy.rule.room`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.policy.rule.room`]: https://spec.matrix.org/v1.2/client-server-api/#mpolicyruleroom</span>
@@ -123,7 +126,7 @@
     <span class="kw">use</span> <span class="ident">js_int::int</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
-    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">PolicyRuleRoomEvent</span>, <span class="ident">PolicyRuleRoomEventContent</span>};
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">OriginalPolicyRuleRoomEvent</span>, <span class="ident">PolicyRuleRoomEventContent</span>};
     <span class="kw">use</span> <span class="kw">crate</span>::{
         <span class="ident">event_id</span>,
         <span class="ident">events</span>::{
@@ -137,7 +140,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
-        <span class="kw">let</span> <span class="ident">room_event</span> <span class="op">=</span> <span class="ident">PolicyRuleRoomEvent</span> {
+        <span class="kw">let</span> <span class="ident">room_event</span> <span class="op">=</span> <span class="ident">OriginalPolicyRuleRoomEvent</span> {
             <span class="ident">event_id</span>: <span class="macro">event_id!</span>(<span class="string">&quot;$143273582443PhrSn:example.org&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">sender</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@example:example.org&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>(<span class="number">1_432_735_824_653_u64</span>.<span class="ident">try_into</span>().<span class="ident">unwrap</span>()),
@@ -190,7 +193,10 @@
             }
         });
 
-        <span class="macro">assert!</span>(<span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">PolicyRuleRoomEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>().<span class="ident">deserialize</span>().<span class="ident">is_ok</span>());
+        <span class="macro">assert!</span>(<span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OriginalPolicyRuleRoomEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>)
+            .<span class="ident">unwrap</span>()
+            .<span class="ident">deserialize</span>()
+            .<span class="ident">is_ok</span>());
     }
 }
 </code></pre></div>
