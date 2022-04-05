@@ -400,7 +400,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::deserialize_v1_powerlevel&quot;</span>)
     )]</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span> <span class="op">=</span> <span class="string">&quot;default_power_level&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;is_default_power_level&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;crate::serde::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">invite</span>: <span class="ident">Int</span>,
 
     <span class="doccomment">/// The level required to kick a user.</span>
@@ -480,13 +480,13 @@
         <span class="self">Self</span> {
             <span class="ident">ban</span>: <span class="ident">default_power_level</span>(),
             <span class="ident">events</span>: <span class="ident">BTreeMap::new</span>(),
-            <span class="ident">events_default</span>: <span class="ident">Int::default</span>(),
-            <span class="ident">invite</span>: <span class="ident">default_power_level</span>(),
+            <span class="ident">events_default</span>: <span class="macro">int!</span>(<span class="number">0</span>),
+            <span class="ident">invite</span>: <span class="macro">int!</span>(<span class="number">0</span>),
             <span class="ident">kick</span>: <span class="ident">default_power_level</span>(),
             <span class="ident">redact</span>: <span class="ident">default_power_level</span>(),
             <span class="ident">state_default</span>: <span class="ident">default_power_level</span>(),
             <span class="ident">users</span>: <span class="ident">BTreeMap::new</span>(),
-            <span class="ident">users_default</span>: <span class="ident">Int::default</span>(),
+            <span class="ident">users_default</span>: <span class="macro">int!</span>(<span class="number">0</span>),
             <span class="ident">notifications</span>: <span class="ident">NotificationPowerLevels::default</span>(),
         }
     }
@@ -526,7 +526,7 @@
                 <span class="ident">ban</span>: <span class="ident">default</span>,
                 <span class="ident">events</span>: <span class="ident">BTreeMap::new</span>(),
                 <span class="ident">events_default</span>: <span class="macro">int!</span>(<span class="number">0</span>),
-                <span class="ident">invite</span>: <span class="ident">default</span>,
+                <span class="ident">invite</span>: <span class="macro">int!</span>(<span class="number">0</span>),
                 <span class="ident">kick</span>: <span class="ident">default</span>,
                 <span class="ident">redact</span>: <span class="ident">default</span>,
                 <span class="ident">state_default</span>: <span class="ident">default</span>,
