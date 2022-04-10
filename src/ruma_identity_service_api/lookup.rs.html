@@ -43,6 +43,7 @@
 <span id="36">36</span>
 <span id="37">37</span>
 <span id="38">38</span>
+<span id="39">39</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints to look up Matrix IDs bound to 3PIDs.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_common::serde::StringEnum</span>;
@@ -55,8 +56,9 @@
 <span class="doccomment">/// The algorithms that can be used to hash the identifiers used for lookup, as defined in the</span>
 <span class="doccomment">/// Matrix Spec.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To check for algorithms that are not available as a</span>
-<span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
+<span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a documented</span>
+<span class="doccomment">/// variant here, use its string representation, obtained through `.as_str()`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Clone</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>

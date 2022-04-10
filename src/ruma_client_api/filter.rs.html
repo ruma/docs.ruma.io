@@ -573,7 +573,6 @@
 <span id="566">566</span>
 <span id="567">567</span>
 <span id="568">568</span>
-<span id="569">569</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for event filters.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">create_filter</span>;
@@ -594,9 +593,7 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{<span class="ident">lazy_load::LazyLoadOptions</span>, <span class="ident">url::UrlFilter</span>};
 
 <span class="doccomment">/// Format to use for returned events.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
-<span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -626,8 +623,9 @@
 
 <span class="doccomment">/// Relation types as defined in `rel_type` of an `m.relates_to` field.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
-<span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
+<span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a documented</span>
+<span class="doccomment">/// variant here, use its string representation, obtained through `.as_str()`.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>

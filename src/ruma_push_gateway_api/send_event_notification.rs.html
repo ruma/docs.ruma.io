@@ -466,6 +466,7 @@
 <span id="459">459</span>
 <span id="460">460</span>
 <span id="461">461</span>
+<span id="462">462</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/push/*/notify`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to notify a push gateway about an event or update the number of unread notifications a</span>
@@ -613,7 +614,8 @@
     <span class="doccomment">/// This may be used by push gateways to deliver less time-sensitive</span>
     <span class="doccomment">/// notifications in a way that will preserve battery power on mobile devices.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
+    <span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
+    <span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a</span>
     <span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>

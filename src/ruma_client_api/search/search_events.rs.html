@@ -523,6 +523,9 @@
 <span id="516">516</span>
 <span id="517">517</span>
 <span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/search`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -775,9 +778,7 @@
     }
 
     <span class="doccomment">/// The key within events to use for this grouping.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
-    <span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
+    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">StringEnum</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -823,7 +824,8 @@
 
     <span class="doccomment">/// The keys to search for.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
+    <span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
+    <span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a</span>
     <span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
     <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -852,6 +854,10 @@
     }
 
     <span class="doccomment">/// The order in which to search for results.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
+    <span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a</span>
+    <span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>

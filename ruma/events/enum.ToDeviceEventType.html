@@ -24,8 +24,9 @@
     SecretSend,
     // some variants omitted
 </details>}</code></pre></div><span class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The type of <code>ToDeviceEvent</code> this is.</p>
-<p>This type can hold an arbitrary string. To check for events that are not available as a
-documented variant here, use its string representation, obtained through <code>.as_str()</code>.</p>
+<p>This type can hold an arbitrary string. To build events with a custom type, convert it
+from a string with <code>::from() / .into()</code>. To check for events that are not available as a
+documented variant here, use its string representation, obtained through <code>.to_string()</code>.</p>
 </div></details><h2 id="variants" class="variants small-section-header">Variants<a href="#variants" class="anchor"></a></h2><h3 id="variant.Dummy" class="variant small-section-header"><a href="#variant.Dummy" class="anchor field"></a><code>Dummy</code></h3><div class="docblock"><p>m.dummy</p>
 </div><h3 id="variant.RoomKey" class="variant small-section-header"><a href="#variant.RoomKey" class="anchor field"></a><code>RoomKey</code></h3><div class="docblock"><p>m.room_key</p>
 </div><h3 id="variant.RoomKeyRequest" class="variant small-section-header"><a href="#variant.RoomKeyRequest" class="anchor field"></a><code>RoomKeyRequest</code></h3><div class="docblock"><p>m.room_key_request</p>

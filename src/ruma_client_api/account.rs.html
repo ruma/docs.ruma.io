@@ -73,8 +73,6 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
-<span id="69">69</span>
-<span id="70">70</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for account registration and management.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">add_3pid</span>;
@@ -121,9 +119,7 @@
 }
 
 <span class="doccomment">/// Possible values for deleting or unbinding 3PIDs.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
-<span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;kebab-case&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>

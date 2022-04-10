@@ -1198,8 +1198,6 @@
 <span id="1191">1191</span>
 <span id="1192">1192</span>
 <span id="1193">1193</span>
-<span id="1194">1194</span>
-<span id="1195">1195</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [push notifications module][push].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [push]: https://spec.matrix.org/v1.2/client-server-api/#push-notifications</span>
@@ -1642,10 +1640,8 @@
 <span class="doccomment">/// A special format that the homeserver should use when sending notifications to a Push Gateway.</span>
 <span class="doccomment">/// Currently, only &quot;event_id_only&quot; is supported as of [Push Gateway API r0.1.1][spec].</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To check for formats that are not available as a</span>
-<span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
-<span class="doccomment">///</span>
 <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/push-gateway-api/#homeserver-behaviour</span>
+<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>

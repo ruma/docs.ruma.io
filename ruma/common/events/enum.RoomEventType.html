@@ -56,8 +56,9 @@
     SpaceParent,
     // some variants omitted
 </details>}</code></pre></div><span class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>events</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The type of <code>RoomEvent</code> this is.</p>
-<p>This type can hold an arbitrary string. To check for events that are not available as a
-documented variant here, use its string representation, obtained through <code>.as_str()</code>.</p>
+<p>This type can hold an arbitrary string. To build events with a custom type, convert it
+from a string with <code>::from() / .into()</code>. To check for events that are not available as a
+documented variant here, use its string representation, obtained through <code>.to_string()</code>.</p>
 </div></details><h2 id="variants" class="variants small-section-header">Variants<a href="#variants" class="anchor"></a></h2><h3 id="variant.Audio" class="variant small-section-header"><a href="#variant.Audio" class="anchor field"></a><code>Audio</code></h3><span class="item-info"><div class="stab portability">This is supported on <strong>crate feature <code>unstable-msc3246</code></strong> only.</div></span><div class="docblock"><p>m.audio</p>
 </div><h3 id="variant.CallAnswer" class="variant small-section-header"><a href="#variant.CallAnswer" class="anchor field"></a><code>CallAnswer</code></h3><div class="docblock"><p>m.call.answer</p>
 </div><h3 id="variant.CallInvite" class="variant small-section-header"><a href="#variant.CallInvite" class="anchor field"></a><code>CallInvite</code></h3><div class="docblock"><p>m.call.invite</p>

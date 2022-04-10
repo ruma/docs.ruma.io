@@ -440,7 +440,6 @@
 <span id="433">433</span>
 <span id="434">434</span>
 <span id="435">435</span>
-<span id="436">436</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/login`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -636,11 +635,10 @@
     <span class="doccomment">/// An SSO login identity provider brand identifier.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The predefined ones can be found in the matrix-spec-proposals repo in a [separate</span>
-    <span class="doccomment">/// document][matrix-spec-proposals]. To use a custom brand string, simply use</span>
-    <span class="doccomment">/// `IdentityProviderBrand::from(&quot;custom-brand&quot;)` or `&quot;custom-brand&quot;.into()` (if the type is</span>
-    <span class="doccomment">/// known from the surrounding context).</span>
+    <span class="doccomment">/// document][matrix-spec-proposals].</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [matrix-spec-proposals]: https://github.com/matrix-org/matrix-spec-proposals/blob/v1.1/informal/idp-brands.md</span>
+    <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">IdentityProviderBrand</span> {
