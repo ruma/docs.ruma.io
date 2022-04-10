@@ -406,6 +406,66 @@
 <span id="399">399</span>
 <span id="400">400</span>
 <span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/push/*/notify`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to notify a push gateway about an event or update the number of unread notifications a</span>
@@ -420,12 +480,14 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events::RoomEventType</span>,
-        <span class="ident">push</span>::{<span class="ident">PusherData</span>, <span class="ident">Tweak</span>},
+        <span class="ident">push</span>::{<span class="ident">PushFormat</span>, <span class="ident">Tweak</span>},
         <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">StringEnum</span>},
         <span class="ident">EventId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">SecondsSinceUnixEpoch</span>, <span class="ident">UserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+    <span class="kw">use</span> <span class="ident">serde_json::value::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
@@ -622,9 +684,6 @@
         <span class="kw">pub</span> <span class="ident">pushkey_ts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecondsSinceUnixEpoch</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// A dictionary of additional pusher-specific data.</span>
-        <span class="doccomment">///</span>
-        <span class="doccomment">/// For &#39;http&#39; pushers, this is the data dictionary passed in at pusher creation minus the</span>
-        <span class="doccomment">/// `url` key.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;PusherData::is_empty&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">PusherData</span>,
 
@@ -644,6 +703,67 @@
                 <span class="ident">pushkey_ts</span>: <span class="prelude-val">None</span>,
                 <span class="ident">data</span>: <span class="ident">PusherData::new</span>(),
                 <span class="ident">tweaks</span>: <span class="ident">Vec::new</span>(),
+            }
+        }
+    }
+
+    <span class="doccomment">/// Information for the pusher implementation itself.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This is the data dictionary passed in at pusher creation minus the `url` key.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// It can be constructed from [`ruma_common::push::PusherData`] with `::from()` / `.into()`.</span>
+    <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PusherData</span> {
+        <span class="doccomment">/// The format to use when sending notifications to the Push Gateway.</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+        <span class="kw">pub</span> <span class="ident">format</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PushFormat</span><span class="op">&gt;</span>,
+
+        <span class="doccomment">/// iOS (+ macOS?) specific default payload that will be sent to apple push notification</span>
+        <span class="doccomment">/// service.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// For more information, see [Sygnal docs][sygnal].</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// [sygnal]: https://github.com/matrix-org/sygnal/blob/main/docs/applications.md#ios-applications-beware</span>
+        <span class="comment">// Not specified, issue: https://github.com/matrix-org/matrix-spec/issues/921</span>
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;JsonValue::is_null&quot;</span>)]</span>
+        <span class="kw">pub</span> <span class="ident">default_payload</span>: <span class="ident">JsonValue</span>,
+    }
+
+    <span class="kw">impl</span> <span class="ident">PusherData</span> {
+        <span class="doccomment">/// Creates an empty `PusherData`.</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
+            <span class="ident">Default::default</span>()
+        }
+
+        <span class="doccomment">/// Returns `true` if all fields are `None`.</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>))]</span>
+            {
+                <span class="self">self</span>.<span class="ident">format</span>.<span class="ident">is_none</span>()
+            }
+
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+            {
+                <span class="self">self</span>.<span class="ident">format</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">default_payload</span>.<span class="ident">is_null</span>()
+            }
+        }
+    }
+
+    <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ruma_common::push::PusherData</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PusherData</span> {
+        <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">data</span>: <span class="ident">ruma_common::push::PusherData</span>) -&gt; <span class="self">Self</span> {
+            <span class="kw">let</span> <span class="ident">ruma_common::push::PusherData</span> {
+                <span class="ident">format</span>,
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+                <span class="ident">default_payload</span>,
+                ..
+            } <span class="op">=</span> <span class="ident">data</span>;
+
+            <span class="self">Self</span> {
+                <span class="ident">format</span>,
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-pre-spec&quot;</span>)]</span>
+                <span class="ident">default_payload</span>,
             }
         }
     }
