@@ -475,8 +475,8 @@
 <span class="kw">impl</span> <span class="ident">RoomPowerLevelsEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomPowerLevelsEventContent` with all-default values.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
-        <span class="comment">// events_default and users_default having a default of 0 while the others have a default</span>
-        <span class="comment">// of 50 is not an oversight, these defaults are from the Matrix specification.</span>
+        <span class="comment">// events_default, users_default and invite having a default of 0 while the others have a</span>
+        <span class="comment">// default of 50 is not an oversight, these defaults are from the Matrix specification.</span>
         <span class="self">Self</span> {
             <span class="ident">ban</span>: <span class="ident">default_power_level</span>(),
             <span class="ident">events</span>: <span class="ident">BTreeMap::new</span>(),

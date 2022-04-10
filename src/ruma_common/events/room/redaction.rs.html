@@ -343,16 +343,6 @@
 <span id="336">336</span>
 <span id="337">337</span>
 <span id="338">338</span>
-<span id="339">339</span>
-<span id="340">340</span>
-<span id="341">341</span>
-<span id="342">342</span>
-<span id="343">343</span>
-<span id="344">344</span>
-<span id="345">345</span>
-<span id="346">346</span>
-<span id="347">347</span>
-<span id="348">348</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.redaction`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.redaction`]: https://spec.matrix.org/v1.2/client-server-api/#mroomredaction</span>
@@ -430,8 +420,6 @@
     ) -&gt; <span class="ident"><span class="self">Self</span>::Redacted</span> {
         <span class="ident">RedactedRoomRedactionEvent</span> {
             <span class="ident">content</span>: <span class="self">self</span>.<span class="ident">content</span>.<span class="ident">redact</span>(<span class="ident">version</span>),
-            <span class="comment">// There is no released room version where this isn&#39;t redacted yet</span>
-            <span class="ident">redacts</span>: <span class="prelude-val">None</span>,
             <span class="ident">event_id</span>: <span class="self">self</span>.<span class="ident">event_id</span>,
             <span class="ident">sender</span>: <span class="self">self</span>.<span class="ident">sender</span>,
             <span class="ident">origin_server_ts</span>: <span class="self">self</span>.<span class="ident">origin_server_ts</span>,
@@ -447,9 +435,6 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedRoomRedactionEvent</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RedactedRoomRedactionEventContent</span>,
-
-    <span class="doccomment">/// The ID of the event that was redacted.</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
     <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
@@ -500,8 +485,6 @@
     ) -&gt; <span class="ident"><span class="self">Self</span>::Redacted</span> {
         <span class="ident">RedactedSyncRoomRedactionEvent</span> {
             <span class="ident">content</span>: <span class="self">self</span>.<span class="ident">content</span>.<span class="ident">redact</span>(<span class="ident">version</span>),
-            <span class="comment">// There is no released room version where this isn&#39;t redacted yet</span>
-            <span class="ident">redacts</span>: <span class="prelude-val">None</span>,
             <span class="ident">event_id</span>: <span class="self">self</span>.<span class="ident">event_id</span>,
             <span class="ident">sender</span>: <span class="self">self</span>.<span class="ident">sender</span>,
             <span class="ident">origin_server_ts</span>: <span class="self">self</span>.<span class="ident">origin_server_ts</span>,
@@ -516,9 +499,6 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedactedSyncRoomRedactionEvent</span> {
     <span class="doccomment">/// Data specific to the event type.</span>
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">RedactedRoomRedactionEventContent</span>,
-
-    <span class="doccomment">/// The ID of the event that was redacted.</span>
-    <span class="kw">pub</span> <span class="ident">redacts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
     <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
