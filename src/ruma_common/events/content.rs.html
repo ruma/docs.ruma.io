@@ -183,6 +183,8 @@
 <span id="176">176</span>
 <span id="177">177</span>
 <span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::fmt</span>;
 
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
@@ -198,6 +200,8 @@
 <span class="doccomment">/// The base trait that all event content types implement.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Use [`macros::EventContent`] to derive this traits. It is not meant to be implemented manually.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`macros::EventContent`]: super::macros::EventContent</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">EventContent</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">Serialize</span> {
     <span class="doccomment">/// The Rust enum for the event kind&#39;s known types.</span>
     <span class="kw">type</span> <span class="ident">EventType</span>;
@@ -362,5 +366,5 @@
     <span class="kw">trait</span> <span class="ident">ToDeviceEventContent</span> <span class="op">=</span> <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">ToDeviceEventType</span><span class="op">&gt;</span>;
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (5f3700105 2022-03-22)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (8bf93e9b6 2022-04-09)" ></div>
 </body></html>

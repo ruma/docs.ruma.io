@@ -500,10 +500,10 @@
     <span class="ident">Encrypted</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span>),
 }
 
-<span class="doccomment">/// Custom implementation of `Deserialize`, because serde doesn&#39;t guarantee what variant will be</span>
-<span class="doccomment">/// deserialized for &quot;externally tagged&quot;¹ enums where multiple &quot;tag&quot; fields exist.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// ¹ https://serde.rs/enum-representations.html</span>
+<span class="comment">// Custom implementation of `Deserialize`, because serde doesn&#39;t guarantee what variant will be</span>
+<span class="comment">// deserialized for &quot;externally tagged&quot;¹ enums where multiple &quot;tag&quot; fields exist.</span>
+<span class="comment">//</span>
+<span class="comment">// ¹ https://serde.rs/enum-representations.html</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MediaSource</span> {
     <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
     <span class="kw">where</span>
@@ -886,5 +886,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (5f3700105 2022-03-22)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (8bf93e9b6 2022-04-09)" ></div>
 </body></html>
