@@ -449,6 +449,16 @@
 <span id="442">442</span>
 <span id="443">443</span>
 <span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.power_levels`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.power_levels`]: https://spec.matrix.org/v1.2/client-server-api/#mroompower_levels</span>
@@ -623,6 +633,16 @@
 }
 
 <span class="kw">impl</span> <span class="ident">RoomPowerLevelsEvent</span> {
+    <span class="doccomment">/// Obtain the effective power levels, regardless of whether this event is redacted.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">power_levels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RoomPowerLevels</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">clone</span>().<span class="ident">into</span>(),
+            <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">clone</span>().<span class="ident">into</span>(),
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">SyncRoomPowerLevelsEvent</span> {
     <span class="doccomment">/// Obtain the effective power levels, regardless of whether this event is redacted.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">power_levels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RoomPowerLevels</span> {
         <span class="kw">match</span> <span class="self">self</span> {
