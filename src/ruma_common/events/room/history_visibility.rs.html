@@ -73,6 +73,26 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.history_visibility`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.history_visibility`]: https://spec.matrix.org/v1.2/client-server-api/#mroomhistory_visibility</span>
@@ -99,6 +119,26 @@
     <span class="doccomment">/// Creates a new `RoomHistoryVisibilityEventContent` with the given policy.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">history_visibility</span>: <span class="ident">HistoryVisibility</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">history_visibility</span> }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">RoomHistoryVisibilityEvent</span> {
+    <span class="doccomment">/// Obtain the history visibility, regardless of whether this event is redacted.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">history_visibility</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">HistoryVisibility</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">history_visibility</span>,
+            <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">history_visibility</span>,
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">SyncRoomHistoryVisibilityEvent</span> {
+    <span class="doccomment">/// Obtain the history visibility, regardless of whether this event is redacted.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">history_visibility</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">HistoryVisibility</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">history_visibility</span>,
+            <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">history_visibility</span>,
+        }
     }
 }
 
@@ -142,5 +182,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (1f7fb6413 2022-04-10)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (52ca603da 2022-04-12)" ></div>
 </body></html>
