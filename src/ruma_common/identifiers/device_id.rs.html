@@ -74,9 +74,9 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
-<span id="70">70</span>
-<span id="71">71</span>
-</pre><pre class="rust"><code><span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::generate_localpart</span>;
 
 <span class="doccomment">/// A Matrix key ID.</span>
@@ -104,18 +104,14 @@
 <span class="doccomment">/// assert_eq!(owned_id.as_str(), &quot;ijklmnop&quot;);</span>
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>, <span class="ident">IdZst</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceId</span>(<span class="ident">str</span>);
-
-<span class="macro">owned_identifier!</span>(<span class="ident">OwnedDeviceId</span>, <span class="ident">DeviceId</span>);
-
-<span class="macro">opaque_identifier!</span>(<span class="ident">DeviceId</span>, <span class="ident">OwnedDeviceId</span>);
 
 <span class="kw">impl</span> <span class="ident">DeviceId</span> {
     <span class="doccomment">/// Generates a random `DeviceId`, suitable for assignment to a new device.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="ident">generate_localpart</span>(<span class="number">8</span>))
+        <span class="ident"><span class="self">Self</span>::from_box</span>(<span class="ident">generate_localpart</span>(<span class="number">8</span>))
     }
 }
 
@@ -143,10 +139,10 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">create_device_id_from_box</span>() {
         <span class="kw">let</span> <span class="ident">box_str</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span> <span class="string">&quot;ijklmnop&quot;</span>.<span class="ident">into</span>();
-        <span class="kw">let</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">DeviceId::from_owned</span>(<span class="ident">box_str</span>);
+        <span class="kw">let</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">DeviceId::from_box</span>(<span class="ident">box_str</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">device_id</span>.<span class="ident">as_str</span>(), <span class="string">&quot;ijklmnop&quot;</span>);
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (52ca603da 2022-04-12)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (34a6c9f26 2022-04-13)" ></div>
 </body></html>

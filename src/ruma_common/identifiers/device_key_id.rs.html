@@ -112,27 +112,17 @@
 <span id="105">105</span>
 <span id="106">106</span>
 <span id="107">107</span>
-<span id="108">108</span>
-<span id="109">109</span>
-<span id="110">110</span>
-<span id="111">111</span>
-<span id="112">112</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Identifiers for device keys for end-to-end encryption.</span>
+
+<span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">crypto_algorithms::DeviceKeyAlgorithm</span>, <span class="ident">DeviceId</span>};
 
 <span class="doccomment">/// A key algorithm and a device id, combined with a &#39;:&#39;.</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>, <span class="ident">IdZst</span>)]</span>
+<span class="attribute">#[<span class="ident">ruma_id</span>(<span class="ident">validate</span> <span class="op">=</span> <span class="ident">ruma_identifiers_validation::device_key_id::validate</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceKeyId</span>(<span class="ident">str</span>);
-
-<span class="macro">owned_identifier!</span>(<span class="ident">OwnedDeviceKeyId</span>, <span class="ident">DeviceKeyId</span>);
-
-<span class="macro">opaque_identifier_validated!</span>(
-    <span class="ident">DeviceKeyId</span>,
-    <span class="ident">OwnedDeviceKeyId</span>,
-    <span class="ident">ruma_identifiers_validation::device_key_id::validate</span>
-);
 
 <span class="kw">impl</span> <span class="ident">DeviceKeyId</span> {
     <span class="doccomment">/// Create a `DeviceKeyId` from a `DeviceKeyAlgorithm` and a `DeviceId`.</span>
@@ -145,7 +135,7 @@
         <span class="ident">res</span>.<span class="ident">push</span>(<span class="string">&#39;:&#39;</span>);
         <span class="ident">res</span>.<span class="ident">push_str</span>(<span class="ident">device_id</span>);
 
-        <span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="ident">res</span>.<span class="ident">into</span>())
+        <span class="ident"><span class="self">Self</span>::from_box</span>(<span class="ident">res</span>.<span class="ident">into</span>())
     }
 
     <span class="doccomment">/// Returns key algorithm of the device key ID.</span>
@@ -230,5 +220,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (52ca603da 2022-04-12)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (34a6c9f26 2022-04-13)" ></div>
 </body></html>

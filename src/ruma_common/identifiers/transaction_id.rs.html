@@ -30,9 +30,9 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
-<span id="26">26</span>
-<span id="27">27</span>
-</pre><pre class="rust"><code><span class="doccomment">/// A Matrix transaction ID.</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
+
+<span class="doccomment">/// A Matrix transaction ID.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Transaction IDs in Matrix are opaque strings. This type is provided simply for its semantic</span>
 <span class="doccomment">/// value.</span>
@@ -41,7 +41,7 @@
 <span class="doccomment">/// `TransactionId::new()` to generate a random one. If that function is not available for you, you</span>
 <span class="doccomment">/// need to activate this crate&#39;s `rand` Cargo feature.</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>, <span class="ident">IdZst</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TransactionId</span>(<span class="ident">str</span>);
 
 <span class="kw">impl</span> <span class="ident">TransactionId</span> {
@@ -52,13 +52,9 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">uuid::Uuid::new_v4</span>();
-        <span class="ident"><span class="self">Self</span>::from_owned</span>(<span class="ident">id</span>.<span class="ident">to_simple</span>().<span class="ident">to_string</span>().<span class="ident">into_boxed_str</span>())
+        <span class="ident"><span class="self">Self</span>::from_box</span>(<span class="ident">id</span>.<span class="ident">to_simple</span>().<span class="ident">to_string</span>().<span class="ident">into_boxed_str</span>())
     }
 }
-
-<span class="macro">owned_identifier!</span>(<span class="ident">OwnedTransactionId</span>, <span class="ident">TransactionId</span>);
-
-<span class="macro">opaque_identifier!</span>(<span class="ident">TransactionId</span>, <span class="ident">OwnedTransactionId</span>);
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (52ca603da 2022-04-12)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (34a6c9f26 2022-04-13)" ></div>
 </body></html>

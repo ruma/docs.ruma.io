@@ -14,19 +14,15 @@
 <span id="7">7</span>
 <span id="8">8</span>
 <span id="9">9</span>
-<span id="10">10</span>
-<span id="11">11</span>
-</pre><pre class="rust"><code><span class="doccomment">/// A Matrix key identifier.</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
+
+<span class="doccomment">/// A Matrix key identifier.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Key identifiers in Matrix are opaque character sequences of `[a-zA-Z_]`. This type is</span>
 <span class="doccomment">/// provided simply for its semantic value.</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">Hash</span>, <span class="ident">IdZst</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyName</span>(<span class="ident">str</span>);
-
-<span class="macro">owned_identifier!</span>(<span class="ident">OwnedKeyName</span>, <span class="ident">KeyName</span>);
-
-<span class="macro">opaque_identifier!</span>(<span class="ident">KeyName</span>, <span class="ident">OwnedKeyName</span>);
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (52ca603da 2022-04-12)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (34a6c9f26 2022-04-13)" ></div>
 </body></html>
