@@ -54,7 +54,7 @@
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::new_ret_no_self</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">OwnedTransactionId</span> {
         <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">uuid::Uuid::new_v4</span>();
-        <span class="ident"><span class="self">Self</span>::from_borrowed</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>.<span class="ident">to_simple</span>().<span class="ident">to_string</span>()).<span class="ident">to_owned</span>()
+        <span class="ident"><span class="self">Self</span>::from_borrowed</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>.<span class="ident">simple</span>().<span class="ident">to_string</span>()).<span class="ident">to_owned</span>()
     }
 }
 </code></pre></div>
