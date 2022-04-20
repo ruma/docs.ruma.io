@@ -46,7 +46,7 @@
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::RoomId</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::OwnedRoomId</span>;
 
 <span class="doccomment">/// The content of an `m.room.tombstone` event.</span>
 <span class="doccomment">///</span>
@@ -64,15 +64,15 @@
     <span class="kw">pub</span> <span class="ident">body</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The new room the client should be visiting.</span>
-    <span class="kw">pub</span> <span class="ident">replacement_room</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">replacement_room</span>: <span class="ident">OwnedRoomId</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">RoomTombstoneEventContent</span> {
     <span class="doccomment">/// Creates a new `RoomTombstoneEventContent` with the given body and replacement room ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">replacement_room</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">replacement_room</span>: <span class="ident">OwnedRoomId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">replacement_room</span> }
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -213,7 +213,7 @@
     <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>,
 };
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MxcUri</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::OwnedMxcUri</span>;
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EncryptedFile</span>, <span class="ident">MediaSource</span>};
 
@@ -241,7 +241,7 @@
 {
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThumbnailSourceJsonRepr</span> {
-        <span class="ident">thumbnail_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">thumbnail_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedMxcUri</span><span class="op">&gt;</span>,
         <span class="ident">thumbnail_file</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     }
 
@@ -408,5 +408,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -81,7 +81,7 @@
 
     <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">authentication::TokenType</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">authentication::TokenType</span>, <span class="ident">OwnedServerName</span>, <span class="ident">UserId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
@@ -109,7 +109,7 @@
             <span class="kw">pub</span> <span class="ident">token_type</span>: <span class="ident">TokenType</span>,
 
             <span class="doccomment">/// Homeserver domain for verification of user&#39;s identity.</span>
-            <span class="kw">pub</span> <span class="ident">matrix_server_name</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">matrix_server_name</span>: <span class="ident">OwnedServerName</span>,
 
             <span class="doccomment">/// Seconds until token expiration.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::duration::secs&quot;</span>)]</span>
@@ -132,7 +132,7 @@
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
             <span class="ident">access_token</span>: <span class="ident">String</span>,
             <span class="ident">token_type</span>: <span class="ident">TokenType</span>,
-            <span class="ident">matrix_server_name</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
+            <span class="ident">matrix_server_name</span>: <span class="ident">OwnedServerName</span>,
             <span class="ident">expires_in</span>: <span class="ident">Duration</span>,
         ) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">access_token</span>, <span class="ident">token_type</span>, <span class="ident">matrix_server_name</span>, <span class="ident">expires_in</span> }
@@ -140,5 +140,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

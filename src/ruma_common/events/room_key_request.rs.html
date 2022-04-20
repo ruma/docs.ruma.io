@@ -105,6 +105,7 @@
 <span id="98">98</span>
 <span id="99">99</span>
 <span id="100">100</span>
+<span id="101">101</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room_key_request`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room_key_request`]: https://spec.matrix.org/v1.2/client-server-api/#mroom_key_request</span>
@@ -113,7 +114,8 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">serde::StringEnum</span>, <span class="ident">DeviceId</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>,
+    <span class="ident">serde::StringEnum</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">OwnedTransactionId</span>,
+    <span class="ident">PrivOwnedStr</span>,
 };
 
 <span class="doccomment">/// The content of an `m.room_key_request` event.</span>
@@ -130,13 +132,13 @@
     <span class="kw">pub</span> <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RequestedKeyInfo</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// ID of the device requesting the key.</span>
-    <span class="kw">pub</span> <span class="ident">requesting_device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">requesting_device_id</span>: <span class="ident">OwnedDeviceId</span>,
 
     <span class="doccomment">/// A random string uniquely identifying the request for a key.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the key is requested multiple times, it should be reused. It should also reused</span>
     <span class="doccomment">/// in order to cancel a request.</span>
-    <span class="kw">pub</span> <span class="ident">request_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">request_id</span>: <span class="ident">OwnedTransactionId</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ToDeviceRoomKeyRequestEventContent</span> {
@@ -145,8 +147,8 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">action</span>: <span class="ident">Action</span>,
         <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RequestedKeyInfo</span><span class="op">&gt;</span>,
-        <span class="ident">requesting_device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
-        <span class="ident">request_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
+        <span class="ident">requesting_device_id</span>: <span class="ident">OwnedDeviceId</span>,
+        <span class="ident">request_id</span>: <span class="ident">OwnedTransactionId</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">action</span>, <span class="ident">body</span>, <span class="ident">requesting_device_id</span>, <span class="ident">request_id</span> }
     }
@@ -184,7 +186,7 @@
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
 
     <span class="doccomment">/// The room where the key is used.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// The Curve25519 key of the device which initiated the session originally.</span>
     <span class="kw">pub</span> <span class="ident">sender_key</span>: <span class="ident">String</span>,
@@ -198,7 +200,7 @@
     <span class="doccomment">/// ID.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
-        <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+        <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
         <span class="ident">sender_key</span>: <span class="ident">String</span>,
         <span class="ident">session_id</span>: <span class="ident">String</span>,
     ) -&gt; <span class="self">Self</span> {
@@ -206,5 +208,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

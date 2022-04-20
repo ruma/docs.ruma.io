@@ -137,7 +137,7 @@
         <span class="ident">api::ruma_api</span>,
         <span class="ident">encryption</span>::{<span class="ident">CrossSigningKey</span>, <span class="ident">DeviceKeys</span>},
         <span class="ident">serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
-        <span class="ident">DeviceId</span>, <span class="ident">UserId</span>,
+        <span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedUserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -161,13 +161,13 @@
         <span class="ident">request</span>: {
             <span class="doccomment">/// Signed keys.</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">body</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">signed_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">SignedKeys</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">signed_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">SignedKeys</span><span class="op">&gt;</span>,
         }
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
         <span class="ident">response</span>: {
             <span class="doccomment">/// Signature processing failures.</span>
-            <span class="kw">pub</span> <span class="ident">failures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Failure</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">failures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Failure</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
 
         <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -175,7 +175,7 @@
 
     <span class="kw">impl</span> <span class="ident">Request</span> {
         <span class="doccomment">/// Creates a new `Request` with the given signed keys.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">signed_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">SignedKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">signed_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">SignedKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">signed_keys</span> }
         }
     }
@@ -199,8 +199,8 @@
         }
 
         <span class="doccomment">/// Add the given device keys.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_device_keys</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">device_keys</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span>) {
-            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">insert</span>(<span class="ident">device_id</span>.<span class="ident">into</span>(), <span class="ident">device_keys</span>.<span class="ident">into_json</span>());
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_device_keys</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>, <span class="ident">device_keys</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span>) {
+            <span class="self">self</span>.<span class="number">0</span>.<span class="ident">insert</span>(<span class="ident">device_id</span>.<span class="ident">as_str</span>().<span class="ident">into</span>(), <span class="ident">device_keys</span>.<span class="ident">into_json</span>());
         }
 
         <span class="doccomment">/// Add the given cross signing keys.</span>
@@ -244,5 +244,5 @@
 
 <span class="kw">mod</span> <span class="ident">iter</span>;
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

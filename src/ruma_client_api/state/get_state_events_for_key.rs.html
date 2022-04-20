@@ -175,6 +175,8 @@
 <span id="168">168</span>
 <span id="169">169</span>
 <span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/state/{eventType}/{stateKey}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -319,9 +321,11 @@
             <span class="ident">B</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>,
             <span class="ident">S</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span>,
         {
+            <span class="kw">use</span> <span class="ident">ruma_common::OwnedRoomId</span>;
+
             <span class="comment">// FIXME: find a way to make this if-else collapse with serde recognizing trailing</span>
             <span class="comment">// Option</span>
-            <span class="kw">let</span> (<span class="ident">room_id</span>, <span class="ident">event_type</span>, <span class="ident">state_key</span>): (<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">StateEventType</span>, <span class="ident">String</span>) <span class="op">=</span>
+            <span class="kw">let</span> (<span class="ident">room_id</span>, <span class="ident">event_type</span>, <span class="ident">state_key</span>): (<span class="ident">OwnedRoomId</span>, <span class="ident">StateEventType</span>, <span class="ident">String</span>) <span class="op">=</span>
                 <span class="kw">if</span> <span class="ident">path_args</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">3</span> {
                     <span class="ident">serde::Deserialize::deserialize</span>(<span class="ident">serde::de::value::SeqDeserializer</span>::<span class="op">&lt;</span>
                         <span class="kw">_</span>,
@@ -346,5 +350,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

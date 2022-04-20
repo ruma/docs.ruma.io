@@ -95,7 +95,7 @@
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EventId</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::OwnedEventId</span>;
 
 <span class="doccomment">/// The payload for a `m.reaction` event.</span>
 <span class="doccomment">///</span>
@@ -130,7 +130,7 @@
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;rel_type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.annotation&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Relation</span> {
     <span class="doccomment">/// The event that is being annotated.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// A string that indicates the annotation being applied.</span>
     <span class="doccomment">///</span>
@@ -143,7 +143,7 @@
 
 <span class="kw">impl</span> <span class="ident">Relation</span> {
     <span class="doccomment">/// Creates a new `Relation` with the given event ID and key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">key</span> }
     }
 }
@@ -176,5 +176,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

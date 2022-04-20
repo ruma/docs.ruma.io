@@ -433,7 +433,7 @@
     <span class="ident">HashAlgorithm</span>, <span class="ident">KeyAgreementProtocol</span>, <span class="ident">MessageAuthenticationCode</span>, <span class="ident">Relation</span>,
     <span class="ident">ShortAuthenticationString</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::Base64</span>, <span class="ident">TransactionId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::Base64</span>, <span class="ident">OwnedTransactionId</span>};
 
 <span class="doccomment">/// The content of a to-device `m.key.verification.accept` event.</span>
 <span class="doccomment">///</span>
@@ -445,7 +445,7 @@
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be the same as the one used for the `m.key.verification.start` message.</span>
-    <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">OwnedTransactionId</span>,
 
     <span class="doccomment">/// The method specific content.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
@@ -455,7 +455,7 @@
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationAcceptEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationAcceptEventContent` with the given transaction ID and</span>
     <span class="doccomment">/// method-specific content.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>, <span class="ident">method</span>: <span class="ident">AcceptMethod</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">OwnedTransactionId</span>, <span class="ident">method</span>: <span class="ident">AcceptMethod</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">method</span> }
     }
 }
@@ -834,5 +834,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

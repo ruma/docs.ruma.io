@@ -285,7 +285,7 @@
     },
     <span class="ident">presence::PresenceState</span>,
     <span class="ident">serde::Raw</span>,
-    <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>, <span class="ident">UserId</span>,
+    <span class="ident">OwnedUserId</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>, <span class="ident">UserId</span>,
 };
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 <span class="kw">use</span> <span class="ident">tokio::fs</span>;
@@ -495,7 +495,7 @@
 
 <span class="kw">struct</span> <span class="ident">Config</span> {
     <span class="ident">homeserver</span>: <span class="ident">String</span>,
-    <span class="ident">username</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="ident">username</span>: <span class="ident">OwnedUserId</span>,
     <span class="ident">password</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
@@ -538,5 +538,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="joke_bot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="joke_bot" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

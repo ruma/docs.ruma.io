@@ -540,7 +540,7 @@
         <span class="ident">api::ruma_api</span>,
         <span class="ident">events</span>::{<span class="ident">AnyRoomEvent</span>, <span class="ident">AnyStateEvent</span>},
         <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
-        <span class="ident">EventId</span>, <span class="ident">MxcUri</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
+        <span class="ident">MxcUri</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">OwnedUserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -734,7 +734,7 @@
 
         <span class="doccomment">/// The historic profile information of the users that sent the events returned.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">profile_info</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">UserProfile</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">profile_info</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">UserProfile</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Pagination token for the start of the chunk.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -899,7 +899,7 @@
 
         <span class="doccomment">/// Any groups that were requested.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">groups</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">GroupingKey</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomIdOrUserId</span><span class="op">&gt;</span>, <span class="ident">ResultGroup</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">groups</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">GroupingKey</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomIdOrUserId</span>, <span class="ident">ResultGroup</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Token that can be used to get the next batch of results, by passing as the `next_batch`</span>
         <span class="doccomment">/// parameter to the next call.</span>
@@ -916,7 +916,7 @@
         <span class="doccomment">///</span>
         <span class="doccomment">/// This is included if the request had the `include_state` key set with a value of `true`.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">state</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyStateEvent</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// List of words which should be highlighted, useful for stemming which may</span>
         <span class="doccomment">/// change the query terms.</span>
@@ -958,7 +958,7 @@
 
         <span class="doccomment">/// Which results are in this group.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">results</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">results</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedEventId</span><span class="op">&gt;</span>,
     }
 
     <span class="kw">impl</span> <span class="ident">ResultGroup</span> {
@@ -1039,14 +1039,14 @@
     <span class="doccomment">/// Represents either a room or user ID for returning grouped search results.</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Eq</span>, <span class="ident">Ord</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Serialize</span>)]</span>
     <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_enums</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RoomIdOrUserId</span> {
+    <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OwnedRoomIdOrUserId</span> {
         <span class="doccomment">/// Represents a room ID.</span>
-        <span class="ident">RoomId</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>),
+        <span class="ident">RoomId</span>(<span class="ident">OwnedRoomId</span>),
 
         <span class="doccomment">/// Represents a user ID.</span>
-        <span class="ident">UserId</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>),
+        <span class="ident">UserId</span>(<span class="ident">OwnedUserId</span>),
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -86,7 +86,7 @@
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ServerName</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::OwnedServerName</span>;
 
 <span class="doccomment">/// The content of an `m.space.parent` event.</span>
 <span class="doccomment">///</span>
@@ -101,7 +101,7 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SpaceParentEventContent</span> {
     <span class="doccomment">/// List of candidate servers that can be used to join the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">via</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">via</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Determines whether this is the main parent for the space.</span>
     <span class="doccomment">///</span>
@@ -154,5 +154,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

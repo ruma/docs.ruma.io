@@ -433,7 +433,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::message</span>::{<span class="self">self</span>, <span class="ident">InReplyTo</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">DeviceId</span>, <span class="ident">EventId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedEventId</span>};
 
 <span class="kw">mod</span> <span class="ident">relation_serde</span>;
 
@@ -562,7 +562,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Replacement</span> {
     <span class="doccomment">/// The ID of the event being replacing.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 }
 
 <span class="doccomment">/// A reference to another event.</span>
@@ -570,12 +570,12 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Reference</span> {
     <span class="doccomment">/// The event we are referencing.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Reference</span> {
     <span class="doccomment">/// Creates a new `Reference` with the given event ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span> }
     }
 }
@@ -586,7 +586,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Annotation</span> {
     <span class="doccomment">/// The event that is being annotated.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The annotation.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
@@ -595,7 +595,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Annotation</span> {
     <span class="doccomment">/// Creates a new `Annotation` with the given event ID and key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>, <span class="ident">key</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">key</span> }
     }
 }
@@ -606,7 +606,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Thread</span> {
     <span class="doccomment">/// The ID of the root message in the thread.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// A reply relation.</span>
     <span class="doccomment">///</span>
@@ -627,13 +627,13 @@
 <span class="kw">impl</span> <span class="ident">Thread</span> {
     <span class="doccomment">/// Convenience method to create a regular `Thread` with the given event ID and latest</span>
     <span class="doccomment">/// message-like event ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">latest_event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>, <span class="ident">latest_event_id</span>: <span class="ident">OwnedEventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo::new</span>(<span class="ident">latest_event_id</span>), <span class="ident">is_falling_back</span>: <span class="bool-val">false</span> }
     }
 
     <span class="doccomment">/// Convenience method to create a reply `Thread` with the given event ID and replied-to event</span>
     <span class="doccomment">/// ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reply</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">reply_to_event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reply</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>, <span class="ident">reply_to_event_id</span>: <span class="ident">OwnedEventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo::new</span>(<span class="ident">reply_to_event_id</span>), <span class="ident">is_falling_back</span>: <span class="bool-val">true</span> }
     }
 }
@@ -691,7 +691,7 @@
     <span class="kw">pub</span> <span class="ident">sender_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The ID of the sending device.</span>
-    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>,
 
     <span class="doccomment">/// The ID of the session used to encrypt the message.</span>
     <span class="kw">pub</span> <span class="ident">session_id</span>: <span class="ident">String</span>,
@@ -711,7 +711,7 @@
     <span class="kw">pub</span> <span class="ident">sender_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The ID of the sending device.</span>
-    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>,
 
     <span class="doccomment">/// The ID of the session used to encrypt the message.</span>
     <span class="kw">pub</span> <span class="ident">session_id</span>: <span class="ident">String</span>,
@@ -840,5 +840,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

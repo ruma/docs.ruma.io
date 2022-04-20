@@ -995,6 +995,9 @@
 <span id="988">988</span>
 <span id="989">989</span>
 <span id="990">990</span>
+<span id="991">991</span>
+<span id="992">992</span>
+<span id="993">993</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix URIs.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">fmt</span>, <span class="ident">str::FromStr</span>};
@@ -1006,7 +1009,10 @@
 };
 <span class="kw">use</span> <span class="ident">url::Url</span>;
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EventId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomOrAliasId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{
+    <span class="ident">EventId</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedRoomAliasId</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">OwnedRoomOrAliasId</span>, <span class="ident">OwnedServerName</span>,
+    <span class="ident">OwnedUserId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomOrAliasId</span>, <span class="ident">ServerName</span>, <span class="ident">UserId</span>,
+};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::PrivOwnedStr</span>;
 
 <span class="kw">const</span> <span class="ident">MATRIX_TO_BASE_URL</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;https://matrix.to/#/&quot;</span>;
@@ -1043,16 +1049,16 @@
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MatrixId</span> {
     <span class="doccomment">/// A room ID.</span>
-    <span class="ident">Room</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>),
+    <span class="ident">Room</span>(<span class="ident">OwnedRoomId</span>),
 
     <span class="doccomment">/// A room alias.</span>
-    <span class="ident">RoomAlias</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>),
+    <span class="ident">RoomAlias</span>(<span class="ident">OwnedRoomAliasId</span>),
 
     <span class="doccomment">/// A user ID.</span>
-    <span class="ident">User</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>),
+    <span class="ident">User</span>(<span class="ident">OwnedUserId</span>),
 
     <span class="doccomment">/// An event ID.</span>
-    <span class="ident">Event</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>),
+    <span class="ident">Event</span>(<span class="ident">OwnedRoomOrAliasId</span>, <span class="ident">OwnedEventId</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">MatrixId</span> {
@@ -1236,7 +1242,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MatrixToUri</span> {
     <span class="ident">id</span>: <span class="ident">MatrixId</span>,
-    <span class="ident">via</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">via</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedServerName</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">MatrixToUri</span> {
@@ -1250,7 +1256,7 @@
     }
 
     <span class="doccomment">/// Matrix servers usable to route a `RoomId`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">via</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">via</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">OwnedServerName</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">via</span>
     }
 
@@ -1269,7 +1275,7 @@
 
         <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">url</span>.<span class="ident">query_pairs</span>() {
             <span class="kw">if</span> <span class="ident">key</span>.<span class="ident">as_ref</span>() <span class="op">==</span> <span class="string">&quot;via&quot;</span> {
-                <span class="ident">via</span>.<span class="ident">push</span>(<span class="ident">ServerName::parse</span>(<span class="ident">value</span>)<span class="question-mark">?</span>);
+                <span class="ident">via</span>.<span class="ident">push</span>(<span class="ident">value</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>);
             } <span class="kw">else</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">MatrixToError::UnknownArgument</span>.<span class="ident">into</span>());
             }
@@ -1396,7 +1402,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MatrixUri</span> {
     <span class="ident">id</span>: <span class="ident">MatrixId</span>,
-    <span class="ident">via</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">via</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedServerName</span><span class="op">&gt;</span>,
     <span class="ident">action</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UriAction</span><span class="op">&gt;</span>,
 }
 
@@ -1411,7 +1417,7 @@
     }
 
     <span class="doccomment">/// Matrix servers usable to route a `RoomId`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">via</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>] {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">via</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[<span class="ident">OwnedServerName</span>] {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">via</span>
     }
 
@@ -1435,7 +1441,7 @@
 
         <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">url</span>.<span class="ident">query_pairs</span>() {
             <span class="kw">if</span> <span class="ident">key</span>.<span class="ident">as_ref</span>() <span class="op">==</span> <span class="string">&quot;via&quot;</span> {
-                <span class="ident">via</span>.<span class="ident">push</span>(<span class="ident">ServerName::parse</span>(<span class="ident">value</span>)<span class="question-mark">?</span>);
+                <span class="ident">via</span>.<span class="ident">push</span>(<span class="ident">value</span>.<span class="ident">parse</span>()<span class="question-mark">?</span>);
             } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">key</span>.<span class="ident">as_ref</span>() <span class="op">==</span> <span class="string">&quot;action&quot;</span> {
                 <span class="kw">if</span> <span class="ident">action</span>.<span class="ident">is_some</span>() {
                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">MatrixUriError::TooManyActions</span>.<span class="ident">into</span>());
@@ -1986,5 +1992,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -74,6 +74,7 @@
 <span id="67">67</span>
 <span id="68">68</span>
 <span id="69">69</span>
+<span id="70">70</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
@@ -87,7 +88,7 @@
 <span class="doccomment">/// # Example</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// use ruma_common::{device_id, DeviceId};</span>
+<span class="doccomment">/// use ruma_common::{device_id, DeviceId, OwnedDeviceId};</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # #[cfg(feature = &quot;rand&quot;)] {</span>
 <span class="doccomment">/// let random_id = DeviceId::new();</span>
@@ -100,7 +101,7 @@
 <span class="doccomment">/// let ref_id: &amp;DeviceId = &quot;abcdefghi&quot;.into();</span>
 <span class="doccomment">/// assert_eq!(ref_id.as_str(), &quot;abcdefghi&quot;);</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// let owned_id: Box&lt;DeviceId&gt; = &quot;ijklmnop&quot;.into();</span>
+<span class="doccomment">/// let owned_id: OwnedDeviceId = &quot;ijklmnop&quot;.into();</span>
 <span class="doccomment">/// assert_eq!(owned_id.as_str(), &quot;ijklmnop&quot;);</span>
 <span class="doccomment">/// ```</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
@@ -110,14 +111,15 @@
 <span class="kw">impl</span> <span class="ident">DeviceId</span> {
     <span class="doccomment">/// Generates a random `DeviceId`, suitable for assignment to a new device.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident"><span class="self">Self</span>::from_box</span>(<span class="ident">generate_localpart</span>(<span class="number">8</span>))
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::new_ret_no_self</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">OwnedDeviceId</span> {
+        <span class="ident"><span class="self">Self</span>::from_borrowed</span>(<span class="kw-2">&amp;</span><span class="ident">generate_localpart</span>(<span class="number">8</span>)).<span class="ident">to_owned</span>()
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>))]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::DeviceId</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">DeviceId</span>, <span class="ident">OwnedDeviceId</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">generate_device_id</span>() {
@@ -132,17 +134,17 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">create_boxed_device_id_from_str</span>() {
-        <span class="kw">let</span> <span class="ident">box_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span> <span class="op">=</span> <span class="string">&quot;12345678&quot;</span>.<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="ident">box_id</span>: <span class="ident">OwnedDeviceId</span> <span class="op">=</span> <span class="string">&quot;12345678&quot;</span>.<span class="ident">into</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">box_id</span>.<span class="ident">as_str</span>(), <span class="string">&quot;12345678&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">create_device_id_from_box</span>() {
         <span class="kw">let</span> <span class="ident">box_str</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">=</span> <span class="string">&quot;ijklmnop&quot;</span>.<span class="ident">into</span>();
-        <span class="kw">let</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">DeviceId::from_box</span>(<span class="ident">box_str</span>);
+        <span class="kw">let</span> <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span> <span class="op">=</span> <span class="ident">box_str</span>.<span class="ident">into</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">device_id</span>.<span class="ident">as_str</span>(), <span class="string">&quot;ijklmnop&quot;</span>);
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

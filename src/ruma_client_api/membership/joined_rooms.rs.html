@@ -59,7 +59,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3joined_rooms</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">RoomId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">OwnedRoomId</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
@@ -79,7 +79,7 @@
         <span class="ident">response</span>: {
             <span class="doccomment">/// A list of the rooms the user is in, i.e. the ID of each room in</span>
             <span class="doccomment">/// which the user has joined membership.</span>
-            <span class="kw">pub</span> <span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span><span class="op">&gt;</span>,
         }
 
         <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -94,11 +94,11 @@
 
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Creates a new `Response` with the given joined rooms.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">joined_rooms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">joined_rooms</span> }
         }
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

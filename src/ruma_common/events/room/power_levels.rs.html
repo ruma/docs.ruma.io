@@ -457,7 +457,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">events::RoomEventType</span>,
     <span class="ident">power_levels</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>},
-    <span class="ident">UserId</span>,
+    <span class="ident">OwnedUserId</span>, <span class="ident">UserId</span>,
 };
 
 <span class="doccomment">/// The content of an `m.room.power_levels` event.</span>
@@ -564,7 +564,7 @@
     )]</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">users</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">Int</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">users</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">Int</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The default power level for every user in the room.</span>
     <span class="doccomment">///</span>
@@ -673,7 +673,7 @@
     <span class="doccomment">/// The power levels for specific users.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a mapping from `user_id` to power level for that user.</span>
-    <span class="kw">pub</span> <span class="ident">users</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">Int</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">users</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">Int</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The default power level for every user in the room.</span>
     <span class="kw">pub</span> <span class="ident">users_default</span>: <span class="ident">Int</span>,
@@ -884,5 +884,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

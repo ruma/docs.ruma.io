@@ -241,6 +241,8 @@
 <span id="234">234</span>
 <span id="235">235</span>
 <span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
 </pre><pre class="rust"><code><span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
 <span class="doccomment">//! These types are used by other Ruma crates.</span>
 <span class="doccomment">//!</span>
@@ -284,8 +286,10 @@
 <span class="doccomment">//! [`OriginalSyncMessageLikeEvent`] struct but any [`OriginalMessageLikeEvent`] struct would work.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```rust</span>
-<span class="doccomment">//! use ruma_common::events::{macros::EventContent, OriginalSyncMessageLikeEvent};</span>
-<span class="doccomment">//! use ruma_common::EventId;</span>
+<span class="doccomment">//! use ruma_common::{</span>
+<span class="doccomment">//!     events::{macros::EventContent, OriginalSyncMessageLikeEvent},</span>
+<span class="doccomment">//!     OwnedEventId,</span>
+<span class="doccomment">//! };</span>
 <span class="doccomment">//! use serde::{Deserialize, Serialize};</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #[derive(Clone, Debug, Deserialize, Serialize)]</span>
@@ -294,7 +298,7 @@
 <span class="doccomment">//!     #[serde(rename = &quot;m.annotation&quot;)]</span>
 <span class="doccomment">//!     Annotation {</span>
 <span class="doccomment">//!         /// The event this reaction relates to.</span>
-<span class="doccomment">//!         event_id: Box&lt;EventId&gt;,</span>
+<span class="doccomment">//!         event_id: OwnedEventId,</span>
 <span class="doccomment">//!         /// The displayable content of the reaction.</span>
 <span class="doccomment">//!         key: String,</span>
 <span class="doccomment">//!     },</span>
@@ -478,5 +482,5 @@
     ))
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -192,7 +192,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EventKind</span>, <span class="ident">StaticEventContent</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">presence::PresenceState</span>, <span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">presence::PresenceState</span>, <span class="ident">OwnedMxcUri</span>, <span class="ident">OwnedUserId</span>};
 
 <span class="doccomment">/// Presence event.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Event</span>)]</span>
@@ -202,7 +202,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">PresenceEventContent</span>,
 
     <span class="doccomment">/// Contains the fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 }
 
 <span class="doccomment">/// Informs the room of members presence.</span>
@@ -221,7 +221,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::empty_string_as_none&quot;</span>)
     )]</span>
-    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedMxcUri</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Whether or not the user is currently active.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -362,5 +362,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -123,7 +123,7 @@
         <span class="ident">api::ruma_api</span>,
         <span class="ident">encryption</span>::{<span class="ident">CrossSigningKey</span>, <span class="ident">DeviceKeys</span>},
         <span class="ident">serde::Raw</span>,
-        <span class="ident">DeviceId</span>, <span class="ident">UserId</span>,
+        <span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">UserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -148,7 +148,7 @@
 
         <span class="ident">response</span>: {
             <span class="doccomment">/// The user ID devices were requested for.</span>
-            <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
             <span class="doccomment">/// A unique ID for a given user_id which describes the version of the returned device list.</span>
             <span class="doccomment">///</span>
@@ -180,7 +180,7 @@
         <span class="doccomment">/// Creates a new `Response` with the given user id and stream id.</span>
         <span class="doccomment">///</span>
         <span class="doccomment">/// The device list will be empty.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">user_id</span>,
                 <span class="ident">stream_id</span>,
@@ -196,7 +196,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">UserDevice</span> {
         <span class="doccomment">/// The device ID.</span>
-        <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>,
 
         <span class="doccomment">/// Identity keys for the device.</span>
         <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span>,
@@ -208,11 +208,11 @@
 
     <span class="kw">impl</span> <span class="ident">UserDevice</span> {
         <span class="doccomment">/// Creates a new `UserDevice` with the given device id and keys.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">keys</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>, <span class="ident">keys</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">DeviceKeys</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">device_id</span>, <span class="ident">keys</span>, <span class="ident">device_display_name</span>: <span class="prelude-val">None</span> }
         }
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

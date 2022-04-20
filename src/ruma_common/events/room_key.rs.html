@@ -91,7 +91,7 @@
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">RoomId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">OwnedRoomId</span>};
 
 <span class="doccomment">/// The content of an `m.room_key` event.</span>
 <span class="doccomment">///</span>
@@ -106,7 +106,7 @@
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
 
     <span class="doccomment">/// The room where the key is used.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// The ID of the session that the key is for.</span>
     <span class="kw">pub</span> <span class="ident">session_id</span>: <span class="ident">String</span>,
@@ -120,7 +120,7 @@
     <span class="doccomment">/// and session key.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">algorithm</span>: <span class="ident">EventEncryptionAlgorithm</span>,
-        <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+        <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
         <span class="ident">session_id</span>: <span class="ident">String</span>,
         <span class="ident">session_key</span>: <span class="ident">String</span>,
     ) -&gt; <span class="self">Self</span> {
@@ -164,5 +164,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

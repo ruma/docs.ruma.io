@@ -758,7 +758,7 @@
     },
     <span class="ident">serde</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">Incoming</span>, <span class="ident">JsonObject</span>, <span class="ident">StringEnum</span>},
     <span class="ident">thirdparty::Medium</span>,
-    <span class="ident">ClientSecret</span>, <span class="ident">SessionId</span>,
+    <span class="ident">ClientSecret</span>, <span class="ident">OwnedSessionId</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="self">self</span>, <span class="ident">DeserializeOwned</span>},
@@ -1353,7 +1353,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThirdpartyIdCredentials</span> {
     <span class="doccomment">/// Identity server session ID.</span>
-    <span class="kw">pub</span> <span class="ident">sid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SessionId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sid</span>: <span class="ident">OwnedSessionId</span>,
 
     <span class="doccomment">/// Identity server client secret.</span>
     <span class="kw">pub</span> <span class="ident">client_secret</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientSecret</span><span class="op">&gt;</span>,
@@ -1369,7 +1369,7 @@
     <span class="doccomment">/// Creates a new `ThirdpartyIdCredentials` with the given session ID, client secret, identity</span>
     <span class="doccomment">/// server address and access token.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">sid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">SessionId</span><span class="op">&gt;</span>,
+        <span class="ident">sid</span>: <span class="ident">OwnedSessionId</span>,
         <span class="ident">client_secret</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientSecret</span><span class="op">&gt;</span>,
         <span class="ident">id_server</span>: <span class="ident">String</span>,
         <span class="ident">id_access_token</span>: <span class="ident">String</span>,
@@ -1484,5 +1484,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

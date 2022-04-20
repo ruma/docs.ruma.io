@@ -83,7 +83,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#get_matrixfederationv1hierarchyroomid</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">RoomId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">RoomId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::space</span>::{<span class="ident">SpaceHierarchyChildSummary</span>, <span class="ident">SpaceHierarchyParentSummary</span>};
 
@@ -122,7 +122,7 @@
             <span class="doccomment">///</span>
             <span class="doccomment">/// Rooms which the responding server cannot provide details on will be outright</span>
             <span class="doccomment">/// excluded from the response instead.</span>
-            <span class="kw">pub</span> <span class="ident">inaccessible_children</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">inaccessible_children</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// A summary of the requested room.</span>
             <span class="kw">pub</span> <span class="ident">room</span>: <span class="ident">SpaceHierarchyParentSummary</span>,
@@ -144,5 +144,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

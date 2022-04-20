@@ -133,7 +133,7 @@
     <span class="ident">image</span>::{<span class="ident">ImageContent</span>, <span class="ident">ThumbnailContent</span>},
     <span class="ident">message::MessageContent</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">events::room::ImageInfo</span>, <span class="ident">MxcUri</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">events::room::ImageInfo</span>, <span class="ident">OwnedMxcUri</span>};
 
 <span class="doccomment">/// The content of an `m.sticker` event.</span>
 <span class="doccomment">///</span>
@@ -157,7 +157,7 @@
     <span class="kw">pub</span> <span class="ident">info</span>: <span class="ident">ImageInfo</span>,
 
     <span class="doccomment">/// The URL to the sticker image.</span>
-    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>,
 
     <span class="doccomment">/// Extensible-event text representation of the message.</span>
     <span class="doccomment">///</span>
@@ -213,7 +213,7 @@
 
 <span class="kw">impl</span> <span class="ident">StickerEventContent</span> {
     <span class="doccomment">/// Creates a new `StickerEventContent` with the given body, image info and URL.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">info</span>: <span class="ident">ImageInfo</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">info</span>: <span class="ident">ImageInfo</span>, <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
             <span class="ident">message</span>: <span class="prelude-val">Some</span>(<span class="ident">MessageContent::plain</span>(<span class="ident">body</span>.<span class="ident">clone</span>())),
@@ -236,5 +236,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

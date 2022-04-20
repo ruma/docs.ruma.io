@@ -68,7 +68,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Relation</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::Base64</span>, <span class="ident">TransactionId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::Base64</span>, <span class="ident">OwnedTransactionId</span>};
 
 <span class="doccomment">/// The content of a to-device `m.key.verification.key` event.</span>
 <span class="doccomment">///</span>
@@ -80,7 +80,7 @@
     <span class="doccomment">/// An opaque identifier for the verification process.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must be the same as the one used for the `m.key.verification.start` message.</span>
-    <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">OwnedTransactionId</span>,
 
     <span class="doccomment">/// The device&#39;s ephemeral public key, encoded as unpadded base64.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">Base64</span>,
@@ -89,7 +89,7 @@
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationKeyEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationKeyEventContent` with the given transaction ID and</span>
     <span class="doccomment">/// key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>, <span class="ident">key</span>: <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">OwnedTransactionId</span>, <span class="ident">key</span>: <span class="ident">Base64</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">key</span> }
     }
 }
@@ -116,5 +116,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

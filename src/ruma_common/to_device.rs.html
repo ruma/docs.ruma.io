@@ -98,14 +98,14 @@
     <span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>,
 };
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::DeviceId</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::OwnedDeviceId</span>;
 
 <span class="doccomment">/// Represents one or all of a user&#39;s devices.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_enums</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DeviceIdOrAllDevices</span> {
     <span class="doccomment">/// Represents a device Id for one of a user&#39;s devices.</span>
-    <span class="ident">DeviceId</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>),
+    <span class="ident">DeviceId</span>(<span class="ident">OwnedDeviceId</span>),
 
     <span class="doccomment">/// Represents all devices for a user.</span>
     <span class="ident">AllDevices</span>,
@@ -120,8 +120,8 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeviceIdOrAllDevices</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">d</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">OwnedDeviceId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DeviceIdOrAllDevices</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">d</span>: <span class="ident">OwnedDeviceId</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">DeviceIdOrAllDevices::DeviceId</span>(<span class="ident">d</span>)
     }
 }
@@ -164,5 +164,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -189,7 +189,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">serde</span>::{<span class="ident">Base64</span>, <span class="ident">StringEnum</span>},
-    <span class="ident">DeviceId</span>, <span class="ident">DeviceKeyId</span>, <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">UserId</span>,
+    <span class="ident">EventEncryptionAlgorithm</span>, <span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedDeviceKeyId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">PrivOwnedStr</span>,
 };
 
 <span class="doccomment">/// Identity keys for a device.</span>
@@ -199,21 +199,21 @@
     <span class="doccomment">/// The ID of the user the device belongs to.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must match the user ID used when logging in.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// The ID of the device these keys belong to.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Must match the device ID used when logging in.</span>
-    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>,
 
     <span class="doccomment">/// The encryption algorithms supported by this device.</span>
     <span class="kw">pub</span> <span class="ident">algorithms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventEncryptionAlgorithm</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Public identity keys.</span>
-    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Signatures for the device key object.</span>
-    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Additional data added to the device key information by intermediate servers, and</span>
     <span class="doccomment">/// not covered by the signatures.</span>
@@ -225,11 +225,11 @@
     <span class="doccomment">/// Creates a new `DeviceKeys` from the given user id, device id, algorithms, keys and</span>
     <span class="doccomment">/// signatures.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
-        <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+        <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
+        <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>,
         <span class="ident">algorithms</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EventEncryptionAlgorithm</span><span class="op">&gt;</span>,
-        <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+        <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">device_id</span>, <span class="ident">algorithms</span>, <span class="ident">keys</span>, <span class="ident">signatures</span>, <span class="ident">unsigned</span>: <span class="ident">Default::default</span>() }
     }
@@ -257,7 +257,7 @@
 }
 
 <span class="doccomment">/// Signatures for a `SignedKey` object.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">SignedKeySignatures</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">SignedKeySignatures</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// A key for the SignedCurve25519 algorithm</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
@@ -299,14 +299,14 @@
 }
 
 <span class="doccomment">/// Signatures for a `CrossSigningKey` object.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">CrossSigningKeySignatures</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">CrossSigningKeySignatures</span> <span class="op">=</span> <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// A cross signing key.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CrossSigningKey</span> {
     <span class="doccomment">/// The ID of the user the key belongs to.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// What the key is used for.</span>
     <span class="kw">pub</span> <span class="ident">usage</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeyUsage</span><span class="op">&gt;</span>,
@@ -314,7 +314,7 @@
     <span class="doccomment">/// The public key.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The object must have exactly one property.</span>
-    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Signatures of the key.</span>
     <span class="doccomment">///</span>
@@ -326,9 +326,9 @@
 <span class="kw">impl</span> <span class="ident">CrossSigningKey</span> {
     <span class="doccomment">/// Creates a new `CrossSigningKey` with the given user ID, usage, keys and signatures.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+        <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
         <span class="ident">usage</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">KeyUsage</span><span class="op">&gt;</span>,
-        <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span>,
+        <span class="ident">keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span>,
         <span class="ident">signatures</span>: <span class="ident">CrossSigningKeySignatures</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">usage</span>, <span class="ident">keys</span>, <span class="ident">signatures</span> }
@@ -354,5 +354,5 @@
     <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

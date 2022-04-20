@@ -118,7 +118,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3user_directorysearch</span>
 
     <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">uint</span>, <span class="ident">UInt</span>};
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MxcUri</span>, <span class="ident">OwnedUserId</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
     <span class="macro">ruma_api!</span> {
@@ -190,7 +190,7 @@
     <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">User</span> {
         <span class="doccomment">/// The user&#39;s matrix user ID.</span>
-        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
         <span class="doccomment">/// The display name of the user, if one exists.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -210,11 +210,11 @@
 
     <span class="kw">impl</span> <span class="ident">User</span> {
         <span class="doccomment">/// Create a new `User` with the given `UserId`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">display_name</span>: <span class="prelude-val">None</span>, <span class="ident">avatar_url</span>: <span class="prelude-val">None</span> }
         }
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

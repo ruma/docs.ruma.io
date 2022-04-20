@@ -203,7 +203,7 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Thread</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">InReplyTo</span>, <span class="ident">Reference</span>, <span class="ident">Relation</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::EventId</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::OwnedEventId</span>;
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Relation</span> {
     <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
@@ -321,7 +321,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
 <span class="kw">struct</span> <span class="ident">ThreadStableJsonRepr</span> {
     <span class="doccomment">/// The ID of the root message in the thread.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// Whether the `m.in_reply_to` field is a fallback for older clients or a real reply in a</span>
     <span class="doccomment">/// thread.</span>
@@ -334,7 +334,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
 <span class="kw">struct</span> <span class="ident">ThreadUnstableJsonRepr</span> {
     <span class="doccomment">/// The ID of the root message in the thread.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// Whether the `m.in_reply_to` field is a fallback for older clients or a real reply in a</span>
     <span class="doccomment">/// thread.</span>
@@ -382,5 +382,5 @@
     <span class="ident">Unknown</span>,
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

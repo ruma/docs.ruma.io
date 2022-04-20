@@ -323,6 +323,8 @@
 <span id="316">316</span>
 <span id="317">317</span>
 <span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [third party networks module][thirdparty].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [thirdparty]: https://spec.matrix.org/v1.2/client-server-api/#third-party-networks</span>
@@ -331,7 +333,9 @@
 
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomAliasId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">serde::StringEnum</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">OwnedRoomAliasId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">PrivOwnedStr</span>,
+};
 
 <span class="doccomment">/// Metadata about a third party protocol.</span>
 <span class="doccomment">///</span>
@@ -500,7 +504,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Location</span> {
     <span class="doccomment">/// An alias for a matrix room.</span>
-    <span class="kw">pub</span> <span class="ident">alias</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">alias</span>: <span class="ident">OwnedRoomAliasId</span>,
 
     <span class="doccomment">/// The protocol ID that the third party location is a part of.</span>
     <span class="kw">pub</span> <span class="ident">protocol</span>: <span class="ident">String</span>,
@@ -512,7 +516,7 @@
 <span class="kw">impl</span> <span class="ident">Location</span> {
     <span class="doccomment">/// Creates a new `Location` with the given alias, protocol and fields.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">alias</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>,
+        <span class="ident">alias</span>: <span class="ident">OwnedRoomAliasId</span>,
         <span class="ident">protocol</span>: <span class="ident">String</span>,
         <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {
@@ -525,7 +529,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">User</span> {
     <span class="doccomment">/// A matrix user ID representing a third party user.</span>
-    <span class="kw">pub</span> <span class="ident">userid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">userid</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// The protocol ID that the third party user is a part of.</span>
     <span class="kw">pub</span> <span class="ident">protocol</span>: <span class="ident">String</span>,
@@ -536,7 +540,7 @@
 
 <span class="kw">impl</span> <span class="ident">User</span> {
     <span class="doccomment">/// Creates a new `User` with the given userid, protocol and fields.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">userid</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">protocol</span>: <span class="ident">String</span>, <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">userid</span>: <span class="ident">OwnedUserId</span>, <span class="ident">protocol</span>: <span class="ident">String</span>, <span class="ident">fields</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">userid</span>, <span class="ident">protocol</span>, <span class="ident">fields</span> }
     }
 }
@@ -642,5 +646,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

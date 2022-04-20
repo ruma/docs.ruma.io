@@ -337,11 +337,17 @@
 <span id="330">330</span>
 <span id="331">331</span>
 <span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for room directory endpoints.</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde</span>::{<span class="ident">Incoming</span>, <span class="ident">StringEnum</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">StringEnum</span>},
+    <span class="ident">OwnedRoomAliasId</span>, <span class="ident">OwnedRoomId</span>,
+};
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="ident">Error</span>, <span class="ident">MapAccess</span>, <span class="ident">Visitor</span>},
@@ -350,7 +356,7 @@
 };
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomName</span>};
 
 <span class="doccomment">/// A chunk of a room list response, describing one room.</span>
 <span class="doccomment">///</span>
@@ -365,7 +371,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::empty_string_as_none&quot;</span>)
     )]</span>
-    <span class="kw">pub</span> <span class="ident">canonical_alias</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">canonical_alias</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedRoomAliasId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The name of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -375,7 +381,7 @@
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,
 
     <span class="doccomment">/// The ID of the room.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// The topic of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -416,7 +422,7 @@
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,
 
     <span class="doccomment">/// The ID of the room.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// Whether the room may be viewed by guest users without joining.</span>
     <span class="kw">pub</span> <span class="ident">world_readable</span>: <span class="ident">bool</span>,
@@ -670,5 +676,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

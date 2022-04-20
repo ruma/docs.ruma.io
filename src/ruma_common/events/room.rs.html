@@ -445,6 +445,8 @@
 <span id="438">438</span>
 <span id="439">439</span>
 <span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.room` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
@@ -461,9 +463,11 @@
     <span class="ident">file::FileContentInfo</span>,
     <span class="ident">image</span>::{<span class="ident">ImageContent</span>, <span class="ident">ThumbnailContent</span>, <span class="ident">ThumbnailFileContent</span>, <span class="ident">ThumbnailFileContentInfo</span>},
 };
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MxcUri</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">serde</span>::{<span class="ident">base64::UrlSafe</span>, <span class="ident">Base64</span>},
-    <span class="ident">MxcUri</span>,
+    <span class="ident">OwnedMxcUri</span>,
 };
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">aliases</span>;
@@ -493,7 +497,7 @@
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MediaSource</span> {
     <span class="doccomment">/// The MXC URI to the unencrypted media file.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;url&quot;</span>)]</span>
-    <span class="ident">Plain</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>),
+    <span class="ident">Plain</span>(<span class="ident">OwnedMxcUri</span>),
 
     <span class="doccomment">/// The encryption info of the encrypted media file.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;file&quot;</span>)]</span>
@@ -511,7 +515,7 @@
     {
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
         <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MediaSourceJsonRepr</span> {
-            <span class="ident">url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="ident">url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedMxcUri</span><span class="op">&gt;</span>,
             <span class="ident">file</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EncryptedFile</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
 
@@ -690,7 +694,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptedFile</span> {
     <span class="doccomment">/// The URL to the file.</span>
-    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>,
 
     <span class="doccomment">/// A [JSON Web Key](https://tools.ietf.org/html/rfc7517#appendix-A.3) object.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">JsonWebKey</span>,
@@ -726,7 +730,7 @@
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EncryptedFileInit</span> {
     <span class="doccomment">/// The URL to the file.</span>
-    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>,
 
     <span class="doccomment">/// A [JSON Web Key](https://tools.ietf.org/html/rfc7517#appendix-A.3) object.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">JsonWebKey</span>,
@@ -831,7 +835,7 @@
     <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>};
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde::Base64</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">mxc_uri</span>, <span class="ident">serde::Base64</span>};
 
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EncryptedFile</span>, <span class="ident">JsonWebKey</span>, <span class="ident">MediaSource</span>};
 
@@ -855,7 +859,7 @@
 
     <span class="kw">fn</span> <span class="ident">encrypted_file</span>() -&gt; <span class="ident">EncryptedFile</span> {
         <span class="ident">EncryptedFile</span> {
-            <span class="ident">url</span>: <span class="string">&quot;mxc://localhost/encrypted_file&quot;</span>.<span class="ident">into</span>(),
+            <span class="ident">url</span>: <span class="macro">mxc_uri!</span>(<span class="string">&quot;mxc://localhost/encryptedfile&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">key</span>: <span class="ident">dummy_jwt</span>(),
             <span class="ident">iv</span>: <span class="ident">Base64::new</span>(<span class="macro">vec!</span>[<span class="number">0</span>; <span class="number">64</span>]),
             <span class="ident">hashes</span>: <span class="ident">BTreeMap::new</span>(),
@@ -886,5 +890,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

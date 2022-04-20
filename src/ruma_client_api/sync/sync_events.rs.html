@@ -784,7 +784,7 @@
         },
         <span class="ident">presence::PresenceState</span>,
         <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">Raw</span>},
-        <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
+        <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">OwnedUserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -946,19 +946,19 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Rooms</span> {
         <span class="doccomment">/// The rooms that the user has left or been banned from.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">leave</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">LeftRoom</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">leave</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">LeftRoom</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// The rooms that the user has joined.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">join</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">JoinedRoom</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">join</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">JoinedRoom</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// The rooms that the user has been invited to.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">invite</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">InvitedRoom</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">invite</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">InvitedRoom</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// The rooms that the user has knocked on.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">knock</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">KnockedRoom</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">knock</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">KnockedRoom</span><span class="op">&gt;</span>,
     }
 
     <span class="kw">impl</span> <span class="ident">Rooms</span> {
@@ -1357,12 +1357,12 @@
         <span class="doccomment">/// List of users who have updated their device identity keys or who now</span>
         <span class="doccomment">/// share an encrypted room with the client since the previous sync</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">changed</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">changed</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// List of users who no longer share encrypted rooms since the previous sync</span>
         <span class="doccomment">/// response.</span>
         <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Vec::is_empty&quot;</span>)]</span>
-        <span class="kw">pub</span> <span class="ident">left</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">left</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span><span class="op">&gt;</span>,
     }
 
     <span class="kw">impl</span> <span class="ident">DeviceLists</span> {
@@ -1526,5 +1526,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

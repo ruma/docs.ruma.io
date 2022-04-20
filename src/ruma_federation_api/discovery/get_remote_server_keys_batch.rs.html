@@ -97,6 +97,7 @@
 <span id="90">90</span>
 <span id="91">91</span>
 <span id="92">92</span>
+<span id="93">93</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/key/*/query`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Query for keys from multiple servers in a batch format. The receiving (notary) server must sign</span>
@@ -110,7 +111,8 @@
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-        <span class="ident">api::ruma_api</span>, <span class="ident">serde::Raw</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>,
+        <span class="ident">api::ruma_api</span>, <span class="ident">serde::Raw</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">OwnedServerName</span>,
+        <span class="ident">OwnedServerSigningKeyId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -136,7 +138,7 @@
             <span class="doccomment">/// notary server must return an empty server_keys array in the response.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// The notary server may return multiple keys regardless of the Key IDs given.</span>
-            <span class="kw">pub</span> <span class="ident">server_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">QueryCriteria</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">server_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedServerName</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedServerSigningKeyId</span>, <span class="ident">QueryCriteria</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
         }
 
@@ -150,8 +152,8 @@
         <span class="doccomment">/// Creates a new `Request` with the given query criteria.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
             <span class="ident">server_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span>
-                <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>,
-                <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">QueryCriteria</span><span class="op">&gt;</span>,
+                <span class="ident">OwnedServerName</span>,
+                <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedServerSigningKeyId</span>, <span class="ident">QueryCriteria</span><span class="op">&gt;</span>,
             <span class="op">&gt;</span>,
         ) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">server_keys</span> }
@@ -190,5 +192,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

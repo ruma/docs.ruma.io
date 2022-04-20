@@ -1981,7 +1981,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">events::key::verification::VerificationMethod</span>,
     <span class="ident">serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">StringEnum</span>},
-    <span class="ident">DeviceId</span>, <span class="ident">EventId</span>, <span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">UserId</span>,
+    <span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedMxcUri</span>, <span class="ident">OwnedUserId</span>, <span class="ident">PrivOwnedStr</span>,
 };
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -2586,12 +2586,12 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InReplyTo</span> {
     <span class="doccomment">/// The event being replied to.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">InReplyTo</span> {
     <span class="doccomment">/// Creates a new `InReplyTo` with the given event ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span> }
     }
 }
@@ -2602,7 +2602,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Replacement</span> {
     <span class="doccomment">/// The ID of the event being replaced.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// New content.</span>
     <span class="kw">pub</span> <span class="ident">new_content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomMessageEventContent</span><span class="op">&gt;</span>,
@@ -2611,7 +2611,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
 <span class="kw">impl</span> <span class="ident">Replacement</span> {
     <span class="doccomment">/// Creates a new `Replacement` with the given event ID and new content.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">new_content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomMessageEventContent</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>, <span class="ident">new_content</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomMessageEventContent</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">new_content</span> }
     }
 }
@@ -2622,7 +2622,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Thread</span> {
     <span class="doccomment">/// The ID of the root message in the thread.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// A reply relation.</span>
     <span class="doccomment">///</span>
@@ -2643,13 +2643,13 @@
 <span class="kw">impl</span> <span class="ident">Thread</span> {
     <span class="doccomment">/// Convenience method to create a regular `Thread` with the given event ID and latest</span>
     <span class="doccomment">/// message-like event ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">latest_event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>, <span class="ident">latest_event_id</span>: <span class="ident">OwnedEventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo::new</span>(<span class="ident">latest_event_id</span>), <span class="ident">is_falling_back</span>: <span class="bool-val">true</span> }
     }
 
     <span class="doccomment">/// Convenience method to create a reply `Thread` with the given event ID and replied-to event</span>
     <span class="doccomment">/// ID.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reply</span>(<span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>, <span class="ident">reply_to_event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reply</span>(<span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>, <span class="ident">reply_to_event_id</span>: <span class="ident">OwnedEventId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">event_id</span>, <span class="ident">in_reply_to</span>: <span class="ident">InReplyTo::new</span>(<span class="ident">reply_to_event_id</span>), <span class="ident">is_falling_back</span>: <span class="bool-val">false</span> }
     }
 }
@@ -2713,7 +2713,7 @@
 <span class="kw">impl</span> <span class="ident">AudioMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `AudioMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">AudioInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">AudioInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
             <span class="ident">message</span>: <span class="prelude-val">Some</span>(<span class="ident">MessageContent::plain</span>(<span class="ident">body</span>.<span class="ident">clone</span>())),
@@ -2960,7 +2960,7 @@
 <span class="kw">impl</span> <span class="ident">FileMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `FileMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
             <span class="ident">message</span>: <span class="prelude-val">Some</span>(<span class="ident">MessageContent::plain</span>(<span class="ident">body</span>.<span class="ident">clone</span>())),
@@ -3117,7 +3117,7 @@
 <span class="kw">impl</span> <span class="ident">ImageMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `ImageMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ImageInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
             <span class="ident">message</span>: <span class="prelude-val">Some</span>(<span class="ident">MessageContent::plain</span>(<span class="ident">body</span>.<span class="ident">clone</span>())),
@@ -3666,7 +3666,7 @@
 <span class="kw">impl</span> <span class="ident">VideoMessageEventContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `VideoMessageEventContent` with the given body, url and</span>
     <span class="doccomment">/// optional extra info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">VideoInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3553&quot;</span>)]</span>
             <span class="ident">message</span>: <span class="prelude-val">Some</span>(<span class="ident">MessageContent::plain</span>(<span class="ident">body</span>.<span class="ident">clone</span>())),
@@ -3858,14 +3858,14 @@
     <span class="kw">pub</span> <span class="ident">methods</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">VerificationMethod</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The device ID which is initiating the request.</span>
-    <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">from_device</span>: <span class="ident">OwnedDeviceId</span>,
 
     <span class="doccomment">/// The user ID which should receive the request.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Users should only respond to verification requests if they are named in this field. Users</span>
     <span class="doccomment">/// who are not named in this field and who did not send this event should ignore all other</span>
     <span class="doccomment">/// events that have a `m.reference` relationship with this event.</span>
-    <span class="kw">pub</span> <span class="ident">to</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">to</span>: <span class="ident">OwnedUserId</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">KeyVerificationRequestEventContent</span> {
@@ -3874,8 +3874,8 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
         <span class="ident">body</span>: <span class="ident">String</span>,
         <span class="ident">methods</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">VerificationMethod</span><span class="op">&gt;</span>,
-        <span class="ident">from_device</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
-        <span class="ident">to</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+        <span class="ident">from_device</span>: <span class="ident">OwnedDeviceId</span>,
+        <span class="ident">to</span>: <span class="ident">OwnedUserId</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">body</span>, <span class="ident">methods</span>, <span class="ident">from_device</span>, <span class="ident">to</span> }
     }
@@ -3896,5 +3896,5 @@
     <span class="ident">data</span>: <span class="ident">JsonObject</span>,
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

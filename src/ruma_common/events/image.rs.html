@@ -316,7 +316,7 @@
         <span class="ident">ImageInfo</span>, <span class="ident">MediaSource</span>, <span class="ident">ThumbnailInfo</span>,
     },
 };
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MxcUri</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::OwnedMxcUri</span>;
 
 <span class="doccomment">/// The payload for an extensible image message.</span>
 <span class="doccomment">///</span>
@@ -515,7 +515,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ThumbnailFileContent</span> {
     <span class="doccomment">/// The URL to the thumbnail.</span>
-    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>,
 
     <span class="doccomment">/// Information about the uploaded thumbnail.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -530,14 +530,14 @@
 
 <span class="kw">impl</span> <span class="ident">ThumbnailFileContent</span> {
     <span class="doccomment">/// Creates a new non-encrypted `ThumbnailFileContent` with the given url and file info.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ThumbnailFileContentInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain</span>(<span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>, <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ThumbnailFileContentInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">url</span>, <span class="ident">info</span>, <span class="ident">encryption_info</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// Creates a new encrypted `ThumbnailFileContent` with the given url, encryption info and</span>
     <span class="doccomment">/// thumbnail file info.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypted</span>(
-        <span class="ident">url</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+        <span class="ident">url</span>: <span class="ident">OwnedMxcUri</span>,
         <span class="ident">encryption_info</span>: <span class="ident">EncryptedContent</span>,
         <span class="ident">info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ThumbnailFileContentInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {
@@ -596,5 +596,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

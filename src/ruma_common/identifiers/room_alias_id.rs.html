@@ -239,7 +239,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomAliasId</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">OwnedRoomAliasId</span>, <span class="ident">RoomAliasId</span>};
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::IdParseError</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -273,7 +273,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_room_alias_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;#ruma:example.com&quot;&quot;##</span>)
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OwnedRoomAliasId</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;#ruma:example.com&quot;&quot;##</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to RoomAliasId&quot;</span>),
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
         );
@@ -344,5 +344,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

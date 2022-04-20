@@ -102,6 +102,8 @@
 <span id="95">95</span>
 <span id="96">96</span>
 <span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for room membership.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ban_user</span>;
@@ -118,7 +120,9 @@
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-<span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">serde::Incoming</span>, <span class="ident">thirdparty::Medium</span>, <span class="ident">ServerName</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">UserId</span>};
+<span class="kw">use</span> <span class="ident">ruma_common</span>::{
+    <span class="ident">serde::Incoming</span>, <span class="ident">thirdparty::Medium</span>, <span class="ident">OwnedServerName</span>, <span class="ident">OwnedServerSigningKeyId</span>, <span class="ident">UserId</span>,
+};
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
 <span class="doccomment">/// A signature of an `m.third_party_invite` token to prove that this user owns a third party</span>
@@ -136,7 +140,7 @@
     <span class="kw">pub</span> <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
 
     <span class="doccomment">/// A signatures object containing a signature of the entire signed object.</span>
-    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedServerName</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ThirdPartySigned</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
@@ -146,7 +150,7 @@
         <span class="ident">sender</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         <span class="ident">mxid</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>,
         <span class="ident">token</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
-        <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerName</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ServerSigningKeyId</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">signatures</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedServerName</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedServerSigningKeyId</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sender</span>, <span class="ident">mxid</span>, <span class="ident">token</span>, <span class="ident">signatures</span> }
     }
@@ -200,5 +204,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

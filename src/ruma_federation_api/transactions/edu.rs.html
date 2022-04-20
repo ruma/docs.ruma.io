@@ -576,7 +576,7 @@
     <span class="ident">presence::PresenceState</span>,
     <span class="ident">serde</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">Raw</span>},
     <span class="ident">to_device::DeviceIdOrAllDevices</span>,
-    <span class="ident">DeviceId</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>, <span class="ident">TransactionId</span>, <span class="ident">UserId</span>,
+    <span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">OwnedTransactionId</span>, <span class="ident">OwnedUserId</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
@@ -670,7 +670,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PresenceUpdate</span> {
     <span class="doccomment">/// The user ID this presence EDU is for.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// The presence of the user.</span>
     <span class="kw">pub</span> <span class="ident">presence</span>: <span class="ident">PresenceState</span>,
@@ -691,7 +691,7 @@
 
 <span class="kw">impl</span> <span class="ident">PresenceUpdate</span> {
     <span class="doccomment">/// Creates a new `PresenceUpdate` with the given `user_id`, `presence` and `last_activity`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">presence</span>: <span class="ident">PresenceState</span>, <span class="ident">last_activity</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>, <span class="ident">presence</span>: <span class="ident">PresenceState</span>, <span class="ident">last_activity</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">presence</span>,
@@ -708,12 +708,12 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReceiptContent</span> {
     <span class="doccomment">/// Receipts for a particular room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ReceiptContent</span> {
     <span class="doccomment">/// Creates a new `ReceiptContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">receipts</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">ReceiptMap</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">receipts</span> }
     }
 }
@@ -724,12 +724,12 @@
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReceiptMap</span> {
     <span class="doccomment">/// Read receipts for users in the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.read&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ReceiptMap</span> {
     <span class="doccomment">/// Creates a new `ReceiptMap`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">read</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">ReceiptData</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">read</span> }
     }
 }
@@ -742,12 +742,12 @@
     <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">Receipt</span>,
 
     <span class="doccomment">/// The extremity event ID the user has read up to.</span>
-    <span class="kw">pub</span> <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedEventId</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ReceiptData</span> {
     <span class="doccomment">/// Creates a new `ReceiptData`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data</span>: <span class="ident">Receipt</span>, <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data</span>: <span class="ident">Receipt</span>, <span class="ident">event_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OwnedEventId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">data</span>, <span class="ident">event_ids</span> }
     }
 }
@@ -757,10 +757,10 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TypingContent</span> {
     <span class="doccomment">/// The room where the user&#39;s typing status has been updated.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// The user ID that has had their typing status changed.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Whether the user is typing in the room or not.</span>
     <span class="kw">pub</span> <span class="ident">typing</span>: <span class="ident">bool</span>,
@@ -768,7 +768,7 @@
 
 <span class="kw">impl</span> <span class="ident">TypingContent</span> {
     <span class="doccomment">/// Creates a new `TypingContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">typing</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>, <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>, <span class="ident">typing</span>: <span class="ident">bool</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">typing</span> }
     }
 }
@@ -778,10 +778,10 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DeviceListUpdateContent</span> {
     <span class="doccomment">/// The user ID who owns the device.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// The ID of the device whose details are changing.</span>
-    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>,
 
     <span class="doccomment">/// The public human-readable name of this device.</span>
     <span class="doccomment">///</span>
@@ -809,7 +809,7 @@
 <span class="kw">impl</span> <span class="ident">DeviceListUpdateContent</span> {
     <span class="doccomment">/// Create a new `DeviceListUpdateContent` with the given `user_id`, `device_id` and</span>
     <span class="doccomment">/// `stream_id`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">device_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceId</span><span class="op">&gt;</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>, <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>, <span class="ident">stream_id</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
             <span class="ident">user_id</span>,
             <span class="ident">device_id</span>,
@@ -827,14 +827,14 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DirectDeviceContent</span> {
     <span class="doccomment">/// The user ID of the sender.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Event type for the message.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">ev_type</span>: <span class="ident">ToDeviceEventType</span>,
 
     <span class="doccomment">/// Unique utf8 string ID for the message, used for idempotency.</span>
-    <span class="kw">pub</span> <span class="ident">message_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">message_id</span>: <span class="ident">OwnedTransactionId</span>,
 
     <span class="doccomment">/// The contents of the messages to be sent.</span>
     <span class="doccomment">///</span>
@@ -846,9 +846,9 @@
 <span class="kw">impl</span> <span class="ident">DirectDeviceContent</span> {
     <span class="doccomment">/// Creates a new `DirectDeviceContent` with the given `sender, `ev_type` and `message_id`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+        <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
         <span class="ident">ev_type</span>: <span class="ident">ToDeviceEventType</span>,
-        <span class="ident">message_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
+        <span class="ident">message_id</span>: <span class="ident">OwnedTransactionId</span>,
     ) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">sender</span>, <span class="ident">ev_type</span>, <span class="ident">message_id</span>, <span class="ident">messages</span>: <span class="ident">DirectDeviceMessages::new</span>() }
     }
@@ -858,14 +858,14 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Represented as a map of `{ user-ids =&gt; { device-ids =&gt; message-content } }`.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">DirectDeviceMessages</span> <span class="op">=</span>
-    <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">DeviceIdOrAllDevices</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyToDeviceEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+    <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedUserId</span>, <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">DeviceIdOrAllDevices</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">AnyToDeviceEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// The content for an `m.signing_key_update` EDU.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SigningKeyUpdateContent</span> {
     <span class="doccomment">/// The user ID whose cross-signing keys have changed.</span>
-    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// The user&#39;s master key, if it was updated.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
@@ -878,7 +878,7 @@
 
 <span class="kw">impl</span> <span class="ident">SigningKeyUpdateContent</span> {
     <span class="doccomment">/// Creates a new `SigningKeyUpdateContent`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">user_id</span>, <span class="ident">master_key</span>: <span class="prelude-val">None</span>, <span class="ident">self_signing_key</span>: <span class="prelude-val">None</span> }
     }
 }
@@ -1126,5 +1126,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

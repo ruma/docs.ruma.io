@@ -88,7 +88,7 @@
         <span class="ident">api::ruma_api</span>,
         <span class="ident">encryption</span>::{<span class="ident">DeviceKeys</span>, <span class="ident">OneTimeKey</span>},
         <span class="ident">serde::Raw</span>,
-        <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">DeviceKeyId</span>,
+        <span class="ident">DeviceKeyAlgorithm</span>, <span class="ident">OwnedDeviceKeyId</span>,
     };
 
     <span class="macro">ruma_api!</span> {
@@ -113,11 +113,11 @@
 
             <span class="doccomment">/// One-time public keys for &quot;pre-key&quot; messages.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">one_time_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OneTimeKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">one_time_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OneTimeKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// Fallback public keys for &quot;pre-key&quot; messages.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;BTreeMap::is_empty&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc2732.fallback_keys&quot;</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">fallback_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">DeviceKeyId</span><span class="op">&gt;</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OneTimeKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">fallback_keys</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">OwnedDeviceKeyId</span>, <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OneTimeKey</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
 
         <span class="ident">response</span>: {
@@ -144,5 +144,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

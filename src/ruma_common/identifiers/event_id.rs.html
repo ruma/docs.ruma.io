@@ -253,6 +253,8 @@
 <span id="246">246</span>
 <span id="247">247</span>
 <span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix event identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
@@ -303,8 +305,10 @@
     <span class="doccomment">/// This should only be used for events in the original format  as used by Matrix room versions</span>
     <span class="doccomment">/// 1 and 2.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rand&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="kw-2">&amp;</span><span class="ident">ServerName</span>) -&gt; <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="ident"><span class="self">Self</span>::from_box</span>(<span class="macro">format!</span>(<span class="string">&quot;${}:{}&quot;</span>, <span class="ident"><span class="kw">super</span>::generate_localpart</span>(<span class="number">18</span>), <span class="ident">server_name</span>).<span class="ident">into</span>())
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::new_ret_no_self</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server_name</span>: <span class="kw-2">&amp;</span><span class="ident">ServerName</span>) -&gt; <span class="ident">OwnedEventId</span> {
+        <span class="ident"><span class="self">Self</span>::from_borrowed</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;${}:{}&quot;</span>, <span class="ident"><span class="kw">super</span>::generate_localpart</span>(<span class="number">18</span>), <span class="ident">server_name</span>))
+            .<span class="ident">to_owned</span>()
     }
 
     <span class="doccomment">/// Returns the event&#39;s unique ID.</span>
@@ -333,7 +337,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::EventId</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">EventId</span>, <span class="ident">OwnedEventId</span>};
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::IdParseError</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -413,7 +417,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_original_event_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">r#&quot;&quot;$39hvsi03hlne:example.com&quot;&quot;#</span>)
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OwnedEventId</span><span class="op">&gt;</span>(<span class="string">r#&quot;&quot;$39hvsi03hlne:example.com&quot;&quot;#</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to EventId&quot;</span>),
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;$39hvsi03hlne:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create EventId.&quot;</span>)
         );
@@ -422,7 +426,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_base64_event_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OwnedEventId</span><span class="op">&gt;</span>(
                 <span class="string">r#&quot;&quot;$acR1l0raoZnm60CBwAVgqbZqoO/mYU81xysh1u7XcJk&quot;&quot;#</span>
             )
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to EventId&quot;</span>),
@@ -434,7 +438,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_url_safe_base64_event_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OwnedEventId</span><span class="op">&gt;</span>(
                 <span class="string">r#&quot;&quot;$Rqnc-F-dvnEYJTyHq_iKxU2bZ1CI92-kuZq3a5lr5Zg&quot;&quot;#</span>
             )
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to EventId&quot;</span>),
@@ -502,5 +506,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

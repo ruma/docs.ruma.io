@@ -227,21 +227,13 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
-<span id="223">223</span>
-<span id="224">224</span>
-<span id="225">225</span>
-<span id="226">226</span>
-<span id="227">227</span>
-<span id="228">228</span>
-<span id="229">229</span>
-<span id="230">230</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix identifiers for places where a room ID or room alias ID are used interchangeably.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">hint::unreachable_unchecked</span>};
 
 <span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">server_name::ServerName</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">server_name::ServerName</span>, <span class="ident">OwnedRoomAliasId</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>};
 
 <span class="doccomment">/// A Matrix [room ID] or a Matrix [room alias ID].</span>
 <span class="doccomment">///</span>
@@ -288,18 +280,6 @@
         <span class="self">self</span>.<span class="ident">variant</span>() <span class="op">==</span> <span class="ident">Variant::RoomAliasId</span>
     }
 
-    <span class="doccomment">/// Turn this `RoomOrAliasId` into `Either&lt;RoomId, RoomAliasId&gt;`</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;either&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_either</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>) -&gt; <span class="ident">either::Either</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">variant</span>();
-        <span class="kw">let</span> <span class="ident">boxed_str</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">into_owned</span>();
-
-        <span class="kw">match</span> <span class="ident">variant</span> {
-            <span class="ident">Variant::RoomId</span> =&gt; <span class="ident">either::Either::Left</span>(<span class="ident">RoomId::from_box</span>(<span class="ident">boxed_str</span>)),
-            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="ident">either::Either::Right</span>(<span class="ident">RoomAliasId::from_box</span>(<span class="ident">boxed_str</span>)),
-        }
-    }
-
     <span class="kw">fn</span> <span class="ident">colon_idx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">usize</span> {
         <span class="self">self</span>.<span class="ident">as_str</span>().<span class="ident">find</span>(<span class="string">&#39;:&#39;</span>).<span class="ident">unwrap</span>()
     }
@@ -331,15 +311,17 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">RoomOrAliasId::from_box</span>(<span class="ident">room_id</span>.<span class="ident">into_owned</span>())
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OwnedRoomOrAliasId</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>) -&gt; <span class="self">Self</span> {
+        <span class="comment">// FIXME: Don&#39;t allocate</span>
+        <span class="ident">RoomOrAliasId::from_borrowed</span>(<span class="ident">room_id</span>.<span class="ident">as_str</span>()).<span class="ident">to_owned</span>()
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">room_alias_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">RoomOrAliasId::from_box</span>(<span class="ident">room_alias_id</span>.<span class="ident">into_owned</span>())
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">OwnedRoomAliasId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OwnedRoomOrAliasId</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">room_alias_id</span>: <span class="ident">OwnedRoomAliasId</span>) -&gt; <span class="self">Self</span> {
+        <span class="comment">// FIXME: Don&#39;t allocate</span>
+        <span class="ident">RoomOrAliasId::from_borrowed</span>(<span class="ident">room_alias_id</span>.<span class="ident">as_str</span>()).<span class="ident">to_owned</span>()
     }
 }
 
@@ -365,24 +347,26 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>;
+<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">OwnedRoomOrAliasId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OwnedRoomId</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">OwnedRoomAliasId</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">OwnedRoomOrAliasId</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">OwnedRoomId</span>, <span class="ident">OwnedRoomAliasId</span><span class="op">&gt;</span> {
+        <span class="comment">// FIXME: Don&#39;t allocate</span>
         <span class="kw">match</span> <span class="ident">id</span>.<span class="ident">variant</span>() {
-            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">RoomId::from_box</span>(<span class="ident">id</span>.<span class="ident">into_owned</span>())),
-            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">RoomAliasId::from_box</span>(<span class="ident">id</span>.<span class="ident">into_owned</span>())),
+            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">RoomId::from_borrowed</span>(<span class="ident">id</span>.<span class="ident">as_str</span>()).<span class="ident">to_owned</span>()),
+            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">RoomAliasId::from_borrowed</span>(<span class="ident">id</span>.<span class="ident">as_str</span>()).<span class="ident">to_owned</span>()),
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>;
+<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">OwnedRoomOrAliasId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OwnedRoomAliasId</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">OwnedRoomId</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">id</span>: <span class="ident">OwnedRoomOrAliasId</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">OwnedRoomAliasId</span>, <span class="ident">OwnedRoomId</span><span class="op">&gt;</span> {
+        <span class="comment">// FIXME: Don&#39;t allocate</span>
         <span class="kw">match</span> <span class="ident">id</span>.<span class="ident">variant</span>() {
-            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">RoomAliasId::from_box</span>(<span class="ident">id</span>.<span class="ident">into_owned</span>())),
-            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">RoomId::from_box</span>(<span class="ident">id</span>.<span class="ident">into_owned</span>())),
+            <span class="ident">Variant::RoomAliasId</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">RoomAliasId::from_borrowed</span>(<span class="ident">id</span>.<span class="ident">as_str</span>()).<span class="ident">to_owned</span>()),
+            <span class="ident">Variant::RoomId</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">RoomId::from_borrowed</span>(<span class="ident">id</span>.<span class="ident">as_str</span>()).<span class="ident">to_owned</span>()),
         }
     }
 }
@@ -391,7 +375,7 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
-    <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomOrAliasId</span>;
+    <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">OwnedRoomOrAliasId</span>, <span class="ident">RoomOrAliasId</span>};
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::IdParseError</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -449,7 +433,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_room_id_or_alias_id_with_a_room_alias_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;#ruma:example.com&quot;&quot;##</span>)
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OwnedRoomOrAliasId</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;#ruma:example.com&quot;&quot;##</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to RoomAliasId&quot;</span>),
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;#ruma:example.com&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
         );
@@ -458,7 +442,7 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">deserialize_valid_room_id_or_alias_id_with_a_room_id</span>() {
         <span class="macro">assert_eq!</span>(
-            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;!29fhd83h92h0:example.com&quot;&quot;##</span>)
+            <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OwnedRoomOrAliasId</span><span class="op">&gt;</span>(<span class="string">r##&quot;&quot;!29fhd83h92h0:example.com&quot;&quot;##</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to convert JSON to RoomId&quot;</span>),
             <span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomOrAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;!29fhd83h92h0:example.com&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create RoomAliasId.&quot;</span>)
@@ -466,5 +450,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -178,7 +178,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Relation</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">TransactionId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">OwnedTransactionId</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="doccomment">/// The content of a to-device `m.key.verification.cancel` event.</span>
 <span class="doccomment">///</span>
@@ -188,7 +188,7 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.key.verification.cancel&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">ToDevice</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ToDeviceKeyVerificationCancelEventContent</span> {
     <span class="doccomment">/// The opaque identifier for the verification process/request.</span>
-    <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="ident">OwnedTransactionId</span>,
 
     <span class="doccomment">/// A human readable description of the `code`.</span>
     <span class="doccomment">///</span>
@@ -202,7 +202,7 @@
 <span class="kw">impl</span> <span class="ident">ToDeviceKeyVerificationCancelEventContent</span> {
     <span class="doccomment">/// Creates a new `ToDeviceKeyVerificationCancelEventContent` with the given transaction ID,</span>
     <span class="doccomment">/// reason and code.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">TransactionId</span><span class="op">&gt;</span>, <span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">transaction_id</span>: <span class="ident">OwnedTransactionId</span>, <span class="ident">reason</span>: <span class="ident">String</span>, <span class="ident">code</span>: <span class="ident">CancelCode</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">transaction_id</span>, <span class="ident">reason</span>, <span class="ident">code</span> }
     }
 }
@@ -336,5 +336,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

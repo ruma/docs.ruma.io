@@ -104,7 +104,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/server-server-api/#post_matrixfederationv1get_missing_eventsroomid</span>
 
     <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">uint</span>, <span class="ident">UInt</span>};
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">EventId</span>, <span class="ident">RoomId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">OwnedEventId</span>, <span class="ident">RoomId</span>};
     <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
     <span class="macro">ruma_api!</span> {
@@ -138,10 +138,10 @@
             <span class="doccomment">/// The latest event IDs that the sender already has.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// These are skipped when retrieving the previous events of `latest_events`.</span>
-            <span class="kw">pub</span> <span class="ident">earliest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>],
+            <span class="kw">pub</span> <span class="ident">earliest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">OwnedEventId</span>],
 
             <span class="doccomment">/// The event IDs to retrieve the previous events for.</span>
-            <span class="kw">pub</span> <span class="ident">latest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>],
+            <span class="kw">pub</span> <span class="ident">latest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">OwnedEventId</span>],
         }
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>)]</span>
@@ -155,8 +155,8 @@
         <span class="doccomment">/// Creates a new `Request` for events in the given room with the given constraints.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
             <span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>,
-            <span class="ident">earliest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>],
-            <span class="ident">latest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>],
+            <span class="ident">earliest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">OwnedEventId</span>],
+            <span class="ident">latest_events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">OwnedEventId</span>],
         ) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">room_id</span>,
@@ -184,5 +184,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

@@ -175,6 +175,9 @@
 <span id="168">168</span>
 <span id="169">169</span>
 <span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for [Matrix](https://matrix.org/) identifiers for devices, events, keys, rooms, servers,</span>
 <span class="doccomment">//! users and URIs.</span>
 
@@ -192,7 +195,10 @@
     <span class="ident">device_id</span>::{<span class="ident">DeviceId</span>, <span class="ident">OwnedDeviceId</span>},
     <span class="ident">device_key_id</span>::{<span class="ident">DeviceKeyId</span>, <span class="ident">OwnedDeviceKeyId</span>},
     <span class="ident">event_id</span>::{<span class="ident">EventId</span>, <span class="ident">OwnedEventId</span>},
-    <span class="ident">key_id</span>::{<span class="ident">DeviceSigningKeyId</span>, <span class="ident">KeyId</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">SigningKeyId</span>},
+    <span class="ident">key_id</span>::{
+        <span class="ident">DeviceSigningKeyId</span>, <span class="ident">KeyId</span>, <span class="ident">OwnedDeviceSigningKeyId</span>, <span class="ident">OwnedKeyId</span>, <span class="ident">OwnedServerSigningKeyId</span>,
+        <span class="ident">OwnedSigningKeyId</span>, <span class="ident">ServerSigningKeyId</span>, <span class="ident">SigningKeyId</span>,
+    },
     <span class="ident">key_name</span>::{<span class="ident">KeyName</span>, <span class="ident">OwnedKeyName</span>},
     <span class="ident">matrix_uri</span>::{<span class="ident">MatrixToUri</span>, <span class="ident">MatrixUri</span>},
     <span class="ident">mxc_uri</span>::{<span class="ident">MxcUri</span>, <span class="ident">OwnedMxcUri</span>},
@@ -346,5 +352,5 @@
     };
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

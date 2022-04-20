@@ -603,6 +603,7 @@
 <span id="596">596</span>
 <span id="597">597</span>
 <span id="598">598</span>
+<span id="599">599</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::Event</span>;
@@ -618,7 +619,8 @@
     <span class="ident">StateUnsigned</span>, <span class="ident">ToDeviceEventContent</span>,
 };
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">serde::from_raw_json_value</span>, <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>,
+    <span class="ident">serde::from_raw_json_value</span>, <span class="ident">EventId</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedRoomId</span>,
+    <span class="ident">OwnedUserId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>,
 };
 
 <span class="doccomment">/// A global account data event.</span>
@@ -642,7 +644,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 }
 
 <span class="doccomment">/// An ephemeral room event without a `room_id`.</span>
@@ -662,16 +664,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">MessageLikeUnsigned</span>,
@@ -687,10 +689,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -709,16 +711,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// Additional key-value pairs not signed by the homeserver.</span>
     <span class="kw">pub</span> <span class="ident">unsigned</span>: <span class="ident">RedactedUnsigned</span>,
@@ -734,10 +736,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -792,16 +794,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
@@ -823,10 +825,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -848,7 +850,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
@@ -883,16 +885,16 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
 
     <span class="doccomment">/// The ID of the room associated with this event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// A unique key which defines the overwriting semantics for this piece of room state.</span>
     <span class="doccomment">///</span>
@@ -914,10 +916,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The globally unique event identifier for the user who sent the event.</span>
-    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">EventId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">event_id</span>: <span class="ident">OwnedEventId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// Timestamp in milliseconds on originating homeserver when this event was sent.</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="ident">MilliSecondsSinceUnixEpoch</span>,
@@ -975,7 +977,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 }
 
 <span class="doccomment">/// The decrypted payload of an `m.olm.v1.curve25519-aes-sha2` event.</span>
@@ -985,10 +987,10 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the user who sent this event.</span>
-    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">sender</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// The fully-qualified ID of the intended recipient this event.</span>
-    <span class="kw">pub</span> <span class="ident">recipient</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">recipient</span>: <span class="ident">OwnedUserId</span>,
 
     <span class="doccomment">/// The recipient&#39;s ed25519 key.</span>
     <span class="kw">pub</span> <span class="ident">recipient_keys</span>: <span class="ident">OlmV1Keys</span>,
@@ -1011,7 +1013,7 @@
     <span class="kw">pub</span> <span class="ident">content</span>: <span class="ident">C</span>,
 
     <span class="doccomment">/// The ID of the room associated with the event.</span>
-    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 }
 
 <span class="macro">macro_rules!</span> <span class="ident">impl_possibly_redacted_event</span> {
@@ -1122,7 +1124,7 @@
     }
 
     <span class="doccomment">/// Convert this sync event into a full event (one with a `room_id` field).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_full_event</span>(<span class="self">self</span>, <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="ident">MessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_full_event</span>(<span class="self">self</span>, <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>) -&gt; <span class="ident">MessageLikeEvent</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="ident">MessageLikeEvent::Original</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
             <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="ident">MessageLikeEvent::Redacted</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
@@ -1174,7 +1176,7 @@
     }
 
     <span class="doccomment">/// Convert this sync event into a full event (one with a `room_id` field).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_full_event</span>(<span class="self">self</span>, <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_full_event</span>(<span class="self">self</span>, <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>) -&gt; <span class="ident">StateEvent</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="ident">StateEvent::Original</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
             <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="ident">StateEvent::Redacted</span>(<span class="ident">ev</span>.<span class="ident">into_full_event</span>(<span class="ident">room_id</span>)),
@@ -1202,5 +1204,5 @@
 <span class="macro">impl_sync_from_full!</span>(<span class="ident">SyncMessageLikeEvent</span>, <span class="ident">MessageLikeEvent</span>, <span class="ident">MessageLikeEventContent</span>);
 <span class="macro">impl_sync_from_full!</span>(<span class="ident">SyncStateEvent</span>, <span class="ident">StateEvent</span>, <span class="ident">StateEventContent</span>);
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

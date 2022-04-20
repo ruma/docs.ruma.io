@@ -86,7 +86,7 @@
 
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">UserId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">OwnedUserId</span>};
 
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::lookup::IdentifierHashingAlgorithm</span>;
 
@@ -122,7 +122,7 @@
             <span class="doccomment">///</span>
             <span class="doccomment">/// Addresses which do not have associations will not be included, which can make this</span>
             <span class="doccomment">/// property be an empty object.</span>
-            <span class="kw">pub</span> <span class="ident">mappings</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">mappings</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">OwnedUserId</span><span class="op">&gt;</span>,
         }
     }
 
@@ -140,11 +140,11 @@
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Create a `Response` with the BTreeMap which map addresses from the request which were</span>
         <span class="doccomment">/// found to their corresponding User IDs.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mappings</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">mappings</span>: <span class="ident">BTreeMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">OwnedUserId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">mappings</span> }
         }
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_identity_service_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_identity_service_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>

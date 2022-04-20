@@ -237,7 +237,7 @@
         },
         <span class="ident">room::RoomType</span>,
         <span class="ident">serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
-        <span class="ident">RoomId</span>, <span class="ident">RoomName</span>, <span class="ident">RoomVersionId</span>, <span class="ident">UserId</span>,
+        <span class="ident">OwnedRoomId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">RoomName</span>, <span class="ident">RoomVersionId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -275,7 +275,7 @@
             <span class="doccomment">///</span>
             <span class="doccomment">/// This will tell the server to invite everyone in the list to the newly created room.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">invite</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>],
+            <span class="kw">pub</span> <span class="ident">invite</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">OwnedUserId</span>],
 
             <span class="doccomment">/// List of third party IDs of users to invite.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;&lt;[_]&gt;::is_empty&quot;</span>)]</span>
@@ -323,7 +323,7 @@
 
         <span class="ident">response</span>: {
             <span class="doccomment">/// The created room&#39;s ID.</span>
-            <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
         }
 
         <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -338,7 +338,7 @@
 
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Creates a new `Response` with the given room id.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomId</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">room_id</span> }
         }
     }
@@ -381,7 +381,7 @@
         <span class="doccomment">/// a `RoomCreateEventContent`.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_event_content</span>(
             <span class="self">self</span>,
-            <span class="ident">creator</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">UserId</span><span class="op">&gt;</span>,
+            <span class="ident">creator</span>: <span class="ident">OwnedUserId</span>,
             <span class="ident">room_version</span>: <span class="ident">RoomVersionId</span>,
         ) -&gt; <span class="ident">RoomCreateEventContent</span> {
             <span class="macro">assign!</span>(<span class="ident">RoomCreateEventContent::new</span>(<span class="ident">creator</span>), {
@@ -432,5 +432,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (311e2683e 2022-04-18)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
 </body></html>
