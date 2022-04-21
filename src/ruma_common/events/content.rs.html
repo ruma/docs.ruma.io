@@ -185,9 +185,10 @@
 <span id="178">178</span>
 <span id="179">179</span>
 <span id="180">180</span>
+<span id="181">181</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="kw">use</span> <span class="ident">serde::Serialize</span>;
+<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::DeserializeOwned</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde::Raw</span>;
@@ -351,20 +352,21 @@
     <span class="doccomment">/// An alias for `EventContent&lt;EventType = MessageLikeEventType&gt;`.</span>
     <span class="kw">trait</span> <span class="ident">MessageLikeEventContent</span> <span class="op">=</span> <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// An alias for `EventContent&lt;EventType = MessageLikeEventType&gt; + RedactedEventContent`.</span>
-    <span class="kw">trait</span> <span class="ident">RedactedMessageLikeEventContent</span> <span class="op">=</span>
-        <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">MessageLikeEventType</span><span class="op">&gt;</span>, <span class="ident">RedactedEventContent</span>;
+    <span class="doccomment">/// An alias for `MessageLikeEventContent + RedactedEventContent`.</span>
+    <span class="kw">trait</span> <span class="ident">RedactedMessageLikeEventContent</span> <span class="op">=</span> <span class="ident">MessageLikeEventContent</span>, <span class="ident">RedactedEventContent</span>;
 
-    <span class="doccomment">/// An alias for `EventContent&lt;EventType = StateEventType&gt;`.</span>
-    <span class="kw">trait</span> <span class="ident">StateEventContent</span> <span class="op">=</span> <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span>;
-
-    <span class="doccomment">/// An alias for `EventContent&lt;EventType = StateEventType&gt; + RedactedEventContent`.</span>
-    <span class="kw">trait</span> <span class="ident">RedactedStateEventContent</span> <span class="op">=</span>
-        <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span>, <span class="ident">RedactedEventContent</span>;
+    <span class="doccomment">/// An alias for `StateEventContent + RedactedEventContent`.</span>
+    <span class="kw">trait</span> <span class="ident">RedactedStateEventContent</span> <span class="op">=</span> <span class="ident">StateEventContent</span>, <span class="ident">RedactedEventContent</span>;
 
     <span class="doccomment">/// An alias for `EventContent&lt;EventType = ToDeviceEventType&gt;`.</span>
     <span class="kw">trait</span> <span class="ident">ToDeviceEventContent</span> <span class="op">=</span> <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">ToDeviceEventType</span><span class="op">&gt;</span>;
 }
+
+<span class="doccomment">/// An alias for `EventContent&lt;EventType = StateEventType&gt;`.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">StateEventContent</span>: <span class="ident">EventContent</span><span class="op">&lt;</span><span class="ident">EventType</span> <span class="op">=</span> <span class="ident">StateEventType</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// The type of the event&#39;s `state_key` field.</span>
+    <span class="kw">type</span> <span class="ident">StateKey</span>: <span class="ident">AsRef</span><span class="op">&lt;</span><span class="ident">str</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Clone</span> <span class="op">+</span> <span class="ident">fmt::Debug</span> <span class="op">+</span> <span class="ident">DeserializeOwned</span> <span class="op">+</span> <span class="ident">Serialize</span>;
+}
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (879aff385 2022-04-20)" ></div>
 </body></html>

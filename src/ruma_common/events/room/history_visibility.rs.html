@@ -100,7 +100,7 @@
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">events::EmptyStateKey</span>, <span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="doccomment">/// The content of an `m.room.history_visibility` event.</span>
 <span class="doccomment">///</span>
@@ -108,7 +108,7 @@
 <span class="doccomment">/// before they joined.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>, <span class="ident">EventContent</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.history_visibility&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>)]</span>
+<span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.room.history_visibility&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">State</span>, <span class="ident">state_key_type</span> <span class="op">=</span> <span class="ident">EmptyStateKey</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RoomHistoryVisibilityEventContent</span> {
     <span class="doccomment">/// Who can see the room history.</span>
     <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="ident">skip_redaction</span>)]</span>
@@ -182,5 +182,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (879aff385 2022-04-20)" ></div>
 </body></html>

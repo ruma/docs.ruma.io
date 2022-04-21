@@ -243,6 +243,8 @@
 <span id="236">236</span>
 <span id="237">237</span>
 <span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
 </pre><pre class="rust"><code><span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
 <span class="doccomment">//! These types are used by other Ruma crates.</span>
 <span class="doccomment">//!</span>
@@ -273,7 +275,7 @@
 <span class="doccomment">//! use serde::{Deserialize, Serialize};</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! #[derive(Clone, Debug, Deserialize, Serialize, EventContent)]</span>
-<span class="doccomment">//! #[ruma_event(type = &quot;org.example.event&quot;, kind = State)]</span>
+<span class="doccomment">//! #[ruma_event(type = &quot;org.example.event&quot;, kind = State, state_key_type = String)]</span>
 <span class="doccomment">//! pub struct ExampleContent {</span>
 <span class="doccomment">//!     field: String,</span>
 <span class="doccomment">//! }</span>
@@ -358,6 +360,7 @@
 <span class="kw">mod</span> <span class="ident">content</span>;
 <span class="kw">mod</span> <span class="ident">enums</span>;
 <span class="kw">mod</span> <span class="ident">kinds</span>;
+<span class="kw">mod</span> <span class="ident">state_key</span>;
 <span class="kw">mod</span> <span class="ident">unsigned</span>;
 
 <span class="doccomment">/// Re-export of all the derives needed to create your own event types.</span>
@@ -415,6 +418,7 @@
     <span class="ident">content</span>::<span class="kw-2">*</span>,
     <span class="ident">enums</span>::<span class="kw-2">*</span>,
     <span class="ident">kinds</span>::<span class="kw-2">*</span>,
+    <span class="ident">state_key::EmptyStateKey</span>,
     <span class="ident">unsigned</span>::{<span class="ident">MessageLikeUnsigned</span>, <span class="ident">RedactedUnsigned</span>, <span class="ident">StateUnsigned</span>},
 };
 
@@ -482,5 +486,5 @@
     ))
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4ca19e09d 2022-04-19)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (879aff385 2022-04-20)" ></div>
 </body></html>
