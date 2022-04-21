@@ -160,7 +160,7 @@
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
-        <span class="ident">events::room::member::OriginalRoomMemberEvent</span>,
+        <span class="ident">events::room::member::RoomMemberEvent</span>,
         <span class="ident">serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
         <span class="ident">RoomId</span>,
     };
@@ -211,7 +211,7 @@
 
         <span class="ident">response</span>: {
             <span class="doccomment">/// A list of member events.</span>
-            <span class="kw">pub</span> <span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OriginalRoomMemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomMemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         }
 
         <span class="ident">error</span>: <span class="ident"><span class="kw">crate</span>::Error</span>
@@ -226,7 +226,7 @@
 
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Creates a new `Response` with the given member event chunk.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OriginalRoomMemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chunk</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomMemberEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> { <span class="ident">chunk</span> }
         }
     }
