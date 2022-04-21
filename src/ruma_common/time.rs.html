@@ -117,6 +117,27 @@
 <span id="110">110</span>
 <span id="111">111</span>
 <span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">convert::TryInto</span>,
     <span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">SystemTime</span>, <span class="ident">UNIX_EPOCH</span>},
@@ -140,9 +161,13 @@
         <span class="prelude-val">Some</span>(<span class="self">Self</span>(<span class="ident">millis</span>))
     }
 
-    <span class="doccomment">/// The current milliseconds since the unix epoch.</span>
+    <span class="doccomment">/// The current system time in milliseconds since the unix epoch.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">now</span>() -&gt; <span class="self">Self</span> {
-        <span class="ident"><span class="self">Self</span>::from_system_time</span>(<span class="ident">SystemTime::now</span>()).<span class="ident">unwrap</span>()
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">all</span>(<span class="ident">target_arch</span> <span class="op">=</span> <span class="string">&quot;wasm32&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;js&quot;</span>)))]</span>
+        <span class="kw">return</span> <span class="ident"><span class="self">Self</span>::from_system_time</span>(<span class="ident">SystemTime::now</span>()).<span class="ident">expect</span>(<span class="string">&quot;date out of range&quot;</span>);
+
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">target_arch</span> <span class="op">=</span> <span class="string">&quot;wasm32&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;js&quot;</span>))]</span>
+        <span class="kw">return</span> <span class="self">Self</span>(<span class="ident">f64_to_uint</span>(<span class="ident">js_sys::Date::now</span>()));
     }
 
     <span class="doccomment">/// Creates a new `SystemTime` from `self`, if it can be represented.</span>
@@ -176,6 +201,15 @@
         <span class="prelude-val">Some</span>(<span class="self">Self</span>(<span class="ident">millis</span>))
     }
 
+    <span class="doccomment">/// The current system-time as seconds since the unix epoch.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">now</span>() -&gt; <span class="self">Self</span> {
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">all</span>(<span class="ident">target_arch</span> <span class="op">=</span> <span class="string">&quot;wasm32&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;js&quot;</span>)))]</span>
+        <span class="kw">return</span> <span class="ident"><span class="self">Self</span>::from_system_time</span>(<span class="ident">SystemTime::now</span>()).<span class="ident">expect</span>(<span class="string">&quot;date out of range&quot;</span>);
+
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">target_arch</span> <span class="op">=</span> <span class="string">&quot;wasm32&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;js&quot;</span>))]</span>
+        <span class="kw">return</span> <span class="self">Self</span>(<span class="ident">f64_to_uint</span>(<span class="ident">js_sys::Date::now</span>() <span class="op">/</span> <span class="number">1000.0</span>));
+    }
+
     <span class="doccomment">/// Creates a new `SystemTime` from `self`, if it can be represented.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_system_time</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SystemTime</span><span class="op">&gt;</span> {
         <span class="ident">UNIX_EPOCH</span>.<span class="ident">checked_add</span>(<span class="ident">Duration::from_secs</span>(<span class="self">self</span>.<span class="number">0</span>.<span class="ident">into</span>()))
@@ -185,6 +219,14 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">UInt</span> {
         <span class="self">self</span>.<span class="number">0</span>
     }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">target_arch</span> <span class="op">=</span> <span class="string">&quot;wasm32&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;unknown&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;js&quot;</span>))]</span>
+<span class="kw">fn</span> <span class="ident">f64_to_uint</span>(<span class="ident">val</span>: <span class="ident">f64</span>) -&gt; <span class="ident">UInt</span> {
+    <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
+    <span class="comment">// UInt::MAX milliseconds is ~285 616 years, we do not account for that</span>
+    <span class="comment">// (or for dates before the unix epoch which would have to be negative)</span>
+    <span class="ident">UInt::try_from</span>(<span class="ident">val</span> <span class="kw">as</span> <span class="ident">u64</span>).<span class="ident">expect</span>(<span class="string">&quot;date out of range&quot;</span>)
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
