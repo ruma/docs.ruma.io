@@ -129,7 +129,7 @@
 
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MxcUri</span>, <span class="ident">OwnedUserId</span>, <span class="ident">RoomId</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">OwnedMxcUri</span>, <span class="ident">OwnedUserId</span>, <span class="ident">RoomId</span>};
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
     <span class="macro">ruma_api!</span> {
@@ -190,7 +190,7 @@
             <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
             <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::empty_string_as_none&quot;</span>)
         )]</span>
-        <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedMxcUri</span><span class="op">&gt;</span>,
     }
 
     <span class="kw">impl</span> <span class="ident">RoomMember</span> {

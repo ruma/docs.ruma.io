@@ -106,7 +106,7 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixmediav3upload</span>
 
-    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">MxcUri</span>};
+    <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">OwnedMxcUri</span>};
 
     <span class="macro">ruma_api!</span> {
         <span class="ident">metadata</span>: {
@@ -151,7 +151,7 @@
 
         <span class="ident">response</span>: {
             <span class="doccomment">/// The MXC URI for the uploaded content.</span>
-            <span class="kw">pub</span> <span class="ident">content_uri</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">content_uri</span>: <span class="ident">OwnedMxcUri</span>,
 
             <span class="doccomment">/// The [BlurHash](https://blurha.sh) for the uploaded content.</span>
             <span class="doccomment">///</span>
@@ -184,7 +184,7 @@
 
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Creates a new `Response` with the given MXC URI.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">content_uri</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">content_uri</span>: <span class="ident">OwnedMxcUri</span>) -&gt; <span class="self">Self</span> {
             <span class="self">Self</span> {
                 <span class="ident">content_uri</span>,
                 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2448&quot;</span>)]</span>

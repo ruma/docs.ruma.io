@@ -743,6 +743,7 @@
 <span id="736">736</span>
 <span id="737">737</span>
 <span id="738">738</span>
+<span id="739">739</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.member`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.member`]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
@@ -759,7 +760,8 @@
         <span class="ident">StateEventType</span>,
     },
     <span class="ident">serde::StringEnum</span>,
-    <span class="ident">MxcUri</span>, <span class="ident">OwnedServerName</span>, <span class="ident">OwnedServerSigningKeyId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomVersionId</span>,
+    <span class="ident">OwnedMxcUri</span>, <span class="ident">OwnedServerName</span>, <span class="ident">OwnedServerSigningKeyId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">PrivOwnedStr</span>,
+    <span class="ident">RoomVersionId</span>,
 };
 
 <span class="kw">mod</span> <span class="ident">change</span>;
@@ -800,7 +802,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::empty_string_as_none&quot;</span>)
     )]</span>
-    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedMxcUri</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The display name for this user, if any.</span>
     <span class="doccomment">///</span>

@@ -356,7 +356,7 @@
 };
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomName</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">OwnedMxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomName</span>};
 
 <span class="doccomment">/// A chunk of a room list response, describing one room.</span>
 <span class="doccomment">///</span>
@@ -404,7 +404,7 @@
         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compat&quot;</span>,
         <span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;crate::serde::empty_string_as_none&quot;</span>)
     )]</span>
-    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedMxcUri</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The join rule of the room.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;crate::serde::is_default&quot;</span>)]</span>

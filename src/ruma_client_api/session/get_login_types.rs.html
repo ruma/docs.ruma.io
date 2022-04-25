@@ -452,7 +452,7 @@
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
         <span class="ident">serde</span>::{<span class="ident">JsonObject</span>, <span class="ident">StringEnum</span>},
-        <span class="ident">MxcUri</span>,
+        <span class="ident">OwnedMxcUri</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::DeserializeOwned</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
     <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
@@ -619,7 +619,7 @@
         <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
 
         <span class="doccomment">/// The icon for the provider.</span>
-        <span class="kw">pub</span> <span class="ident">icon</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+        <span class="kw">pub</span> <span class="ident">icon</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedMxcUri</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// The brand identifier for the provider.</span>
         <span class="kw">pub</span> <span class="ident">brand</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">IdentityProviderBrand</span><span class="op">&gt;</span>,
