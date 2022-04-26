@@ -102,12 +102,30 @@
 <span id="95">95</span>
 <span id="96">96</span>
 <span id="97">97</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-
-<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::MembershipState</span>;
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident"><span class="kw">super</span>::MembershipState</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MxcUri</span>, <span class="ident">UserId</span>};
 
 <span class="doccomment">/// The details of a member event required to calculate a [`MembershipChange`].</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">avatar_url</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MxcUri</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">displayname</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
@@ -115,9 +133,9 @@
 }
 
 <span class="doccomment">/// Translation of the membership change in `m.room.member` event.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MembershipChange</span> {
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MembershipChange</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// No change.</span>
     <span class="prelude-val">None</span>,
 
@@ -153,25 +171,45 @@
 
     <span class="doccomment">/// `displayname` or `avatar_url` changed.</span>
     <span class="ident">ProfileChanged</span> {
-        <span class="doccomment">/// Whether the `displayname` changed.</span>
-        <span class="ident">displayname_changed</span>: <span class="ident">bool</span>,
+        <span class="doccomment">/// The details of the displayname change, if applicable.</span>
+        <span class="ident">displayname_change</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Change</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
-        <span class="doccomment">/// Whether the `avatar_url` changed.</span>
-        <span class="ident">avatar_url_changed</span>: <span class="ident">bool</span>,
+        <span class="doccomment">/// The details of the avatar url change, if applicable.</span>
+        <span class="ident">avatar_url_change</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Change</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">MxcUri</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     },
 
     <span class="doccomment">/// Not implemented.</span>
     <span class="ident">NotImplemented</span>,
 }
 
+<span class="doccomment">/// A simple representation of a change, containing old and new data.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Change</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// The old data.</span>
+    <span class="kw">pub</span> <span class="ident">old</span>: <span class="ident">T</span>,
+
+    <span class="doccomment">/// The new data.</span>
+    <span class="kw">pub</span> <span class="ident">new</span>: <span class="ident">T</span>,
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">PartialEq</span><span class="op">&gt;</span> <span class="ident">Change</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">old</span>: <span class="ident">T</span>, <span class="ident">new</span>: <span class="ident">T</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">old</span> <span class="op">==</span> <span class="ident">new</span> {
+            <span class="prelude-val">None</span>
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Some</span>(<span class="self">Self</span> { <span class="ident">old</span>, <span class="ident">new</span> })
+        }
+    }
+}
+
 <span class="doccomment">/// Internal function so all `RoomMemberEventContent` state event kinds can share the same</span>
 <span class="doccomment">/// implementation.</span>
-<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">membership_change</span>(
-    <span class="ident">details</span>: <span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>,
-    <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">membership_change</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
+    <span class="ident">details</span>: <span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+    <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">sender</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>,
     <span class="ident">state_key</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>,
-) -&gt; <span class="ident">MembershipChange</span> {
+) -&gt; <span class="ident">MembershipChange</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">use</span> <span class="ident">MembershipChange</span> <span class="kw">as</span> <span class="ident">Ch</span>;
     <span class="kw">use</span> <span class="ident">MembershipState</span> <span class="kw">as</span> <span class="ident">St</span>;
 
@@ -188,8 +226,8 @@
         (<span class="ident">St::Invite</span>, <span class="ident">St::Ban</span>) <span class="op">|</span> (<span class="ident">St::Leave</span>, <span class="ident">St::Ban</span>) =&gt; <span class="ident">Ch::Banned</span>,
         (<span class="ident">St::Join</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Invite</span>) <span class="op">|</span> (<span class="ident">St::Ban</span>, <span class="ident">St::Join</span>) =&gt; <span class="ident">Ch::Error</span>,
         (<span class="ident">St::Join</span>, <span class="ident">St::Join</span>) =&gt; <span class="ident">Ch::ProfileChanged</span> {
-            <span class="ident">displayname_changed</span>: <span class="ident">prev_details</span>.<span class="ident">displayname</span> <span class="op">!</span><span class="op">=</span> <span class="ident">details</span>.<span class="ident">displayname</span>,
-            <span class="ident">avatar_url_changed</span>: <span class="ident">prev_details</span>.<span class="ident">avatar_url</span> <span class="op">!</span><span class="op">=</span> <span class="ident">details</span>.<span class="ident">avatar_url</span>,
+            <span class="ident">displayname_change</span>: <span class="ident">Change::new</span>(<span class="ident">prev_details</span>.<span class="ident">displayname</span>, <span class="ident">details</span>.<span class="ident">displayname</span>),
+            <span class="ident">avatar_url_change</span>: <span class="ident">Change::new</span>(<span class="ident">prev_details</span>.<span class="ident">avatar_url</span>, <span class="ident">details</span>.<span class="ident">avatar_url</span>),
         },
         (<span class="ident">St::Join</span>, <span class="ident">St::Leave</span>) <span class="kw">if</span> <span class="ident">sender</span> <span class="op">==</span> <span class="ident">state_key</span> =&gt; <span class="ident">Ch::Left</span>,
         (<span class="ident">St::Join</span>, <span class="ident">St::Leave</span>) =&gt; <span class="ident">Ch::Kicked</span>,

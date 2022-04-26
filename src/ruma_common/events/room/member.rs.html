@@ -1069,7 +1069,7 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">membership_change</span>(<span class="self">self</span>.<span class="ident">details</span>(), <span class="self">self</span>.<span class="ident">prev_details</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
@@ -1092,10 +1092,10 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
+        <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="ident">MembershipChange</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">membership_change</span>(<span class="self">self</span>.<span class="ident">details</span>(), <span class="ident">prev_details</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
@@ -1125,7 +1125,7 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">MembershipChange</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="ident">membership_change</span>(<span class="self">self</span>.<span class="ident">details</span>(), <span class="self">self</span>.<span class="ident">prev_details</span>(), <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
@@ -1148,10 +1148,10 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
+        <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="ident">MembershipChange</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">membership_change</span>(<span class="self">self</span>.<span class="ident">details</span>(), <span class="ident">prev_details</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
@@ -1174,10 +1174,10 @@
     <span class="doccomment">/// Check [the specification][spec] for details.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [spec]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="ident">MembershipChange</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership_change</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
+        <span class="ident">prev_details</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MembershipDetails</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="ident">MembershipChange</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">membership_change</span>(<span class="self">self</span>.<span class="ident">details</span>(), <span class="ident">prev_details</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">sender</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">state_key</span>)
     }
 }
