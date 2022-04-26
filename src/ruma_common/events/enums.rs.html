@@ -340,6 +340,8 @@
 <span id="333">333</span>
 <span id="334">334</span>
 <span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros</span>::{<span class="ident">event_enum</span>, <span class="ident">EventEnumFromEvent</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -360,6 +362,8 @@
         <span class="string">&quot;m.direct&quot;</span>,
         <span class="string">&quot;m.ignored_user_list&quot;</span>,
         <span class="string">&quot;m.push_rules&quot;</span>,
+        <span class="string">&quot;m.secret_storage.default_key&quot;</span>,
+        <span class="string">&quot;m.secret_storage.key.*&quot;</span>,
     }
 
     <span class="doccomment">/// Any room account data event.</span>
