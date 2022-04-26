@@ -464,6 +464,71 @@
 <span id="457">457</span>
 <span id="458">458</span>
 <span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.power_levels`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.power_levels`]: https://spec.matrix.org/v1.2/client-server-api/#mroompower_levels</span>
@@ -475,7 +540,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">events</span>::{<span class="ident">EmptyStateKey</span>, <span class="ident">RoomEventType</span>},
+    <span class="ident">events</span>::{<span class="ident">EmptyStateKey</span>, <span class="ident">MessageLikeEventType</span>, <span class="ident">RoomEventType</span>, <span class="ident">StateEventType</span>},
     <span class="ident">power_levels</span>::{<span class="ident">default_power_level</span>, <span class="ident">NotificationPowerLevels</span>},
     <span class="ident">OwnedUserId</span>, <span class="ident">UserId</span>,
 };
@@ -710,6 +775,37 @@
         <span class="self">self</span>.<span class="ident">users</span>.<span class="ident">get</span>(<span class="ident">user_id</span>).<span class="ident">map_or</span>(<span class="self">self</span>.<span class="ident">users_default</span>, <span class="op">|</span><span class="ident">pl</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">pl</span>)
     }
 
+    <span class="doccomment">/// Whether the given user can do the given action based on the power levels.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">user_can_do</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">user_id</span>: <span class="kw-2">&amp;</span><span class="ident">UserId</span>, <span class="ident">action</span>: <span class="ident">PowerLevelAction</span>) -&gt; <span class="ident">bool</span> {
+        <span class="kw">let</span> <span class="ident">user_pl</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">for_user</span>(<span class="ident">user_id</span>);
+
+        <span class="kw">match</span> <span class="ident">action</span> {
+            <span class="ident">PowerLevelAction::Ban</span> =&gt; <span class="ident">user_pl</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">ban</span>,
+            <span class="ident">PowerLevelAction::Invite</span> =&gt; <span class="ident">user_pl</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">invite</span>,
+            <span class="ident">PowerLevelAction::Kick</span> =&gt; <span class="ident">user_pl</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">kick</span>,
+            <span class="ident">PowerLevelAction::Redact</span> =&gt; <span class="ident">user_pl</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">redact</span>,
+            <span class="ident">PowerLevelAction::SendMessage</span>(<span class="ident">message_type</span>) =&gt; {
+                <span class="ident">user_pl</span>
+                    <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>
+                        .<span class="ident">events</span>
+                        .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">message_type</span>.<span class="ident">to_string</span>().<span class="ident">into</span>())
+                        .<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>)
+                        .<span class="ident">unwrap_or</span>(<span class="self">self</span>.<span class="ident">events_default</span>)
+            }
+            <span class="ident">PowerLevelAction::SendState</span>(<span class="ident">state_type</span>) =&gt; {
+                <span class="ident">user_pl</span>
+                    <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>
+                        .<span class="ident">events</span>
+                        .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">state_type</span>.<span class="ident">to_string</span>().<span class="ident">into</span>())
+                        .<span class="ident">map</span>(<span class="ident">ToOwned::to_owned</span>)
+                        .<span class="ident">unwrap_or</span>(<span class="self">self</span>.<span class="ident">state_default</span>)
+            }
+            <span class="ident">PowerLevelAction::TriggerNotification</span>(<span class="ident">notification_type</span>) =&gt; <span class="kw">match</span> <span class="ident">notification_type</span> {
+                <span class="ident">NotificationPowerLevelType::Room</span> =&gt; <span class="ident">user_pl</span> <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">notifications</span>.<span class="ident">room</span>,
+            },
+        }
+    }
+
     <span class="doccomment">/// Get the maximum power level of any user.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Int</span> {
         <span class="self">self</span>.<span class="ident">users</span>.<span class="ident">values</span>().<span class="ident">fold</span>(<span class="self">self</span>.<span class="ident">users_default</span>, <span class="op">|</span><span class="ident">max_pl</span>, <span class="ident">user_pl</span><span class="op">|</span> <span class="ident">max</span>(<span class="ident">max_pl</span>, <span class="kw-2">*</span><span class="ident">user_pl</span>))
@@ -765,6 +861,40 @@
             <span class="ident">notifications</span>: <span class="ident">c</span>.<span class="ident">notifications</span>,
         }
     }
+}
+
+<span class="doccomment">/// The actions that can be limited by power levels.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PowerLevelAction</span> {
+    <span class="doccomment">/// Ban a user.</span>
+    <span class="ident">Ban</span>,
+
+    <span class="doccomment">/// Invite a user.</span>
+    <span class="ident">Invite</span>,
+
+    <span class="doccomment">/// Kick a user.</span>
+    <span class="ident">Kick</span>,
+
+    <span class="doccomment">/// Redact an event.</span>
+    <span class="ident">Redact</span>,
+
+    <span class="doccomment">/// Send a message-like event.</span>
+    <span class="ident">SendMessage</span>(<span class="ident">MessageLikeEventType</span>),
+
+    <span class="doccomment">/// Send a state event.</span>
+    <span class="ident">SendState</span>(<span class="ident">StateEventType</span>),
+
+    <span class="doccomment">/// Trigger a notification.</span>
+    <span class="ident">TriggerNotification</span>(<span class="ident">NotificationPowerLevelType</span>),
+}
+
+<span class="doccomment">/// The notification types that can be limited by power levels.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">NotificationPowerLevelType</span> {
+    <span class="doccomment">/// `@room` notifications.</span>
+    <span class="ident">Room</span>,
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
@@ -924,5 +1054,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (18f314e70 2022-04-24)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (055bf4ccd 2022-04-25)" ></div>
 </body></html>
