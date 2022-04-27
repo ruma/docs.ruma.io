@@ -316,7 +316,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">missing_room_alias_id_delimiter</span>() {
-        <span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;#ruma&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">IdParseError::MissingDelimiter</span>);
+        <span class="macro">assert_eq!</span>(<span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">RoomAliasId</span><span class="op">&gt;</span><span class="ident">::try_from</span>(<span class="string">&quot;#ruma&quot;</span>).<span class="ident">unwrap_err</span>(), <span class="ident">IdParseError::MissingColon</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

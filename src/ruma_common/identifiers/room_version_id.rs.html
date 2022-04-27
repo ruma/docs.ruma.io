@@ -684,7 +684,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">empty_room_version_id</span>() {
-        <span class="macro">assert_eq!</span>(<span class="ident">RoomVersionId::try_from</span>(<span class="string">&quot;&quot;</span>), <span class="prelude-val">Err</span>(<span class="ident">IdParseError::EmptyRoomVersionId</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">RoomVersionId::try_from</span>(<span class="string">&quot;&quot;</span>), <span class="prelude-val">Err</span>(<span class="ident">IdParseError::Empty</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
