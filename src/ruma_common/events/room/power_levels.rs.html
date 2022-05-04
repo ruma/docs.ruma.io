@@ -529,6 +529,13 @@
 <span id="522">522</span>
 <span id="523">523</span>
 <span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.power_levels`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.power_levels`]: https://spec.matrix.org/v1.2/client-server-api/#mroompower_levels</span>
@@ -719,6 +726,13 @@
             <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">clone</span>().<span class="ident">into</span>(),
             <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">clone</span>().<span class="ident">into</span>(),
         }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">StrippedRoomPowerLevelsEvent</span> {
+    <span class="doccomment">/// Obtain the effective power levels from this event.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">power_levels</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RoomPowerLevels</span> {
+        <span class="self">self</span>.<span class="ident">content</span>.<span class="ident">clone</span>().<span class="ident">into</span>()
     }
 }
 
@@ -1054,5 +1068,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (e85edd9a8 2022-04-28)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (e1b71feb5 2022-05-03)" ></div>
 </body></html>
