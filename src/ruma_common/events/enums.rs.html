@@ -360,108 +360,108 @@
 <span class="macro">event_enum!</span> {
     <span class="doccomment">/// Any global account data event.</span>
     <span class="kw">enum</span> <span class="ident">GlobalAccountData</span> {
-        <span class="string">&quot;m.direct&quot;</span>,
-        <span class="string">&quot;m.identity_server&quot;</span>,
-        <span class="string">&quot;m.ignored_user_list&quot;</span>,
-        <span class="string">&quot;m.push_rules&quot;</span>,
-        <span class="string">&quot;m.secret_storage.default_key&quot;</span>,
-        <span class="string">&quot;m.secret_storage.key.*&quot;</span>,
+        <span class="string">&quot;m.direct&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::direct</span>,
+        <span class="string">&quot;m.identity_server&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::identity_server</span>,
+        <span class="string">&quot;m.ignored_user_list&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::ignored_user_list</span>,
+        <span class="string">&quot;m.push_rules&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::push_rules</span>,
+        <span class="string">&quot;m.secret_storage.default_key&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::secret_storage::default_key</span>,
+        <span class="string">&quot;m.secret_storage.key.*&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::secret_storage::key</span>,
     }
 
     <span class="doccomment">/// Any room account data event.</span>
     <span class="kw">enum</span> <span class="ident">RoomAccountData</span> {
-        <span class="string">&quot;m.fully_read&quot;</span>,
-        <span class="string">&quot;m.tag&quot;</span>,
+        <span class="string">&quot;m.fully_read&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::fully_read</span>,
+        <span class="string">&quot;m.tag&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::tag</span>,
     }
 
     <span class="doccomment">/// Any ephemeral room event.</span>
     <span class="kw">enum</span> <span class="ident">EphemeralRoom</span> {
-        <span class="string">&quot;m.receipt&quot;</span>,
-        <span class="string">&quot;m.typing&quot;</span>,
+        <span class="string">&quot;m.receipt&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::receipt</span>,
+        <span class="string">&quot;m.typing&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::typing</span>,
     }
 
     <span class="doccomment">/// Any message-like event.</span>
     <span class="kw">enum</span> <span class="ident">MessageLike</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
-        <span class="string">&quot;m.audio&quot;</span>,
-        <span class="string">&quot;m.call.answer&quot;</span>,
-        <span class="string">&quot;m.call.invite&quot;</span>,
-        <span class="string">&quot;m.call.hangup&quot;</span>,
-        <span class="string">&quot;m.call.candidates&quot;</span>,
+        <span class="string">&quot;m.audio&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::audio</span>,
+        <span class="string">&quot;m.call.answer&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::call::answer</span>,
+        <span class="string">&quot;m.call.invite&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::call::invite</span>,
+        <span class="string">&quot;m.call.hangup&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::call::hangup</span>,
+        <span class="string">&quot;m.call.candidates&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::call::candidates</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
-        <span class="string">&quot;m.emote&quot;</span>,
+        <span class="string">&quot;m.emote&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::emote</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
-        <span class="string">&quot;m.file&quot;</span>,
+        <span class="string">&quot;m.file&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::file</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
-        <span class="string">&quot;m.image&quot;</span>,
-        <span class="string">&quot;m.key.verification.ready&quot;</span>,
-        <span class="string">&quot;m.key.verification.start&quot;</span>,
-        <span class="string">&quot;m.key.verification.cancel&quot;</span>,
-        <span class="string">&quot;m.key.verification.accept&quot;</span>,
-        <span class="string">&quot;m.key.verification.key&quot;</span>,
-        <span class="string">&quot;m.key.verification.mac&quot;</span>,
-        <span class="string">&quot;m.key.verification.done&quot;</span>,
+        <span class="string">&quot;m.image&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::image</span>,
+        <span class="string">&quot;m.key.verification.ready&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::ready</span>,
+        <span class="string">&quot;m.key.verification.start&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::start</span>,
+        <span class="string">&quot;m.key.verification.cancel&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::cancel</span>,
+        <span class="string">&quot;m.key.verification.accept&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::accept</span>,
+        <span class="string">&quot;m.key.verification.key&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::key</span>,
+        <span class="string">&quot;m.key.verification.mac&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::mac</span>,
+        <span class="string">&quot;m.key.verification.done&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::done</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
-        <span class="string">&quot;m.location&quot;</span>,
+        <span class="string">&quot;m.location&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::location</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
-        <span class="string">&quot;m.message&quot;</span>,
+        <span class="string">&quot;m.message&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::message</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
-        <span class="string">&quot;m.notice&quot;</span>,
+        <span class="string">&quot;m.notice&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::notice</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
-        <span class="string">&quot;m.reaction&quot;</span>,
-        <span class="string">&quot;m.room.encrypted&quot;</span>,
-        <span class="string">&quot;m.room.message&quot;</span>,
-        <span class="string">&quot;m.room.message.feedback&quot;</span>,
-        <span class="string">&quot;m.room.redaction&quot;</span>,
-        <span class="string">&quot;m.sticker&quot;</span>,
+        <span class="string">&quot;m.reaction&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::reaction</span>,
+        <span class="string">&quot;m.room.encrypted&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::encrypted</span>,
+        <span class="string">&quot;m.room.message&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::message</span>,
+        <span class="string">&quot;m.room.message.feedback&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::message::feedback</span>,
+        <span class="string">&quot;m.room.redaction&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::redaction</span>,
+        <span class="string">&quot;m.sticker&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::sticker</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3553&quot;</span>)]</span>
-        <span class="string">&quot;m.video&quot;</span>,
+        <span class="string">&quot;m.video&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::video</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3245&quot;</span>)]</span>
-        <span class="string">&quot;m.voice&quot;</span>,
+        <span class="string">&quot;m.voice&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::voice</span>,
     }
 
     <span class="doccomment">/// Any state event.</span>
     <span class="kw">enum</span> <span class="ident">State</span> {
-        <span class="string">&quot;m.policy.rule.room&quot;</span>,
-        <span class="string">&quot;m.policy.rule.server&quot;</span>,
-        <span class="string">&quot;m.policy.rule.user&quot;</span>,
-        <span class="string">&quot;m.room.aliases&quot;</span>,
-        <span class="string">&quot;m.room.avatar&quot;</span>,
-        <span class="string">&quot;m.room.canonical_alias&quot;</span>,
-        <span class="string">&quot;m.room.create&quot;</span>,
-        <span class="string">&quot;m.room.encryption&quot;</span>,
-        <span class="string">&quot;m.room.guest_access&quot;</span>,
-        <span class="string">&quot;m.room.history_visibility&quot;</span>,
-        <span class="string">&quot;m.room.join_rules&quot;</span>,
-        <span class="string">&quot;m.room.member&quot;</span>,
-        <span class="string">&quot;m.room.name&quot;</span>,
-        <span class="string">&quot;m.room.pinned_events&quot;</span>,
-        <span class="string">&quot;m.room.power_levels&quot;</span>,
-        <span class="string">&quot;m.room.server_acl&quot;</span>,
-        <span class="string">&quot;m.room.third_party_invite&quot;</span>,
-        <span class="string">&quot;m.room.tombstone&quot;</span>,
-        <span class="string">&quot;m.room.topic&quot;</span>,
-        <span class="string">&quot;m.space.child&quot;</span>,
-        <span class="string">&quot;m.space.parent&quot;</span>,
+        <span class="string">&quot;m.policy.rule.room&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::policy::rule::room</span>,
+        <span class="string">&quot;m.policy.rule.server&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::policy::rule::server</span>,
+        <span class="string">&quot;m.policy.rule.user&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::policy::rule::user</span>,
+        <span class="string">&quot;m.room.aliases&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::aliases</span>,
+        <span class="string">&quot;m.room.avatar&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::avatar</span>,
+        <span class="string">&quot;m.room.canonical_alias&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::canonical_alias</span>,
+        <span class="string">&quot;m.room.create&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::create</span>,
+        <span class="string">&quot;m.room.encryption&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::encryption</span>,
+        <span class="string">&quot;m.room.guest_access&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::guest_access</span>,
+        <span class="string">&quot;m.room.history_visibility&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::history_visibility</span>,
+        <span class="string">&quot;m.room.join_rules&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::join_rules</span>,
+        <span class="string">&quot;m.room.member&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::member</span>,
+        <span class="string">&quot;m.room.name&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::name</span>,
+        <span class="string">&quot;m.room.pinned_events&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::pinned_events</span>,
+        <span class="string">&quot;m.room.power_levels&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::power_levels</span>,
+        <span class="string">&quot;m.room.server_acl&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::server_acl</span>,
+        <span class="string">&quot;m.room.third_party_invite&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::third_party_invite</span>,
+        <span class="string">&quot;m.room.tombstone&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::tombstone</span>,
+        <span class="string">&quot;m.room.topic&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::topic</span>,
+        <span class="string">&quot;m.space.child&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::space::child</span>,
+        <span class="string">&quot;m.space.parent&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::space::parent</span>,
     }
 
     <span class="doccomment">/// Any to-device event.</span>
     <span class="kw">enum</span> <span class="ident">ToDevice</span> {
-        <span class="string">&quot;m.dummy&quot;</span>,
-        <span class="string">&quot;m.room_key&quot;</span>,
-        <span class="string">&quot;m.room_key_request&quot;</span>,
-        <span class="string">&quot;m.forwarded_room_key&quot;</span>,
-        <span class="string">&quot;m.key.verification.request&quot;</span>,
-        <span class="string">&quot;m.key.verification.ready&quot;</span>,
-        <span class="string">&quot;m.key.verification.start&quot;</span>,
-        <span class="string">&quot;m.key.verification.cancel&quot;</span>,
-        <span class="string">&quot;m.key.verification.accept&quot;</span>,
-        <span class="string">&quot;m.key.verification.key&quot;</span>,
-        <span class="string">&quot;m.key.verification.mac&quot;</span>,
-        <span class="string">&quot;m.key.verification.done&quot;</span>,
-        <span class="string">&quot;m.room.encrypted&quot;</span>,
-        <span class="string">&quot;m.secret.request&quot;</span>,
-        <span class="string">&quot;m.secret.send&quot;</span>,
+        <span class="string">&quot;m.dummy&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::dummy</span>,
+        <span class="string">&quot;m.room_key&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room_key</span>,
+        <span class="string">&quot;m.room_key_request&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room_key_request</span>,
+        <span class="string">&quot;m.forwarded_room_key&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::forwarded_room_key</span>,
+        <span class="string">&quot;m.key.verification.request&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::request</span>,
+        <span class="string">&quot;m.key.verification.ready&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::ready</span>,
+        <span class="string">&quot;m.key.verification.start&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::start</span>,
+        <span class="string">&quot;m.key.verification.cancel&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::cancel</span>,
+        <span class="string">&quot;m.key.verification.accept&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::accept</span>,
+        <span class="string">&quot;m.key.verification.key&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::key</span>,
+        <span class="string">&quot;m.key.verification.mac&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::mac</span>,
+        <span class="string">&quot;m.key.verification.done&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::key::verification::done</span>,
+        <span class="string">&quot;m.room.encrypted&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::encrypted</span>,
+        <span class="string">&quot;m.secret.request&quot;</span>=&gt; <span class="ident"><span class="kw">super</span>::secret::request</span>,
+        <span class="string">&quot;m.secret.send&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::secret::send</span>,
     }
 }
 
