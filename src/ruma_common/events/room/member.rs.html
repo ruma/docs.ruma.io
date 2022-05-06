@@ -744,6 +744,26 @@
 <span id="737">737</span>
 <span id="738">738</span>
 <span id="739">739</span>
+<span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
+<span id="744">744</span>
+<span id="745">745</span>
+<span id="746">746</span>
+<span id="747">747</span>
+<span id="748">748</span>
+<span id="749">749</span>
+<span id="750">750</span>
+<span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
+<span id="754">754</span>
+<span id="755">755</span>
+<span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
+<span id="759">759</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.member`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.member`]: https://spec.matrix.org/v1.2/client-server-api/#mroommember</span>
@@ -959,6 +979,26 @@
 
     <span class="kw">fn</span> <span class="ident">has_deserialize_fields</span>() -&gt; <span class="ident">HasDeserializeFields</span> {
         <span class="ident">HasDeserializeFields::Optional</span>
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">RoomMemberEvent</span> {
+    <span class="doccomment">/// Obtain the membership state, regardless of whether this event is redacted.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">MembershipState</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">membership</span>,
+            <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">membership</span>,
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">SyncRoomMemberEvent</span> {
+    <span class="doccomment">/// Obtain the membership state, regardless of whether this event is redacted.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">membership</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">MembershipState</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident"><span class="self">Self</span>::Original</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">membership</span>,
+            <span class="ident"><span class="self">Self</span>::Redacted</span>(<span class="ident">ev</span>) =&gt; <span class="kw-2">&amp;</span><span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">membership</span>,
+        }
     }
 }
 
@@ -1484,5 +1524,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (4c60a0ea5 2022-05-04)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (30f386087 2022-05-05)" ></div>
 </body></html>
