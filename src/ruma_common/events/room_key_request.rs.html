@@ -107,6 +107,9 @@
 <span id="100">100</span>
 <span id="101">101</span>
 <span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room_key_request`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room_key_request`]: https://spec.matrix.org/v1.2/client-server-api/#mroom_key_request</span>
@@ -190,7 +193,10 @@
     <span class="kw">pub</span> <span class="ident">room_id</span>: <span class="ident">OwnedRoomId</span>,
 
     <span class="doccomment">/// The Curve25519 key of the device which initiated the session originally.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3700&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;as of Matrix v1.3&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3700&quot;</span>,
+        <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;this field still needs to be sent but should not be used when received&quot;</span>
+    )]</span>
     <span class="kw">pub</span> <span class="ident">sender_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The ID of the session that the key is for.</span>

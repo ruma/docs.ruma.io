@@ -424,6 +424,12 @@
 <span id="417">417</span>
 <span id="418">418</span>
 <span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.encrypted`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.encrypted`]: https://spec.matrix.org/v1.2/client-server-api/#mroomencrypted</span>
@@ -690,11 +696,17 @@
     <span class="kw">pub</span> <span class="ident">ciphertext</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The Curve25519 key of the sender.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3700&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;as of Matrix v1.3&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3700&quot;</span>,
+        <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;this field still needs to be sent but should not be used when received&quot;</span>
+    )]</span>
     <span class="kw">pub</span> <span class="ident">sender_key</span>: <span class="ident">String</span>,
 
     <span class="doccomment">/// The ID of the sending device.</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3700&quot;</span>, <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;as of Matrix v1.3&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3700&quot;</span>,
+        <span class="ident">deprecated</span> <span class="op">=</span> <span class="string">&quot;this field still needs to be sent but should not be used when received&quot;</span>
+    )]</span>
     <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="ident">OwnedDeviceId</span>,
 
     <span class="doccomment">/// The ID of the session used to encrypt the message.</span>
