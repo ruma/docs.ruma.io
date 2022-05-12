@@ -744,6 +744,25 @@
 <span id="737">737</span>
 <span id="738">738</span>
 <span id="739">739</span>
+<span id="740">740</span>
+<span id="741">741</span>
+<span id="742">742</span>
+<span id="743">743</span>
+<span id="744">744</span>
+<span id="745">745</span>
+<span id="746">746</span>
+<span id="747">747</span>
+<span id="748">748</span>
+<span id="749">749</span>
+<span id="750">750</span>
+<span id="751">751</span>
+<span id="752">752</span>
+<span id="753">753</span>
+<span id="754">754</span>
+<span id="755">755</span>
+<span id="756">756</span>
+<span id="757">757</span>
+<span id="758">758</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Module for [User-Interactive Authentication API][uiaa] types.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [uiaa]: https://spec.matrix.org/v1.2/client-server-api/#user-interactive-authentication-api</span>
@@ -758,7 +777,7 @@
     },
     <span class="ident">serde</span>::{<span class="ident">from_raw_json_value</span>, <span class="ident">Incoming</span>, <span class="ident">JsonObject</span>, <span class="ident">StringEnum</span>},
     <span class="ident">thirdparty::Medium</span>,
-    <span class="ident">ClientSecret</span>, <span class="ident">OwnedSessionId</span>,
+    <span class="ident">ClientSecret</span>, <span class="ident">OwnedSessionId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">UserId</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{
     <span class="ident">de</span>::{<span class="self">self</span>, <span class="ident">DeserializeOwned</span>},
@@ -1336,6 +1355,25 @@
     },
 }
 
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a [`UserIdentifier::ThirdPartyId`] from an email address.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">email</span>(<span class="ident">address</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::ThirdPartyId</span> { <span class="ident">address</span>, <span class="ident">medium</span>: <span class="ident">Medium::Email</span> }
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">UserId</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::UserIdOrLocalpart</span>(<span class="ident">id</span>.<span class="ident">as_str</span>())
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">OwnedUserId</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">OwnedUserId</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::UserIdOrLocalpart</span>(<span class="ident">id</span>.<span class="ident">as_str</span>())
+    }
+}
+
 <span class="kw">impl</span> <span class="ident">IncomingUserIdentifier</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">to_outgoing</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">UserIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span> {
@@ -1484,5 +1522,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (ecd44958e 2022-05-10)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0-nightly (6dd68402c 2022-05-11)" ></div>
 </body></html>
