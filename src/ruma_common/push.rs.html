@@ -1198,6 +1198,19 @@
 <span id="1191">1191</span>
 <span id="1192">1192</span>
 <span id="1193">1193</span>
+<span id="1194">1194</span>
+<span id="1195">1195</span>
+<span id="1196">1196</span>
+<span id="1197">1197</span>
+<span id="1198">1198</span>
+<span id="1199">1199</span>
+<span id="1200">1200</span>
+<span id="1201">1201</span>
+<span id="1202">1202</span>
+<span id="1203">1203</span>
+<span id="1204">1204</span>
+<span id="1205">1205</span>
+<span id="1206">1206</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [push notifications module][push].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [push]: https://spec.matrix.org/v1.2/client-server-api/#push-notifications</span>
@@ -1309,7 +1322,13 @@
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>,
     ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AnyPushRuleRef</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">FlattenedJson::from_raw</span>(<span class="ident">event</span>);
-        <span class="self">self</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">rule</span><span class="op">|</span> <span class="ident">rule</span>.<span class="ident">applies</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>, <span class="ident">context</span>))
+
+        <span class="kw">if</span> <span class="ident">event</span>.<span class="ident">get</span>(<span class="string">&quot;sender&quot;</span>).<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">sender</span><span class="op">|</span> <span class="ident">sender</span> <span class="op">==</span> <span class="ident">context</span>.<span class="ident">user_id</span>) {
+            <span class="comment">// no need to look at the rules if the event was by the user themselves</span>
+            <span class="prelude-val">None</span>
+        } <span class="kw">else</span> {
+            <span class="self">self</span>.<span class="ident">iter</span>().<span class="ident">find</span>(<span class="op">|</span><span class="ident">rule</span><span class="op">|</span> <span class="ident">rule</span>.<span class="ident">applies</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>, <span class="ident">context</span>))
+        }
     }
 
     <span class="doccomment">/// Get the push actions that apply to this event.</span>
@@ -1534,6 +1553,10 @@
         <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">FlattenedJson</span>,
         <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>,
     ) -&gt; <span class="ident">bool</span> {
+        <span class="kw">if</span> <span class="ident">event</span>.<span class="ident">get</span>(<span class="string">&quot;sender&quot;</span>).<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">sender</span><span class="op">|</span> <span class="ident">sender</span> <span class="op">==</span> <span class="ident">context</span>.<span class="ident">user_id</span>) {
+            <span class="kw">return</span> <span class="bool-val">false</span>;
+        }
+
         <span class="self">self</span>.<span class="ident">enabled</span> <span class="op">&amp;&amp;</span> <span class="ident">condition::check_event_match</span>(<span class="ident">event</span>, <span class="ident">key</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pattern</span>, <span class="ident">context</span>)
     }
 }
@@ -2165,6 +2188,7 @@
         <span class="kw">let</span> <span class="ident">context_one_to_one</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span> {
             <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!dm:server.name&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">member_count</span>: <span class="macro">uint!</span>(<span class="number">2</span>),
+            <span class="ident">user_id</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@jj:server.name&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">user_display_name</span>: <span class="string">&quot;Jolly Jumper&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">users_power_levels</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="ident">default_power_level</span>: <span class="macro">int!</span>(<span class="number">50</span>),
@@ -2174,6 +2198,7 @@
         <span class="kw">let</span> <span class="ident">context_public_room</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span> {
             <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!far_west:server.name&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">member_count</span>: <span class="macro">uint!</span>(<span class="number">100</span>),
+            <span class="ident">user_id</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@jj:server.name&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">user_display_name</span>: <span class="string">&quot;Jolly Jumper&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">users_power_levels</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="ident">default_power_level</span>: <span class="macro">int!</span>(<span class="number">50</span>),
@@ -2264,6 +2289,7 @@
         <span class="kw">let</span> <span class="ident">context_one_to_one</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span> {
             <span class="ident">room_id</span>: <span class="macro">room_id!</span>(<span class="string">&quot;!dm:server.name&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">member_count</span>: <span class="macro">uint!</span>(<span class="number">2</span>),
+            <span class="ident">user_id</span>: <span class="macro">user_id!</span>(<span class="string">&quot;@jj:server.name&quot;</span>).<span class="ident">to_owned</span>(),
             <span class="ident">user_display_name</span>: <span class="string">&quot;Jolly Jumper&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">users_power_levels</span>: <span class="ident">BTreeMap::new</span>(),
             <span class="ident">default_power_level</span>: <span class="macro">int!</span>(<span class="number">50</span>),

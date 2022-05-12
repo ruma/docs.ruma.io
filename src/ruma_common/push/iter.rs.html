@@ -246,6 +246,10 @@
 <span id="239">239</span>
 <span id="240">240</span>
 <span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">indexmap::set</span>::{<span class="ident">IntoIter</span> <span class="kw">as</span> <span class="ident">IndexSetIntoIter</span>, <span class="ident">Iter</span> <span class="kw">as</span> <span class="ident">IndexSetIter</span>};
 
 <span class="kw">use</span> <span class="kw">super</span>::{
@@ -433,6 +437,10 @@
     <span class="doccomment">/// * `event` - The flattened JSON representation of a room message event.</span>
     <span class="doccomment">/// * `context` - The context of the room at the time of the event.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">applies</span>(<span class="self">self</span>, <span class="ident">event</span>: <span class="kw-2">&amp;</span><span class="ident">FlattenedJson</span>, <span class="ident">context</span>: <span class="kw-2">&amp;</span><span class="ident">PushConditionRoomCtx</span>) -&gt; <span class="ident">bool</span> {
+        <span class="kw">if</span> <span class="ident">event</span>.<span class="ident">get</span>(<span class="string">&quot;sender&quot;</span>).<span class="ident">map_or</span>(<span class="bool-val">false</span>, <span class="op">|</span><span class="ident">sender</span><span class="op">|</span> <span class="ident">sender</span> <span class="op">==</span> <span class="ident">context</span>.<span class="ident">user_id</span>) {
+            <span class="kw">return</span> <span class="bool-val">false</span>;
+        }
+
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident"><span class="self">Self</span>::Override</span>(<span class="ident">rule</span>) =&gt; <span class="ident">rule</span>.<span class="ident">applies</span>(<span class="ident">event</span>, <span class="ident">context</span>),
             <span class="ident"><span class="self">Self</span>::Underride</span>(<span class="ident">rule</span>) =&gt; <span class="ident">rule</span>.<span class="ident">applies</span>(<span class="ident">event</span>, <span class="ident">context</span>),
