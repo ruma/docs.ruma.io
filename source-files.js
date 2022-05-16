@@ -1,4 +1,4 @@
-var N = null;var sourcesIndex = {};
+var sourcesIndex = {};
 sourcesIndex["hello_isahc"] = {"name":"","files":["main.rs"]};
 sourcesIndex["hello_world"] = {"name":"","files":["main.rs"]};
 sourcesIndex["joke_bot"] = {"name":"","files":["main.rs"]};
