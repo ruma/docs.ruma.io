@@ -120,7 +120,7 @@
 <span class="doccomment">/// calculated during verification. This is not necessarily an error condition, as it may indicate</span>
 <span class="doccomment">/// that the event has been redacted. In this case, receiving homeservers should store a redacted</span>
 <span class="doccomment">/// version of the event.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Hash</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_enums</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Verified</span> {
     <span class="doccomment">/// All signatures are valid and the content hashes match.</span>

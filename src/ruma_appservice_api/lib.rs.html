@@ -176,7 +176,7 @@
 <span class="doccomment">/// A namespace defined by an application service.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Used for [appservice registration](https://spec.matrix.org/v1.2/application-service-api/#registration).</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Namespace</span> {
     <span class="doccomment">/// Whether this application service has exclusive access to events within this namespace.</span>

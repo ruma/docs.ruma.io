@@ -105,7 +105,6 @@
 <span id="96">96</span>
 <span id="97">97</span>
 <span id="98">98</span>
-<span id="99">99</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for room membership.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ban_user</span>;
@@ -162,9 +161,8 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// To create an instance of this type, first create a `Invite3pidInit` and convert it via</span>
 <span class="doccomment">/// `Invite3pid::from` / `.into()`.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Incoming</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="attribute">#[<span class="ident">incoming_derive</span>(<span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Invite3pid</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Hostname and port of identity server to be used for account lookups.</span>
     <span class="kw">pub</span> <span class="ident">id_server</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>,
