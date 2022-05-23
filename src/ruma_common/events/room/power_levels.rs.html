@@ -675,7 +675,7 @@
     <span class="doccomment">/// The power level requirements for specific notification types.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This is a mapping from `key` to power level for that notifications key.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;crate::serde::is_default&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;NotificationPowerLevels::is_default&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">notifications</span>: <span class="ident">NotificationPowerLevels</span>,
 }
 
@@ -1070,5 +1070,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (42e1761c7 2022-05-15)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (b2eed72a6 2022-05-22)" ></div>
 </body></html>
