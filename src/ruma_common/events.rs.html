@@ -342,7 +342,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! // The downside of this event is we cannot use it with event enums,</span>
 <span class="doccomment">//! // but could be deserialized from a `Raw&lt;_&gt;` that has failed to deserialize.</span>
-<span class="doccomment">//! matches::assert_matches!(</span>
+<span class="doccomment">//! assert_matches::assert_matches!(</span>
 <span class="doccomment">//!     serde_json::from_value::&lt;OriginalSyncMessageLikeEvent&lt;ReactionEventContent&gt;&gt;(json),</span>
 <span class="doccomment">//!     Ok(OriginalSyncMessageLikeEvent {</span>
 <span class="doccomment">//!         content: ReactionEventContent {</span>

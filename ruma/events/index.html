@@ -91,7 +91,7 @@ specifies the state event’s <code>type</code> and it’s <a href="enum.EventKi
 
 <span class="comment">// The downside of this event is we cannot use it with event enums,</span>
 <span class="comment">// but could be deserialized from a `Raw&lt;_&gt;` that has failed to deserialize.</span>
-<span class="macro">matches::assert_matches!</span>(
+<span class="macro">assert_matches::assert_matches!</span>(
     <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">OriginalSyncMessageLikeEvent</span><span class="op">&lt;</span><span class="ident">ReactionEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>),
     <span class="prelude-val">Ok</span>(<span class="ident">OriginalSyncMessageLikeEvent</span> {
         <span class="ident">content</span>: <span class="ident">ReactionEventContent</span> {
