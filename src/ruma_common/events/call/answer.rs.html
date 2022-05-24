@@ -40,8 +40,6 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
-<span id="34">34</span>
-<span id="35">35</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.call.answer`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.call.answer`]: https://spec.matrix.org/v1.2/client-server-api/#mcallanswer</span>
@@ -50,7 +48,7 @@
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::SessionDescription</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AnswerSessionDescription</span>;
 
 <span class="doccomment">/// The content of an `m.call.answer` event.</span>
 <span class="doccomment">///</span>
@@ -60,9 +58,7 @@
 <span class="attribute">#[<span class="ident">ruma_event</span>(<span class="kw">type</span> <span class="op">=</span> <span class="string">&quot;m.call.answer&quot;</span>, <span class="ident">kind</span> <span class="op">=</span> <span class="ident">MessageLike</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CallAnswerEventContent</span> {
     <span class="doccomment">/// The VoIP session description object.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The session description type must be *answer*.</span>
-    <span class="kw">pub</span> <span class="ident">answer</span>: <span class="ident">SessionDescription</span>,
+    <span class="kw">pub</span> <span class="ident">answer</span>: <span class="ident">AnswerSessionDescription</span>,
 
     <span class="doccomment">/// The ID of the call this event relates to.</span>
     <span class="kw">pub</span> <span class="ident">call_id</span>: <span class="ident">String</span>,
@@ -73,7 +69,7 @@
 
 <span class="kw">impl</span> <span class="ident">CallAnswerEventContent</span> {
     <span class="doccomment">/// Creates an `AnswerEventContent` with the given answer, call ID and VoIP version.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">answer</span>: <span class="ident">SessionDescription</span>, <span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">answer</span>: <span class="ident">AnswerSessionDescription</span>, <span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">answer</span>, <span class="ident">call_id</span>, <span class="ident">version</span> }
     }
 }

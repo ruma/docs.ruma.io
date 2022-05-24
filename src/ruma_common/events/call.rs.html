@@ -49,70 +49,46 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
-<span id="46">46</span>
-<span id="47">47</span>
-<span id="48">48</span>
-<span id="49">49</span>
-<span id="50">50</span>
-<span id="51">51</span>
-<span id="52">52</span>
-<span id="53">53</span>
-<span id="54">54</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Modules for events in the `m.call` namespace.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This module also contains types shared by events in its child namespaces.</span>
-
-<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">answer</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">candidates</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">hangup</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">invite</span>;
 
-<span class="doccomment">/// A VoIP session description.</span>
+<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
+
+<span class="doccomment">/// A VoIP answer session description.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SessionDescription</span> {
-    <span class="doccomment">/// The type of session description.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">session_type</span>: <span class="ident">SessionDescriptionType</span>,
-
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;answer&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AnswerSessionDescription</span> {
     <span class="doccomment">/// The SDP text of the session description.</span>
     <span class="kw">pub</span> <span class="ident">sdp</span>: <span class="ident">String</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">SessionDescription</span> {
-    <span class="doccomment">/// Creates a new `SessionDescription` with the given session type and SDP text.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">session_type</span>: <span class="ident">SessionDescriptionType</span>, <span class="ident">sdp</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">session_type</span>, <span class="ident">sdp</span> }
+<span class="kw">impl</span> <span class="ident">AnswerSessionDescription</span> {
+    <span class="doccomment">/// Creates a new `AnswerSessionDescription` with the given SDP text.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sdp</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">sdp</span> }
     }
 }
 
-<span class="doccomment">/// The type of VoIP session description.</span>
-<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
-<span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SessionDescriptionType</span> {
-    <span class="doccomment">/// An answer.</span>
-    <span class="ident">Answer</span>,
-
-    <span class="doccomment">/// An offer.</span>
-    <span class="ident">Offer</span>,
-
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
+<span class="doccomment">/// A VoIP offer session description.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
+<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;offer&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OfferSessionDescription</span> {
+    <span class="doccomment">/// The SDP text of the session description.</span>
+    <span class="kw">pub</span> <span class="ident">sdp</span>: <span class="ident">String</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">SessionDescriptionType</span> {
-    <span class="doccomment">/// Creates a string slice from this `SessionDescriptionType`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
+<span class="kw">impl</span> <span class="ident">OfferSessionDescription</span> {
+    <span class="doccomment">/// Creates a new `OfferSessionDescription` with the given SDP text.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">sdp</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">sdp</span> }
     }
 }
 </code></pre></div>
