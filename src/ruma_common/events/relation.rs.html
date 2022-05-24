@@ -154,6 +154,17 @@
 <span id="145">145</span>
 <span id="146">146</span>
 <span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types describing event relations after MSC 2674, 2675, 2676, 2677.</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt::Debug</span>;
@@ -162,45 +173,56 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AnySyncMessageLikeEvent</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::Raw</span>, <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedUserId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
+    <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">PrivOwnedStr</span>,
+};
 
-<span class="doccomment">/// Summary of all reactions with the given key to an event.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Serialize</span>)]</span>
+<span class="doccomment">/// Summary of all annotations to an event with the given key and type.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BundledReaction</span> {
-    <span class="doccomment">/// The key used for the reaction.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BundledAnnotation</span> {
+    <span class="doccomment">/// The type of the annotation.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">annotation_type</span>: <span class="ident">AnnotationType</span>,
+
+    <span class="doccomment">/// The key used for the annotation.</span>
     <span class="kw">pub</span> <span class="ident">key</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// Time of the bundled reaction being compiled on the server.</span>
+    <span class="doccomment">/// Time of the bundled annotation being compiled on the server.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">origin_server_ts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MilliSecondsSinceUnixEpoch</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Number of reactions.</span>
+    <span class="doccomment">/// Number of annotations.</span>
     <span class="kw">pub</span> <span class="ident">count</span>: <span class="ident">UInt</span>,
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">BundledReaction</span> {
-    <span class="doccomment">/// Creates a new `BundledReaction`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">key</span>: <span class="ident">String</span>,
-        <span class="ident">origin_server_ts</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MilliSecondsSinceUnixEpoch</span><span class="op">&gt;</span>,
-        <span class="ident">count</span>: <span class="ident">UInt</span>,
-    ) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">key</span>, <span class="ident">origin_server_ts</span>, <span class="ident">count</span> }
+<span class="kw">impl</span> <span class="ident">BundledAnnotation</span> {
+    <span class="doccomment">/// Creates a new `BundledAnnotation` with the given type, key and count.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">annotation_type</span>: <span class="ident">AnnotationType</span>, <span class="ident">key</span>: <span class="ident">String</span>, <span class="ident">count</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">annotation_type</span>, <span class="ident">key</span>, <span class="ident">count</span>, <span class="ident">origin_server_ts</span>: <span class="prelude-val">None</span> }
+    }
+
+    <span class="doccomment">/// Creates a new `BundledAnnotation` for a reaction with the given key and count.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reaction</span>(<span class="ident">key</span>: <span class="ident">String</span>, <span class="ident">count</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">AnnotationType::Reaction</span>, <span class="ident">key</span>, <span class="ident">count</span>)
     }
 }
 
-<span class="doccomment">/// Type of bundled annotation.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="doccomment">/// Type of annotation.</span>
+<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BundledAnnotation</span> {
-    <span class="doccomment">/// An emoji reaction and its count.</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.reaction&quot;</span>)]</span>
-    <span class="ident">Reaction</span>(<span class="ident">BundledReaction</span>),
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AnnotationType</span> {
+    <span class="doccomment">/// A reaction.</span>
+    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.reaction&quot;</span>)]</span>
+    <span class="ident">Reaction</span>,
+
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="doccomment">/// The first chunk of annotations with a token for loading more.</span>
