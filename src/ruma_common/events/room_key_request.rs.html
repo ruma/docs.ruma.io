@@ -112,6 +112,7 @@
 <span id="103">103</span>
 <span id="104">104</span>
 <span id="105">105</span>
+<span id="106">106</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room_key_request`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room_key_request`]: https://spec.matrix.org/v1.2/client-server-api/#mroom_key_request</span>
@@ -214,6 +215,7 @@
         <span class="ident">sender_key</span>: <span class="ident">String</span>,
         <span class="ident">session_id</span>: <span class="ident">String</span>,
     ) -&gt; <span class="self">Self</span> {
+        <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
         <span class="self">Self</span> { <span class="ident">algorithm</span>, <span class="ident">room_id</span>, <span class="ident">sender_key</span>, <span class="ident">session_id</span> }
     }
 }
