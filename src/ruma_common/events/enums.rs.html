@@ -345,6 +345,27 @@
 <span id="336">336</span>
 <span id="337">337</span>
 <span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros</span>::{<span class="ident">event_enum</span>, <span class="ident">EventEnumFromEvent</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -409,6 +430,15 @@
         <span class="string">&quot;m.message&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::message</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc1767&quot;</span>)]</span>
         <span class="string">&quot;m.notice&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::notice</span>,
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3381&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.poll.start&quot;</span>)]</span>
+        <span class="string">&quot;org.matrix.msc3381.poll.start&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::poll::start</span>,
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3381&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.poll.response&quot;</span>)]</span>
+        <span class="string">&quot;org.matrix.msc3381.poll.response&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::poll::response</span>,
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3381&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.poll.end&quot;</span>)]</span>
+        <span class="string">&quot;org.matrix.msc3381.poll.end&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::poll::end</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
         <span class="string">&quot;m.reaction&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::reaction</span>,
         <span class="string">&quot;m.room.encrypted&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::encrypted</span>,
@@ -627,6 +657,8 @@
             <span class="ident">mac::KeyVerificationMacEventContent</span>, <span class="ident">ready::KeyVerificationReadyEventContent</span>,
             <span class="ident">start::KeyVerificationStartEventContent</span>,
         };
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3381&quot;</span>)]</span>
+        <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::poll</span>::{<span class="ident">end::PollEndEventContent</span>, <span class="ident">response::PollResponseEventContent</span>};
 
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="attribute">#[<span class="ident">rustfmt::skip</span>]</span>
@@ -672,6 +704,16 @@
             <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3553&quot;</span>)]</span>
             <span class="ident"><span class="self">Self</span>::Video</span>(<span class="ident">ev</span>) =&gt; <span class="ident">ev</span>.<span class="ident">relates_to</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>),
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3381&quot;</span>)]</span>
+            <span class="ident"><span class="self">Self</span>::PollResponse</span>(<span class="ident">PollResponseEventContent</span> { <span class="ident">relates_to</span>, .. })
+            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::PollEnd</span>(<span class="ident">PollEndEventContent</span> { <span class="ident">relates_to</span>, .. }) =&gt; {
+                <span class="kw">let</span> <span class="ident"><span class="kw">super</span>::poll::ReferenceRelation</span> { <span class="ident">event_id</span> } <span class="op">=</span> <span class="ident">relates_to</span>;
+                <span class="prelude-val">Some</span>(<span class="ident">encrypted::Relation::Reference</span>(<span class="ident">encrypted::Reference</span> {
+                    <span class="ident">event_id</span>: <span class="ident">event_id</span>.<span class="ident">clone</span>(),
+                }))
+            }
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3381&quot;</span>)]</span>
+            <span class="ident"><span class="self">Self</span>::PollStart</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
             <span class="ident"><span class="self">Self</span>::CallAnswer</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallInvite</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallHangup</span>(<span class="kw">_</span>)
