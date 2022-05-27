@@ -180,15 +180,11 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for [Matrix](https://matrix.org/) identifiers for devices, events, keys, rooms, servers,</span>
 <span class="doccomment">//! users and URIs.</span>
 
 <span class="comment">// FIXME: Remove once lint doesn&#39;t trigger on std::convert::TryFrom in identifiers/macros.rs anymore</span>
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">unused_qualifications</span>)]</span>
-
-<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
 <span class="kw">use</span> <span class="ident">serde::de</span>::{<span class="self">self</span>, <span class="ident">Deserializer</span>, <span class="ident">Unexpected</span>};
 

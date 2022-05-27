@@ -330,23 +330,7 @@
 <span id="321">321</span>
 <span id="322">322</span>
 <span id="323">323</span>
-<span id="324">324</span>
-<span id="325">325</span>
-<span id="326">326</span>
-<span id="327">327</span>
-<span id="328">328</span>
-<span id="329">329</span>
-<span id="330">330</span>
-<span id="331">331</span>
-<span id="332">332</span>
-<span id="333">333</span>
-<span id="334">334</span>
-<span id="335">335</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">collections::BTreeMap</span>,
-    <span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
-    <span class="ident">fmt</span>,
-};
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>};
 
 <span class="kw">use</span> <span class="ident">js_int::Int</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de::Deserializer</span>, <span class="ident">ser::Serializer</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -365,7 +349,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// # use serde_json::json;</span>
-    <span class="doccomment">/// # use std::convert::TryInto;</span>
     <span class="doccomment">/// # use ruma_common::serde::CanonicalJsonValue;</span>
     <span class="doccomment">/// let v: CanonicalJsonValue = json!(null).try_into().unwrap();</span>
     <span class="doccomment">/// ```</span>
@@ -375,7 +358,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// # use serde_json::json;</span>
-    <span class="doccomment">/// # use std::convert::TryInto;</span>
     <span class="doccomment">/// # use ruma_common::serde::CanonicalJsonValue;</span>
     <span class="doccomment">/// let v: CanonicalJsonValue = json!(true).try_into().unwrap();</span>
     <span class="doccomment">/// ```</span>
@@ -385,7 +367,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// # use serde_json::json;</span>
-    <span class="doccomment">/// # use std::convert::TryInto;</span>
     <span class="doccomment">/// # use ruma_common::serde::CanonicalJsonValue;</span>
     <span class="doccomment">/// let v: CanonicalJsonValue = json!(12).try_into().unwrap();</span>
     <span class="doccomment">/// ```</span>
@@ -395,7 +376,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// # use serde_json::json;</span>
-    <span class="doccomment">/// # use std::convert::TryInto;</span>
     <span class="doccomment">/// # use ruma_common::serde::CanonicalJsonValue;</span>
     <span class="doccomment">/// let v: CanonicalJsonValue = json!(&quot;a string&quot;).try_into().unwrap();</span>
     <span class="doccomment">/// ```</span>
@@ -405,7 +385,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// # use serde_json::json;</span>
-    <span class="doccomment">/// # use std::convert::TryInto;</span>
     <span class="doccomment">/// # use ruma_common::serde::CanonicalJsonValue;</span>
     <span class="doccomment">/// let v: CanonicalJsonValue = json!([&quot;an&quot;, &quot;array&quot;]).try_into().unwrap();</span>
     <span class="doccomment">/// ```</span>
@@ -417,7 +396,6 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// # use serde_json::json;</span>
-    <span class="doccomment">/// # use std::convert::TryInto;</span>
     <span class="doccomment">/// # use ruma_common::serde::CanonicalJsonValue;</span>
     <span class="doccomment">/// let v: CanonicalJsonValue = json!({ &quot;an&quot;: &quot;object&quot; }).try_into().unwrap();</span>
     <span class="doccomment">/// ```</span>
@@ -660,8 +638,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">std::convert::TryInto</span>;
-
     <span class="kw">use</span> <span class="ident">serde_json::json</span>;
 
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::CanonicalJsonValue</span>;

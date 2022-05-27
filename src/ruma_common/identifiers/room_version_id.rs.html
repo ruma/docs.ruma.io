@@ -372,12 +372,9 @@
 <span id="363">363</span>
 <span id="364">364</span>
 <span id="365">365</span>
-<span id="366">366</span>
-<span id="367">367</span>
-<span id="368">368</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room version identifiers.</span>
 
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cmp::Ordering</span>, <span class="ident">convert::TryFrom</span>, <span class="ident">str::FromStr</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cmp::Ordering</span>, <span class="ident">str::FromStr</span>};
 
 <span class="kw">use</span> <span class="ident">ruma_macros::DisplayAsRefStr</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
@@ -390,7 +387,6 @@
 <span class="doccomment">/// or serialized back into a string as needed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_common::RoomVersionId;</span>
 <span class="doccomment">/// assert_eq!(RoomVersionId::try_from(&quot;1&quot;).unwrap().as_ref(), &quot;1&quot;);</span>
 <span class="doccomment">/// ```</span>
@@ -623,8 +619,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
-
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::RoomVersionId</span>;
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::IdParseError</span>;
 

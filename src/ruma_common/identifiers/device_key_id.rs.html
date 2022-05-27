@@ -109,8 +109,6 @@
 <span id="100">100</span>
 <span id="101">101</span>
 <span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Identifiers for device keys for end-to-end encryption.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
@@ -154,8 +152,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
-
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">DeviceKeyId</span>, <span class="ident">OwnedDeviceKeyId</span>};
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::identifiers</span>::{<span class="ident">crypto_algorithms::DeviceKeyAlgorithm</span>, <span class="ident">IdParseError</span>};
 

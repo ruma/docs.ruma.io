@@ -341,9 +341,6 @@
 <span id="332">332</span>
 <span id="333">333</span>
 <span id="334">334</span>
-<span id="335">335</span>
-<span id="336">336</span>
-<span id="337">337</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix user identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">rc::Rc</span>, <span class="ident">sync::Arc</span>};
@@ -356,7 +353,6 @@
 <span class="doccomment">/// into a string as needed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_common::UserId;</span>
 <span class="doccomment">/// assert_eq!(&lt;&amp;UserId&gt;::try_from(&quot;@carl:example.com&quot;).unwrap(), &quot;@carl:example.com&quot;);</span>
 <span class="doccomment">/// ```</span>
@@ -501,8 +497,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
-
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">OwnedUserId</span>, <span class="ident">UserId</span>};
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">server_name</span>, <span class="ident">IdParseError</span>};
 

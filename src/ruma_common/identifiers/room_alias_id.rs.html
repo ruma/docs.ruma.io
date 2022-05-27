@@ -173,9 +173,6 @@
 <span id="164">164</span>
 <span id="165">165</span>
 <span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room alias identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">ruma_macros::IdZst</span>;
@@ -188,7 +185,6 @@
 <span class="doccomment">/// needed.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// # use std::convert::TryFrom;</span>
 <span class="doccomment">/// # use ruma_common::RoomAliasId;</span>
 <span class="doccomment">/// assert_eq!(&lt;&amp;RoomAliasId&gt;::try_from(&quot;#ruma:example.com&quot;).unwrap(), &quot;#ruma:example.com&quot;);</span>
 <span class="doccomment">/// ```</span>
@@ -239,8 +235,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
-
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">OwnedRoomAliasId</span>, <span class="ident">RoomAliasId</span>};
     <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::IdParseError</span>;
 
