@@ -340,6 +340,19 @@
 <span id="331">331</span>
 <span id="332">332</span>
 <span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">borrow::Cow</span>,
     <span class="ident">collections::btree_map</span>::{<span class="ident">BTreeMap</span>, <span class="ident">Entry</span>},
@@ -548,6 +561,10 @@
             },
             <span class="ident">ErrCode::CannotLeaveServerNoticeRoom</span> =&gt; <span class="ident">ErrorKind::CannotLeaveServerNoticeRoom</span>,
             <span class="ident">ErrCode::WeakPassword</span> =&gt; <span class="ident">ErrorKind::WeakPassword</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2246&quot;</span>)]</span>
+            <span class="ident">ErrCode::NotYetUploaded</span> =&gt; <span class="ident">ErrorKind::NotYetUploaded</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2246&quot;</span>)]</span>
+            <span class="ident">ErrCode::CannotOverwriteMedia</span> =&gt; <span class="ident">ErrorKind::CannotOverwriteMedia</span>,
             <span class="ident">ErrCode::_Custom</span>(<span class="ident">errcode</span>) =&gt; <span class="ident">ErrorKind::_Custom</span> { <span class="ident">errcode</span>, <span class="ident">extra</span> },
         })
     }
@@ -589,6 +606,15 @@
     <span class="ident">ResourceLimitExceeded</span>,
     <span class="ident">CannotLeaveServerNoticeRoom</span>,
     <span class="ident">WeakPassword</span>,
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2246&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;FI.MAU.MSC2246_NOT_YET_UPLOADED&quot;</span>, <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;M_NOT_YET_UPLOADED&quot;</span>)]</span>
+    <span class="ident">NotYetUploaded</span>,
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2246&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">ruma_enum</span>(
+        <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;FI.MAU.MSC2246_CANNOT_OVERWRITE_MEDIA&quot;</span>,
+        <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;M_CANNOT_OVERWRITE_MEDIA&quot;</span>
+    )]</span>
+    <span class="ident">CannotOverwriteMedia</span>,
     <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
@@ -674,5 +700,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (490324f7b 2022-05-26)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (ebbcbfc23 2022-05-27)" ></div>
 </body></html>
