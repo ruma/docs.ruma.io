@@ -29,8 +29,8 @@ homeserver, e.g. “example.com”.</li>
 </ul>
 <h2 id="examples"><a href="#examples">Examples</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">const</span> <span class="ident">PKCS8</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;\
-    MFMCAQEwBQYDK2VwBCIEINjozvdfbsGEt6DD+7Uf4PiJ/YvTNXV2mIPc/\
-    tA0T+6toSMDIQDdM+tpNzNWQM9NFpfgr4B9S7LHszOrVRp9NfKmeXS3aQ\
+    MFECAQEwBQYDK2VwBCIEINjozvdfbsGEt6DD+7Uf4PiJ/YvTNXV2mIPc/\
+    tA0T+6tgSEA3TPraTczVkDPTRaX4K+AfUuyx7Mzq1UafTXypnl0t2k=\
 &quot;</span>;
 
 <span class="kw">let</span> <span class="ident">document</span> <span class="op">=</span> <span class="ident">base64::decode_config</span>(<span class="kw-2">&amp;</span><span class="ident">PKCS8</span>, <span class="ident">base64::STANDARD_NO_PAD</span>).<span class="ident">unwrap</span>();
