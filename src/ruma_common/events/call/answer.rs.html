@@ -40,15 +40,59 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.call.answer`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.call.answer`]: https://spec.matrix.org/v1.2/client-server-api/#mcallanswer</span>
 
-<span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AnswerSessionDescription</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2746&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::CallCapabilities</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">OwnedVoipId</span>, <span class="ident">VoipVersionId</span>};
 
 <span class="doccomment">/// The content of an `m.call.answer` event.</span>
 <span class="doccomment">///</span>
@@ -60,17 +104,57 @@
     <span class="doccomment">/// The VoIP session description object.</span>
     <span class="kw">pub</span> <span class="ident">answer</span>: <span class="ident">AnswerSessionDescription</span>,
 
-    <span class="doccomment">/// The ID of the call this event relates to.</span>
-    <span class="kw">pub</span> <span class="ident">call_id</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// A unique identifier for the call.</span>
+    <span class="kw">pub</span> <span class="ident">call_id</span>: <span class="ident">OwnedVoipId</span>,
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2746&quot;</span>)]</span>
+    <span class="doccomment">/// **Required in VoIP version 1.** A unique ID for this session for the duration of the call.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">party_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedVoipId</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The version of the VoIP specification this messages adheres to.</span>
-    <span class="kw">pub</span> <span class="ident">version</span>: <span class="ident">UInt</span>,
+    <span class="kw">pub</span> <span class="ident">version</span>: <span class="ident">VoipVersionId</span>,
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2746&quot;</span>)]</span>
+    <span class="doccomment">/// **Added in VoIP version 1.** The VoIP capabilities of the client.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;CallCapabilities::is_default&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">capabilities</span>: <span class="ident">CallCapabilities</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">CallAnswerEventContent</span> {
-    <span class="doccomment">/// Creates an `AnswerEventContent` with the given answer, call ID and VoIP version.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">answer</span>: <span class="ident">AnswerSessionDescription</span>, <span class="ident">call_id</span>: <span class="ident">String</span>, <span class="ident">version</span>: <span class="ident">UInt</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">answer</span>, <span class="ident">call_id</span>, <span class="ident">version</span> }
+    <span class="doccomment">/// Creates an `CallAnswerEventContent` with the given answer, call ID and VoIP version.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
+        <span class="ident">answer</span>: <span class="ident">AnswerSessionDescription</span>,
+        <span class="ident">call_id</span>: <span class="ident">OwnedVoipId</span>,
+        <span class="ident">version</span>: <span class="ident">VoipVersionId</span>,
+    ) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">answer</span>,
+            <span class="ident">call_id</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2746&quot;</span>)]</span>
+            <span class="ident">party_id</span>: <span class="prelude-val">None</span>,
+            <span class="ident">version</span>,
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2746&quot;</span>)]</span>
+            <span class="ident">capabilities</span>: <span class="ident">Default::default</span>(),
+        }
+    }
+
+    <span class="doccomment">/// Convenience method to create a VoIP version 0 `CallAnswerEventContent` with all the required</span>
+    <span class="doccomment">/// fields.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version_0</span>(<span class="ident">answer</span>: <span class="ident">AnswerSessionDescription</span>, <span class="ident">call_id</span>: <span class="ident">OwnedVoipId</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">answer</span>, <span class="ident">call_id</span>, <span class="ident">VoipVersionId::V0</span>)
+    }
+
+    <span class="doccomment">/// Convenience method to create a VoIP version 1 `CallAnswerEventContent` with all the required</span>
+    <span class="doccomment">/// fields.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2746&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version_1</span>(
+        <span class="ident">answer</span>: <span class="ident">AnswerSessionDescription</span>,
+        <span class="ident">call_id</span>: <span class="ident">OwnedVoipId</span>,
+        <span class="ident">party_id</span>: <span class="ident">OwnedVoipId</span>,
+        <span class="ident">capabilities</span>: <span class="ident">CallCapabilities</span>,
+    ) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">answer</span>, <span class="ident">call_id</span>, <span class="ident">party_id</span>: <span class="prelude-val">Some</span>(<span class="ident">party_id</span>), <span class="ident">version</span>: <span class="ident">VoipVersionId::V1</span>, <span class="ident">capabilities</span> }
     }
 }
 </code></pre></div>
