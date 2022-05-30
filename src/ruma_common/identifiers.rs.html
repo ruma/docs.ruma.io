@@ -180,6 +180,8 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for [Matrix](https://matrix.org/) identifiers for devices, events, keys, rooms, servers,</span>
 <span class="doccomment">//! users and URIs.</span>
 
@@ -216,7 +218,9 @@
     <span class="ident">user_id</span>::{<span class="ident">OwnedUserId</span>, <span class="ident">UserId</span>},
 };
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">inline</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_identifiers_validation::error::Error</span> <span class="kw">as</span> <span class="ident">IdParseError</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ruma_identifiers_validation::error</span>::{
+    <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">IdParseError</span>, <span class="ident">MatrixIdError</span>, <span class="ident">MatrixToError</span>, <span class="ident">MatrixUriError</span>, <span class="ident">MxcUriError</span>,
+};
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">matrix_uri</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">user_id</span>;
@@ -354,5 +358,5 @@
     };
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (1fede1753 2022-05-28)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (28b891916 2022-05-29)" ></div>
 </body></html>
