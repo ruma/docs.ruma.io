@@ -43,13 +43,6 @@
 <span id="34">34</span>
 <span id="35">35</span>
 <span id="36">36</span>
-<span id="37">37</span>
-<span id="38">38</span>
-<span id="39">39</span>
-<span id="40">40</span>
-<span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Common types for the [presence module][presence].</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [presence]: https://spec.matrix.org/v1.2/client-server-api/#presence</span>
@@ -84,13 +77,6 @@
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;_</span> <span class="ident">PresenceState</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="kw-2">&amp;</span><span class="ident">PresenceState::Online</span>
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">PresenceState</span> {
-    <span class="doccomment">/// Creates a string slice from this `PresenceState`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
     }
 }
 </code></pre></div>

@@ -348,13 +348,6 @@
 <span id="339">339</span>
 <span id="340">340</span>
 <span id="341">341</span>
-<span id="342">342</span>
-<span id="343">343</span>
-<span id="344">344</span>
-<span id="345">345</span>
-<span id="346">346</span>
-<span id="347">347</span>
-<span id="348">348</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/capabilities`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Query the capabilities of a server ([spec])</span>
@@ -567,13 +560,6 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
-}
-
-<span class="kw">impl</span> <span class="ident">RoomVersionStability</span> {
-    <span class="doccomment">/// Creates a string slice from this `RoomVersionStability`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
-    }
 }
 
 <span class="doccomment">/// Information about the `m.set_displayname` capability</span>

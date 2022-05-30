@@ -1925,33 +1925,6 @@
 <span id="1916">1916</span>
 <span id="1917">1917</span>
 <span id="1918">1918</span>
-<span id="1919">1919</span>
-<span id="1920">1920</span>
-<span id="1921">1921</span>
-<span id="1922">1922</span>
-<span id="1923">1923</span>
-<span id="1924">1924</span>
-<span id="1925">1925</span>
-<span id="1926">1926</span>
-<span id="1927">1927</span>
-<span id="1928">1928</span>
-<span id="1929">1929</span>
-<span id="1930">1930</span>
-<span id="1931">1931</span>
-<span id="1932">1932</span>
-<span id="1933">1933</span>
-<span id="1934">1934</span>
-<span id="1935">1935</span>
-<span id="1936">1936</span>
-<span id="1937">1937</span>
-<span id="1938">1938</span>
-<span id="1939">1939</span>
-<span id="1940">1940</span>
-<span id="1941">1941</span>
-<span id="1942">1942</span>
-<span id="1943">1943</span>
-<span id="1944">1944</span>
-<span id="1945">1945</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
@@ -3438,18 +3411,8 @@
     <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">ServerNoticeType</span> {
-    <span class="doccomment">/// Creates a string slice from this `ServerNoticeType`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
-    }
-}
-
 <span class="doccomment">/// Types of usage limits.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
-<span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a documented</span>
-<span class="doccomment">/// variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
@@ -3464,18 +3427,8 @@
     <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">LimitType</span> {
-    <span class="doccomment">/// Creates a string slice from this `LimitType`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
-    }
-}
-
 <span class="doccomment">/// The format for the formatted representation of a message body.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
-<span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a documented</span>
-<span class="doccomment">/// variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">MessageFormat</span> {
@@ -3485,13 +3438,6 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
-}
-
-<span class="kw">impl</span> <span class="ident">MessageFormat</span> {
-    <span class="doccomment">/// Creates a string slice from this `MessageFormat`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
-    }
 }
 
 <span class="doccomment">/// Common message event content fields for message types that have separate plain-text and</span>

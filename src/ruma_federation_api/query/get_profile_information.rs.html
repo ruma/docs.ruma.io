@@ -108,12 +108,6 @@
 <span id="99">99</span>
 <span id="100">100</span>
 <span id="101">101</span>
-<span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
-<span id="106">106</span>
-<span id="107">107</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/federation/*/query/profile`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to query profile information with a user id and optional field.</span>
@@ -197,8 +191,9 @@
     <span class="doccomment">/// Profile fields to specify in query.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
-    <span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a</span>
-    <span class="doccomment">/// documented variant here, use its string representation, obtained through `.as_str()`.</span>
+    <span class="doccomment">/// string with `::from() / .into()`. To check for values that are not available as a</span>
+    <span class="doccomment">/// documented variant here, use its string representation, obtained through</span>
+    <span class="doccomment">/// [`.as_str()`](Self::as_str()).</span>
     <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
     <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
     <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ProfileField</span> {
@@ -212,13 +207,6 @@
 
         <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
         <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
-    }
-
-    <span class="kw">impl</span> <span class="ident">ProfileField</span> {
-        <span class="doccomment">/// Creates a string slice from this `ProfileField`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-            <span class="self">self</span>.<span class="ident">as_ref</span>()
-        }
     }
 }
 </code></pre></div>

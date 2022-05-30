@@ -59,8 +59,8 @@
 <span class="doccomment">/// Matrix Spec.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This type can hold an arbitrary string. To build this with a custom value, convert it from a</span>
-<span class="doccomment">/// string with `::from() / .into()`. To check for formats that are not available as a documented</span>
-<span class="doccomment">/// variant here, use its string representation, obtained through `.as_str()`.</span>
+<span class="doccomment">/// string with `::from() / .into()`. To check for values that are not available as a documented</span>
+<span class="doccomment">/// variant here, use its string representation, obtained through [`.as_str()`](Self::as_str()).</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Clone</span>, <span class="ident">StringEnum</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;snake_case&quot;</span>)]</span>

@@ -88,13 +88,6 @@
 <span id="79">79</span>
 <span id="80">80</span>
 <span id="81">81</span>
-<span id="82">82</span>
-<span id="83">83</span>
-<span id="84">84</span>
-<span id="85">85</span>
-<span id="86">86</span>
-<span id="87">87</span>
-<span id="88">88</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.history_visibility`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.history_visibility`]: https://spec.matrix.org/v1.2/client-server-api/#mroomhistory_visibility</span>
@@ -175,13 +168,6 @@
 
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
-}
-
-<span class="kw">impl</span> <span class="ident">HistoryVisibility</span> {
-    <span class="doccomment">/// Creates a string slice from this `HistoryVisibility`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="self">self</span>.<span class="ident">as_ref</span>()
-    }
 }
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (28b891916 2022-05-29)" ></div>
