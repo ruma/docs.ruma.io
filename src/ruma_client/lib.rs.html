@@ -206,13 +206,6 @@
 <span id="197">197</span>
 <span id="198">198</span>
 <span id="199">199</span>
-<span id="200">200</span>
-<span id="201">201</span>
-<span id="202">202</span>
-<span id="203">203</span>
-<span id="204">204</span>
-<span id="205">205</span>
-<span id="206">206</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_favicon_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/favicon.ico&quot;</span>)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://www.ruma.io/images/logo.png&quot;</span>)]</span>
 <span class="doccomment">//! A minimal [Matrix](https://matrix.org/) client library.</span>
@@ -322,13 +315,6 @@
     <span class="ident">UserId</span>,
 };
 <span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">info_span</span>, <span class="ident">Instrument</span>};
-
-<span class="comment">// &quot;Undo&quot; rename from `Cargo.toml` that only serves to make crate names available as a Cargo</span>
-<span class="comment">// feature names.</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;hyper-rustls&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">hyper_rustls_crate</span> <span class="kw">as</span> <span class="ident">hyper_rustls</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;isahc&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">isahc_crate</span> <span class="kw">as</span> <span class="ident">isahc</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client-api&quot;</span>)]</span>
 <span class="kw">mod</span> <span class="ident">client</span>;
