@@ -175,7 +175,6 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
-<span id="169">169</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/identity/*/store-invite`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Endpoint to store pending invitations to a user&#39;s 3PID.</span>
@@ -186,8 +185,7 @@
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/identity-service-api/#post_matrixidentityv2store-invite</span>
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-        <span class="ident">api::ruma_api</span>, <span class="ident">room::RoomType</span>, <span class="ident">thirdparty::Medium</span>, <span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">RoomName</span>,
-        <span class="ident">UserId</span>,
+        <span class="ident">api::ruma_api</span>, <span class="ident">room::RoomType</span>, <span class="ident">thirdparty::Medium</span>, <span class="ident">MxcUri</span>, <span class="ident">RoomAliasId</span>, <span class="ident">RoomId</span>, <span class="ident">UserId</span>,
     };
     <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">ser::SerializeSeq</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -239,7 +237,7 @@
             <span class="doccomment">///</span>
             <span class="doccomment">/// This should be retrieved from the `m.room.name` state event.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-            <span class="kw">pub</span> <span class="ident">room_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomName</span><span class="op">&gt;</span>,
+            <span class="kw">pub</span> <span class="ident">room_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
 
             <span class="doccomment">/// The type of the room to which the user is invited.</span>
             <span class="doccomment">///</span>

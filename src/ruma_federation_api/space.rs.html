@@ -268,7 +268,7 @@
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">ruma_common</span>::{
     <span class="ident">directory::PublicRoomJoinRule</span>, <span class="ident">events::space::child::HierarchySpaceChildEvent</span>, <span class="ident">room::RoomType</span>,
-    <span class="ident">serde::Raw</span>, <span class="ident">OwnedMxcUri</span>, <span class="ident">OwnedRoomAliasId</span>, <span class="ident">OwnedRoomId</span>, <span class="ident">RoomName</span>,
+    <span class="ident">serde::Raw</span>, <span class="ident">OwnedMxcUri</span>, <span class="ident">OwnedRoomAliasId</span>, <span class="ident">OwnedRoomId</span>,
 };
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -291,7 +291,7 @@
 
     <span class="doccomment">/// The name of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The number of members joined to the room.</span>
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,
@@ -420,7 +420,7 @@
 
     <span class="doccomment">/// The name of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The number of members joined to the room.</span>
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,

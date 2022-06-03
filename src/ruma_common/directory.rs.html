@@ -351,7 +351,7 @@
 };
 <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">OwnedMxcUri</span>, <span class="ident">PrivOwnedStr</span>, <span class="ident">RoomName</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">OwnedMxcUri</span>, <span class="ident">PrivOwnedStr</span>};
 
 <span class="doccomment">/// A chunk of a room list response, describing one room.</span>
 <span class="doccomment">///</span>
@@ -370,7 +370,7 @@
 
     <span class="doccomment">/// The name of the room, if any.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RoomName</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The number of members joined to the room.</span>
     <span class="kw">pub</span> <span class="ident">num_joined_members</span>: <span class="ident">UInt</span>,
