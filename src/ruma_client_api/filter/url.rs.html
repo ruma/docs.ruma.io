@@ -126,13 +126,13 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialize_filter_events_with_url</span>() {
         <span class="kw">let</span> <span class="ident">events_with_url</span> <span class="op">=</span> <span class="ident">UrlFilter::EventsWithUrl</span>;
-        <span class="macro">assert_eq!</span>(<span class="ident">to_json_value</span>(<span class="ident">events_with_url</span>).<span class="ident">unwrap</span>(), <span class="macro">json!</span>(<span class="bool-val">true</span>))
+        <span class="macro">assert_eq!</span>(<span class="ident">to_json_value</span>(<span class="ident">events_with_url</span>).<span class="ident">unwrap</span>(), <span class="macro">json!</span>(<span class="bool-val">true</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialize_filter_events_without_url</span>() {
         <span class="kw">let</span> <span class="ident">events_without_url</span> <span class="op">=</span> <span class="ident">UrlFilter::EventsWithoutUrl</span>;
-        <span class="macro">assert_eq!</span>(<span class="ident">to_json_value</span>(<span class="ident">events_without_url</span>).<span class="ident">unwrap</span>(), <span class="macro">json!</span>(<span class="bool-val">false</span>))
+        <span class="macro">assert_eq!</span>(<span class="ident">to_json_value</span>(<span class="ident">events_without_url</span>).<span class="ident">unwrap</span>(), <span class="macro">json!</span>(<span class="bool-val">false</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -148,5 +148,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (e09449220 2022-05-31)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (e71440575 2022-06-02)" ></div>
 </body></html>

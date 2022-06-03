@@ -293,7 +293,7 @@
                     <span class="kw">let</span> <span class="ident">existing_val</span> <span class="op">=</span> <span class="ident">ptr::read</span>(<span class="ident">val</span>);
                     <span class="ident">vec</span>.<span class="ident">push</span>(<span class="ident">existing_val</span>);
                     <span class="ident">vec</span>.<span class="ident">push</span>(<span class="ident">new_val</span>);
-                    <span class="ident">ptr::write</span>(<span class="self">self</span>, <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>))
+                    <span class="ident">ptr::write</span>(<span class="self">self</span>, <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>));
                 }
             }
             <span class="ident">ValOrVec::Vec</span>(<span class="ident">vec</span>) =&gt; <span class="ident">vec</span>.<span class="ident">push</span>(<span class="ident">new_val</span>),
@@ -516,5 +516,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (e09449220 2022-05-31)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (e71440575 2022-06-02)" ></div>
 </body></html>
