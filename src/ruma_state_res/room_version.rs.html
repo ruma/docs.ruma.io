@@ -243,7 +243,7 @@
             <span class="ident">RoomVersionId::V7</span> =&gt; <span class="ident"><span class="self">Self</span>::V7</span>,
             <span class="ident">RoomVersionId::V8</span> =&gt; <span class="ident"><span class="self">Self</span>::V8</span>,
             <span class="ident">RoomVersionId::V9</span> =&gt; <span class="ident"><span class="self">Self</span>::V9</span>,
-            <span class="ident">ver</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::Unsupported</span>(<span class="macro">format!</span>(<span class="string">&quot;found version `{}`&quot;</span>, <span class="ident">ver</span>.<span class="ident">as_str</span>()))),
+            <span class="ident">ver</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::Unsupported</span>(<span class="macro">format!</span>(<span class="string">&quot;found version `{ver}`&quot;</span>))),
         })
     }
 }

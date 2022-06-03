@@ -180,8 +180,6 @@
 <span id="171">171</span>
 <span id="172">172</span>
 <span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/state/{eventType}/{stateKey}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -281,12 +279,10 @@
                     <span class="kw-2">&amp;</span><span class="ident">METADATA</span>,
                     <span class="prelude-val">None</span>,
                     <span class="prelude-val">Some</span>(<span class="macro">format_args!</span>(
-                        <span class="string">&quot;/_matrix/client/r0/rooms/{}/state/{}&quot;</span>,
-                        <span class="ident">room_id_percent</span>, <span class="ident">event_type_percent</span>
+                        <span class="string">&quot;/_matrix/client/r0/rooms/{room_id_percent}/state/{event_type_percent}&quot;</span>,
                     )),
                     <span class="prelude-val">Some</span>(<span class="macro">format_args!</span>(
-                        <span class="string">&quot;/_matrix/client/v3/rooms/{}/state/{}&quot;</span>,
-                        <span class="ident">room_id_percent</span>, <span class="ident">event_type_percent</span>
+                        <span class="string">&quot;/_matrix/client/v3/rooms/{room_id_percent}/state/{event_type_percent}&quot;</span>,
                     )),
                 )<span class="question-mark">?</span>
             );

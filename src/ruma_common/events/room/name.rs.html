@@ -367,7 +367,7 @@
         <span class="kw">let</span> <span class="ident">from_raw</span>: <span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">RoomNameEventContent</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">long_content_json</span>).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">from_raw</span>.<span class="ident">deserialize</span>();
-        <span class="macro">assert!</span>(<span class="ident">result</span>.<span class="ident">is_err</span>(), <span class="string">&quot;Result should be invalid: {:?}&quot;</span>, <span class="ident">result</span>);
+        <span class="macro">assert!</span>(<span class="ident">result</span>.<span class="ident">is_err</span>(), <span class="string">&quot;Result should be invalid: {result:?}&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

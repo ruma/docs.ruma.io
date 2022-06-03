@@ -394,7 +394,7 @@
             <span class="ident"><span class="self">Self</span>::parse</span>(<span class="ident">id</span>).<span class="ident">map</span>(<span class="ident">Into::into</span>)
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">localpart_is_fully_conforming</span>(<span class="ident">id_str</span>)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_borrowed</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;@{}:{}&quot;</span>, <span class="ident">id_str</span>, <span class="ident">server_name</span>)).<span class="ident">to_owned</span>())
+            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_borrowed</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;@{id_str}:{server_name}&quot;</span>)).<span class="ident">to_owned</span>())
         }
     }
 
@@ -411,7 +411,7 @@
             <span class="ident"><span class="self">Self</span>::parse_rc</span>(<span class="ident">id</span>)
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">localpart_is_fully_conforming</span>(<span class="ident">id_str</span>)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_rc</span>(<span class="macro">format!</span>(<span class="string">&quot;@{}:{}&quot;</span>, <span class="ident">id_str</span>, <span class="ident">server_name</span>).<span class="ident">into</span>()))
+            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_rc</span>(<span class="macro">format!</span>(<span class="string">&quot;@{id_str}:{server_name}&quot;</span>).<span class="ident">into</span>()))
         }
     }
 
@@ -428,7 +428,7 @@
             <span class="ident"><span class="self">Self</span>::parse_arc</span>(<span class="ident">id</span>)
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">localpart_is_fully_conforming</span>(<span class="ident">id_str</span>)<span class="question-mark">?</span>;
-            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_arc</span>(<span class="macro">format!</span>(<span class="string">&quot;@{}:{}&quot;</span>, <span class="ident">id_str</span>, <span class="ident">server_name</span>).<span class="ident">into</span>()))
+            <span class="prelude-val">Ok</span>(<span class="ident"><span class="self">Self</span>::from_arc</span>(<span class="macro">format!</span>(<span class="string">&quot;@{id_str}:{server_name}&quot;</span>).<span class="ident">into</span>()))
         }
     }
 

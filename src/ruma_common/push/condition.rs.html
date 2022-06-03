@@ -900,13 +900,13 @@
         <span class="kw">match</span> <span class="ident">value</span> {
             <span class="ident">JsonValue::Object</span>(<span class="ident">fields</span>) =&gt; {
                 <span class="kw">for</span> (<span class="ident">key</span>, <span class="ident">value</span>) <span class="kw">in</span> <span class="ident">fields</span> {
-                    <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">is_empty</span>() { <span class="ident">key</span> } <span class="kw">else</span> { <span class="macro">format!</span>(<span class="string">&quot;{}.{}&quot;</span>, <span class="ident">path</span>, <span class="ident">key</span>) };
+                    <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">path</span>.<span class="ident">is_empty</span>() { <span class="ident">key</span> } <span class="kw">else</span> { <span class="macro">format!</span>(<span class="string">&quot;{path}.{key}&quot;</span>) };
                     <span class="self">self</span>.<span class="ident">flatten_value</span>(<span class="ident">value</span>, <span class="ident">path</span>);
                 }
             }
             <span class="ident">JsonValue::String</span>(<span class="ident">s</span>) =&gt; {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">path</span>.<span class="ident">clone</span>(), <span class="ident">s</span>).<span class="ident">is_some</span>() {
-                    <span class="macro">warn!</span>(<span class="string">&quot;Duplicate path in flattened JSON: {}&quot;</span>, <span class="ident">path</span>);
+                    <span class="macro">warn!</span>(<span class="string">&quot;Duplicate path in flattened JSON: {path}&quot;</span>);
                 }
             }
             <span class="ident">JsonValue::Number</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">JsonValue::Bool</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">JsonValue::Array</span>(<span class="kw">_</span>) <span class="op">|</span> <span class="ident">JsonValue::Null</span> =&gt; {}

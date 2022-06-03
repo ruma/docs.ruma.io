@@ -557,7 +557,7 @@
     <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="ident">Error::Custom</span>(<span class="kw-2">ref</span> <span class="ident">msg</span>) =&gt; <span class="ident">msg</span>.<span class="ident">fmt</span>(<span class="ident">f</span>),
-            <span class="ident">Error::Utf8</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;invalid UTF-8: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident">Error::Utf8</span>(<span class="kw-2">ref</span> <span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;invalid UTF-8: {err}&quot;</span>),
         }
     }
 }
@@ -582,7 +582,7 @@
 
 <span class="kw">impl</span> <span class="ident">ser::Error</span> <span class="kw">for</span> <span class="ident">Error</span> {
     <span class="kw">fn</span> <span class="ident">custom</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">fmt::Display</span><span class="op">&gt;</span>(<span class="ident">msg</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">Error::Custom</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">msg</span>).<span class="ident">into</span>())
+        <span class="ident">Error::Custom</span>(<span class="macro">format!</span>(<span class="string">&quot;{msg}&quot;</span>).<span class="ident">into</span>())
     }
 }
 

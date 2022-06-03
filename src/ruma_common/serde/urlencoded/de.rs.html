@@ -444,7 +444,7 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec!</span>[];
     <span class="ident">reader</span>
         .<span class="ident">read_to_end</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>)
-        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">de::Error::custom</span>(<span class="macro">format_args!</span>(<span class="string">&quot;could not read input: {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">de::Error::custom</span>(<span class="macro">format_args!</span>(<span class="string">&quot;could not read input: {e}&quot;</span>)))<span class="question-mark">?</span>;
     <span class="ident">from_bytes</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>)
 }
 

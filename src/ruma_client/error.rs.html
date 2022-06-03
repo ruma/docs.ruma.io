@@ -106,10 +106,10 @@
             <span class="ident"><span class="self">Self</span>::AuthenticationRequired</span> =&gt; {
                 <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;The queried endpoint requires authentication but was called with an anonymous client.&quot;</span>)
             }
-            <span class="ident"><span class="self">Self</span>::IntoHttp</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;HTTP request construction failed: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident"><span class="self">Self</span>::Url</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid URL: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident"><span class="self">Self</span>::Response</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Couldn&#39;t obtain a response: {}&quot;</span>, <span class="ident">err</span>),
-            <span class="ident"><span class="self">Self</span>::FromHttpResponse</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;HTTP response conversion failed: {}&quot;</span>, <span class="ident">err</span>),
+            <span class="ident"><span class="self">Self</span>::IntoHttp</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;HTTP request construction failed: {err}&quot;</span>),
+            <span class="ident"><span class="self">Self</span>::Url</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid URL: {err}&quot;</span>),
+            <span class="ident"><span class="self">Self</span>::Response</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Couldn&#39;t obtain a response: {err}&quot;</span>),
+            <span class="ident"><span class="self">Self</span>::FromHttpResponse</span>(<span class="ident">err</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;HTTP response conversion failed: {err}&quot;</span>),
         }
     }
 }
