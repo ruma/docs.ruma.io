@@ -428,20 +428,6 @@
 <span id="419">419</span>
 <span id="420">420</span>
 <span id="421">421</span>
-<span id="422">422</span>
-<span id="423">423</span>
-<span id="424">424</span>
-<span id="425">425</span>
-<span id="426">426</span>
-<span id="427">427</span>
-<span id="428">428</span>
-<span id="429">429</span>
-<span id="430">430</span>
-<span id="431">431</span>
-<span id="432">432</span>
-<span id="433">433</span>
-<span id="434">434</span>
-<span id="435">435</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/login`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -730,12 +716,14 @@
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
     <span class="kw">mod</span> <span class="ident">tests</span> {
         <span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
+        <span class="kw">use</span> <span class="ident">ruma_common::mxc_uri</span>;
         <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-        <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
+        <span class="kw">use</span> <span class="ident">serde_json</span>::{
+            <span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>,
+        };
 
         <span class="kw">use</span> <span class="kw">super</span>::{
-            <span class="ident">CustomLoginType</span>, <span class="ident">IdentityProvider</span>, <span class="ident">IdentityProviderBrand</span>, <span class="ident">LoginType</span>, <span class="ident">PasswordLoginType</span>,
-            <span class="ident">SsoLoginType</span>, <span class="ident">TokenLoginType</span>,
+            <span class="ident">IdentityProvider</span>, <span class="ident">IdentityProviderBrand</span>, <span class="ident">LoginType</span>, <span class="ident">SsoLoginType</span>, <span class="ident">TokenLoginType</span>,
         };
 
         <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
@@ -745,43 +733,40 @@
 
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="ident">deserialize_password_login_type</span>() {
-            <span class="macro">assert_matches!</span>(
-                <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Wrapper</span><span class="op">&gt;</span>(<span class="macro">json!</span>({
-                    <span class="string">&quot;flows&quot;</span>: [
-                        { <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.login.password&quot;</span> }
-                    ],
-                })),
-                <span class="prelude-val">Ok</span>(<span class="ident">Wrapper</span> { <span class="ident">flows</span> })
-                <span class="kw">if</span> <span class="ident">flows</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span>
-                    <span class="op">&amp;&amp;</span> <span class="macro">matches!</span>(<span class="ident">flows</span>[<span class="number">0</span>], <span class="ident">LoginType::Password</span>(<span class="ident">PasswordLoginType</span> {}))
-            );
+            <span class="kw">let</span> <span class="ident">wrapper</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Wrapper</span><span class="op">&gt;</span>(<span class="macro">json!</span>({
+                <span class="string">&quot;flows&quot;</span>: [
+                    { <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.login.password&quot;</span> }
+                ],
+            }))
+            .<span class="ident">unwrap</span>();
+            <span class="macro">assert_eq!</span>(<span class="ident">wrapper</span>.<span class="ident">flows</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+            <span class="macro">assert_matches!</span>(<span class="ident">wrapper</span>.<span class="ident">flows</span>[<span class="number">0</span>], <span class="ident">LoginType::Password</span>(<span class="kw">_</span>));
         }
 
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="ident">deserialize_custom_login_type</span>() {
-            <span class="macro">assert_matches!</span>(
-                <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Wrapper</span><span class="op">&gt;</span>(<span class="macro">json!</span>({
-                    <span class="string">&quot;flows&quot;</span>: [
-                        {
-                            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;io.ruma.custom&quot;</span>,
-                            <span class="string">&quot;color&quot;</span>: <span class="string">&quot;green&quot;</span>,
-                        }
-                    ],
-                })),
-                <span class="prelude-val">Ok</span>(<span class="ident">Wrapper</span> { <span class="ident">flows</span> })
-                <span class="kw">if</span> <span class="ident">flows</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">1</span>
-                    <span class="op">&amp;&amp;</span> <span class="macro">matches!</span>(
-                        <span class="kw-2">&amp;</span><span class="ident">flows</span>[<span class="number">0</span>],
-                        <span class="ident">LoginType::_Custom</span>(<span class="ident">CustomLoginType</span> { <span class="ident">type_</span>, <span class="ident">data</span> })
-                            <span class="kw">if</span> <span class="ident">type_</span> <span class="op">==</span> <span class="string">&quot;io.ruma.custom&quot;</span>
-                            <span class="op">&amp;&amp;</span> <span class="ident">data</span> <span class="op">==</span> <span class="macro">json!</span>({ <span class="string">&quot;color&quot;</span>: <span class="string">&quot;green&quot;</span> }).<span class="ident">as_object</span>().<span class="ident">unwrap</span>()
-                    )
+            <span class="kw">let</span> <span class="ident">wrapper</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Wrapper</span><span class="op">&gt;</span>(<span class="macro">json!</span>({
+                <span class="string">&quot;flows&quot;</span>: [
+                    {
+                        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;io.ruma.custom&quot;</span>,
+                        <span class="string">&quot;color&quot;</span>: <span class="string">&quot;green&quot;</span>,
+                    }
+                ],
+            }))
+            .<span class="ident">unwrap</span>();
+            <span class="macro">assert_eq!</span>(<span class="ident">wrapper</span>.<span class="ident">flows</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+            <span class="kw">let</span> <span class="ident">custom</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+                <span class="kw-2">&amp;</span><span class="ident">wrapper</span>.<span class="ident">flows</span>[<span class="number">0</span>],
+                <span class="ident">LoginType::_Custom</span>(<span class="ident">custom</span>) =&gt; <span class="ident">custom</span>
             );
+            <span class="macro">assert_eq!</span>(<span class="ident">custom</span>.<span class="ident">type_</span>, <span class="string">&quot;io.ruma.custom&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">custom</span>.<span class="ident">data</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">custom</span>.<span class="ident">data</span>.<span class="ident">get</span>(<span class="string">&quot;color&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">JsonValue::from</span>(<span class="string">&quot;green&quot;</span>)));
         }
 
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="ident">deserialize_sso_login_type</span>() {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wrapper</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Wrapper</span><span class="op">&gt;</span>(<span class="macro">json!</span>({
+            <span class="kw">let</span> <span class="ident">wrapper</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Wrapper</span><span class="op">&gt;</span>(<span class="macro">json!</span>({
                 <span class="string">&quot;flows&quot;</span>: [
                     {
                         <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.login.sso&quot;</span>,
@@ -801,39 +786,26 @@
                 ],
             }))
             .<span class="ident">unwrap</span>();
+            <span class="macro">assert_eq!</span>(<span class="ident">wrapper</span>.<span class="ident">flows</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+            <span class="kw">let</span> <span class="ident">flow</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">wrapper</span>.<span class="ident">flows</span>[<span class="number">0</span>];
 
-            <span class="kw">let</span> <span class="ident">flow</span> <span class="op">=</span> <span class="ident">wrapper</span>.<span class="ident">flows</span>.<span class="ident">pop</span>();
-            <span class="macro">assert_matches!</span>(<span class="ident">wrapper</span>.<span class="ident">flows</span>.<span class="ident">as_slice</span>(), []);
-
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">identity_providers</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">flow</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">LoginType::Sso</span>(<span class="ident">SsoLoginType</span> { <span class="ident">identity_providers</span> })) =&gt; <span class="ident">identity_providers</span>,
-                <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;unexpected enum variant: {flow:?}&quot;</span>),
-            };
-
-            <span class="kw">let</span> <span class="ident">provider</span> <span class="op">=</span> <span class="ident">identity_providers</span>.<span class="ident">pop</span>();
-            <span class="macro">assert_matches!</span>(
-                <span class="ident">provider</span>,
-                <span class="prelude-val">Some</span>(<span class="ident">IdentityProvider</span> {
-                    <span class="ident">id</span>,
-                    <span class="ident">name</span>,
-                    <span class="ident">icon</span>: <span class="prelude-val">None</span>,
-                    <span class="ident">brand</span>: <span class="prelude-val">None</span>,
-                }) <span class="kw">if</span> <span class="ident">id</span> <span class="op">==</span> <span class="string">&quot;custom&quot;</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">name</span> <span class="op">==</span> <span class="string">&quot;Custom&quot;</span>
+            <span class="kw">let</span> <span class="ident">identity_providers</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+                <span class="ident">flow</span>,
+                <span class="ident">LoginType::Sso</span>(<span class="ident">SsoLoginType</span> { <span class="ident">identity_providers</span> }) =&gt; <span class="ident">identity_providers</span>
             );
+            <span class="macro">assert_eq!</span>(<span class="ident">identity_providers</span>.<span class="ident">len</span>(), <span class="number">2</span>);
 
-            <span class="kw">let</span> <span class="ident">provider</span> <span class="op">=</span> <span class="ident">identity_providers</span>.<span class="ident">pop</span>();
-            <span class="macro">assert_matches!</span>(
-                <span class="ident">provider</span>,
-                <span class="prelude-val">Some</span>(<span class="ident">IdentityProvider</span> {
-                    <span class="ident">id</span>,
-                    <span class="ident">name</span>,
-                    <span class="ident">icon</span>: <span class="prelude-val">Some</span>(<span class="ident">icon</span>),
-                    <span class="ident">brand</span>: <span class="prelude-val">Some</span>(<span class="ident">IdentityProviderBrand::GitLab</span>),
-                }) <span class="kw">if</span> <span class="ident">id</span> <span class="op">==</span> <span class="string">&quot;oidc-gitlab&quot;</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">name</span> <span class="op">==</span> <span class="string">&quot;GitLab&quot;</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">icon</span> <span class="op">==</span> <span class="string">&quot;mxc://localhost/gitlab-icon&quot;</span>
-            );
+            <span class="kw">let</span> <span class="ident">provider</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">identity_providers</span>[<span class="number">0</span>];
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">id</span>, <span class="string">&quot;oidc-gitlab&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">name</span>, <span class="string">&quot;GitLab&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">icon</span>.<span class="ident">as_deref</span>(), <span class="prelude-val">Some</span>(<span class="macro">mxc_uri!</span>(<span class="string">&quot;mxc://localhost/gitlab-icon&quot;</span>)));
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">brand</span>, <span class="prelude-val">Some</span>(<span class="ident">IdentityProviderBrand::GitLab</span>));
+
+            <span class="kw">let</span> <span class="ident">provider</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">identity_providers</span>[<span class="number">1</span>];
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">id</span>, <span class="string">&quot;custom&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">name</span>, <span class="string">&quot;Custom&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">icon</span>, <span class="prelude-val">None</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">provider</span>.<span class="ident">brand</span>, <span class="prelude-val">None</span>);
         }
 
         <span class="attribute">#[<span class="ident">test</span>]</span>

@@ -767,6 +767,7 @@
 <span id="758">758</span>
 <span id="759">759</span>
 <span id="760">760</span>
+<span id="761">761</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/sync`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -1381,7 +1382,6 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
     <span class="kw">mod</span> <span class="ident">tests</span> {
-        <span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
         <span class="kw">use</span> <span class="ident">assign::assign</span>;
         <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
 
@@ -1393,14 +1393,14 @@
             <span class="kw">let</span> <span class="ident">timeline_serialized</span> <span class="op">=</span> <span class="macro">json!</span>({ <span class="string">&quot;limited&quot;</span>: <span class="bool-val">true</span> });
             <span class="macro">assert_eq!</span>(<span class="ident">to_json_value</span>(<span class="ident">timeline</span>).<span class="ident">unwrap</span>(), <span class="ident">timeline_serialized</span>);
 
-            <span class="kw">let</span> <span class="ident">timeline_deserialized</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">timeline_serialized</span>);
-            <span class="macro">assert_matches!</span>(<span class="ident">timeline_deserialized</span>, <span class="prelude-val">Ok</span>(<span class="ident">Timeline</span> { <span class="ident">limited</span>: <span class="bool-val">true</span>, .. }));
+            <span class="kw">let</span> <span class="ident">timeline_deserialized</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Timeline</span><span class="op">&gt;</span>(<span class="ident">timeline_serialized</span>).<span class="ident">unwrap</span>();
+            <span class="macro">assert!</span>(<span class="ident">timeline_deserialized</span>.<span class="ident">limited</span>);
 
             <span class="kw">let</span> <span class="ident">timeline_default</span> <span class="op">=</span> <span class="ident">Timeline::default</span>();
             <span class="macro">assert_eq!</span>(<span class="ident">to_json_value</span>(<span class="ident">timeline_default</span>).<span class="ident">unwrap</span>(), <span class="macro">json!</span>({}));
 
-            <span class="kw">let</span> <span class="ident">timeline_default_deserialized</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="macro">json!</span>({}));
-            <span class="macro">assert_matches!</span>(<span class="ident">timeline_default_deserialized</span>, <span class="prelude-val">Ok</span>(<span class="ident">Timeline</span> { <span class="ident">limited</span>: <span class="bool-val">false</span>, .. }));
+            <span class="kw">let</span> <span class="ident">timeline_default_deserialized</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Timeline</span><span class="op">&gt;</span>(<span class="macro">json!</span>({})).<span class="ident">unwrap</span>();
+            <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">timeline_default_deserialized</span>.<span class="ident">limited</span>);
         }
     }
 
@@ -1471,8 +1471,9 @@
             )
             .<span class="ident">unwrap</span>();
 
-            <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) <span class="kw">if</span> <span class="ident">id</span> <span class="op">==</span> <span class="string">&quot;myfilter&quot;</span>);
-            <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">since</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;myts&quot;</span>.<span class="ident">into</span>()));
+            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) =&gt; <span class="ident">id</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">id</span>, <span class="string">&quot;myfilter&quot;</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">since</span>.<span class="ident">as_deref</span>(), <span class="prelude-val">Some</span>(<span class="string">&quot;myts&quot;</span>));
             <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">req</span>.<span class="ident">full_state</span>);
             <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">set_presence</span>, <span class="ident">PresenceState::Offline</span>);
             <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">timeout</span>, <span class="prelude-val">Some</span>(<span class="ident">Duration::from_millis</span>(<span class="number">5000</span>)));
@@ -1519,7 +1520,8 @@
             )
             .<span class="ident">unwrap</span>();
 
-            <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) <span class="kw">if</span> <span class="ident">id</span> <span class="op">==</span> <span class="string">&quot;EOKFFmdZYF&quot;</span>);
+            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(<span class="ident">req</span>.<span class="ident">filter</span>, <span class="prelude-val">Some</span>(<span class="ident">IncomingFilter::FilterId</span>(<span class="ident">id</span>)) =&gt; <span class="ident">id</span>);
+            <span class="macro">assert_eq!</span>(<span class="ident">id</span>, <span class="string">&quot;EOKFFmdZYF&quot;</span>);
             <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">since</span>, <span class="prelude-val">None</span>);
             <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">req</span>.<span class="ident">full_state</span>);
             <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">set_presence</span>, <span class="ident">PresenceState::Online</span>);

@@ -108,11 +108,6 @@
 <span id="99">99</span>
 <span id="100">100</span>
 <span id="101">101</span>
-<span id="102">102</span>
-<span id="103">103</span>
-<span id="104">104</span>
-<span id="105">105</span>
-<span id="106">106</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/user/{userId}/filter`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -172,8 +167,6 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>)))]</span>
     <span class="kw">mod</span> <span class="ident">tests</span> {
-        <span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
-
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="ident">deserialize_request</span>() {
@@ -181,17 +174,15 @@
 
             <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::IncomingRequest</span>;
 
-            <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
-                <span class="ident">IncomingRequest::try_from_http_request</span>(
-                    <span class="ident">http::Request::builder</span>()
-                        .<span class="ident">method</span>(<span class="ident">http::Method::POST</span>)
-                        .<span class="ident">uri</span>(<span class="string">&quot;https://matrix.org/_matrix/client/r0/user/@foo:bar.com/filter&quot;</span>)
-                        .<span class="ident">body</span>(<span class="string">b&quot;{}&quot;</span> <span class="kw">as</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>])
-                        .<span class="ident">unwrap</span>(),
-                    <span class="kw-2">&amp;</span>[<span class="string">&quot;@foo:bar.com&quot;</span>]
-                ),
-                <span class="prelude-val">Ok</span>(<span class="ident">req</span>) =&gt; <span class="ident">req</span>
-            );
+            <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">IncomingRequest::try_from_http_request</span>(
+                <span class="ident">http::Request::builder</span>()
+                    .<span class="ident">method</span>(<span class="ident">http::Method::POST</span>)
+                    .<span class="ident">uri</span>(<span class="string">&quot;https://matrix.org/_matrix/client/r0/user/@foo:bar.com/filter&quot;</span>)
+                    .<span class="ident">body</span>(<span class="string">b&quot;{}&quot;</span> <span class="kw">as</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>])
+                    .<span class="ident">unwrap</span>(),
+                <span class="kw-2">&amp;</span>[<span class="string">&quot;@foo:bar.com&quot;</span>],
+            )
+            .<span class="ident">unwrap</span>();
 
             <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">user_id</span>, <span class="string">&quot;@foo:bar.com&quot;</span>);
             <span class="macro">assert!</span>(<span class="ident">req</span>.<span class="ident">filter</span>.<span class="ident">is_empty</span>());
@@ -207,15 +198,14 @@
 
             <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::filter::FilterDefinition</span>;
 
-            <span class="macro">assert_matches!</span>(
-                <span class="ident"><span class="kw">super</span>::Request::new</span>(<span class="macro">user_id!</span>(<span class="string">&quot;@foo:bar.com&quot;</span>), <span class="ident">FilterDefinition::default</span>())
-                    .<span class="ident">try_into_http_request</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(
-                        <span class="string">&quot;https://matrix.org&quot;</span>,
-                        <span class="ident">SendAccessToken::IfRequired</span>(<span class="string">&quot;tok&quot;</span>),
-                        <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_1</span>]
-                    ),
-                <span class="prelude-val">Ok</span>(<span class="ident">res</span>) <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">body</span>() <span class="op">==</span> <span class="string">b&quot;{}&quot;</span>
-            );
+            <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident"><span class="kw">super</span>::Request::new</span>(<span class="macro">user_id!</span>(<span class="string">&quot;@foo:bar.com&quot;</span>), <span class="ident">FilterDefinition::default</span>())
+                .<span class="ident">try_into_http_request</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+                    <span class="string">&quot;https://matrix.org&quot;</span>,
+                    <span class="ident">SendAccessToken::IfRequired</span>(<span class="string">&quot;tok&quot;</span>),
+                    <span class="kw-2">&amp;</span>[<span class="ident">MatrixVersion::V1_1</span>],
+                )
+                .<span class="ident">unwrap</span>();
+            <span class="macro">assert_eq!</span>(<span class="ident">req</span>.<span class="ident">body</span>(), <span class="string">b&quot;{}&quot;</span>);
         }
     }
 }

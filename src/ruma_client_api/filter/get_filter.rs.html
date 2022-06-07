@@ -91,10 +91,6 @@
 <span id="82">82</span>
 <span id="83">83</span>
 <span id="84">84</span>
-<span id="85">85</span>
-<span id="86">86</span>
-<span id="87">87</span>
-<span id="88">88</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/user/{userId}/filter/{filterId}`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -153,19 +149,16 @@
 
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">test</span>, <span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>)))]</span>
     <span class="kw">mod</span> <span class="ident">tests</span> {
-        <span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
-
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)]</span>
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="kw">fn</span> <span class="ident">deserialize_response</span>() {
             <span class="kw">use</span> <span class="ident">ruma_common::api::IncomingResponse</span>;
 
-            <span class="macro">assert_matches!</span>(
-                <span class="ident"><span class="kw">super</span>::Response::try_from_http_response</span>(
-                    <span class="ident">http::Response::builder</span>().<span class="ident">body</span>(<span class="string">b&quot;{}&quot;</span> <span class="kw">as</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]).<span class="ident">unwrap</span>(),
-                ),
-                <span class="prelude-val">Ok</span>(<span class="ident"><span class="kw">super</span>::Response</span> { <span class="ident">filter</span> }) <span class="kw">if</span> <span class="ident">filter</span>.<span class="ident">is_empty</span>()
-            );
+            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident"><span class="kw">super</span>::Response::try_from_http_response</span>(
+                <span class="ident">http::Response::builder</span>().<span class="ident">body</span>(<span class="string">b&quot;{}&quot;</span> <span class="kw">as</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]).<span class="ident">unwrap</span>(),
+            )
+            .<span class="ident">unwrap</span>();
+            <span class="macro">assert!</span>(<span class="ident">res</span>.<span class="ident">filter</span>.<span class="ident">is_empty</span>());
         }
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;server&quot;</span>)]</span>
@@ -175,11 +168,10 @@
 
             <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::filter::IncomingFilterDefinition</span>;
 
-            <span class="macro">assert_matches!</span>(
-                <span class="ident"><span class="kw">super</span>::Response::new</span>(<span class="ident">IncomingFilterDefinition::default</span>())
-                    .<span class="ident">try_into_http_response</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(),
-                <span class="prelude-val">Ok</span>(<span class="ident">res</span>) <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">body</span>() <span class="op">==</span> <span class="string">b&quot;{}&quot;</span>
-            );
+            <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident"><span class="kw">super</span>::Response::new</span>(<span class="ident">IncomingFilterDefinition::default</span>())
+                .<span class="ident">try_into_http_response</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>()
+                .<span class="ident">unwrap</span>();
+            <span class="macro">assert_eq!</span>(<span class="ident">res</span>.<span class="ident">body</span>(), <span class="string">b&quot;{}&quot;</span>);
         }
     }
 }

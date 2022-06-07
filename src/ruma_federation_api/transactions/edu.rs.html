@@ -564,9 +564,6 @@
 <span id="555">555</span>
 <span id="556">556</span>
 <span id="557">557</span>
-<span id="558">558</span>
-<span id="559">559</span>
-<span id="560">560</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Edu type and variant content structs.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -933,10 +930,10 @@
             <span class="ident">prev_id</span>,
             <span class="ident">deleted</span>,
             <span class="ident">keys</span>,
-        } <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">edu</span> {
-            <span class="ident">Edu::DeviceListUpdate</span>(<span class="ident">u</span>) =&gt; <span class="ident">u</span>,
-            <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Unexpected Edu variant: {:#?}&quot;</span>, <span class="ident">edu</span>),
-        };
+        } <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="kw-2">&amp;</span><span class="ident">edu</span>,
+            <span class="ident">Edu::DeviceListUpdate</span>(<span class="ident">u</span>) =&gt; <span class="ident">u</span>
+        );
 
         <span class="macro">assert_eq!</span>(<span class="ident">user_id</span>, <span class="string">&quot;@john:example.com&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">device_id</span>, <span class="string">&quot;QBUAZIFURK&quot;</span>);
@@ -969,10 +966,10 @@
             <span class="ident">prev_id</span>,
             <span class="ident">deleted</span>,
             <span class="ident">keys</span>,
-        } <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">edu</span> {
-            <span class="ident">Edu::DeviceListUpdate</span>(<span class="ident">u</span>) =&gt; <span class="ident">u</span>,
-            <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Unexpected Edu variant: {:#?}&quot;</span>, <span class="ident">edu</span>),
-        };
+        } <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="kw-2">&amp;</span><span class="ident">edu</span>,
+            <span class="ident">Edu::DeviceListUpdate</span>(<span class="ident">u</span>) =&gt; <span class="ident">u</span>
+        );
 
         <span class="macro">assert_eq!</span>(<span class="ident">user_id</span>, <span class="string">&quot;@john:example.com&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">device_id</span>, <span class="string">&quot;QBUAZIFURK&quot;</span>);
@@ -1006,11 +1003,11 @@
         });
 
         <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
-        <span class="macro">assert_matches!</span>(
+        <span class="kw">let</span> <span class="ident">receipts</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
-            <span class="ident">Edu::Receipt</span>(<span class="ident">ReceiptContent</span> { <span class="ident">receipts</span> })
-                <span class="kw">if</span> <span class="ident">receipts</span>.<span class="ident">get</span>(<span class="macro">room_id!</span>(<span class="string">&quot;!some_room:example.org&quot;</span>)).<span class="ident">is_some</span>()
+            <span class="ident">Edu::Receipt</span>(<span class="ident">ReceiptContent</span> { <span class="ident">receipts</span> }) =&gt; <span class="ident">receipts</span>
         );
+        <span class="macro">assert!</span>(<span class="ident">receipts</span>.<span class="ident">get</span>(<span class="macro">room_id!</span>(<span class="string">&quot;!some_room:example.org&quot;</span>)).<span class="ident">is_some</span>());
 
         <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
@@ -1027,14 +1024,13 @@
         });
 
         <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
-        <span class="macro">assert_matches!</span>(
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
-            <span class="ident">Edu::Typing</span>(<span class="ident">TypingContent</span> {
-                <span class="ident">room_id</span>, <span class="ident">user_id</span>, <span class="ident">typing</span>
-            }) <span class="kw">if</span> <span class="ident">room_id</span> <span class="op">==</span> <span class="string">&quot;!somewhere:matrix.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">user_id</span> <span class="op">==</span> <span class="string">&quot;@john:matrix.org&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">typing</span>
+            <span class="ident">Edu::Typing</span>(<span class="ident">content</span>) =&gt; <span class="ident">content</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">room_id</span>, <span class="string">&quot;!somewhere:matrix.org&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">user_id</span>, <span class="string">&quot;@john:matrix.org&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">content</span>.<span class="ident">typing</span>);
 
         <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
@@ -1061,15 +1057,14 @@
         });
 
         <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
-        <span class="macro">assert_matches!</span>(
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
-            <span class="ident">Edu::DirectToDevice</span>(<span class="ident">DirectDeviceContent</span> {
-                <span class="ident">sender</span>, <span class="ident">ev_type</span>, <span class="ident">message_id</span>, <span class="ident">messages</span>
-            }) <span class="kw">if</span> <span class="ident">sender</span> <span class="op">==</span> <span class="string">&quot;@john:example.com&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">ev_type</span> <span class="op">==</span> <span class="ident">ToDeviceEventType::RoomKeyRequest</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">message_id</span> <span class="op">==</span> <span class="string">&quot;hiezohf6Hoo7kaev&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">messages</span>.<span class="ident">get</span>(<span class="macro">user_id!</span>(<span class="string">&quot;@alice:example.org&quot;</span>)).<span class="ident">is_some</span>()
+            <span class="ident">Edu::DirectToDevice</span>(<span class="ident">content</span>) =&gt; <span class="ident">content</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">sender</span>, <span class="string">&quot;@john:example.com&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">ev_type</span>, <span class="ident">ToDeviceEventType::RoomKeyRequest</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">message_id</span>, <span class="string">&quot;hiezohf6Hoo7kaev&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">content</span>.<span class="ident">messages</span>.<span class="ident">get</span>(<span class="macro">user_id!</span>(<span class="string">&quot;@alice:example.org&quot;</span>)).<span class="ident">is_some</span>());
 
         <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
@@ -1115,14 +1110,13 @@
         });
 
         <span class="kw">let</span> <span class="ident">edu</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Edu</span><span class="op">&gt;</span>(<span class="ident">json</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>();
-        <span class="macro">assert_matches!</span>(
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
             <span class="kw-2">&amp;</span><span class="ident">edu</span>,
-            <span class="ident">Edu::SigningKeyUpdate</span>(<span class="ident">SigningKeyUpdateContent</span> {
-                <span class="ident">user_id</span>,
-                <span class="ident">master_key</span>: <span class="prelude-val">Some</span>(<span class="kw">_</span>),
-                <span class="ident">self_signing_key</span>: <span class="prelude-val">Some</span>(<span class="kw">_</span>),
-            }) <span class="kw">if</span> <span class="ident">user_id</span> <span class="op">==</span> <span class="string">&quot;@alice:example.com&quot;</span>
+            <span class="ident">Edu::SigningKeyUpdate</span>(<span class="ident">content</span>) =&gt; <span class="ident">content</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">user_id</span>, <span class="string">&quot;@alice:example.com&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">content</span>.<span class="ident">master_key</span>.<span class="ident">is_some</span>());
+        <span class="macro">assert!</span>(<span class="ident">content</span>.<span class="ident">self_signing_key</span>.<span class="ident">is_some</span>());
 
         <span class="macro">assert_eq!</span>(<span class="ident">serde_json::to_value</span>(<span class="kw-2">&amp;</span><span class="ident">edu</span>).<span class="ident">unwrap</span>(), <span class="ident">json</span>);
     }
