@@ -261,6 +261,8 @@
 <span id="252">252</span>
 <span id="253">253</span>
 <span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">iter</span>, <span class="ident">ptr</span>, <span class="ident">vec</span>};
 
 <span class="kw">use</span> <span class="ident">serde::de</span>::{
@@ -501,7 +503,8 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">ValOrVec::Val</span>(<span class="ident">Cow::Borrowed</span>(<span class="string">&quot;a&quot;</span>));
         <span class="ident">x</span>.<span class="ident">push</span>(<span class="ident">Cow::Borrowed</span>(<span class="string">&quot;b&quot;</span>));
         <span class="ident">x</span>.<span class="ident">push</span>(<span class="ident">Cow::Borrowed</span>(<span class="string">&quot;c&quot;</span>));
-        <span class="macro">assert_matches!</span>(<span class="ident">x</span>, <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) <span class="kw">if</span> <span class="ident">v</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]);
+        <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(<span class="ident">x</span>, <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) =&gt; <span class="ident">v</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>, <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -509,12 +512,13 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">ValOrVec::Val</span>(<span class="ident">Cow::from</span>(<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>()));
         <span class="ident">x</span>.<span class="ident">push</span>(<span class="ident">Cow::from</span>(<span class="string">&quot;b&quot;</span>.<span class="ident">to_owned</span>()));
         <span class="ident">x</span>.<span class="ident">push</span>(<span class="ident">Cow::from</span>(<span class="string">&quot;c&quot;</span>.<span class="ident">to_owned</span>()));
-        <span class="macro">assert_matches!</span>(
+        <span class="kw">let</span> <span class="ident">v</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
             <span class="ident">x</span>,
-            <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) <span class="kw">if</span> <span class="ident">v</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;b&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;c&quot;</span>.<span class="ident">to_owned</span>()]
+            <span class="ident">ValOrVec::Vec</span>(<span class="ident">v</span>) =&gt; <span class="ident">v</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">v</span>, <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;b&quot;</span>.<span class="ident">to_owned</span>(), <span class="string">&quot;c&quot;</span>.<span class="ident">to_owned</span>()]);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (a6b8c6954 2022-06-03)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (50b00252a 2022-06-06)" ></div>
 </body></html>

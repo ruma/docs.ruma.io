@@ -281,11 +281,11 @@
     <span class="kw">fn</span> <span class="ident">deserialize_plain</span>() {
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({ <span class="string">&quot;thumbnail_url&quot;</span>: <span class="string">&quot;mxc://notareal.hs/abcdef&quot;</span> });
 
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">ThumbnailSourceTest</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ThumbnailSourceTest</span> { <span class="ident">source</span>: <span class="prelude-val">Some</span>(<span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>)) }
-            <span class="kw">if</span> <span class="ident">url</span> <span class="op">==</span> <span class="string">&quot;mxc://notareal.hs/abcdef&quot;</span>
+        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">ThumbnailSourceTest</span><span class="op">&gt;</span>(<span class="ident">json</span>),
+            <span class="prelude-val">Ok</span>(<span class="ident">ThumbnailSourceTest</span> { <span class="ident">source</span>: <span class="prelude-val">Some</span>(<span class="ident">MediaSource::Plain</span>(<span class="ident">url</span>)) }) =&gt; <span class="ident">url</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">url</span>, <span class="string">&quot;mxc://notareal.hs/abcdef&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -308,11 +308,11 @@
             },
         });
 
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">ThumbnailSourceTest</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ThumbnailSourceTest</span> { <span class="ident">source</span>: <span class="prelude-val">Some</span>(<span class="ident">MediaSource::Encrypted</span>(<span class="ident">file</span>)) }
-            <span class="kw">if</span> <span class="ident">file</span>.<span class="ident">url</span> <span class="op">==</span> <span class="string">&quot;mxc://notareal.hs/abcdef&quot;</span>
+        <span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">ThumbnailSourceTest</span><span class="op">&gt;</span>(<span class="ident">json</span>),
+            <span class="prelude-val">Ok</span>(<span class="ident">ThumbnailSourceTest</span> { <span class="ident">source</span>: <span class="prelude-val">Some</span>(<span class="ident">MediaSource::Encrypted</span>(<span class="ident">file</span>)) }) =&gt; <span class="ident">file</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">file</span>.<span class="ident">url</span>, <span class="string">&quot;mxc://notareal.hs/abcdef&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -410,5 +410,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (a6b8c6954 2022-06-03)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (50b00252a 2022-06-06)" ></div>
 </body></html>

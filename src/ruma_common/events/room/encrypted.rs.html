@@ -428,11 +428,6 @@
 <span id="419">419</span>
 <span id="420">420</span>
 <span id="421">421</span>
-<span id="422">422</span>
-<span id="423">423</span>
-<span id="424">424</span>
-<span id="425">425</span>
-<span id="426">426</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.encrypted`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.encrypted`]: https://spec.matrix.org/v1.2/client-server-api/#mroomencrypted</span>
@@ -747,7 +742,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">event_id</span>, <span class="ident">serde::Raw</span>};
     <span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">js_int::uint</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>};
@@ -756,6 +750,7 @@
         <span class="ident">EncryptedEventScheme</span>, <span class="ident">InReplyTo</span>, <span class="ident">MegolmV1AesSha2Content</span>, <span class="ident">Relation</span>,
         <span class="ident">RoomEncryptedEventContent</span>,
     };
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">event_id</span>, <span class="ident">serde::Raw</span>};
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
@@ -804,24 +799,20 @@
 
         <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">RoomEncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_matches!</span>(
+        <span class="kw">let</span> <span class="ident">scheme</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
             <span class="ident">content</span>.<span class="ident">scheme</span>,
-            <span class="ident">EncryptedEventScheme::MegolmV1AesSha2</span>(<span class="ident">MegolmV1AesSha2Content</span> {
-                <span class="ident">ciphertext</span>,
-                <span class="ident">sender_key</span>,
-                <span class="ident">device_id</span>,
-                <span class="ident">session_id</span>,
-            }) <span class="kw">if</span> <span class="ident">ciphertext</span> <span class="op">==</span> <span class="string">&quot;ciphertext&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender_key</span> <span class="op">==</span> <span class="string">&quot;sender_key&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">device_id</span> <span class="op">==</span> <span class="string">&quot;device_id&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">session_id</span> <span class="op">==</span> <span class="string">&quot;session_id&quot;</span>
+            <span class="ident">EncryptedEventScheme::MegolmV1AesSha2</span>(<span class="ident">scheme</span>) =&gt; <span class="ident">scheme</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">scheme</span>.<span class="ident">ciphertext</span>, <span class="string">&quot;ciphertext&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">scheme</span>.<span class="ident">sender_key</span>, <span class="string">&quot;sender_key&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">scheme</span>.<span class="ident">device_id</span>, <span class="string">&quot;device_id&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">scheme</span>.<span class="ident">session_id</span>, <span class="string">&quot;session_id&quot;</span>);
 
-        <span class="macro">assert_matches!</span>(
+        <span class="kw">let</span> <span class="ident">in_reply_to</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
             <span class="ident">content</span>.<span class="ident">relates_to</span>,
-            <span class="prelude-val">Some</span>(<span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> })
-                <span class="kw">if</span> <span class="ident">in_reply_to</span>.<span class="ident">event_id</span> <span class="op">==</span> <span class="macro">event_id!</span>(<span class="string">&quot;$h29iv0s8:example.com&quot;</span>)
+            <span class="prelude-val">Some</span>(<span class="ident">Relation::Reply</span> { <span class="ident">in_reply_to</span> }) =&gt; <span class="ident">in_reply_to</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">in_reply_to</span>.<span class="ident">event_id</span>, <span class="string">&quot;$h29iv0s8:example.com&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -838,15 +829,14 @@
         });
         <span class="kw">let</span> <span class="ident">content</span>: <span class="ident">RoomEncryptedEventContent</span> <span class="op">=</span> <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
-        <span class="kw">match</span> <span class="ident">content</span>.<span class="ident">scheme</span> {
-            <span class="ident">EncryptedEventScheme::OlmV1Curve25519AesSha2</span>(<span class="ident">c</span>) =&gt; {
-                <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">sender_key</span>, <span class="string">&quot;test_key&quot;</span>);
-                <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">ciphertext</span>.<span class="ident">len</span>(), <span class="number">1</span>);
-                <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">ciphertext</span>[<span class="string">&quot;test_curve_key&quot;</span>].<span class="ident">body</span>, <span class="string">&quot;encrypted_body&quot;</span>);
-                <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">ciphertext</span>[<span class="string">&quot;test_curve_key&quot;</span>].<span class="ident">message_type</span>, <span class="macro">uint!</span>(<span class="number">1</span>));
-            }
-            <span class="kw">_</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Wrong content type, expected a OlmV1 content&quot;</span>),
-        }
+        <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">content</span>.<span class="ident">scheme</span>,
+            <span class="ident">EncryptedEventScheme::OlmV1Curve25519AesSha2</span>(<span class="ident">c</span>) =&gt; <span class="ident">c</span>
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">sender_key</span>, <span class="string">&quot;test_key&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">ciphertext</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">ciphertext</span>[<span class="string">&quot;test_curve_key&quot;</span>].<span class="ident">body</span>, <span class="string">&quot;encrypted_body&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">c</span>.<span class="ident">ciphertext</span>[<span class="string">&quot;test_curve_key&quot;</span>].<span class="ident">message_type</span>, <span class="macro">uint!</span>(<span class="number">1</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -860,5 +850,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (a6b8c6954 2022-06-03)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (50b00252a 2022-06-06)" ></div>
 </body></html>

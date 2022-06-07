@@ -528,28 +528,6 @@
 <span id="519">519</span>
 <span id="520">520</span>
 <span id="521">521</span>
-<span id="522">522</span>
-<span id="523">523</span>
-<span id="524">524</span>
-<span id="525">525</span>
-<span id="526">526</span>
-<span id="527">527</span>
-<span id="528">528</span>
-<span id="529">529</span>
-<span id="530">530</span>
-<span id="531">531</span>
-<span id="532">532</span>
-<span id="533">533</span>
-<span id="534">534</span>
-<span id="535">535</span>
-<span id="536">536</span>
-<span id="537">537</span>
-<span id="538">538</span>
-<span id="539">539</span>
-<span id="540">540</span>
-<span id="541">541</span>
-<span id="542">542</span>
-<span id="543">543</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.key.verification.start`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.key.verification.start`]: https://spec.matrix.org/v1.2/client-server-api/#mkeyverificationstart</span>
@@ -751,7 +729,6 @@
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
 
-    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">event_id</span>, <span class="ident">serde::Base64</span>, <span class="ident">user_id</span>};
     <span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">serde_json</span>::{
         <span class="ident">from_value</span> <span class="kw">as</span> <span class="ident">from_json_value</span>, <span class="ident">json</span>, <span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>,
@@ -759,11 +736,16 @@
 
     <span class="kw">use</span> <span class="kw">super</span>::{
         <span class="ident">HashAlgorithm</span>, <span class="ident">KeyAgreementProtocol</span>, <span class="ident">KeyVerificationStartEventContent</span>,
-        <span class="ident">MessageAuthenticationCode</span>, <span class="ident">ReciprocateV1Content</span>, <span class="ident">SasV1Content</span>, <span class="ident">SasV1ContentInit</span>,
+        <span class="ident">MessageAuthenticationCode</span>, <span class="ident">ReciprocateV1Content</span>, <span class="ident">SasV1ContentInit</span>,
         <span class="ident">ShortAuthenticationString</span>, <span class="ident">StartMethod</span>, <span class="ident">ToDeviceKeyVerificationStartEventContent</span>,
         <span class="ident">_CustomContent</span>,
     };
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events</span>::{<span class="ident">key::verification::Relation</span>, <span class="ident">ToDeviceEvent</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::{
+        <span class="ident">event_id</span>,
+        <span class="ident">events</span>::{<span class="ident">key::verification::Relation</span>, <span class="ident">ToDeviceEvent</span>},
+        <span class="ident">serde::Base64</span>,
+        <span class="ident">user_id</span>,
+    };
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">serialization</span>() {
@@ -918,26 +900,21 @@
         });
 
         <span class="comment">// Deserialize the content struct separately to verify `TryFromRaw` is implemented for it.</span>
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
-                <span class="ident">from_device</span>,
-                <span class="ident">transaction_id</span>,
-                <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(<span class="ident">SasV1Content</span> {
-                    <span class="ident">hashes</span>,
-                    <span class="ident">key_agreement_protocols</span>,
-                    <span class="ident">message_authentication_codes</span>,
-                    <span class="ident">short_authentication_string</span>,
-                })
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
-        );
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">from_device</span>, <span class="string">&quot;123&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">transaction_id</span>, <span class="string">&quot;456&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>);
+        <span class="kw">let</span> <span class="ident">sas</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">content</span>.<span class="ident">method</span>,
+            <span class="ident">StartMethod::SasV1</span>(<span class="ident">sas</span>) =&gt; <span class="ident">sas</span>
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">hashes</span>, <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]);
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">key_agreement_protocols</span>, <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]);
+        <span class="macro">assert_eq!</span>(
+            <span class="ident">sas</span>.<span class="ident">message_authentication_codes</span>,
+            <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">short_authentication_string</span>, <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]);
 
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;content&quot;</span>: {
@@ -950,33 +927,26 @@
                 <span class="string">&quot;short_authentication_string&quot;</span>: [<span class="string">&quot;decimal&quot;</span>]
             },
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.key.verification.start&quot;</span>,
-            <span class="string">&quot;sender&quot;</span>: <span class="ident">sender</span>
+            <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@example:localhost&quot;</span>,
         });
 
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ToDeviceEvent</span> {
-                <span class="ident">sender</span>,
-                <span class="ident">content</span>: <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
-                    <span class="ident">from_device</span>,
-                    <span class="ident">transaction_id</span>,
-                    <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(<span class="ident">SasV1Content</span> {
-                        <span class="ident">hashes</span>,
-                        <span class="ident">key_agreement_protocols</span>,
-                        <span class="ident">message_authentication_codes</span>,
-                        <span class="ident">short_authentication_string</span>,
-                    })
-                }
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
-        );
+        <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>)
+            .<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">sender</span>, <span class="string">&quot;@example:localhost&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">from_device</span>, <span class="string">&quot;123&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">transaction_id</span>, <span class="string">&quot;456&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">sender</span> <span class="op">=</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>);
+        <span class="kw">let</span> <span class="ident">sas</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">method</span>,
+            <span class="ident">StartMethod::SasV1</span>(<span class="ident">sas</span>) =&gt; <span class="ident">sas</span>
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">hashes</span>, <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]);
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">key_agreement_protocols</span>, <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]);
+        <span class="macro">assert_eq!</span>(
+            <span class="ident">sas</span>.<span class="ident">message_authentication_codes</span>,
+            <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">short_authentication_string</span>, <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]);
 
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;content&quot;</span>: {
@@ -986,58 +956,48 @@
                 <span class="string">&quot;test&quot;</span>: <span class="string">&quot;field&quot;</span>,
             },
             <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.key.verification.start&quot;</span>,
-            <span class="string">&quot;sender&quot;</span>: <span class="ident">sender</span>,
+            <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@example:localhost&quot;</span>,
         });
 
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">ToDeviceEvent</span> {
-                <span class="ident">sender</span>,
-                <span class="ident">content</span>: <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
-                    <span class="ident">from_device</span>,
-                    <span class="ident">transaction_id</span>,
-                    <span class="ident">method</span>: <span class="ident">StartMethod::_Custom</span>(<span class="ident">_CustomContent</span> { <span class="ident">method</span>, <span class="ident">data</span> })
-                }
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">method</span> <span class="op">==</span> <span class="string">&quot;m.sas.custom&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">data</span>.<span class="ident">get</span>(<span class="string">&quot;test&quot;</span>).<span class="ident">unwrap</span>() <span class="op">==</span> <span class="kw-2">&amp;</span><span class="ident">JsonValue::from</span>(<span class="string">&quot;field&quot;</span>)
+        <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>)
+            .<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">sender</span>, <span class="string">&quot;@example:localhost&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">from_device</span>, <span class="string">&quot;123&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">transaction_id</span>, <span class="string">&quot;456&quot;</span>);
+
+        <span class="kw">let</span> <span class="ident">custom</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">method</span>,
+            <span class="ident">StartMethod::_Custom</span>(<span class="ident">custom</span>) =&gt; <span class="ident">custom</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">custom</span>.<span class="ident">method</span>, <span class="string">&quot;m.sas.custom&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">custom</span>.<span class="ident">data</span>.<span class="ident">get</span>(<span class="string">&quot;test&quot;</span>), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">JsonValue::from</span>(<span class="string">&quot;field&quot;</span>)));
 
-        {
-            <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
-                <span class="string">&quot;content&quot;</span>: {
-                    <span class="string">&quot;from_device&quot;</span>: <span class="string">&quot;123&quot;</span>,
-                    <span class="string">&quot;method&quot;</span>: <span class="string">&quot;m.reciprocate.v1&quot;</span>,
-                    <span class="string">&quot;secret&quot;</span>: <span class="string">&quot;c2VjcmV0Cg&quot;</span>,
-                    <span class="string">&quot;transaction_id&quot;</span>: <span class="string">&quot;456&quot;</span>,
-                },
-                <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.key.verification.start&quot;</span>,
-                <span class="string">&quot;sender&quot;</span>: <span class="ident">sender</span>,
-            });
+        <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
+            <span class="string">&quot;content&quot;</span>: {
+                <span class="string">&quot;from_device&quot;</span>: <span class="string">&quot;123&quot;</span>,
+                <span class="string">&quot;method&quot;</span>: <span class="string">&quot;m.reciprocate.v1&quot;</span>,
+                <span class="string">&quot;secret&quot;</span>: <span class="string">&quot;c2VjcmV0Cg&quot;</span>,
+                <span class="string">&quot;transaction_id&quot;</span>: <span class="string">&quot;456&quot;</span>,
+            },
+            <span class="string">&quot;type&quot;</span>: <span class="string">&quot;m.key.verification.start&quot;</span>,
+            <span class="string">&quot;sender&quot;</span>: <span class="string">&quot;@example:localhost&quot;</span>,
+        });
 
-            <span class="macro">assert_matches!</span>(
-                <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-                <span class="ident">ToDeviceEvent</span> {
-                    <span class="ident">sender</span>,
-                    <span class="ident">content</span>: <span class="ident">ToDeviceKeyVerificationStartEventContent</span> {
-                        <span class="ident">from_device</span>,
-                        <span class="ident">transaction_id</span>,
-                        <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content</span> { <span class="ident">secret</span> }),
-                    }
-                } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">sender</span> <span class="op">==</span> <span class="macro">user_id!</span>(<span class="string">&quot;@example:localhost&quot;</span>)
-                    <span class="op">&amp;&amp;</span> <span class="ident">transaction_id</span> <span class="op">==</span> <span class="string">&quot;456&quot;</span>
-                    <span class="op">&amp;&amp;</span> <span class="ident">secret</span>.<span class="ident">encode</span>() <span class="op">==</span> <span class="string">&quot;c2VjcmV0Cg&quot;</span>
-            );
-        }
+        <span class="kw">let</span> <span class="ident">ev</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">ToDeviceEvent</span><span class="op">&lt;</span><span class="ident">ToDeviceKeyVerificationStartEventContent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>)
+            .<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">sender</span>, <span class="string">&quot;@example:localhost&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">from_device</span>, <span class="string">&quot;123&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">transaction_id</span>, <span class="string">&quot;456&quot;</span>);
+
+        <span class="kw">let</span> <span class="ident">reciprocate</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">ev</span>.<span class="ident">content</span>.<span class="ident">method</span>,
+            <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">reciprocate</span>) =&gt; <span class="ident">reciprocate</span>
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">reciprocate</span>.<span class="ident">secret</span>.<span class="ident">encode</span>(), <span class="string">&quot;c2VjcmV0Cg&quot;</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">in_room_deserialization</span>() {
-        <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>);
-
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;from_device&quot;</span>: <span class="string">&quot;123&quot;</span>,
             <span class="string">&quot;method&quot;</span>: <span class="string">&quot;m.sas.v1&quot;</span>,
@@ -1047,29 +1007,26 @@
             <span class="string">&quot;short_authentication_string&quot;</span>: [<span class="string">&quot;decimal&quot;</span>],
             <span class="string">&quot;m.relates_to&quot;</span>: {
                 <span class="string">&quot;rel_type&quot;</span>: <span class="string">&quot;m.reference&quot;</span>,
-                <span class="string">&quot;event_id&quot;</span>: <span class="ident">id</span>,
+                <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>,
             }
         });
 
         <span class="comment">// Deserialize the content struct separately to verify `TryFromRaw` is implemented for it.</span>
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">KeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">KeyVerificationStartEventContent</span> {
-                <span class="ident">from_device</span>,
-                <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span> },
-                <span class="ident">method</span>: <span class="ident">StartMethod::SasV1</span>(<span class="ident">SasV1Content</span> {
-                    <span class="ident">hashes</span>,
-                    <span class="ident">key_agreement_protocols</span>,
-                    <span class="ident">message_authentication_codes</span>,
-                    <span class="ident">short_authentication_string</span>,
-                })
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">id</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">hashes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">key_agreement_protocols</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">message_authentication_codes</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
-                <span class="op">&amp;&amp;</span> <span class="ident">short_authentication_string</span> <span class="op">==</span> <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">KeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">from_device</span>, <span class="string">&quot;123&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">relates_to</span>.<span class="ident">event_id</span>, <span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>);
+
+        <span class="kw">let</span> <span class="ident">sas</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">content</span>.<span class="ident">method</span>,
+            <span class="ident">StartMethod::SasV1</span>(<span class="ident">sas</span>) =&gt; <span class="ident">sas</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">hashes</span>, <span class="macro">vec!</span>[<span class="ident">HashAlgorithm::Sha256</span>]);
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">key_agreement_protocols</span>, <span class="macro">vec!</span>[<span class="ident">KeyAgreementProtocol::Curve25519</span>]);
+        <span class="macro">assert_eq!</span>(
+            <span class="ident">sas</span>.<span class="ident">message_authentication_codes</span>,
+            <span class="macro">vec!</span>[<span class="ident">MessageAuthenticationCode::HkdfHmacSha256</span>]
+        );
+        <span class="macro">assert_eq!</span>(<span class="ident">sas</span>.<span class="ident">short_authentication_string</span>, <span class="macro">vec!</span>[<span class="ident">ShortAuthenticationString::Decimal</span>]);
 
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;from_device&quot;</span>: <span class="string">&quot;123&quot;</span>,
@@ -1077,22 +1034,21 @@
             <span class="string">&quot;secret&quot;</span>: <span class="string">&quot;c2VjcmV0Cg&quot;</span>,
             <span class="string">&quot;m.relates_to&quot;</span>: {
                 <span class="string">&quot;rel_type&quot;</span>: <span class="string">&quot;m.reference&quot;</span>,
-                <span class="string">&quot;event_id&quot;</span>: <span class="ident">id</span>,
+                <span class="string">&quot;event_id&quot;</span>: <span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>,
             }
         });
 
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">KeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">KeyVerificationStartEventContent</span> {
-                <span class="ident">from_device</span>,
-                <span class="ident">relates_to</span>: <span class="ident">Relation</span> { <span class="ident">event_id</span> },
-                <span class="ident">method</span>: <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">ReciprocateV1Content</span> { <span class="ident">secret</span> }),
-            } <span class="kw">if</span> <span class="ident">from_device</span> <span class="op">==</span> <span class="string">&quot;123&quot;</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">event_id</span> <span class="op">==</span> <span class="ident">id</span>
-                <span class="op">&amp;&amp;</span> <span class="ident">secret</span>.<span class="ident">encode</span>() <span class="op">==</span> <span class="string">&quot;c2VjcmV0Cg&quot;</span>
+        <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">KeyVerificationStartEventContent</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">from_device</span>, <span class="string">&quot;123&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">content</span>.<span class="ident">relates_to</span>.<span class="ident">event_id</span>, <span class="string">&quot;$1598361704261elfgc:localhost&quot;</span>);
+
+        <span class="kw">let</span> <span class="ident">reciprocate</span> <span class="op">=</span> <span class="macro">assert_matches!</span>(
+            <span class="ident">content</span>.<span class="ident">method</span>,
+            <span class="ident">StartMethod::ReciprocateV1</span>(<span class="ident">reciprocate</span>) =&gt; <span class="ident">reciprocate</span>
         );
+        <span class="macro">assert_eq!</span>(<span class="ident">reciprocate</span>.<span class="ident">secret</span>.<span class="ident">encode</span>(), <span class="string">&quot;c2VjcmV0Cg&quot;</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (a6b8c6954 2022-06-03)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (50b00252a 2022-06-06)" ></div>
 </body></html>

@@ -222,14 +222,6 @@
 <span id="213">213</span>
 <span id="214">214</span>
 <span id="215">215</span>
-<span id="216">216</span>
-<span id="217">217</span>
-<span id="218">218</span>
-<span id="219">219</span>
-<span id="220">220</span>
-<span id="221">221</span>
-<span id="222">222</span>
-<span id="223">223</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>, <span class="ident">marker::PhantomData</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">Int</span>, <span class="ident">UInt</span>};
@@ -411,7 +403,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">assert_matches::assert_matches</span>;
     <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">int</span>, <span class="ident">Int</span>};
     <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
 
@@ -424,35 +415,28 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">int_or_string</span>() -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>(<span class="macro">serde_json::json!</span>({ <span class="string">&quot;num&quot;</span>: <span class="string">&quot;0&quot;</span> }))<span class="question-mark">?</span>,
-            <span class="ident">Test</span> { <span class="ident">num</span> } <span class="kw">if</span> <span class="ident">num</span> <span class="op">==</span> <span class="macro">int!</span>(<span class="number">0</span>)
-        );
-
-        <span class="prelude-val">Ok</span>(())
+    <span class="kw">fn</span> <span class="ident">int_or_string</span>() {
+        <span class="kw">let</span> <span class="ident">test</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>(<span class="macro">serde_json::json!</span>({ <span class="string">&quot;num&quot;</span>: <span class="string">&quot;0&quot;</span> })).<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">test</span>.<span class="ident">num</span>, <span class="macro">int!</span>(<span class="number">0</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">weird_plus_string</span>() -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>(<span class="macro">serde_json::json!</span>({ <span class="string">&quot;num&quot;</span>: <span class="string">&quot;  +0000000001000   &quot;</span> }))<span class="question-mark">?</span>,
-            <span class="ident">Test</span> { <span class="ident">num</span> } <span class="kw">if</span> <span class="ident">num</span> <span class="op">==</span> <span class="macro">int!</span>(<span class="number">1000</span>)
-        );
-
-        <span class="prelude-val">Ok</span>(())
+    <span class="kw">fn</span> <span class="ident">weird_plus_string</span>() {
+        <span class="kw">let</span> <span class="ident">test</span> <span class="op">=</span>
+            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>(<span class="macro">serde_json::json!</span>({ <span class="string">&quot;num&quot;</span>: <span class="string">&quot;  +0000000001000   &quot;</span> }))
+                .<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">test</span>.<span class="ident">num</span>, <span class="macro">int!</span>(<span class="number">1000</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">weird_minus_string</span>() -&gt; <span class="ident">serde_json::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">assert_matches!</span>(
-            <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>(<span class="macro">serde_json::json!</span>({ <span class="string">&quot;num&quot;</span>: <span class="string">&quot;  \n\n-0000000000000001000   &quot;</span> }))<span class="question-mark">?</span>,
-            <span class="ident">Test</span> { <span class="ident">num</span> } <span class="kw">if</span> <span class="ident">num</span> <span class="op">==</span> <span class="macro">int!</span>(<span class="op">-</span><span class="number">1000</span>)
-        );
-
-        <span class="prelude-val">Ok</span>(())
+    <span class="kw">fn</span> <span class="ident">weird_minus_string</span>() {
+        <span class="kw">let</span> <span class="ident">test</span> <span class="op">=</span> <span class="ident">serde_json::from_value</span>::<span class="op">&lt;</span><span class="ident">Test</span><span class="op">&gt;</span>(
+            <span class="macro">serde_json::json!</span>({ <span class="string">&quot;num&quot;</span>: <span class="string">&quot;  \n\n-0000000000000001000   &quot;</span> }),
+        )
+        .<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">test</span>.<span class="ident">num</span>, <span class="macro">int!</span>(<span class="op">-</span><span class="number">1000</span>));
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (a6b8c6954 2022-06-03)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (50b00252a 2022-06-06)" ></div>
 </body></html>
