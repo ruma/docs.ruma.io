@@ -79,6 +79,14 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible notice message events ([MSC1767]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC1767]: https://github.com/matrix-org/matrix-spec-proposals/pull/1767</span>
@@ -88,7 +96,7 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">message::MessageContent</span>,
-    <span class="ident">room::message</span>::{<span class="ident">NoticeMessageEventContent</span>, <span class="ident">Relation</span>},
+    <span class="ident">room::message</span>::{<span class="ident">MessageType</span>, <span class="ident">NoticeMessageEventContent</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>},
 };
 
 <span class="doccomment">/// The payload for an extensible notice message.</span>
@@ -149,6 +157,14 @@
         } <span class="kw">else</span> {
             <span class="self">Self</span> { <span class="ident">message</span>: <span class="ident">MessageContent::from_room_message_content</span>(<span class="ident">body</span>, <span class="ident">formatted</span>), <span class="ident">relates_to</span> }
         }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">NoticeEventContent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomMessageEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">content</span>: <span class="ident">NoticeEventContent</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">NoticeEventContent</span> { <span class="ident">message</span>, <span class="ident">relates_to</span>, .. } <span class="op">=</span> <span class="ident">content</span>;
+
+        <span class="self">Self</span> { <span class="ident">msgtype</span>: <span class="ident">MessageType::Notice</span>(<span class="ident">message</span>.<span class="ident">into</span>()), <span class="ident">relates_to</span> }
     }
 }
 </code></pre></div>

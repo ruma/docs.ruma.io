@@ -175,6 +175,21 @@
 <span id="166">166</span>
 <span id="167">167</span>
 <span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible video message events ([MSC3553]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3553]: https://github.com/matrix-org/matrix-spec-proposals/pull/3553</span>
@@ -189,7 +204,9 @@
     <span class="ident">file::FileContent</span>,
     <span class="ident">image::ThumbnailContent</span>,
     <span class="ident">message::MessageContent</span>,
-    <span class="ident">room::message</span>::{<span class="ident">Relation</span>, <span class="ident">VideoInfo</span>, <span class="ident">VideoMessageEventContent</span>},
+    <span class="ident">room::message</span>::{
+        <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>, <span class="ident">VideoInfo</span>, <span class="ident">VideoMessageEventContent</span>,
+    },
 };
 
 <span class="doccomment">/// The payload for an extensible video message.</span>
@@ -301,6 +318,19 @@
             .<span class="ident">unwrap_or_default</span>();
 
         <span class="self">Self</span> { <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">video</span>, <span class="ident">thumbnail</span>, <span class="ident">caption</span>, <span class="ident">relates_to</span> }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">VideoEventContent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomMessageEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">content</span>: <span class="ident">VideoEventContent</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">VideoEventContent</span> { <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">video</span>, <span class="ident">thumbnail</span>, <span class="ident">caption</span>, <span class="ident">relates_to</span> } <span class="op">=</span> <span class="ident">content</span>;
+
+        <span class="self">Self</span> {
+            <span class="ident">msgtype</span>: <span class="ident">MessageType::Video</span>(<span class="ident">VideoMessageEventContent::from_extensible_content</span>(
+                <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">video</span>, <span class="ident">thumbnail</span>, <span class="ident">caption</span>,
+            )),
+            <span class="ident">relates_to</span>,
+        }
     }
 }
 

@@ -302,6 +302,19 @@
 <span id="293">293</span>
 <span id="294">294</span>
 <span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible image message events ([MSC3552]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3552]: https://github.com/matrix-org/matrix-spec-proposals/pull/3552</span>
@@ -314,7 +327,7 @@
     <span class="ident">file</span>::{<span class="ident">EncryptedContent</span>, <span class="ident">FileContent</span>},
     <span class="ident">message::MessageContent</span>,
     <span class="ident">room</span>::{
-        <span class="ident">message</span>::{<span class="ident">ImageMessageEventContent</span>, <span class="ident">Relation</span>},
+        <span class="ident">message</span>::{<span class="ident">ImageMessageEventContent</span>, <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>},
         <span class="ident">ImageInfo</span>, <span class="ident">MediaSource</span>, <span class="ident">ThumbnailInfo</span>,
     },
 };
@@ -429,6 +442,19 @@
             .<span class="ident">unwrap_or_default</span>();
 
         <span class="self">Self</span> { <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">image</span>, <span class="ident">thumbnail</span>, <span class="ident">caption</span>, <span class="ident">relates_to</span> }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">ImageEventContent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomMessageEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">content</span>: <span class="ident">ImageEventContent</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">ImageEventContent</span> { <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">image</span>, <span class="ident">thumbnail</span>, <span class="ident">caption</span>, <span class="ident">relates_to</span> } <span class="op">=</span> <span class="ident">content</span>;
+
+        <span class="self">Self</span> {
+            <span class="ident">msgtype</span>: <span class="ident">MessageType::Image</span>(<span class="ident">ImageMessageEventContent::from_extensible_content</span>(
+                <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">image</span>, <span class="ident">thumbnail</span>, <span class="ident">caption</span>,
+            )),
+            <span class="ident">relates_to</span>,
+        }
     }
 }
 

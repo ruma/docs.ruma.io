@@ -121,6 +121,19 @@
 <span id="112">112</span>
 <span id="113">113</span>
 <span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for voice message events ([MSC3245]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3245]: https://github.com/matrix-org/matrix-spec-proposals/pull/3245</span>
@@ -132,7 +145,7 @@
     <span class="ident">audio::AudioContent</span>,
     <span class="ident">file::FileContent</span>,
     <span class="ident">message</span>::{<span class="ident">MessageContent</span>, <span class="ident">TryFromExtensibleError</span>},
-    <span class="ident">room::message</span>::{<span class="ident">AudioMessageEventContent</span>, <span class="ident">Relation</span>},
+    <span class="ident">room::message</span>::{<span class="ident">AudioMessageEventContent</span>, <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>},
 };
 
 <span class="doccomment">/// The payload for an extensible voice message.</span>
@@ -218,6 +231,19 @@
         };
 
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> { <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">audio</span>, <span class="ident">voice</span>, <span class="ident">relates_to</span> })
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">VoiceEventContent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomMessageEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">content</span>: <span class="ident">VoiceEventContent</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">VoiceEventContent</span> { <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">audio</span>, <span class="ident">voice</span>, <span class="ident">relates_to</span> } <span class="op">=</span> <span class="ident">content</span>;
+
+        <span class="self">Self</span> {
+            <span class="ident">msgtype</span>: <span class="ident">MessageType::Audio</span>(<span class="ident">AudioMessageEventContent::from_extensible_voice_content</span>(
+                <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">audio</span>, <span class="ident">voice</span>,
+            )),
+            <span class="ident">relates_to</span>,
+        }
     }
 }
 

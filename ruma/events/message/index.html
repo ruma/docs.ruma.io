@@ -30,7 +30,7 @@ will enable all the MSCs for the extensible events that correspond to the legacy
 the <code>unstable-mscXXXX</code> features (where <code>XXXX</code> is the number of the MSC).</p>
 <p>The recommended way to send transitional extensible events while they are unstable and during
 the transition period is to build one of the new primary types and then to convert it to a
-<a href="../room/message/struct.RoomMessageEventContent.html"><code>RoomMessageEventContent</code></a> by using <code>.into()</code> or <code>RoomMessageEventContent::from()</code>. The
+<a href="../room/message/struct.RoomMessageEventContent.html" title="RoomMessageEventContent"><code>RoomMessageEventContent</code></a> by using <code>.into()</code> or <code>RoomMessageEventContent::from()</code>. The
 provided constructors will copy the relevant data in the legacy fields.</p>
 <p>For incoming events, a <code>RoomMessageEventContent</code> can be converted to an extensible event with
 the relevant <code>from_*_room_message</code> method on the primary type. This conversion will work even

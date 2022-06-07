@@ -443,28 +443,66 @@
 <span id="434">434</span>
 <span id="435">435</span>
 <span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `Deserialize` implementation for RoomMessageEventContent and MessageType.</span>
 
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3245&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::VoiceContent</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span>::{
-    <span class="ident">AssetContent</span>, <span class="ident">LocationContent</span>, <span class="ident">LocationInfo</span>, <span class="ident">LocationMessageEventContent</span>,
-    <span class="ident">MilliSecondsSinceUnixEpoch</span>,
-};
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">AudioContent</span>, <span class="ident">AudioInfo</span>, <span class="ident">AudioMessageEventContent</span>};
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">FileContent</span>, <span class="ident">FileInfo</span>, <span class="ident">FileMessageEventContent</span>, <span class="ident">MediaSource</span>, <span class="ident">MessageContent</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">ImageContent</span>, <span class="ident">ImageInfo</span>, <span class="ident">ImageMessageEventContent</span>, <span class="ident">ThumbnailContent</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ImageMessageEventContent</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">AudioInfo</span>, <span class="ident">AudioMessageEventContent</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">FileInfo</span>, <span class="ident">FileMessageEventContent</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">LocationInfo</span>, <span class="ident">LocationMessageEventContent</span>};
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3553&quot;</span>)]</span>
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">VideoContent</span>, <span class="ident">VideoInfo</span>, <span class="ident">VideoMessageEventContent</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">VideoInfo</span>, <span class="ident">VideoMessageEventContent</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::audio::AudioContent</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::file::FileContent</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::image</span>::{<span class="ident">ImageContent</span>, <span class="ident">ThumbnailContent</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::location</span>::{<span class="ident">AssetContent</span>, <span class="ident">LocationContent</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(
+    <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3246&quot;</span>,
+    <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>,
+    <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>
+))]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::message::MessageContent</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3552&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::room::ImageInfo</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::room::MediaSource</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3553&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::video::VideoContent</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3245&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::events::voice::VoiceContent</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde::from_raw_json_value</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MilliSecondsSinceUnixEpoch</span>;
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomMessageEventContent</span> {
     <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>

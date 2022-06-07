@@ -291,6 +291,16 @@
 <span id="282">282</span>
 <span id="283">283</span>
 <span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible text message events ([MSC1767]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Extensible events</span>
@@ -341,7 +351,6 @@
 <span class="doccomment">//! [3488]: https://github.com/matrix-org/matrix-spec-proposals/pull/3488</span>
 <span class="doccomment">//! [MSC3245]: https://github.com/matrix-org/matrix-spec-proposals/pull/3245</span>
 <span class="doccomment">//! [MSC3381]: https://github.com/matrix-org/matrix-spec-proposals/pull/3381</span>
-<span class="doccomment">//! [`RoomMessageEventContent`]: super::room::message::RoomMessageEventContent</span>
 <span class="kw">use</span> <span class="ident">std::ops::Deref</span>;
 
 <span class="kw">use</span> <span class="ident">ruma_macros::EventContent</span>;
@@ -352,7 +361,10 @@
 
 <span class="kw">use</span> <span class="ident">content_serde::MessageContentSerDeHelper</span>;
 
-<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::room::message</span>::{<span class="ident">FormattedBody</span>, <span class="ident">MessageFormat</span>, <span class="ident">Relation</span>, <span class="ident">TextMessageEventContent</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::room::message</span>::{
+    <span class="ident">FormattedBody</span>, <span class="ident">MessageFormat</span>, <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>,
+    <span class="ident">TextMessageEventContent</span>,
+};
 
 <span class="doccomment">/// The payload for an extensible text message.</span>
 <span class="doccomment">///</span>
@@ -412,6 +424,14 @@
         } <span class="kw">else</span> {
             <span class="self">Self</span> { <span class="ident">message</span>: <span class="ident">MessageContent::from_room_message_content</span>(<span class="ident">body</span>, <span class="ident">formatted</span>), <span class="ident">relates_to</span> }
         }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">MessageEventContent</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RoomMessageEventContent</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">content</span>: <span class="ident">MessageEventContent</span>) -&gt; <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">MessageEventContent</span> { <span class="ident">message</span>, <span class="ident">relates_to</span>, .. } <span class="op">=</span> <span class="ident">content</span>;
+
+        <span class="self">Self</span> { <span class="ident">msgtype</span>: <span class="ident">MessageType::Text</span>(<span class="ident">message</span>.<span class="ident">into</span>()), <span class="ident">relates_to</span> }
     }
 }
 
