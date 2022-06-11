@@ -487,12 +487,6 @@
 <span id="478">478</span>
 <span id="479">479</span>
 <span id="480">480</span>
-<span id="481">481</span>
-<span id="482">482</span>
-<span id="483">483</span>
-<span id="484">484</span>
-<span id="485">485</span>
-<span id="486">486</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/login`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -909,10 +903,7 @@
         <span class="attribute">#[<span class="ident">test</span>]</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;client&quot;</span>)]</span>
         <span class="kw">fn</span> <span class="ident">serialize_login_request_body</span>() {
-            <span class="kw">use</span> <span class="ident">ruma_common</span>::{
-                <span class="ident">api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>},
-                <span class="ident">thirdparty::Medium</span>,
-            };
+            <span class="kw">use</span> <span class="ident">ruma_common::api</span>::{<span class="ident">MatrixVersion</span>, <span class="ident">OutgoingRequest</span>, <span class="ident">SendAccessToken</span>};
             <span class="kw">use</span> <span class="ident">serde_json::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>;
 
             <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">LoginInfo</span>, <span class="ident">Password</span>, <span class="ident">Request</span>, <span class="ident">Token</span>};
@@ -944,10 +935,7 @@
 
             <span class="kw">let</span> <span class="ident">req</span>: <span class="ident">http::Request</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Request</span> {
                 <span class="ident">login_info</span>: <span class="ident">LoginInfo::Password</span>(<span class="ident">Password</span> {
-                    <span class="ident">identifier</span>: <span class="ident">UserIdentifier::ThirdPartyId</span> {
-                        <span class="ident">address</span>: <span class="string">&quot;hello@example.com&quot;</span>,
-                        <span class="ident">medium</span>: <span class="ident">Medium::Email</span>,
-                    },
+                    <span class="ident">identifier</span>: <span class="ident">UserIdentifier::Email</span> { <span class="ident">address</span>: <span class="string">&quot;hello@example.com&quot;</span> },
                     <span class="ident">password</span>: <span class="string">&quot;deadbeef&quot;</span>,
                 }),
                 <span class="ident">device_id</span>: <span class="prelude-val">None</span>,
