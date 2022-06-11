@@ -1909,7 +1909,7 @@
         <span class="kw">let</span> <span class="ident">matrix_uri</span> <span class="op">=</span>
             <span class="ident">MatrixUri::parse</span>(<span class="string">&quot;matrix:u/jplatte:notareal.hs&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to create MatrixUri.&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">id</span>(), <span class="kw-2">&amp;</span><span class="macro">user_id!</span>(<span class="string">&quot;@jplatte:notareal.hs&quot;</span>).<span class="ident">into</span>());
-        <span class="macro">assert!</span>(<span class="ident">matrix_uri</span>.<span class="ident">action</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">action</span>(), <span class="prelude-val">None</span>);
 
         <span class="kw">let</span> <span class="ident">matrix_uri</span> <span class="op">=</span> <span class="ident">MatrixUri::parse</span>(<span class="string">&quot;matrix:u/jplatte:notareal.hs?action=chat&quot;</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to create MatrixUri.&quot;</span>);
@@ -1923,8 +1923,8 @@
         <span class="kw">let</span> <span class="ident">matrix_uri</span> <span class="op">=</span> <span class="ident">MatrixUri::parse</span>(<span class="string">&quot;matrix:roomid/ruma:notareal.hs?via=notareal.hs&quot;</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to create MatrixToUri.&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">id</span>(), <span class="kw-2">&amp;</span><span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>).<span class="ident">into</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">via</span>(), <span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>).<span class="ident">to_owned</span>()]);
-        <span class="macro">assert!</span>(<span class="ident">matrix_uri</span>.<span class="ident">action</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">via</span>(), <span class="kw-2">&amp;</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>).<span class="ident">to_owned</span>()]);
+        <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">action</span>(), <span class="prelude-val">None</span>);
 
         <span class="kw">let</span> <span class="ident">matrix_uri</span> <span class="op">=</span> <span class="ident">MatrixUri::parse</span>(<span class="string">&quot;matrix:r/ruma:notareal.hs/e/event:notareal.hs&quot;</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to create MatrixToUri.&quot;</span>);
@@ -1939,8 +1939,8 @@
             <span class="ident">matrix_uri</span>.<span class="ident">id</span>(),
             <span class="kw-2">&amp;</span>(<span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>), <span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>)).<span class="ident">into</span>()
         );
-        <span class="macro">assert!</span>(<span class="ident">matrix_uri</span>.<span class="ident">via</span>().<span class="ident">is_empty</span>());
-        <span class="macro">assert!</span>(<span class="ident">matrix_uri</span>.<span class="ident">action</span>().<span class="ident">is_none</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">via</span>().<span class="ident">len</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">matrix_uri</span>.<span class="ident">action</span>(), <span class="prelude-val">None</span>);
 
         <span class="kw">let</span> <span class="ident">matrix_uri</span> <span class="op">=</span>
             <span class="ident">MatrixUri::parse</span>(<span class="string">&quot;matrix:roomid/ruma:notareal.hs/e/event:notareal.hs?via=notareal.hs&amp;action=join&amp;via=anotherinexistant.hs&quot;</span>)
