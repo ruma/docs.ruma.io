@@ -154,6 +154,59 @@
 <span id="145">145</span>
 <span id="146">146</span>
 <span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/register`</span>
 
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -162,6 +215,9 @@
     <span class="doccomment">//! `/v3/` ([spec])</span>
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3register</span>
+
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+    <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{<span class="ident">api::ruma_api</span>, <span class="ident">DeviceId</span>, <span class="ident">OwnedDeviceId</span>, <span class="ident">OwnedUserId</span>};
 
@@ -237,12 +293,24 @@
             <span class="doccomment">/// [admin]: https://spec.matrix.org/v1.2/application-service-api/#server-admin-style-permissions</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;type&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">login_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">LoginType</span><span class="op">&gt;</span>,
+
+            <span class="doccomment">/// If set to `true`, the client supports refresh tokens.</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(
+                <span class="ident">default</span>,
+                <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>,
+                <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc2918.refresh_token&quot;</span>,
+                <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;refresh_token&quot;</span>,
+            )]</span>
+            <span class="kw">pub</span> <span class="ident">refresh_token</span>: <span class="ident">bool</span>,
         }
 
         <span class="ident">response</span>: {
             <span class="doccomment">/// An access token for the account.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// This access token can then be used to authorize other requests.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// Required if the request&#39;s `inhibit_login` was set to `false`.</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">access_token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -252,7 +320,37 @@
             <span class="doccomment">/// ID of the registered device.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// Will be the same as the corresponding parameter in the request, if one was specified.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// Required if the request&#39;s `inhibit_login` was set to `false`.</span>
             <span class="kw">pub</span> <span class="ident">device_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedDeviceId</span><span class="op">&gt;</span>,
+
+            <span class="doccomment">/// A refresh token for the account.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// This token can be used to obtain a new access token when it expires by calling the</span>
+            <span class="doccomment">/// `/refresh` endpoint.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// Omitted if the request&#39;s `inhibit_login` was set to `true`.</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+            <span class="kw">pub</span> <span class="ident">refresh_token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+
+            <span class="doccomment">/// The lifetime of the access token, in milliseconds.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// Once the access token has expired, a new access token can be obtained by using the</span>
+            <span class="doccomment">/// provided refresh token. If no refresh token is provided, the client will need to</span>
+            <span class="doccomment">/// re-login to obtain a new access token.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// If this is `None`, the client can assume that the access token will not expire.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// Omitted if the request&#39;s `inhibit_login` was set to `true`.</span>
+            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+            <span class="attribute">#[<span class="ident">serde</span>(
+                <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::duration::opt_ms&quot;</span>,
+                <span class="ident">default</span>,
+                <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>,
+                <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;expires_in_ms&quot;</span>,
+            )]</span>
+            <span class="kw">pub</span> <span class="ident">expires_in</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Duration</span><span class="op">&gt;</span>,
         }
 
         <span class="ident">error</span>: <span class="ident">UiaaResponse</span>
@@ -268,7 +366,15 @@
     <span class="kw">impl</span> <span class="ident">Response</span> {
         <span class="doccomment">/// Creates a new `Response` with the given user ID.</span>
         <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">user_id</span>: <span class="ident">OwnedUserId</span>) -&gt; <span class="self">Self</span> {
-            <span class="self">Self</span> { <span class="ident">access_token</span>: <span class="prelude-val">None</span>, <span class="ident">user_id</span>, <span class="ident">device_id</span>: <span class="prelude-val">None</span> }
+            <span class="self">Self</span> {
+                <span class="ident">access_token</span>: <span class="prelude-val">None</span>,
+                <span class="ident">user_id</span>,
+                <span class="ident">device_id</span>: <span class="prelude-val">None</span>,
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+                <span class="ident">refresh_token</span>: <span class="prelude-val">None</span>,
+                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+                <span class="ident">expires_in</span>: <span class="prelude-val">None</span>,
+            }
         }
     }
 }
@@ -302,5 +408,5 @@
     <span class="ident">ApplicationService</span>,
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (7466d5492 2022-06-08)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (ec55c6130 2022-06-10)" ></div>
 </body></html>

@@ -16,6 +16,8 @@
 <span id="7">7</span>
 <span id="8">8</span>
 <span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for user session management.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">get_login_types</span>;
@@ -23,8 +25,10 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">login_fallback</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">logout</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">logout_all</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">refresh_token</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">sso_login</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">sso_login_with_provider</span>;
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (7466d5492 2022-06-08)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (ec55c6130 2022-06-10)" ></div>
 </body></html>
