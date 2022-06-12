@@ -311,6 +311,14 @@
 <span id="302">302</span>
 <span id="303">303</span>
 <span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Errors that can be sent from the homeserver.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>, <span class="ident">time::Duration</span>};
@@ -454,6 +462,12 @@
     <span class="doccomment">/// M_WEAK_PASSWORD</span>
     <span class="ident">WeakPassword</span>,
 
+    <span class="doccomment">/// M_UNABLE_TO_AUTHORISE_JOIN</span>
+    <span class="ident">UnableToAuthorizeJoin</span>,
+
+    <span class="doccomment">/// M_UNABLE_TO_GRANT_JOIN</span>
+    <span class="ident">UnableToGrantJoin</span>,
+
     <span class="doccomment">/// FI.MAU.MSC2246_NOT_YET_UPLOADED</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2246&quot;</span>)]</span>
     <span class="ident">NotYetUploaded</span>,
@@ -506,6 +520,8 @@
             <span class="ident"><span class="self">Self</span>::ResourceLimitExceeded</span> { .. } =&gt; <span class="string">&quot;M_RESOURCE_LIMIT_EXCEEDED&quot;</span>,
             <span class="ident"><span class="self">Self</span>::CannotLeaveServerNoticeRoom</span> =&gt; <span class="string">&quot;M_CANNOT_LEAVE_SERVER_NOTICE_ROOM&quot;</span>,
             <span class="ident"><span class="self">Self</span>::WeakPassword</span> =&gt; <span class="string">&quot;M_WEAK_PASSWORD&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::UnableToAuthorizeJoin</span> =&gt; <span class="string">&quot;M_UNABLE_TO_AUTHORISE_JOIN&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::UnableToGrantJoin</span> =&gt; <span class="string">&quot;M_UNABLE_TO_GRANT_JOIN&quot;</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2246&quot;</span>)]</span>
             <span class="ident"><span class="self">Self</span>::NotYetUploaded</span> =&gt; <span class="string">&quot;FI.MAU.MSC2246_NOT_YET_UPLOADED&quot;</span>,
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2246&quot;</span>)]</span>
