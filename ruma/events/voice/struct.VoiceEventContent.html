@@ -14,7 +14,7 @@
     pub audio: <a class="struct" href="../audio/struct.AudioContent.html" title="struct ruma::events::audio::AudioContent">AudioContent</a>,
     pub voice: <a class="struct" href="struct.VoiceContent.html" title="struct ruma::events::voice::VoiceContent">VoiceContent</a>,
     pub relates_to: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../room/message/enum.Relation.html" title="enum ruma::events::room::message::Relation">Relation</a>&gt;,
-}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The payload for an extensible voice message.</p>
+}</code></pre></div><span class="item-info"><div class="stab portability">Available on <strong>crate features <code>events</code> and <code>unstable-msc3245</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The payload for an extensible voice message.</p>
 <p>This is the new primary type introduced in <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3245">MSC3245</a> and should not be sent before the end of
 the transition period. See the documentation of the <a href="../message/index.html"><code>message</code></a> module for more information.</p>
 <p><code>VoiceEventContent</code> can be converted to a <a href="../room/message/struct.RoomMessageEventContent.html"><code>RoomMessageEventContent</code></a> with a

@@ -16,7 +16,7 @@
     pub room_id: <a class="struct" href="../struct.OwnedRoomId.html" title="struct ruma_common::OwnedRoomId">OwnedRoomId</a>,
     pub state_key: C::<a class="associatedtype" href="trait.StateEventContent.html#associatedtype.StateKey" title="type ruma_common::events::StateEventContent::StateKey">StateKey</a>,
     pub unsigned: <a class="struct" href="struct.RedactedUnsigned.html" title="struct ruma_common::events::RedactedUnsigned">RedactedUnsigned</a>,
-}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A redacted state event.</p>
+}</code></pre></div><span class="item-info"><div class="stab portability">Available on <strong>crate feature <code>events</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A redacted state event.</p>
 <p><code>RedactedStateEvent</code> implements the comparison traits using only the <code>event_id</code> field, a sorted
 list would be sorted lexicographically based on the event’s <code>EventId</code>.</p>
 </div></details><h2 id="fields" class="fields small-section-header">Fields<a href="#fields" class="anchor"></a></h2><span id="structfield.content" class="structfield small-section-header"><a href="#structfield.content" class="anchor field"></a><code>content: C</code></span><div class="docblock"><p>Data specific to the event type.</p>

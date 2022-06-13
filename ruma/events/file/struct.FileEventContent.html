@@ -12,7 +12,7 @@
     pub message: <a class="struct" href="../message/struct.MessageContent.html" title="struct ruma::events::message::MessageContent">MessageContent</a>,
     pub file: <a class="struct" href="struct.FileContent.html" title="struct ruma::events::file::FileContent">FileContent</a>,
     pub relates_to: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="../room/message/enum.Relation.html" title="enum ruma::events::room::message::Relation">Relation</a>&gt;,
-}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The payload for an extensible file message.</p>
+}</code></pre></div><span class="item-info"><div class="stab portability">Available on <strong>crate features <code>events</code> and <code>unstable-msc3551</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The payload for an extensible file message.</p>
 <p>This is the new primary type introduced in <a href="https://github.com/matrix-org/matrix-spec-proposals/pull/3551">MSC3551</a> and should not be sent before the end of
 the transition period. See the documentation of the <a href="../message/index.html"><code>message</code></a> module for more information.</p>
 <p><code>FileEventContent</code> can be converted to a <a href="../room/message/struct.RoomMessageEventContent.html"><code>RoomMessageEventContent</code></a> with a

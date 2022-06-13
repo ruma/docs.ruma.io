@@ -12,7 +12,7 @@
     IfRequired(&amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>),
     Always(&amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>),
     None,
-}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>An enum to control whether an access token should be added to outgoing requests</p>
+}</code></pre></div><span class="item-info"><div class="stab portability">Available on <strong>crate feature <code>api</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>An enum to control whether an access token should be added to outgoing requests</p>
 </div></details><h2 id="variants" class="variants small-section-header">Variants<a href="#variants" class="anchor"></a></h2><h3 id="variant.IfRequired" class="variant small-section-header"><a href="#variant.IfRequired" class="anchor field"></a><code>IfRequired(&amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></h3><div class="docblock"><p>Add the given access token to the request only if the <code>METADATA</code> on the request requires
 it.</p>
 </div><h3 id="variant.Always" class="variant small-section-header"><a href="#variant.Always" class="anchor field"></a><code>Always(&amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</code></h3><div class="docblock"><p>Always add the access token.</p>

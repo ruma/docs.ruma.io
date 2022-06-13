@@ -13,7 +13,7 @@
     pub party_id: <a class="struct" href="../../../../ruma_common/identifiers/voip_id/struct.OwnedVoipId.html" title="struct ruma_common::identifiers::voip_id::OwnedVoipId">OwnedVoipId</a>,
     pub lifetime: <a class="struct" href="https://docs.rs/js_int/0.2.2/js_int/uint/struct.UInt.html" title="struct js_int::uint::UInt">UInt</a>,
     pub description: <a class="struct" href="../struct.SessionDescription.html" title="struct ruma::events::call::SessionDescription">SessionDescription</a>,
-}</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><strong>Added in VoIP version 1.</strong> The content of an <code>m.call.negotiate</code> event.</p>
+}</code></pre></div><span class="item-info"><div class="stab portability">Available on <strong>crate features <code>events</code> and <code>unstable-msc2746</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><strong>Added in VoIP version 1.</strong> The content of an <code>m.call.negotiate</code> event.</p>
 <p>This event is sent by either party after the call is established to renegotiate it. It can be
 used for media pause, hold/resume, ICE restarts and voice/video call up/downgrading.</p>
 <p>First an event must be sent with an <code>offer</code> session description, which is replied to with an

@@ -82,7 +82,7 @@
     Presence,
     // some variants omitted
 </details>}</code></pre></div><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The type of <code>Event</code> this is.</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>events</code></strong> only.</div></span><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The type of <code>Event</code> this is.</p>
 <p>This type can hold an arbitrary string. To build events with a custom type, convert it
 from a string with <code>::from() / .into()</code>. To check for events that are not available as a
 documented variant here, use its string representation, obtained through <code>.to_string()</code>.</p>
@@ -107,7 +107,7 @@ documented variant here, use its string representation, obtained through <code>.
 </div><h3 id="variant.Typing" class="variant small-section-header"><a href="#variant.Typing" class="anchor field"></a><code>Typing</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.typing</p>
 </div><h3 id="variant.Audio" class="variant small-section-header"><a href="#variant.Audio" class="anchor field"></a><code>Audio</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.audio</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3246</code></strong> only.</div></span><div class="docblock"><p>m.audio</p>
 </div><h3 id="variant.CallAnswer" class="variant small-section-header"><a href="#variant.CallAnswer" class="anchor field"></a><code>CallAnswer</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.call.answer</p>
 </div><h3 id="variant.CallInvite" class="variant small-section-header"><a href="#variant.CallInvite" class="anchor field"></a><code>CallInvite</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
@@ -117,17 +117,17 @@ documented variant here, use its string representation, obtained through <code>.
 </div><h3 id="variant.CallCandidates" class="variant small-section-header"><a href="#variant.CallCandidates" class="anchor field"></a><code>CallCandidates</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.call.candidates</p>
 </div><h3 id="variant.CallNegotiate" class="variant small-section-header"><a href="#variant.CallNegotiate" class="anchor field"></a><code>CallNegotiate</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.call.negotiate</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc2746</code></strong> only.</div></span><div class="docblock"><p>m.call.negotiate</p>
 </div><h3 id="variant.CallReject" class="variant small-section-header"><a href="#variant.CallReject" class="anchor field"></a><code>CallReject</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.call.reject</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc2746</code></strong> only.</div></span><div class="docblock"><p>m.call.reject</p>
 </div><h3 id="variant.CallSelectAnswer" class="variant small-section-header"><a href="#variant.CallSelectAnswer" class="anchor field"></a><code>CallSelectAnswer</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.call.select_answer</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc2746</code></strong> only.</div></span><div class="docblock"><p>m.call.select_answer</p>
 </div><h3 id="variant.Emote" class="variant small-section-header"><a href="#variant.Emote" class="anchor field"></a><code>Emote</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.emote</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc1767</code></strong> only.</div></span><div class="docblock"><p>m.emote</p>
 </div><h3 id="variant.File" class="variant small-section-header"><a href="#variant.File" class="anchor field"></a><code>File</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.file</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3551</code></strong> only.</div></span><div class="docblock"><p>m.file</p>
 </div><h3 id="variant.Image" class="variant small-section-header"><a href="#variant.Image" class="anchor field"></a><code>Image</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.image</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3552</code></strong> only.</div></span><div class="docblock"><p>m.image</p>
 </div><h3 id="variant.KeyVerificationReady" class="variant small-section-header"><a href="#variant.KeyVerificationReady" class="anchor field"></a><code>KeyVerificationReady</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.key.verification.ready</p>
 </div><h3 id="variant.KeyVerificationStart" class="variant small-section-header"><a href="#variant.KeyVerificationStart" class="anchor field"></a><code>KeyVerificationStart</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
@@ -143,19 +143,19 @@ documented variant here, use its string representation, obtained through <code>.
 </div><h3 id="variant.KeyVerificationDone" class="variant small-section-header"><a href="#variant.KeyVerificationDone" class="anchor field"></a><code>KeyVerificationDone</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.key.verification.done</p>
 </div><h3 id="variant.Location" class="variant small-section-header"><a href="#variant.Location" class="anchor field"></a><code>Location</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.location</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3488</code></strong> only.</div></span><div class="docblock"><p>m.location</p>
 </div><h3 id="variant.Message" class="variant small-section-header"><a href="#variant.Message" class="anchor field"></a><code>Message</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.message</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc1767</code></strong> only.</div></span><div class="docblock"><p>m.message</p>
 </div><h3 id="variant.Notice" class="variant small-section-header"><a href="#variant.Notice" class="anchor field"></a><code>Notice</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.notice</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc1767</code></strong> only.</div></span><div class="docblock"><p>m.notice</p>
 </div><h3 id="variant.PollStart" class="variant small-section-header"><a href="#variant.PollStart" class="anchor field"></a><code>PollStart</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>org.matrix.msc3381.poll.start</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3381</code></strong> only.</div></span><div class="docblock"><p>org.matrix.msc3381.poll.start</p>
 </div><h3 id="variant.PollResponse" class="variant small-section-header"><a href="#variant.PollResponse" class="anchor field"></a><code>PollResponse</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>org.matrix.msc3381.poll.response</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3381</code></strong> only.</div></span><div class="docblock"><p>org.matrix.msc3381.poll.response</p>
 </div><h3 id="variant.PollEnd" class="variant small-section-header"><a href="#variant.PollEnd" class="anchor field"></a><code>PollEnd</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>org.matrix.msc3381.poll.end</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3381</code></strong> only.</div></span><div class="docblock"><p>org.matrix.msc3381.poll.end</p>
 </div><h3 id="variant.Reaction" class="variant small-section-header"><a href="#variant.Reaction" class="anchor field"></a><code>Reaction</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.reaction</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc2677</code></strong> only.</div></span><div class="docblock"><p>m.reaction</p>
 </div><h3 id="variant.RoomEncrypted" class="variant small-section-header"><a href="#variant.RoomEncrypted" class="anchor field"></a><code>RoomEncrypted</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.room.encrypted</p>
 </div><h3 id="variant.RoomMessage" class="variant small-section-header"><a href="#variant.RoomMessage" class="anchor field"></a><code>RoomMessage</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
@@ -167,9 +167,9 @@ documented variant here, use its string representation, obtained through <code>.
 </div><h3 id="variant.Sticker" class="variant small-section-header"><a href="#variant.Sticker" class="anchor field"></a><code>Sticker</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.sticker</p>
 </div><h3 id="variant.Video" class="variant small-section-header"><a href="#variant.Video" class="anchor field"></a><code>Video</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.video</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3553</code></strong> only.</div></span><div class="docblock"><p>m.video</p>
 </div><h3 id="variant.Voice" class="variant small-section-header"><a href="#variant.Voice" class="anchor field"></a><code>Voice</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
-</div></span><div class="docblock"><p>m.voice</p>
+</div><div class="stab portability">Available on <strong>crate feature <code>unstable-msc3245</code></strong> only.</div></span><div class="docblock"><p>m.voice</p>
 </div><h3 id="variant.PolicyRuleRoom" class="variant small-section-header"><a href="#variant.PolicyRuleRoom" class="anchor field"></a><code>PolicyRuleRoom</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
 </div></span><div class="docblock"><p>m.policy.rule.room</p>
 </div><h3 id="variant.PolicyRuleServer" class="variant small-section-header"><a href="#variant.PolicyRuleServer" class="anchor field"></a><code>PolicyRuleServer</code></h3><span class="item-info"><div class="stab deprecated"><span class="emoji">👎</span> Deprecated: <p>use a fine-grained event type enum like RoomEventType instead</p>
