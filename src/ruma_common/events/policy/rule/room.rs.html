@@ -99,9 +99,6 @@
 <span id="90">90</span>
 <span id="91">91</span>
 <span id="92">92</span>
-<span id="93">93</span>
-<span id="94">94</span>
-<span id="95">95</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.policy.rule.room`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.policy.rule.room`]: https://spec.matrix.org/v1.2/client-server-api/#mpolicyruleroom</span>
@@ -191,12 +188,9 @@
             }
         });
 
-        <span class="macro">assert!</span>(<span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OriginalPolicyRuleRoomEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>)
-            .<span class="ident">unwrap</span>()
-            .<span class="ident">deserialize</span>()
-            .<span class="ident">is_ok</span>());
+        <span class="ident">from_json_value</span>::<span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">OriginalPolicyRuleRoomEvent</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>().<span class="ident">deserialize</span>().<span class="ident">unwrap</span>();
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (546c826f0 2022-06-12)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (ca122c7eb 2022-06-13)" ></div>
 </body></html>

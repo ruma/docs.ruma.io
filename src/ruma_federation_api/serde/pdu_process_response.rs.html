@@ -290,11 +290,11 @@
         <span class="kw">let</span> <span class="ident">response</span> <span class="op">=</span> <span class="ident">deserialize</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">event_id</span> <span class="op">=</span> <span class="macro">event_id!</span>(<span class="string">&quot;$someevent:matrix.org&quot;</span>);
 
-        <span class="macro">assert!</span>(<span class="ident">response</span>.<span class="ident">get</span>(<span class="ident">event_id</span>).<span class="ident">unwrap</span>().<span class="ident">is_ok</span>());
+        <span class="ident">response</span>.<span class="ident">get</span>(<span class="ident">event_id</span>).<span class="ident">unwrap</span>().<span class="ident">as_ref</span>().<span class="ident">unwrap</span>();
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">desieralize_empty_error_is_err</span>() {
+    <span class="kw">fn</span> <span class="ident">deserialize_empty_error_is_err</span>() {
         <span class="kw">let</span> <span class="ident">json</span> <span class="op">=</span> <span class="macro">json!</span>({
             <span class="string">&quot;$someevent:matrix.org&quot;</span>: { <span class="string">&quot;error&quot;</span>: <span class="string">&quot;&quot;</span> }
         });
@@ -312,9 +312,9 @@
             <span class="string">&quot;$someevent:matrix.org&quot;</span>: {}
         });
         <span class="kw">let</span> <span class="ident">response</span> <span class="op">=</span> <span class="ident">deserialize</span>(<span class="ident">json</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert!</span>(<span class="ident">response</span>.<span class="ident">get</span>(<span class="macro">event_id!</span>(<span class="string">&quot;$someevent:matrix.org&quot;</span>)).<span class="ident">unwrap</span>().<span class="ident">is_ok</span>());
+        <span class="ident">response</span>.<span class="ident">get</span>(<span class="macro">event_id!</span>(<span class="string">&quot;$someevent:matrix.org&quot;</span>)).<span class="ident">unwrap</span>().<span class="ident">as_ref</span>().<span class="ident">unwrap</span>();
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (546c826f0 2022-06-12)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_federation_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (ca122c7eb 2022-06-13)" ></div>
 </body></html>
