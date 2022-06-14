@@ -519,28 +519,6 @@
 <span id="510">510</span>
 <span id="511">511</span>
 <span id="512">512</span>
-<span id="513">513</span>
-<span id="514">514</span>
-<span id="515">515</span>
-<span id="516">516</span>
-<span id="517">517</span>
-<span id="518">518</span>
-<span id="519">519</span>
-<span id="520">520</span>
-<span id="521">521</span>
-<span id="522">522</span>
-<span id="523">523</span>
-<span id="524">524</span>
-<span id="525">525</span>
-<span id="526">526</span>
-<span id="527">527</span>
-<span id="528">528</span>
-<span id="529">529</span>
-<span id="530">530</span>
-<span id="531">531</span>
-<span id="532">532</span>
-<span id="533">533</span>
-<span id="534">534</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for event filters.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">create_filter</span>;
@@ -550,6 +528,8 @@
 <span class="kw">mod</span> <span class="ident">url</span>;
 
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident">ruma_common::events::relation::RelationType</span>;
 <span class="kw">use</span> <span class="ident">ruma_common</span>::{
     <span class="ident">serde</span>::{<span class="ident">Incoming</span>, <span class="ident">StringEnum</span>},
     <span class="ident">OwnedRoomId</span>, <span class="ident">OwnedUserId</span>,
@@ -580,30 +560,6 @@
     <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::Client</span>
     }
-}
-
-<span class="doccomment">/// Relation types as defined in `rel_type` of an `m.relates_to` field.</span>
-<span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
-<span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RelationType</span> {
-    <span class="doccomment">/// `m.annotation`, an annotation, principally used by reactions.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.annotation&quot;</span>)]</span>
-    <span class="ident">Annotation</span>,
-
-    <span class="doccomment">/// `m.replace`, a replacement.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.replace&quot;</span>)]</span>
-    <span class="ident">Replacement</span>,
-
-    <span class="doccomment">/// `m.thread`, a participant to a thread.</span>
-    <span class="attribute">#[<span class="ident">ruma_enum</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;io.element.thread&quot;</span>, <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.thread&quot;</span>)]</span>
-    <span class="ident">Thread</span>,
-
-    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-    <span class="ident">_Custom</span>(<span class="ident">PrivOwnedStr</span>),
 }
 
 <span class="doccomment">/// Filters to be applied to room events.</span>
