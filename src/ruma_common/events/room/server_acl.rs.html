@@ -270,8 +270,8 @@
             <span class="ident">from_json_value</span>(<span class="ident">json_data</span>).<span class="ident">unwrap</span>();
 
         <span class="macro">assert!</span>(<span class="ident">server_acl_event</span>.<span class="ident">content</span>.<span class="ident">allow_ip_literals</span>);
-        <span class="macro">assert!</span>(<span class="ident">server_acl_event</span>.<span class="ident">content</span>.<span class="ident">allow</span>.<span class="ident">is_empty</span>());
-        <span class="macro">assert!</span>(<span class="ident">server_acl_event</span>.<span class="ident">content</span>.<span class="ident">deny</span>.<span class="ident">is_empty</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">server_acl_event</span>.<span class="ident">content</span>.<span class="ident">allow</span>.<span class="ident">len</span>(), <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">server_acl_event</span>.<span class="ident">content</span>.<span class="ident">deny</span>.<span class="ident">len</span>(), <span class="number">0</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>

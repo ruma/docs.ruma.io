@@ -1690,7 +1690,7 @@
             <span class="ident">MatrixToUri::parse</span>(<span class="string">&quot;https://matrix.to/#/%21ruma%3Anotareal.hs?via=notareal.hs&quot;</span>)
                 .<span class="ident">expect</span>(<span class="string">&quot;Failed to create MatrixToUri.&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">matrix_to</span>.<span class="ident">id</span>(), <span class="kw-2">&amp;</span><span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>).<span class="ident">into</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">matrix_to</span>.<span class="ident">via</span>(), <span class="kw-2">&amp;</span><span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>).<span class="ident">to_owned</span>()]);
+        <span class="macro">assert_eq!</span>(<span class="ident">matrix_to</span>.<span class="ident">via</span>(), <span class="kw-2">&amp;</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>).<span class="ident">to_owned</span>()]);
 
         <span class="kw">let</span> <span class="ident">matrix_to</span> <span class="op">=</span>
             <span class="ident">MatrixToUri::parse</span>(<span class="string">&quot;https://matrix.to/#/%23ruma%3Anotareal.hs/%24event%3Anotareal.hs&quot;</span>)
@@ -1707,7 +1707,7 @@
             <span class="ident">matrix_to</span>.<span class="ident">id</span>(),
             <span class="kw-2">&amp;</span>(<span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>), <span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>)).<span class="ident">into</span>()
         );
-        <span class="macro">assert!</span>(<span class="ident">matrix_to</span>.<span class="ident">via</span>().<span class="ident">is_empty</span>());
+        <span class="macro">assert_eq!</span>(<span class="ident">matrix_to</span>.<span class="ident">via</span>().<span class="ident">len</span>(), <span class="number">0</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
