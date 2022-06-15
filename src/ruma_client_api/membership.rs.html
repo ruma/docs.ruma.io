@@ -105,6 +105,8 @@
 <span id="96">96</span>
 <span id="97">97</span>
 <span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for room membership.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ban_user</span>;
@@ -117,6 +119,8 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">joined_rooms</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">kick_user</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">leave_room</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2666&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">mutual_rooms</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">unban_user</span>;
 
 <span class="kw">use</span> <span class="ident">std::collections::BTreeMap</span>;
@@ -204,5 +208,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (ca122c7eb 2022-06-13)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (1f34da9ec 2022-06-14)" ></div>
 </body></html>
