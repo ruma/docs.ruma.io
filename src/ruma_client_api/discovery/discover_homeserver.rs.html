@@ -142,6 +142,10 @@
 <span id="133">133</span>
 <span id="134">134</span>
 <span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /.well-known/matrix/client` ([spec])</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#getwell-knownmatrixclient</span>
@@ -169,17 +173,21 @@
         <span class="kw">pub</span> <span class="ident">homeserver</span>: <span class="ident">HomeserverInfo</span>,
 
         <span class="doccomment">/// Information about the identity server to connect to.</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.identity_server&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.identity_server&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">identity_server</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">IdentityServerInfo</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Information about the tile server to use to display location data.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3488&quot;</span>)]</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc3488.tile_server&quot;</span>, <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.tile_server&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(
+            <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc3488.tile_server&quot;</span>,
+            <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.tile_server&quot;</span>,
+            <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>,
+        )]</span>
         <span class="kw">pub</span> <span class="ident">tile_server</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TileServerInfo</span><span class="op">&gt;</span>,
 
         <span class="doccomment">/// Information about the authentication server to connect to when using OpenID Connect.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2965&quot;</span>)]</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.authentication&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.authentication&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
         <span class="kw">pub</span> <span class="ident">authentication</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuthenticationServerInfo</span><span class="op">&gt;</span>,
     }
 
@@ -278,5 +286,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (b31f9cc22 2022-06-15)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (cacc75c82 2022-06-16)" ></div>
 </body></html>
