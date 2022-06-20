@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["unstable","`/unstable/` (MSC2918)"]]});
+initSidebarItems({"mod":[["v3","`/v3/` (spec)"]]});

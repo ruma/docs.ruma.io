@@ -91,6 +91,8 @@
 <span id="82">82</span>
 <span id="83">83</span>
 <span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/refresh`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Refresh an access token.</span>
@@ -113,10 +115,10 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Application Service identity assertion is disabled for this endpoint.</span>
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">unstable</span> {
-    <span class="doccomment">//! `/unstable/` (MSC2918)</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
+    <span class="doccomment">//! `/v3/` ([spec])</span>
     <span class="doccomment">//!</span>
-    <span class="doccomment">//! [MSC2918]: https://github.com/matrix-org/matrix-spec-proposals/pull/2918</span>
+    <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.3/client-server-api/#post_matrixclientv3refresh</span>
 
     <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
@@ -128,8 +130,10 @@
             <span class="ident">method</span>: <span class="ident">POST</span>,
             <span class="ident">name</span>: <span class="string">&quot;refresh&quot;</span>,
             <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/org.matrix.msc2918/refresh&quot;</span>,
+            <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v3/refresh&quot;</span>,
             <span class="ident">rate_limited</span>: <span class="bool-val">true</span>,
             <span class="ident">authentication</span>: <span class="prelude-val">None</span>,
+            <span class="ident">added</span>: <span class="number">1.3</span>,
         }
 
         <span class="ident">request</span>: {

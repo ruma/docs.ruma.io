@@ -483,10 +483,6 @@
 <span id="474">474</span>
 <span id="475">475</span>
 <span id="476">476</span>
-<span id="477">477</span>
-<span id="478">478</span>
-<span id="479">479</span>
-<span id="480">480</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `POST /_matrix/client/*/login`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -494,7 +490,6 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#post_matrixclientv3login</span>
 
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
     <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
@@ -537,8 +532,9 @@
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">initial_device_display_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
 
-            <span class="doccomment">/// If set to `true`, the client supports refresh tokens.</span>
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+            <span class="doccomment">/// If set to `true`, the client supports [refresh tokens].</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// [refresh tokens]: https://spec.matrix.org/v1.3/client-server-api/#refreshing-access-tokens</span>
             <span class="attribute">#[<span class="ident">serde</span>(
                 <span class="ident">default</span>,
                 <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::is_default&quot;</span>,
@@ -574,11 +570,13 @@
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">well_known</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DiscoveryInfo</span><span class="op">&gt;</span>,
 
-            <span class="doccomment">/// A refresh token for the account.</span>
+            <span class="doccomment">/// A [refresh token] for the account.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// This token can be used to obtain a new access token when it expires by calling the</span>
-            <span class="doccomment">/// `/refresh` endpoint.</span>
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
+            <span class="doccomment">/// [`refresh_token`] endpoint.</span>
+            <span class="doccomment">///</span>
+            <span class="doccomment">/// [refresh token]: https://spec.matrix.org/v1.3/client-server-api/#refreshing-access-tokens</span>
+            <span class="doccomment">/// [`refresh_token`]: crate::session::refresh_token</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="kw">pub</span> <span class="ident">refresh_token</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
@@ -589,7 +587,6 @@
             <span class="doccomment">/// re-login to obtain a new access token.</span>
             <span class="doccomment">///</span>
             <span class="doccomment">/// If this is `None`, the client can assume that the access token will not expire.</span>
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">serde</span>(
                 <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;ruma_common::serde::duration::opt_ms&quot;</span>,
                 <span class="ident">default</span>,
@@ -609,7 +606,6 @@
                 <span class="ident">login_info</span>,
                 <span class="ident">device_id</span>: <span class="prelude-val">None</span>,
                 <span class="ident">initial_device_display_name</span>: <span class="prelude-val">None</span>,
-                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
                 <span class="ident">refresh_token</span>: <span class="bool-val">false</span>,
             }
         }
@@ -624,9 +620,7 @@
                 <span class="ident">home_server</span>: <span class="prelude-val">None</span>,
                 <span class="ident">device_id</span>,
                 <span class="ident">well_known</span>: <span class="prelude-val">None</span>,
-                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
                 <span class="ident">refresh_token</span>: <span class="prelude-val">None</span>,
-                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
                 <span class="ident">expires_in</span>: <span class="prelude-val">None</span>,
             }
         }
@@ -913,7 +907,6 @@
                 <span class="ident">login_info</span>: <span class="ident">LoginInfo::Token</span>(<span class="ident">Token</span> { <span class="ident">token</span>: <span class="string">&quot;0xdeadbeef&quot;</span> }),
                 <span class="ident">device_id</span>: <span class="prelude-val">None</span>,
                 <span class="ident">initial_device_display_name</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;test&quot;</span>),
-                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
                 <span class="ident">refresh_token</span>: <span class="bool-val">false</span>,
             }
             .<span class="ident">try_into_http_request</span>(
@@ -940,7 +933,6 @@
                 }),
                 <span class="ident">device_id</span>: <span class="prelude-val">None</span>,
                 <span class="ident">initial_device_display_name</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;test&quot;</span>),
-                <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2918&quot;</span>)]</span>
                 <span class="ident">refresh_token</span>: <span class="bool-val">false</span>,
             }
             .<span class="ident">try_into_http_request</span>(
