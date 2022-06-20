@@ -372,8 +372,6 @@
 <span id="363">363</span>
 <span id="364">364</span>
 <span id="365">365</span>
-<span id="366">366</span>
-<span id="367">367</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">ruma_macros</span>::{<span class="ident">event_enum</span>, <span class="ident">EventEnumFromEvent</span>};
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">de</span>, <span class="ident">Deserialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json::value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>;
@@ -457,7 +455,6 @@
         <span class="string">&quot;m.reaction&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::reaction</span>,
         <span class="string">&quot;m.room.encrypted&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::encrypted</span>,
         <span class="string">&quot;m.room.message&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::message</span>,
-        <span class="string">&quot;m.room.message.feedback&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::message::feedback</span>,
         <span class="string">&quot;m.room.redaction&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::room::redaction</span>,
         <span class="string">&quot;m.sticker&quot;</span> =&gt; <span class="ident"><span class="kw">super</span>::sticker</span>,
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3553&quot;</span>)]</span>
@@ -734,7 +731,6 @@
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallInvite</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallHangup</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::CallCandidates</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident"><span class="self">Self</span>::RoomMessageFeedback</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::RoomRedaction</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::Sticker</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident"><span class="self">Self</span>::_Custom</span> { .. } =&gt; <span class="prelude-val">None</span>,
