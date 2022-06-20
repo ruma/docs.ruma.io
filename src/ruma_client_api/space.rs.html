@@ -185,6 +185,11 @@
 <span id="176">176</span>
 <span id="177">177</span>
 <span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Endpoints for spaces.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! See the [Matrix specification][spec] for more details about spaces.</span>
@@ -350,6 +355,11 @@
     <span class="doccomment">/// These rules are not made available as part of a space hierarchy listing response and can</span>
     <span class="doccomment">/// only be seen by users inside the room.</span>
     <span class="ident">Restricted</span>,
+
+    <span class="doccomment">/// Users can join the room if they are invited, or if they meet any of the conditions</span>
+    <span class="doccomment">/// described in a set of [`AllowRule`](ruma_common::events::room::join_rules::AllowRule)s, or</span>
+    <span class="doccomment">/// they can request an invite to the room.</span>
+    <span class="ident">KnockRestricted</span>,
 
     <span class="doccomment">/// Anyone can join the room without any prior action.</span>
     <span class="ident">Public</span>,
