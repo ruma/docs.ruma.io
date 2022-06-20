@@ -262,13 +262,6 @@
 <span id="253">253</span>
 <span id="254">254</span>
 <span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/messages`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -312,13 +305,6 @@
             <span class="doccomment">///</span>
             <span class="doccomment">/// If this is `None`, the server will return messages from the start or end of the</span>
             <span class="doccomment">/// history visible to the user, depending on the value of [`dir`][Self::dir].</span>
-            <span class="doccomment">///</span>
-            <span class="doccomment">/// *Note: This field is marked required in v1.2 of the specification, but that is</span>
-            <span class="doccomment">/// changing, most likely as part of v1.3. To frontload the breaking change, this field</span>
-            <span class="doccomment">/// is optional already even though v1.2 is the latest version at the time of writing.</span>
-            <span class="doccomment">/// The specification change can be found [here].*</span>
-            <span class="doccomment">///</span>
-            <span class="doccomment">/// [here]: https://github.com/matrix-org/matrix-spec/pull/1002</span>
             <span class="attribute">#[<span class="ident">ruma_api</span>(<span class="ident">query</span>)]</span>
             <span class="kw">pub</span> <span class="ident">from</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>,
 
