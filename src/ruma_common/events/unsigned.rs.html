@@ -179,38 +179,11 @@
 <span id="170">170</span>
 <span id="171">171</span>
 <span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">js_int::Int</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">from_str</span> <span class="kw">as</span> <span class="ident">from_json_str</span>, <span class="ident">value::RawValue</span> <span class="kw">as</span> <span class="ident">RawJsonValue</span>};
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::relation::Relations</span>;
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">room::redaction::SyncRoomRedactionEvent</span>, <span class="ident">StateEventContent</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">relation::Relations</span>, <span class="ident">room::redaction::SyncRoomRedactionEvent</span>, <span class="ident">StateEventContent</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::Raw</span>, <span class="ident">OwnedTransactionId</span>};
 
 <span class="doccomment">/// Extra information about a message event that is not incorporated into the event&#39;s hash.</span>
@@ -230,8 +203,9 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">transaction_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedTransactionId</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Server-compiled information from other events relating to this event.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
+    <span class="doccomment">/// [Bundled aggregations] of related child events.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [Bundled aggregations]: https://spec.matrix.org/v1.3/client-server-api/#aggregations</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relations&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relations</span><span class="op">&gt;</span>,
 }
@@ -248,15 +222,7 @@
     <span class="doccomment">/// events. Do not use it to determine whether an incoming `unsigned` field was present - it</span>
     <span class="doccomment">/// could still have been present but contained none of the known fields.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>))]</span>
-        {
-            <span class="self">self</span>.<span class="ident">age</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">is_none</span>()
-        }
-
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
-        {
-            <span class="self">self</span>.<span class="ident">age</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">relations</span>.<span class="ident">is_none</span>()
-        }
+        <span class="self">self</span>.<span class="ident">age</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">relations</span>.<span class="ident">is_none</span>()
     }
 }
 
@@ -281,8 +247,9 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>,
 
-    <span class="doccomment">/// Server-compiled information from other events relating to this event.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
+    <span class="doccomment">/// [Bundled aggregations] of related child events.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [Bundled aggregations]: https://spec.matrix.org/v1.3/client-server-api/#aggregations</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relations&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">relations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relations</span><span class="op">&gt;</span>,
 }
@@ -290,13 +257,7 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">StateEventContent</span><span class="op">&gt;</span> <span class="ident">StateUnsigned</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Create a new `Unsigned` with fields set to `None`.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">age</span>: <span class="prelude-val">None</span>,
-            <span class="ident">transaction_id</span>: <span class="prelude-val">None</span>,
-            <span class="ident">prev_content</span>: <span class="prelude-val">None</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
-            <span class="ident">relations</span>: <span class="prelude-val">None</span>,
-        }
+        <span class="self">Self</span> { <span class="ident">age</span>: <span class="prelude-val">None</span>, <span class="ident">transaction_id</span>: <span class="prelude-val">None</span>, <span class="ident">prev_content</span>: <span class="prelude-val">None</span>, <span class="ident">relations</span>: <span class="prelude-val">None</span> }
     }
 
     <span class="doccomment">/// Whether this unsigned data is empty (all fields are `None`).</span>
@@ -305,18 +266,10 @@
     <span class="doccomment">/// events. Do not use it to determine whether an incoming `unsigned` field was present - it</span>
     <span class="doccomment">/// could still have been present but contained none of the known fields.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_empty</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>))]</span>
-        {
-            <span class="self">self</span>.<span class="ident">age</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">is_none</span>()
-        }
-
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
-        {
-            <span class="self">self</span>.<span class="ident">age</span>.<span class="ident">is_none</span>()
-                <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">is_none</span>()
-                <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">is_none</span>()
-                <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">relations</span>.<span class="ident">is_none</span>()
-        }
+        <span class="self">self</span>.<span class="ident">age</span>.<span class="ident">is_none</span>()
+            <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">is_none</span>()
+            <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">is_none</span>()
+            <span class="op">&amp;&amp;</span> <span class="self">self</span>.<span class="ident">relations</span>.<span class="ident">is_none</span>()
     }
 }
 
@@ -334,7 +287,6 @@
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="ident">transaction_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OwnedTransactionId</span><span class="op">&gt;</span>,
             <span class="ident">prev_content</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Raw</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
             <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.relations&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
             <span class="ident">relations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relations</span><span class="op">&gt;</span>,
         }
@@ -346,7 +298,6 @@
         <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
             <span class="ident">age</span>: <span class="ident">raw</span>.<span class="ident">age</span>,
             <span class="ident">transaction_id</span>: <span class="ident">raw</span>.<span class="ident">transaction_id</span>,
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
             <span class="ident">relations</span>: <span class="ident">raw</span>.<span class="ident">relations</span>,
             <span class="ident">prev_content</span>,
         })
@@ -360,7 +311,6 @@
             <span class="ident">age</span>: <span class="self">self</span>.<span class="ident">age</span>,
             <span class="ident">transaction_id</span>: <span class="self">self</span>.<span class="ident">transaction_id</span>.<span class="ident">clone</span>(),
             <span class="ident">prev_content</span>: <span class="self">self</span>.<span class="ident">prev_content</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="ident">f</span>),
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
             <span class="ident">relations</span>: <span class="self">self</span>.<span class="ident">relations</span>.<span class="ident">clone</span>(),
         }
     }

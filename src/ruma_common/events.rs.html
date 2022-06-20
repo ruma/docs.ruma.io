@@ -249,8 +249,6 @@
 <span id="240">240</span>
 <span id="241">241</span>
 <span id="242">242</span>
-<span id="243">243</span>
-<span id="244">244</span>
 </pre><pre class="rust"><code><span class="doccomment">//! (De)serializable types for the events in the [Matrix](https://matrix.org) specification.</span>
 <span class="doccomment">//! These types are used by other Ruma crates.</span>
 <span class="doccomment">//!</span>
@@ -406,7 +404,6 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">reaction</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">receipt</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">relation</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">room</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">room_key</span>;
@@ -422,12 +419,11 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3245&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">voice</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::relation::Relations</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::{
     <span class="ident">content</span>::<span class="kw-2">*</span>,
     <span class="ident">enums</span>::<span class="kw-2">*</span>,
     <span class="ident">kinds</span>::<span class="kw-2">*</span>,
+    <span class="ident">relation::Relations</span>,
     <span class="ident">state_key::EmptyStateKey</span>,
     <span class="ident">unsigned</span>::{<span class="ident">MessageLikeUnsigned</span>, <span class="ident">RedactedUnsigned</span>, <span class="ident">StateUnsigned</span>},
 };

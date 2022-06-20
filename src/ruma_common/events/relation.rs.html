@@ -190,18 +190,33 @@
 <span id="181">181</span>
 <span id="182">182</span>
 <span id="183">183</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Types describing event relations after MSC 2674, 2675, 2676, 2677.</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Types describing [relationships between events].</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [relationships between events]: https://spec.matrix.org/v1.3/client-server-api/#forming-relationships-between-events</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt::Debug</span>;
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>))]</span>
 <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::AnySyncMessageLikeEvent</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">serde</span>::{<span class="ident">Raw</span>, <span class="ident">StringEnum</span>},
-    <span class="ident">MilliSecondsSinceUnixEpoch</span>, <span class="ident">OwnedEventId</span>, <span class="ident">OwnedUserId</span>, <span class="ident">PrivOwnedStr</span>,
-};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::serde::Raw</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2677&quot;</span>)]</span>
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::MilliSecondsSinceUnixEpoch</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde::StringEnum</span>, <span class="ident">PrivOwnedStr</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2676&quot;</span>)]</span>
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">OwnedEventId</span>, <span class="ident">OwnedUserId</span>};
 
 <span class="doccomment">/// Summary of all annotations to an event with the given key and type.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Serialize</span>)]</span>
@@ -322,7 +337,9 @@
     }
 }
 
-<span class="doccomment">/// Precompiled list of relations to this event grouped by relation type.</span>
+<span class="doccomment">/// [Bundled aggregations] of related child events.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [Bundled aggregations]: https://spec.matrix.org/v1.3/client-server-api/#aggregations</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Default</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-exhaustive-types&quot;</span>), <span class="ident">non_exhaustive</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Relations</span> {
@@ -352,7 +369,6 @@
 <span class="doccomment">/// Relation types as defined in `rel_type` of an `m.relates_to` field.</span>
 <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="macro">include_str!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;CARGO_MANIFEST_DIR&quot;</span>), <span class="string">&quot;/src/doc/string_enum.md&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">StringEnum</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>, <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2675&quot;</span>))]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">RelationType</span> {
     <span class="doccomment">/// `m.annotation`, an annotation, principally used by reactions.</span>

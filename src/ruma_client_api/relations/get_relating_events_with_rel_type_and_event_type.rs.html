@@ -138,15 +138,17 @@
 <span id="129">129</span>
 <span id="130">130</span>
 <span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/relations/{eventId}/{relType}/{eventType}`</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Retrieve all of the child events for a given parent event which relate to the parent</span>
 <span class="doccomment">//! using the given `rel_type` and having the given `event_type`.</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v1</span> {
-    <span class="doccomment">//! `/unstable/` ([MSC2675])</span>
+    <span class="doccomment">//! `/v1/` ([spec])</span>
     <span class="doccomment">//!</span>
-    <span class="doccomment">//! [MSC2675]: https://github.com/matrix-org/matrix-spec-proposals/pull/2675</span>
+    <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.3/client-server-api/#get_matrixclientv1roomsroomidrelationseventidreltypeeventtype</span>
 
     <span class="kw">use</span> <span class="ident">js_int::UInt</span>;
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
@@ -162,8 +164,10 @@
             <span class="ident">method</span>: <span class="ident">GET</span>,
             <span class="ident">name</span>: <span class="string">&quot;get_relating_events_with_rel_type_and_event_type&quot;</span>,
             <span class="ident">unstable_path</span>: <span class="string">&quot;/_matrix/client/unstable/rooms/:room_id/relations/:event_id/:rel_type/:event_type&quot;</span>,
+            <span class="ident">stable_path</span>: <span class="string">&quot;/_matrix/client/v1/rooms/:room_id/relations/:event_id/:rel_type/:event_type&quot;</span>,
             <span class="ident">rate_limited</span>: <span class="bool-val">false</span>,
             <span class="ident">authentication</span>: <span class="ident">AccessToken</span>,
+            <span class="ident">added</span>: <span class="number">1.3</span>,
         }
 
         <span class="ident">request</span>: {
