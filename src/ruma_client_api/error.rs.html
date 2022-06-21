@@ -313,12 +313,6 @@
 <span id="304">304</span>
 <span id="305">305</span>
 <span id="306">306</span>
-<span id="307">307</span>
-<span id="308">308</span>
-<span id="309">309</span>
-<span id="310">310</span>
-<span id="311">311</span>
-<span id="312">312</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Errors that can be sent from the homeserver.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">fmt</span>, <span class="ident">time::Duration</span>};
@@ -540,7 +534,6 @@
 <span class="doccomment">/// A Matrix Error without a status code.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>)]</span>
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::exhaustive_structs</span>)]</span>
-<span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">test</span>, <span class="ident">derive</span>(<span class="ident">PartialEq</span>))]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ErrorBody</span> {
     <span class="doccomment">/// A value which can be used to handle an error message.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">flatten</span>)]</span>
@@ -622,13 +615,8 @@
         }))
         .<span class="ident">unwrap</span>();
 
-        <span class="macro">assert_eq!</span>(
-            <span class="ident">deserialized</span>,
-            <span class="ident">ErrorBody</span> {
-                <span class="ident">kind</span>: <span class="ident">ErrorKind::Forbidden</span>,
-                <span class="ident">message</span>: <span class="string">&quot;You are not authorized to ban users in this room.&quot;</span>.<span class="ident">into</span>(),
-            }
-        );
+        <span class="macro">assert_eq!</span>(<span class="ident">deserialized</span>.<span class="ident">kind</span>, <span class="ident">ErrorKind::Forbidden</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">deserialized</span>.<span class="ident">message</span>, <span class="string">&quot;You are not authorized to ban users in this room.&quot;</span>);
     }
 }
 </code></pre></div>
