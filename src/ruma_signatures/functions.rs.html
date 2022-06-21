@@ -1183,6 +1183,8 @@
 <span id="1174">1174</span>
 <span id="1175">1175</span>
 <span id="1176">1176</span>
+<span id="1177">1177</span>
+<span id="1178">1178</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Functions for signing and verifying JSON and events.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{
@@ -1230,12 +1232,14 @@
 <span class="kw">fn</span> <span class="ident">allowed_content_keys_for</span>(<span class="ident">event_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">version</span>: <span class="kw-2">&amp;</span><span class="ident">RoomVersionId</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>] {
     <span class="kw">match</span> <span class="ident">event_type</span> {
         <span class="string">&quot;m.room.member&quot;</span> =&gt; <span class="kw">match</span> <span class="ident">version</span> {
-            <span class="ident">RoomVersionId::V9</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;membership&quot;</span>, <span class="string">&quot;join_authorised_via_users_server&quot;</span>],
+            <span class="ident">RoomVersionId::V9</span> <span class="op">|</span> <span class="ident">RoomVersionId::V10</span> =&gt; {
+                <span class="kw-2">&amp;</span>[<span class="string">&quot;membership&quot;</span>, <span class="string">&quot;join_authorised_via_users_server&quot;</span>]
+            }
             <span class="kw">_</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;membership&quot;</span>],
         },
         <span class="string">&quot;m.room.create&quot;</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;creator&quot;</span>],
         <span class="string">&quot;m.room.join_rules&quot;</span> =&gt; <span class="kw">match</span> <span class="ident">version</span> {
-            <span class="ident">RoomVersionId::V8</span> <span class="op">|</span> <span class="ident">RoomVersionId::V9</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;join_rule&quot;</span>, <span class="string">&quot;allow&quot;</span>],
+            <span class="ident">RoomVersionId::V8</span> <span class="op">|</span> <span class="ident">RoomVersionId::V9</span> <span class="op">|</span> <span class="ident">RoomVersionId::V10</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;join_rule&quot;</span>, <span class="string">&quot;allow&quot;</span>],
             <span class="kw">_</span> =&gt; <span class="kw-2">&amp;</span>[<span class="string">&quot;join_rule&quot;</span>],
         },
         <span class="string">&quot;m.room.power_levels&quot;</span> =&gt; <span class="kw-2">&amp;</span>[
@@ -2029,7 +2033,7 @@
         <span class="op">|</span> <span class="ident">RoomVersionId::V6</span>
         <span class="op">|</span> <span class="ident">RoomVersionId::V7</span> =&gt; {}
         <span class="comment">// TODO: And for all future versions that have join_authorised_via_users_server</span>
-        <span class="ident">RoomVersionId::V8</span> <span class="op">|</span> <span class="ident">RoomVersionId::V9</span> =&gt; {
+        <span class="ident">RoomVersionId::V8</span> <span class="op">|</span> <span class="ident">RoomVersionId::V9</span> <span class="op">|</span> <span class="ident">RoomVersionId::V10</span> =&gt; {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">authorized_user</span>) <span class="op">=</span> <span class="ident">object</span>
                 .<span class="ident">get</span>(<span class="string">&quot;content&quot;</span>)
                 .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">as_object</span>())
@@ -2360,5 +2364,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_signatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (bb8c2f411 2022-06-19)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_signatures" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (5750a6aa2 2022-06-20)" ></div>
 </body></html>

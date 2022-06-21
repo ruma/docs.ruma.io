@@ -372,6 +372,12 @@
 <span id="363">363</span>
 <span id="364">364</span>
 <span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix room version identifiers.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cmp::Ordering</span>, <span class="ident">str::FromStr</span>};
@@ -427,6 +433,9 @@
     <span class="doccomment">/// A version 9 room.</span>
     <span class="ident">V9</span>,
 
+    <span class="doccomment">/// A version 10 room.</span>
+    <span class="ident">V10</span>,
+
     <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
     <span class="ident">_Custom</span>(<span class="ident">CustomRoomVersion</span>),
 }
@@ -446,6 +455,7 @@
             <span class="ident"><span class="self">Self</span>::V7</span> =&gt; <span class="string">&quot;7&quot;</span>,
             <span class="ident"><span class="self">Self</span>::V8</span> =&gt; <span class="string">&quot;8&quot;</span>,
             <span class="ident"><span class="self">Self</span>::V9</span> =&gt; <span class="string">&quot;9&quot;</span>,
+            <span class="ident"><span class="self">Self</span>::V10</span> =&gt; <span class="string">&quot;10&quot;</span>,
             <span class="ident"><span class="self">Self</span>::_Custom</span>(<span class="ident">version</span>) =&gt; <span class="ident">version</span>.<span class="ident">as_str</span>(),
         }
     }
@@ -468,6 +478,7 @@
             <span class="ident">RoomVersionId::V7</span> =&gt; <span class="string">&quot;7&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">RoomVersionId::V8</span> =&gt; <span class="string">&quot;8&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">RoomVersionId::V9</span> =&gt; <span class="string">&quot;9&quot;</span>.<span class="ident">to_owned</span>(),
+            <span class="ident">RoomVersionId::V10</span> =&gt; <span class="string">&quot;10&quot;</span>.<span class="ident">to_owned</span>(),
             <span class="ident">RoomVersionId::_Custom</span>(<span class="ident">version</span>) =&gt; <span class="ident">version</span>.<span class="ident">into</span>(),
         }
     }
@@ -534,6 +545,7 @@
         <span class="string">&quot;7&quot;</span> =&gt; <span class="ident">RoomVersionId::V7</span>,
         <span class="string">&quot;8&quot;</span> =&gt; <span class="ident">RoomVersionId::V8</span>,
         <span class="string">&quot;9&quot;</span> =&gt; <span class="ident">RoomVersionId::V9</span>,
+        <span class="string">&quot;10&quot;</span> =&gt; <span class="ident">RoomVersionId::V10</span>,
         <span class="ident">custom</span> =&gt; {
             <span class="ident">ruma_identifiers_validation::room_version_id::validate</span>(<span class="ident">custom</span>)<span class="question-mark">?</span>;
             <span class="ident">RoomVersionId::_Custom</span>(<span class="ident">CustomRoomVersion</span>(<span class="ident">room_version_id</span>.<span class="ident">into</span>()))
@@ -738,5 +750,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (bb8c2f411 2022-06-19)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (5750a6aa2 2022-06-20)" ></div>
 </body></html>
