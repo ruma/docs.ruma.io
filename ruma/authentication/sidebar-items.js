@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["TokenType","Access token types."]]});
+window.SIDEBAR_ITEMS = {"enum":[["TokenType","Access token types."]]};

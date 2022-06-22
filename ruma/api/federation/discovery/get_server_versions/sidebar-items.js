@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["msc3723","GET /_matrix/federation/versions"]]});
+window.SIDEBAR_ITEMS = {"mod":[["msc3723","GET /_matrix/federation/versions"]]};

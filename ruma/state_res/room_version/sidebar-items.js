@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["EventFormatVersion",""],["RoomDisposition",""],["StateResolutionVersion",""]],"struct":[["RoomVersion",""]]});
+window.SIDEBAR_ITEMS = {"enum":[["EventFormatVersion",""],["RoomDisposition",""],["StateResolutionVersion",""]],"struct":[["RoomVersion",""]]};

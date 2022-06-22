@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["get_devices","`GET /_matrix/federation/*/user/devices/{userId}`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["get_devices","`GET /_matrix/federation/*/user/devices/{userId}`"]]};

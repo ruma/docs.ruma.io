@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["ReceiptType","The type of receipt."]]});
+window.SIDEBAR_ITEMS = {"enum":[["ReceiptType","The type of receipt."]]};

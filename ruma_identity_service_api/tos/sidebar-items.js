@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["accept_terms_of_service","`POST /_matrix/identity/*/terms`"],["get_terms_of_service","`GET /_matrix/identity/*/terms`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["accept_terms_of_service","`POST /_matrix/identity/*/terms`"],["get_terms_of_service","`GET /_matrix/identity/*/terms`"]]};

@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v1","`/v1/` (spec)"],["v2","`/v2/` (spec)"]],"struct":[["RoomState","Full state of the room."]]});
+window.SIDEBAR_ITEMS = {"mod":[["v1","`/v1/` (spec)"],["v2","`/v2/` (spec)"]],"struct":[["RoomState","Full state of the room."]]};

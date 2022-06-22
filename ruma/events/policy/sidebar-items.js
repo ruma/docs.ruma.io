@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["rule","Modules and types for events in the `m.policy.rule` namespace."]]});
+window.SIDEBAR_ITEMS = {"mod":[["rule","Modules and types for events in the `m.policy.rule` namespace."]]};

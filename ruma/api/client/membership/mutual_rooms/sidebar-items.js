@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["unstable","`/unstable/` (spec)"]]});
+window.SIDEBAR_ITEMS = {"mod":[["unstable","`/unstable/` (spec)"]]};

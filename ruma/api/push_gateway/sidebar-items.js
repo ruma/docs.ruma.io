@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["send_event_notification","`POST /_matrix/push/*/notify`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["send_event_notification","`POST /_matrix/push/*/notify`"]]};

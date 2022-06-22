@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["push_events","`PUT /_matrix/app/*/transactions/{txnId}`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["push_events","`PUT /_matrix/app/*/transactions/{txnId}`"]]};

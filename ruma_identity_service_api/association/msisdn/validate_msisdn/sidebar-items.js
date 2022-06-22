@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["v2","`/v2/` (spec)"]]});
+window.SIDEBAR_ITEMS = {"mod":[["v2","`/v2/` (spec)"]]};

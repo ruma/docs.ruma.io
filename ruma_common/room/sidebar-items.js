@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["RoomType","An enum of possible room types."]]});
+window.SIDEBAR_ITEMS = {"enum":[["RoomType","An enum of possible room types."]]};

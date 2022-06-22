@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["get_custom_information","`GET /_matrix/federation/*/query/{queryType}`"],["get_profile_information","`GET /_matrix/federation/*/query/profile`"],["get_room_information","`GET /_matrix/federation/*/query/directory`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["get_custom_information","`GET /_matrix/federation/*/query/{queryType}`"],["get_profile_information","`GET /_matrix/federation/*/query/profile`"],["get_room_information","`GET /_matrix/federation/*/query/directory`"]]};

@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["get_event_authorization","`GET /_matrix/federation/*/event_auth/{roomId}/{eventId}`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["get_event_authorization","`GET /_matrix/federation/*/event_auth/{roomId}/{eventId}`"]]};

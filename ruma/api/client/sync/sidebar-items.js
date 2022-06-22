@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["sync_events","`GET /_matrix/client/*/sync`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["sync_events","`GET /_matrix/client/*/sync`"]]};

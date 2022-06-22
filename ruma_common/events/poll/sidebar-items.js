@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["end","Types for the [`m.poll.end`] event."],["response","Types for the [`m.poll.response`] event."],["start","Types for the [`m.poll.start`] event."]],"struct":[["ReferenceRelation","An `m.reference` relation."]]});
+window.SIDEBAR_ITEMS = {"mod":[["end","Types for the [`m.poll.end`] event."],["response","Types for the [`m.poll.response`] event."],["start","Types for the [`m.poll.start`] event."]],"struct":[["ReferenceRelation","An `m.reference` relation."]]};

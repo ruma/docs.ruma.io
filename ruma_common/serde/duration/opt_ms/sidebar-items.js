@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["deserialize","Deserializes an Option."],["serialize","Serialize an Option."]]});
+window.SIDEBAR_ITEMS = {"fn":[["deserialize","Deserializes an Option."],["serialize","Serialize an Option."]]};

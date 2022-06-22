@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["auth_check","Authenticate the incoming `event`."],["auth_types_for_event","For the given event `kind` what are the relevant auth events that are needed to authenticate this `content`."]]});
+window.SIDEBAR_ITEMS = {"fn":[["auth_check","Authenticate the incoming `event`."],["auth_types_for_event","For the given event `kind` what are the relevant auth events that are needed to authenticate this `content`."]]};

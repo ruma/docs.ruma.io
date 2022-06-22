@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["log_messages",""],["main",""]],"type":[["HttpClient",""]]});
+window.SIDEBAR_ITEMS = {"fn":[["log_messages",""],["main",""]],"type":[["HttpClient",""]]};

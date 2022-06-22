@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["search_users","`POST /_matrix/client/*/user_directory/search`"]]});
+window.SIDEBAR_ITEMS = {"mod":[["search_users","`POST /_matrix/client/*/user_directory/search`"]]};
