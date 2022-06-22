@@ -655,6 +655,31 @@
 <span id="647">647</span>
 <span id="648">648</span>
 <span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for the [`m.room.message`] event.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [`m.room.message`]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage</span>
@@ -845,7 +870,8 @@
 
     <span class="doccomment">/// Create a new reply with the given message and optionally forwards the [`Relation::Thread`].</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `message` is a text or notice message, it is modified to include the rich reply fallback.</span>
+    <span class="doccomment">/// If `message` is a text, an emote or a notice message, it is modified to include the rich</span>
+    <span class="doccomment">/// reply fallback.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">reply</span>(
         <span class="ident">message</span>: <span class="ident">MessageType</span>,
@@ -861,6 +887,15 @@
                 );
 
                 <span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>))
+            }
+            <span class="ident">MessageType::Emote</span>(<span class="ident">EmoteMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">formatted</span>, .. }) =&gt; {
+                <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">html_body</span>) <span class="op">=</span> <span class="ident">reply::plain_and_formatted_reply_body</span>(
+                    <span class="ident">body</span>,
+                    <span class="ident">formatted</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">body</span>),
+                    <span class="ident">original_message</span>,
+                );
+
+                <span class="ident">MessageType::Emote</span>(<span class="ident">EmoteMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>))
             }
             <span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">formatted</span>, .. }) =&gt; {
                 <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">html_body</span>) <span class="op">=</span> <span class="ident">reply::plain_and_formatted_reply_body</span>(
@@ -896,33 +931,48 @@
     <span class="doccomment">/// thread is created. If it doesn&#39;t, a new thread with `previous_message` as the root is</span>
     <span class="doccomment">/// created.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `message` is a text or notice message, it is modified to include the rich reply fallback.</span>
+    <span class="doccomment">/// If `message` is a text, an emote or a notice message, and this is a reply in the thread, it</span>
+    <span class="doccomment">/// is modified to include the rich reply fallback.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3440&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">for_thread</span>(
         <span class="ident">message</span>: <span class="ident">MessageType</span>,
         <span class="ident">previous_message</span>: <span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span>,
         <span class="ident">is_reply</span>: <span class="ident">ReplyInThread</span>,
     ) -&gt; <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">msgtype</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">message</span> {
-            <span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">formatted</span>, .. }) =&gt; {
-                <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">html_body</span>) <span class="op">=</span> <span class="ident">reply::plain_and_formatted_reply_body</span>(
-                    <span class="ident">body</span>,
-                    <span class="ident">formatted</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">body</span>),
-                    <span class="ident">previous_message</span>,
-                );
+        <span class="kw">let</span> <span class="ident">msgtype</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_reply</span> <span class="op">==</span> <span class="ident">ReplyInThread::Yes</span> {
+            <span class="comment">// If this is a real reply, add the rich reply fallback.</span>
+            <span class="kw">match</span> <span class="ident">message</span> {
+                <span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">formatted</span>, .. }) =&gt; {
+                    <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">html_body</span>) <span class="op">=</span> <span class="ident">reply::plain_and_formatted_reply_body</span>(
+                        <span class="ident">body</span>,
+                        <span class="ident">formatted</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">body</span>),
+                        <span class="ident">previous_message</span>,
+                    );
 
-                <span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>))
-            }
-            <span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">formatted</span>, .. }) =&gt; {
-                <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">html_body</span>) <span class="op">=</span> <span class="ident">reply::plain_and_formatted_reply_body</span>(
-                    <span class="ident">body</span>,
-                    <span class="ident">formatted</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">body</span>),
-                    <span class="ident">previous_message</span>,
-                );
+                    <span class="ident">MessageType::Text</span>(<span class="ident">TextMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>))
+                }
+                <span class="ident">MessageType::Emote</span>(<span class="ident">EmoteMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">formatted</span>, .. }) =&gt; {
+                    <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">html_body</span>) <span class="op">=</span> <span class="ident">reply::plain_and_formatted_reply_body</span>(
+                        <span class="ident">body</span>,
+                        <span class="ident">formatted</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">body</span>),
+                        <span class="ident">previous_message</span>,
+                    );
 
-                <span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>))
+                    <span class="ident">MessageType::Emote</span>(<span class="ident">EmoteMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>))
+                }
+                <span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">formatted</span>, .. }) =&gt; {
+                    <span class="kw">let</span> (<span class="ident">body</span>, <span class="ident">html_body</span>) <span class="op">=</span> <span class="ident">reply::plain_and_formatted_reply_body</span>(
+                        <span class="ident">body</span>,
+                        <span class="ident">formatted</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">f</span><span class="op">|</span> <span class="ident">f</span>.<span class="ident">body</span>),
+                        <span class="ident">previous_message</span>,
+                    );
+
+                    <span class="ident">MessageType::Notice</span>(<span class="ident">NoticeMessageEventContent::html</span>(<span class="ident">body</span>, <span class="ident">html_body</span>))
+                }
+                <span class="kw">_</span> =&gt; <span class="ident">message</span>,
             }
-            <span class="kw">_</span> =&gt; <span class="ident">message</span>,
+        } <span class="kw">else</span> {
+            <span class="ident">message</span>
         };
 
         <span class="kw">let</span> <span class="ident">thread_root</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">Relation::Thread</span>(<span class="ident">Thread</span> { <span class="ident">event_id</span>, .. })) <span class="op">=</span>
