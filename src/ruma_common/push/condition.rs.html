@@ -608,9 +608,99 @@
 <span id="600">600</span>
 <span id="601">601</span>
 <span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
+<span id="681">681</span>
+<span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
+<span id="687">687</span>
+<span id="688">688</span>
+<span id="689">689</span>
+<span id="690">690</span>
+<span id="691">691</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">ops::RangeBounds</span>, <span class="ident">str::FromStr</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">Int</span>, <span class="ident">UInt</span>};
+<span class="kw">use</span> <span class="ident">regex::Regex</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">to_value</span> <span class="kw">as</span> <span class="ident">to_json_value</span>, <span class="ident">value::Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 <span class="kw">use</span> <span class="ident">tracing</span>::{<span class="ident">instrument</span>, <span class="ident">warn</span>};
@@ -621,6 +711,13 @@
 <span class="kw">mod</span> <span class="ident">room_member_count_is</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">room_member_count_is</span>::{<span class="ident">ComparisonOperator</span>, <span class="ident">RoomMemberCountIs</span>};
+
+<span class="doccomment">/// The characters that are defined as a word boundary in the [Matrix spec].</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Any character not in the sets `[A-Z]`, `[a-z]`, `[0-9]` or `_`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [Matrix spec]: https://spec.matrix.org/v1.3/client-server-api/#conditions-1</span>
+<span class="kw">const</span> <span class="ident">WORD_BOUNDARY_CHARACTERS</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;[^A-Za-z0-9_]&quot;</span>;
 
 <span class="doccomment">/// A condition that must apply for an associated push rule&#39;s action to be taken.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
@@ -779,17 +876,27 @@
 
     <span class="doccomment">/// Matches this string against `pattern`.</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// The pattern can be a glob with wildcards `*` and `?`.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// The match is case insensitive.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If `match_words` is `true`, looks for `pattern` as a substring of `self`,</span>
-    <span class="doccomment">/// and checks that it is separated from other words. Otherwise, checks</span>
-    <span class="doccomment">/// `pattern` as a glob with wildcards `*` and `?`.</span>
+    <span class="doccomment">/// If `match_words` is `true`, checks that the pattern is separated from other words.</span>
     <span class="kw">fn</span> <span class="ident">matches_pattern</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pattern</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">match_words</span>: <span class="ident">bool</span>) -&gt; <span class="ident">bool</span>;
 
     <span class="doccomment">/// Matches this string against `pattern`, with word boundaries.</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// The pattern can be a glob with wildcards `*` and `?`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// A word boundary is defined as the start or end of the value, or any character not in the</span>
+    <span class="doccomment">/// sets `[A-Z]`, `[a-z]`, `[0-9]` or `_`.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// The match is case sensitive.</span>
     <span class="kw">fn</span> <span class="ident">matches_word</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pattern</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span>;
+
+    <span class="doccomment">/// Translate the wildcards in `self` to a regex syntax.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// `self` must only contain wildcards.</span>
+    <span class="kw">fn</span> <span class="ident">wildcards_to_regex</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span>;
 }
 
 <span class="kw">impl</span> <span class="ident">StrExt</span> <span class="kw">for</span> <span class="ident">str</span> {
@@ -839,40 +946,92 @@
             <span class="kw">return</span> <span class="bool-val">false</span>;
         }
 
-        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">find</span>(<span class="ident">pattern</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">start</span>) =&gt; {
-                <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="ident">start</span> <span class="op">+</span> <span class="ident">pattern</span>.<span class="ident">len</span>();
+        <span class="kw">let</span> <span class="ident">has_wildcards</span> <span class="op">=</span> <span class="ident">pattern</span>.<span class="ident">contains</span>(<span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="macro">matches!</span>(<span class="ident">c</span>, <span class="string">&#39;?&#39;</span> <span class="op">|</span> <span class="string">&#39;*&#39;</span>));
 
-                <span class="comment">// Look if the match has word boundaries.</span>
-                <span class="kw">let</span> <span class="ident">word_boundary_start</span> <span class="op">=</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">char_at</span>(<span class="ident">start</span>).<span class="ident">is_word_char</span>()
-                    <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">find_prev_char</span>(<span class="ident">start</span>).<span class="ident">map_or</span>(<span class="bool-val">true</span>, <span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="op">!</span><span class="ident">c</span>.<span class="ident">is_word_char</span>());
+        <span class="kw">if</span> <span class="ident">has_wildcards</span> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">chunks</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prev_wildcard</span> <span class="op">=</span> <span class="bool-val">false</span>;
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">chunk_start</span> <span class="op">=</span> <span class="number">0</span>;
 
-                <span class="kw">if</span> <span class="ident">word_boundary_start</span> {
-                    <span class="kw">let</span> <span class="ident">word_boundary_end</span> <span class="op">=</span> <span class="ident">end</span> <span class="op">==</span> <span class="self">self</span>.<span class="ident">len</span>()
-                        <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">find_prev_char</span>(<span class="ident">end</span>).<span class="ident">unwrap</span>().<span class="ident">is_word_char</span>()
-                        <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">char_at</span>(<span class="ident">end</span>).<span class="ident">is_word_char</span>();
-
-                    <span class="kw">if</span> <span class="ident">word_boundary_end</span> {
-                        <span class="kw">return</span> <span class="bool-val">true</span>;
+            <span class="kw">for</span> (<span class="ident">i</span>, <span class="ident">c</span>) <span class="kw">in</span> <span class="ident">pattern</span>.<span class="ident">char_indices</span>() {
+                <span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">c</span>, <span class="string">&#39;?&#39;</span> <span class="op">|</span> <span class="string">&#39;*&#39;</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">prev_wildcard</span> {
+                    <span class="kw">if</span> <span class="ident">i</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+                        <span class="ident">chunks</span>.<span class="ident">push</span>(<span class="ident">regex::escape</span>(<span class="kw-2">&amp;</span><span class="ident">pattern</span>[<span class="ident">chunk_start</span>..<span class="ident">i</span>]));
+                        <span class="ident">chunk_start</span> <span class="op">=</span> <span class="ident">i</span>;
                     }
+
+                    <span class="ident">prev_wildcard</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">prev_wildcard</span> {
+                    <span class="kw">let</span> <span class="ident">chunk</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">pattern</span>[<span class="ident">chunk_start</span>..<span class="ident">i</span>];
+                    <span class="ident">chunks</span>.<span class="ident">push</span>(<span class="ident">chunk</span>.<span class="ident">wildcards_to_regex</span>());
+
+                    <span class="ident">chunk_start</span> <span class="op">=</span> <span class="ident">i</span>;
+                    <span class="ident">prev_wildcard</span> <span class="op">=</span> <span class="bool-val">false</span>;
                 }
-
-                <span class="comment">// Find next word.</span>
-                <span class="kw">let</span> <span class="ident">non_word_str</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>[<span class="ident">start</span>..];
-                <span class="kw">let</span> <span class="ident">non_word</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">non_word_str</span>.<span class="ident">find</span>(<span class="op">|</span><span class="ident">c</span>: <span class="ident">char</span><span class="op">|</span> <span class="op">!</span><span class="ident">c</span>.<span class="ident">is_word_char</span>()) {
-                    <span class="prelude-val">Some</span>(<span class="ident">pos</span>) =&gt; <span class="ident">pos</span>,
-                    <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="bool-val">false</span>,
-                };
-
-                <span class="kw">let</span> <span class="ident">word_str</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">non_word_str</span>[<span class="ident">non_word</span>..];
-                <span class="kw">let</span> <span class="ident">word</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">word_str</span>.<span class="ident">find</span>(<span class="op">|</span><span class="ident">c</span>: <span class="ident">char</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">is_word_char</span>()) {
-                    <span class="prelude-val">Some</span>(<span class="ident">pos</span>) =&gt; <span class="ident">pos</span>,
-                    <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="bool-val">false</span>,
-                };
-
-                <span class="ident">word_str</span>[<span class="ident">word</span>..].<span class="ident">matches_word</span>(<span class="ident">pattern</span>)
             }
-            <span class="prelude-val">None</span> =&gt; <span class="bool-val">false</span>,
+
+            <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">pattern</span>.<span class="ident">len</span>();
+            <span class="kw">if</span> <span class="op">!</span><span class="ident">prev_wildcard</span> {
+                <span class="ident">chunks</span>.<span class="ident">push</span>(<span class="ident">regex::escape</span>(<span class="kw-2">&amp;</span><span class="ident">pattern</span>[<span class="ident">chunk_start</span>..<span class="ident">len</span>]));
+            } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">prev_wildcard</span> {
+                <span class="kw">let</span> <span class="ident">chunk</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">pattern</span>[<span class="ident">chunk_start</span>..<span class="ident">len</span>];
+                <span class="ident">chunks</span>.<span class="ident">push</span>(<span class="ident">chunk</span>.<span class="ident">wildcards_to_regex</span>());
+            }
+
+            <span class="kw">let</span> <span class="ident">regex</span> <span class="op">=</span> <span class="macro">format!</span>(
+                <span class="string">&quot;(?:^|{WORD_BOUNDARY_CHARACTERS}){}(?:{WORD_BOUNDARY_CHARACTERS}|$)&quot;</span>,
+                <span class="ident">chunks</span>.<span class="ident">concat</span>()
+            );
+            <span class="ident">Regex::new</span>(<span class="kw-2">&amp;</span><span class="ident">regex</span>).<span class="ident">ok</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="ident">re</span><span class="op">|</span> <span class="ident">re</span>.<span class="ident">is_match</span>(<span class="self">self</span>)).<span class="ident">is_some</span>()
+        } <span class="kw">else</span> {
+            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">find</span>(<span class="ident">pattern</span>) {
+                <span class="prelude-val">Some</span>(<span class="ident">start</span>) =&gt; {
+                    <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="ident">start</span> <span class="op">+</span> <span class="ident">pattern</span>.<span class="ident">len</span>();
+
+                    <span class="comment">// Look if the match has word boundaries.</span>
+                    <span class="kw">let</span> <span class="ident">word_boundary_start</span> <span class="op">=</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">char_at</span>(<span class="ident">start</span>).<span class="ident">is_word_char</span>()
+                        <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">find_prev_char</span>(<span class="ident">start</span>).<span class="ident">map_or</span>(<span class="bool-val">true</span>, <span class="op">|</span><span class="ident">c</span><span class="op">|</span> <span class="op">!</span><span class="ident">c</span>.<span class="ident">is_word_char</span>());
+
+                    <span class="kw">if</span> <span class="ident">word_boundary_start</span> {
+                        <span class="kw">let</span> <span class="ident">word_boundary_end</span> <span class="op">=</span> <span class="ident">end</span> <span class="op">==</span> <span class="self">self</span>.<span class="ident">len</span>()
+                            <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">find_prev_char</span>(<span class="ident">end</span>).<span class="ident">unwrap</span>().<span class="ident">is_word_char</span>()
+                            <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">char_at</span>(<span class="ident">end</span>).<span class="ident">is_word_char</span>();
+
+                        <span class="kw">if</span> <span class="ident">word_boundary_end</span> {
+                            <span class="kw">return</span> <span class="bool-val">true</span>;
+                        }
+                    }
+
+                    <span class="comment">// Find next word.</span>
+                    <span class="kw">let</span> <span class="ident">non_word_str</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>[<span class="ident">start</span>..];
+                    <span class="kw">let</span> <span class="ident">non_word</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">non_word_str</span>.<span class="ident">find</span>(<span class="op">|</span><span class="ident">c</span>: <span class="ident">char</span><span class="op">|</span> <span class="op">!</span><span class="ident">c</span>.<span class="ident">is_word_char</span>()) {
+                        <span class="prelude-val">Some</span>(<span class="ident">pos</span>) =&gt; <span class="ident">pos</span>,
+                        <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="bool-val">false</span>,
+                    };
+
+                    <span class="kw">let</span> <span class="ident">word_str</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">non_word_str</span>[<span class="ident">non_word</span>..];
+                    <span class="kw">let</span> <span class="ident">word</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">word_str</span>.<span class="ident">find</span>(<span class="op">|</span><span class="ident">c</span>: <span class="ident">char</span><span class="op">|</span> <span class="ident">c</span>.<span class="ident">is_word_char</span>()) {
+                        <span class="prelude-val">Some</span>(<span class="ident">pos</span>) =&gt; <span class="ident">pos</span>,
+                        <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="bool-val">false</span>,
+                    };
+
+                    <span class="ident">word_str</span>[<span class="ident">word</span>..].<span class="ident">matches_word</span>(<span class="ident">pattern</span>)
+                }
+                <span class="prelude-val">None</span> =&gt; <span class="bool-val">false</span>,
+            }
+        }
+    }
+
+    <span class="kw">fn</span> <span class="ident">wildcards_to_regex</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
+        <span class="comment">// Simplify pattern to avoid performance issues:</span>
+        <span class="comment">// - The glob `?**?**?` is equivalent to the glob `???*`</span>
+        <span class="comment">// - The glob `???*` is equivalent to the regex `.{3,}`</span>
+        <span class="kw">let</span> <span class="ident">question_marks</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">matches</span>(<span class="string">&#39;?&#39;</span>).<span class="ident">count</span>();
+
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">contains</span>(<span class="string">&#39;*&#39;</span>) {
+            <span class="macro">format!</span>(<span class="string">&quot;.{{{question_marks},}}&quot;</span>)
+        } <span class="kw">else</span> {
+            <span class="macro">format!</span>(<span class="string">&quot;.{{{question_marks}}}&quot;</span>)
         }
     }
 }
@@ -1053,6 +1212,19 @@
         <span class="macro">assert!</span>(<span class="string">&quot;Ruma Dev👩‍💻&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;Dev&quot;</span>));
         <span class="macro">assert!</span>(<span class="string">&quot;Ruma Dev👩‍💻&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;👩‍💻&quot;</span>));
         <span class="macro">assert!</span>(<span class="string">&quot;Ruma Dev👩‍💻&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;Dev👩‍💻&quot;</span>));
+
+        <span class="comment">// Regex syntax is escaped</span>
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;matrix&quot;</span>.<span class="ident">matches_word</span>(<span class="string">r&quot;\w*&quot;</span>));
+        <span class="macro">assert!</span>(<span class="string">r&quot;\w&quot;</span>.<span class="ident">matches_word</span>(<span class="string">r&quot;\w*&quot;</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;matrix&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;[a-z]*&quot;</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;[a-z] and [0-9]&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;[a-z]*&quot;</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;m&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;[[:alpha:]]?&quot;</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;[[:alpha:]]!&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;[[:alpha:]]?&quot;</span>));
+
+        <span class="comment">// From the spec: &lt;https://spec.matrix.org/v1.3/client-server-api/#conditions-1&gt;</span>
+        <span class="macro">assert!</span>(<span class="string">&quot;An example event.&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;ex*ple&quot;</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;exple&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;ex*ple&quot;</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;An exciting triple-whammy&quot;</span>.<span class="ident">matches_word</span>(<span class="string">&quot;ex*ple&quot;</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1061,7 +1233,7 @@
         <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="string">&quot;Foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;foobar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo&quot;</span>, <span class="bool-val">true</span>));
-        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo*&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo*&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="string">&quot;&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;foo&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;&quot;</span>, <span class="bool-val">true</span>));
 
@@ -1077,6 +1249,12 @@
         <span class="macro">assert!</span>(<span class="string">&quot;&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;&quot;</span>, <span class="bool-val">false</span>));
         <span class="macro">assert!</span>(<span class="string">&quot;&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;*&quot;</span>, <span class="bool-val">false</span>));
         <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;foo&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;&quot;</span>, <span class="bool-val">false</span>));
+
+        <span class="comment">// From the spec: &lt;https://spec.matrix.org/v1.3/client-server-api/#conditions-1&gt;</span>
+        <span class="macro">assert!</span>(<span class="string">&quot;Lunch plans&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;lunc?*&quot;</span>, <span class="bool-val">false</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;LUNCH&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;lunc?*&quot;</span>, <span class="bool-val">false</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot; lunch&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;lunc?*&quot;</span>, <span class="bool-val">false</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;lunc&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;lunc?*&quot;</span>, <span class="bool-val">false</span>));
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
