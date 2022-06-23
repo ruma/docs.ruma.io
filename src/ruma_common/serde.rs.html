@@ -78,12 +78,6 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
-<span id="73">73</span>
-<span id="74">74</span>
-<span id="75">75</span>
-<span id="76">76</span>
-<span id="77">77</span>
-<span id="78">78</span>
 </pre><pre class="rust"><code><span class="doccomment">//! (De)serialization helpers for other Ruma crates.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Part of that is a fork of [serde_urlencoded], with support for sequences in `Deserialize` /</span>
@@ -97,7 +91,6 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">base64</span>;
 <span class="kw">mod</span> <span class="ident">buf</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">can_be_empty</span>;
-<span class="kw">mod</span> <span class="ident">canonical_json</span>;
 <span class="kw">mod</span> <span class="ident">cow</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">duration</span>;
 <span class="kw">mod</span> <span class="ident">empty</span>;
@@ -112,11 +105,6 @@
     <span class="ident">base64</span>::{<span class="ident">Base64</span>, <span class="ident">Base64DecodeError</span>},
     <span class="ident">buf</span>::{<span class="ident">json_to_buf</span>, <span class="ident">slice_to_buf</span>},
     <span class="ident">can_be_empty</span>::{<span class="ident">is_empty</span>, <span class="ident">CanBeEmpty</span>},
-    <span class="ident">canonical_json</span>::{
-        <span class="ident">to_canonical_value</span>, <span class="ident">try_from_json_map</span>,
-        <span class="ident">value</span>::{<span class="ident">CanonicalJsonValue</span>, <span class="ident">Object</span> <span class="kw">as</span> <span class="ident">CanonicalJsonObject</span>},
-        <span class="ident">Error</span> <span class="kw">as</span> <span class="ident">CanonicalJsonError</span>,
-    },
     <span class="ident">cow::deserialize_cow_str</span>,
     <span class="ident">empty::vec_as_map_of_empty</span>,
     <span class="ident">raw::Raw</span>,
@@ -163,5 +151,5 @@
     <span class="ident">PartialEqAsRefStr</span>, <span class="ident">PartialOrdAsRefStr</span>, <span class="ident">SerializeAsRefStr</span>, <span class="ident">StringEnum</span>, <span class="ident">_FakeDeriveSerde</span>,
 };
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (dc80ca78b 2022-06-21)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (10f4ce324 2022-06-22)" ></div>
 </body></html>
