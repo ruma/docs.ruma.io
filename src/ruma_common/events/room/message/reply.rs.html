@@ -144,13 +144,44 @@
 <span id="136">136</span>
 <span id="137">137</span>
 <span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::fmt</span>;
 
-<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">FormattedBody</span>, <span class="ident">MessageType</span>, <span class="ident">OriginalRoomMessageEvent</span>};
+<span class="kw">use</span> <span class="kw">super</span>::{
+    <span class="ident">sanitize::remove_plain_reply_fallback</span>, <span class="ident">FormattedBody</span>, <span class="ident">MessageType</span>, <span class="ident">OriginalRoomMessageEvent</span>,
+    <span class="ident">Relation</span>,
+};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-sanitize&quot;</span>)]</span>
+<span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">sanitize_html</span>, <span class="ident">HtmlSanitizerMode</span>, <span class="ident">RemoveReplyFallback</span>};
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_message_quote_fallbacks</span>(
-    <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span>,
-) -&gt; (<span class="ident">String</span>, <span class="ident">String</span>) {
+<span class="kw">fn</span> <span class="ident">get_message_quote_fallbacks</span>(<span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span>) -&gt; (<span class="ident">String</span>, <span class="ident">String</span>) {
     <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">original_message</span>.<span class="ident">content</span>.<span class="ident">msgtype</span> {
         <span class="ident">MessageType::Audio</span>(<span class="kw">_</span>) =&gt; <span class="ident">get_quotes</span>(<span class="string">&quot;sent an audio file.&quot;</span>, <span class="prelude-val">None</span>, <span class="ident">original_message</span>, <span class="bool-val">false</span>),
         <span class="ident">MessageType::Emote</span>(<span class="ident">content</span>) =&gt; {
@@ -182,8 +213,13 @@
     <span class="ident">original_message</span>: <span class="kw-2">&amp;</span><span class="ident">OriginalRoomMessageEvent</span>,
     <span class="ident">is_emote</span>: <span class="ident">bool</span>,
 ) -&gt; (<span class="ident">String</span>, <span class="ident">String</span>) {
-    <span class="kw">let</span> <span class="ident">OriginalRoomMessageEvent</span> { <span class="ident">room_id</span>, <span class="ident">event_id</span>, <span class="ident">sender</span>, .. } <span class="op">=</span> <span class="ident">original_message</span>;
+    <span class="kw">let</span> <span class="ident">OriginalRoomMessageEvent</span> { <span class="ident">room_id</span>, <span class="ident">event_id</span>, <span class="ident">sender</span>, <span class="ident">content</span>, .. } <span class="op">=</span> <span class="ident">original_message</span>;
+    <span class="kw">let</span> <span class="ident">is_reply</span> <span class="op">=</span> <span class="macro">matches!</span>(<span class="ident">content</span>.<span class="ident">relates_to</span>, <span class="prelude-val">Some</span>(<span class="ident">Relation::Reply</span> { .. }));
     <span class="kw">let</span> <span class="ident">emote_sign</span> <span class="op">=</span> <span class="ident">is_emote</span>.<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="string">&quot;* &quot;</span>).<span class="ident">unwrap_or_default</span>();
+    <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="ident">is_reply</span>.<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">remove_plain_reply_fallback</span>(<span class="ident">body</span>)).<span class="ident">unwrap_or</span>(<span class="ident">body</span>);
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-sanitize&quot;</span>)]</span>
+    <span class="kw">let</span> <span class="ident">html_body</span> <span class="op">=</span> <span class="ident">formatted_or_plain_body</span>(<span class="ident">formatted</span>, <span class="ident">body</span>, <span class="ident">is_reply</span>);
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-sanitize&quot;</span>))]</span>
     <span class="kw">let</span> <span class="ident">html_body</span> <span class="op">=</span> <span class="ident">formatted_or_plain_body</span>(<span class="ident">formatted</span>, <span class="ident">body</span>);
 
     (
@@ -201,18 +237,31 @@
     )
 }
 
-<span class="kw">fn</span> <span class="ident">formatted_or_plain_body</span>(<span class="ident">formatted</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">FormattedBody</span><span class="op">&gt;</span>, <span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">String</span> {
+<span class="kw">fn</span> <span class="ident">formatted_or_plain_body</span>(
+    <span class="ident">formatted</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">FormattedBody</span><span class="op">&gt;</span>,
+    <span class="ident">body</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-sanitize&quot;</span>)]</span> <span class="ident">is_reply</span>: <span class="ident">bool</span>,
+) -&gt; <span class="ident">String</span> {
     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">formatted_body</span>) <span class="op">=</span> <span class="ident">formatted</span> {
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-sanitize&quot;</span>)]</span>
+        <span class="kw">if</span> <span class="ident">is_reply</span> {
+            <span class="ident">sanitize_html</span>(<span class="kw-2">&amp;</span><span class="ident">formatted_body</span>.<span class="ident">body</span>, <span class="ident">HtmlSanitizerMode::Strict</span>, <span class="ident">RemoveReplyFallback::Yes</span>)
+        } <span class="kw">else</span> {
+            <span class="ident">formatted_body</span>.<span class="ident">body</span>.<span class="ident">clone</span>()
+        }
+
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-sanitize&quot;</span>))]</span>
         <span class="ident">formatted_body</span>.<span class="ident">body</span>.<span class="ident">clone</span>()
     } <span class="kw">else</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">escaped_body</span> <span class="op">=</span> <span class="ident">String::with_capacity</span>(<span class="ident">body</span>.<span class="ident">len</span>());
         <span class="kw">for</span> <span class="ident">c</span> <span class="kw">in</span> <span class="ident">body</span>.<span class="ident">chars</span>() {
+            <span class="comment">// Escape reserved HTML entities and new lines.</span>
+            <span class="comment">// &lt;https://developer.mozilla.org/en-US/docs/Glossary/Entity#reserved_characters&gt;</span>
             <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">c</span> {
                 <span class="string">&#39;&amp;&#39;</span> =&gt; <span class="prelude-val">Some</span>(<span class="string">&quot;&amp;amp;&quot;</span>),
                 <span class="string">&#39;&lt;&#39;</span> =&gt; <span class="prelude-val">Some</span>(<span class="string">&quot;&amp;lt;&quot;</span>),
                 <span class="string">&#39;&gt;&#39;</span> =&gt; <span class="prelude-val">Some</span>(<span class="string">&quot;&amp;gt;&quot;</span>),
                 <span class="string">&#39;&quot;&#39;</span> =&gt; <span class="prelude-val">Some</span>(<span class="string">&quot;&amp;quot;&quot;</span>),
-                <span class="string">&#39;\&#39;&#39;</span> =&gt; <span class="prelude-val">Some</span>(<span class="string">&quot;&amp;apos;&quot;</span>),
                 <span class="string">&#39;\n&#39;</span> =&gt; <span class="prelude-val">Some</span>(<span class="string">&quot;&lt;br&gt;&quot;</span>),
                 <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
             };
@@ -229,6 +278,13 @@
 <span class="doccomment">/// Get the plain and formatted body for a rich reply.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returns a `(plain, html)` tuple.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// With the `sanitize` feature, [HTML tags and attributes] that are not allowed in the Matrix</span>
+<span class="doccomment">/// spec and previous [rich reply fallbacks] are removed from the previous message in the new rich</span>
+<span class="doccomment">/// reply fallback.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [HTML tags and attributes]: https://spec.matrix.org/v1.2/client-server-api/#mroommessage-msgtypes</span>
+<span class="doccomment">/// [rich reply fallbacks]: https://spec.matrix.org/v1.2/client-server-api/#fallbacks-for-rich-replies</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">plain_and_formatted_reply_body</span>(
     <span class="ident">body</span>: <span class="kw">impl</span> <span class="ident">fmt::Display</span>,
     <span class="ident">formatted</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">impl</span> <span class="ident">fmt::Display</span><span class="op">&gt;</span>,
