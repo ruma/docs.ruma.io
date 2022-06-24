@@ -697,6 +697,18 @@
 <span id="689">689</span>
 <span id="690">690</span>
 <span id="691">691</span>
+<span id="692">692</span>
+<span id="693">693</span>
+<span id="694">694</span>
+<span id="695">695</span>
+<span id="696">696</span>
+<span id="697">697</span>
+<span id="698">698</span>
+<span id="699">699</span>
+<span id="700">700</span>
+<span id="701">701</span>
+<span id="702">702</span>
+<span id="703">703</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::BTreeMap</span>, <span class="ident">ops::RangeBounds</span>, <span class="ident">str::FromStr</span>};
 
 <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">Int</span>, <span class="ident">UInt</span>};
@@ -711,13 +723,6 @@
 <span class="kw">mod</span> <span class="ident">room_member_count_is</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">room_member_count_is</span>::{<span class="ident">ComparisonOperator</span>, <span class="ident">RoomMemberCountIs</span>};
-
-<span class="doccomment">/// The characters that are defined as a word boundary in the [Matrix spec].</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Any character not in the sets `[A-Z]`, `[a-z]`, `[0-9]` or `_`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [Matrix spec]: https://spec.matrix.org/v1.3/client-server-api/#conditions-1</span>
-<span class="kw">const</span> <span class="ident">WORD_BOUNDARY_CHARACTERS</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;[^A-Za-z0-9_]&quot;</span>;
 
 <span class="doccomment">/// A condition that must apply for an associated push rule&#39;s action to be taken.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
@@ -854,7 +859,7 @@
 
 <span class="kw">impl</span> <span class="ident">CharExt</span> <span class="kw">for</span> <span class="ident">char</span> {
     <span class="kw">fn</span> <span class="ident">is_word_char</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
-        <span class="self">self</span>.<span class="ident">is_alphanumeric</span>() <span class="op">|</span><span class="op">|</span> <span class="kw-2">*</span><span class="self">self</span> <span class="op">==</span> <span class="string">&#39;_&#39;</span>
+        <span class="self">self</span>.<span class="ident">is_ascii_alphanumeric</span>() <span class="op">|</span><span class="op">|</span> <span class="kw-2">*</span><span class="self">self</span> <span class="op">==</span> <span class="string">&#39;_&#39;</span>
     }
 }
 
@@ -978,10 +983,9 @@
                 <span class="ident">chunks</span>.<span class="ident">push</span>(<span class="ident">chunk</span>.<span class="ident">wildcards_to_regex</span>());
             }
 
-            <span class="kw">let</span> <span class="ident">regex</span> <span class="op">=</span> <span class="macro">format!</span>(
-                <span class="string">&quot;(?:^|{WORD_BOUNDARY_CHARACTERS}){}(?:{WORD_BOUNDARY_CHARACTERS}|$)&quot;</span>,
-                <span class="ident">chunks</span>.<span class="ident">concat</span>()
-            );
+            <span class="comment">// The word characters in ASCII compatible mode (with the `-u` flag) match the</span>
+            <span class="comment">// definition in the spec: any character not in the set `[A-Za-z0-9_]`.</span>
+            <span class="kw">let</span> <span class="ident">regex</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">r&quot;(?-u:^|\W|\b){}(?-u:\b|\W|$)&quot;</span>, <span class="ident">chunks</span>.<span class="ident">concat</span>());
             <span class="ident">Regex::new</span>(<span class="kw-2">&amp;</span><span class="ident">regex</span>).<span class="ident">ok</span>().<span class="ident">filter</span>(<span class="op">|</span><span class="ident">re</span><span class="op">|</span> <span class="ident">re</span>.<span class="ident">is_match</span>(<span class="self">self</span>)).<span class="ident">is_some</span>()
         } <span class="kw">else</span> {
             <span class="kw">match</span> <span class="self">self</span>.<span class="ident">find</span>(<span class="ident">pattern</span>) {
@@ -1229,13 +1233,33 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">patterns_match</span>() {
-        <span class="comment">// Word matching</span>
+        <span class="comment">// Word matching without glob</span>
         <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="string">&quot;Foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;foobar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo&quot;</span>, <span class="bool-val">true</span>));
-        <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo*&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="string">&quot;&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;&quot;</span>, <span class="bool-val">true</span>));
         <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;foo&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo bar&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot; foo bar &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo bar&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;baz foo bar baz&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo bar&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo baré&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo bar&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;bar foo&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo bar&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo &quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo &quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo  &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo &quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot; foo  &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo &quot;</span>, <span class="bool-val">true</span>));
+
+        <span class="comment">// Word matching with glob</span>
+        <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo*&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo b?r&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot; foo bar &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo b?r&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;baz foo bar baz&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo b?r&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo baré&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo b?r&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;bar foo&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo b?r&quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;f*o &quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;f*o &quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot;foo  &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;f*o &quot;</span>, <span class="bool-val">true</span>));
+        <span class="macro">assert!</span>(<span class="string">&quot; foo  &quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;f*o &quot;</span>, <span class="bool-val">true</span>));
 
         <span class="comment">// Glob matching</span>
         <span class="macro">assert!</span>(<span class="op">!</span><span class="string">&quot;foo bar&quot;</span>.<span class="ident">matches_pattern</span>(<span class="string">&quot;foo&quot;</span>, <span class="bool-val">false</span>));
@@ -1389,5 +1413,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (10f4ce324 2022-06-22)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.63.0-nightly (43347397f 2022-06-23)" ></div>
 </body></html>
