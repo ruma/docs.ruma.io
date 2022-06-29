@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":[["authorization","Common types for implementing federation authorization."]]};

@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["ruma_server_util"] = [{"text":"impl <a class=\"trait\" href=\"https://docs.rs/headers/0.3.7/headers/common/authorization/trait.Credentials.html\" title=\"trait headers::common::authorization::Credentials\">Credentials</a> for <a class=\"struct\" href=\"ruma_server_util/authorization/struct.XMatrix.html\" title=\"struct ruma_server_util::authorization::XMatrix\">XMatrix</a>","synthetic":false,"types":["ruma_server_util::authorization::XMatrix"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

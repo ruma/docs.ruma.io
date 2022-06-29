@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["XMatrix","Typed representation of an `Authorization` header of scheme `X-Matrix`, as defined in the Matrix Server-Server API. Includes an implementation of [`headers::authorization::Credentials`] for automatically handling the encoding and decoding when using a web framework that supports typed headers."]]};
