@@ -564,9 +564,9 @@
         <span class="ident">child</span>: <span class="ident">NodeOrText</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Handle</span><span class="op">&gt;</span>,
     ) {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">nodes</span>[<span class="kw-2">*</span><span class="ident">element</span>].<span class="ident">parent</span>.<span class="ident">is_some</span>() {
-            <span class="self">self</span>.<span class="ident">append_before_sibling</span>(<span class="ident">element</span>, <span class="ident">child</span>)
+            <span class="self">self</span>.<span class="ident">append_before_sibling</span>(<span class="ident">element</span>, <span class="ident">child</span>);
         } <span class="kw">else</span> {
-            <span class="self">self</span>.<span class="ident">append</span>(<span class="ident">prev_element</span>, <span class="ident">child</span>)
+            <span class="self">self</span>.<span class="ident">append</span>(<span class="ident">prev_element</span>, <span class="ident">child</span>);
         }
     }
 
@@ -604,15 +604,15 @@
                     <span class="ident">prev_text</span>.<span class="ident">push_tendril</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>);
                 } <span class="kw">else</span> {
                     <span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">new_node</span>(<span class="ident">NodeData::Text</span>(<span class="ident">text</span>));
-                    <span class="self">self</span>.<span class="ident">insert_before</span>(<span class="kw-2">*</span><span class="ident">sibling</span>, <span class="ident">index</span>)
+                    <span class="self">self</span>.<span class="ident">insert_before</span>(<span class="kw-2">*</span><span class="ident">sibling</span>, <span class="ident">index</span>);
                 }
             }
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">add_attrs_if_missing</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Handle</span>, <span class="ident">attrs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">html5ever::Attribute</span><span class="op">&gt;</span>) {
+    <span class="kw">fn</span> <span class="ident">add_attrs_if_missing</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Handle</span>, <span class="ident">attrs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Attribute</span><span class="op">&gt;</span>) {
         <span class="kw">let</span> <span class="ident">target</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">nodes</span>[<span class="kw-2">*</span><span class="ident">target</span>].<span class="ident">as_element_mut</span>().<span class="ident">unwrap</span>();
-        <span class="ident">target</span>.<span class="ident">attrs</span>.<span class="ident">extend</span>(<span class="ident">attrs</span>.<span class="ident">into_iter</span>())
+        <span class="ident">target</span>.<span class="ident">attrs</span>.<span class="ident">extend</span>(<span class="ident">attrs</span>.<span class="ident">into_iter</span>());
     }
 
     <span class="kw">fn</span> <span class="ident">remove_from_parent</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">target</span>: <span class="kw-2">&amp;</span><span class="ident"><span class="self">Self</span>::Handle</span>) {
@@ -799,5 +799,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c80c4b8fd 2022-06-26)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (830880640 2022-06-28)" ></div>
 </body></html>

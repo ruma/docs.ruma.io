@@ -487,7 +487,7 @@
 <span class="doccomment">/// Fallible conversion from any value that impl&#39;s `Serialize` to a `CanonicalJsonValue`.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_canonical_value</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Serialize</span><span class="op">&gt;</span>(
     <span class="ident">value</span>: <span class="ident">T</span>,
-) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">value::CanonicalJsonValue</span>, <span class="ident">CanonicalJsonError</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CanonicalJsonValue</span>, <span class="ident">CanonicalJsonError</span><span class="op">&gt;</span> {
     <span class="ident">serde_json::to_value</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="ident">CanonicalJsonError::SerDe</span>)<span class="question-mark">?</span>.<span class="ident">try_into</span>()
 }
 
@@ -741,5 +741,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c80c4b8fd 2022-06-26)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (830880640 2022-06-28)" ></div>
 </body></html>
