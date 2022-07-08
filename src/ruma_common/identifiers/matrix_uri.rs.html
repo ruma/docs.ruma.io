@@ -1059,6 +1059,14 @@
 <span id="1051">1051</span>
 <span id="1052">1052</span>
 <span id="1053">1053</span>
+<span id="1054">1054</span>
+<span id="1055">1055</span>
+<span id="1056">1056</span>
+<span id="1057">1057</span>
+<span id="1058">1058</span>
+<span id="1059">1059</span>
+<span id="1060">1060</span>
+<span id="1061">1061</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Matrix URIs.</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fmt</span>, <span class="ident">str::FromStr</span>};
@@ -1605,7 +1613,7 @@
     <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">MatrixId</span>, <span class="ident">MatrixToUri</span>, <span class="ident">MatrixUri</span>};
     <span class="kw">use</span> <span class="kw">crate</span>::{
         <span class="ident">event_id</span>, <span class="ident">matrix_uri::UriAction</span>, <span class="ident">room_alias_id</span>, <span class="ident">room_id</span>, <span class="ident">server_name</span>, <span class="ident">user_id</span>,
-        <span class="ident">OwnedServerName</span>, <span class="ident">RoomOrAliasId</span>,
+        <span class="ident">RoomOrAliasId</span>,
     };
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1619,8 +1627,12 @@
             <span class="string">&quot;https://matrix.to/#/%23ruma%3Anotareal.hs&quot;</span>
         );
         <span class="macro">assert_eq!</span>(
+            <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>).<span class="ident">matrix_to_uri</span>().<span class="ident">to_string</span>(),
+            <span class="string">&quot;https://matrix.to/#/%21ruma%3Anotareal.hs&quot;</span>
+        );
+        <span class="macro">assert_eq!</span>(
             <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>)
-                .<span class="ident">matrix_to_uri</span>(<span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>)])
+                .<span class="ident">matrix_to_uri_via</span>(<span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>)])
                 .<span class="ident">to_string</span>(),
             <span class="string">&quot;https://matrix.to/#/%21ruma%3Anotareal.hs?via=notareal.hs&quot;</span>
         );
@@ -1632,13 +1644,13 @@
         );
         <span class="macro">assert_eq!</span>(
             <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>)
-                .<span class="ident">matrix_to_event_uri</span>(<span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>), <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">OwnedServerName</span><span class="op">&gt;</span><span class="ident">::new</span>())
+                .<span class="ident">matrix_to_event_uri</span>(<span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>))
                 .<span class="ident">to_string</span>(),
             <span class="string">&quot;https://matrix.to/#/%21ruma%3Anotareal.hs/%24event%3Anotareal.hs&quot;</span>
         );
         <span class="macro">assert_eq!</span>(
             <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>)
-                .<span class="ident">matrix_to_event_uri</span>(
+                .<span class="ident">matrix_to_event_uri_via</span>(
                     <span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>),
                     <span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>)]
                 )
@@ -1866,14 +1878,18 @@
             <span class="string">&quot;matrix:r/ruma:notareal.hs?action=join&quot;</span>
         );
         <span class="macro">assert_eq!</span>(
+            <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>).<span class="ident">matrix_uri</span>(<span class="bool-val">false</span>).<span class="ident">to_string</span>(),
+            <span class="string">&quot;matrix:roomid/ruma:notareal.hs&quot;</span>
+        );
+        <span class="macro">assert_eq!</span>(
             <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>)
-                .<span class="ident">matrix_uri</span>(<span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>)], <span class="bool-val">false</span>)
+                .<span class="ident">matrix_uri_via</span>(<span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>)], <span class="bool-val">false</span>)
                 .<span class="ident">to_string</span>(),
             <span class="string">&quot;matrix:roomid/ruma:notareal.hs?via=notareal.hs&quot;</span>
         );
         <span class="macro">assert_eq!</span>(
             <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>)
-                .<span class="ident">matrix_uri</span>(
+                .<span class="ident">matrix_uri_via</span>(
                     <span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>), <span class="macro">server_name!</span>(<span class="string">&quot;anotherunreal.hs&quot;</span>)],
                     <span class="bool-val">true</span>
                 )
@@ -1888,13 +1904,13 @@
         );
         <span class="macro">assert_eq!</span>(
             <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>)
-                .<span class="ident">matrix_event_uri</span>(<span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>), <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">OwnedServerName</span><span class="op">&gt;</span><span class="ident">::new</span>())
+                .<span class="ident">matrix_event_uri</span>(<span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>))
                 .<span class="ident">to_string</span>(),
             <span class="string">&quot;matrix:roomid/ruma:notareal.hs/e/event:notareal.hs&quot;</span>
         );
         <span class="macro">assert_eq!</span>(
             <span class="macro">room_id!</span>(<span class="string">&quot;!ruma:notareal.hs&quot;</span>)
-                .<span class="ident">matrix_event_uri</span>(
+                .<span class="ident">matrix_event_uri_via</span>(
                     <span class="macro">event_id!</span>(<span class="string">&quot;$event:notareal.hs&quot;</span>),
                     <span class="macro">vec!</span>[<span class="macro">server_name!</span>(<span class="string">&quot;notareal.hs&quot;</span>)]
                 )
