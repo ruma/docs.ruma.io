@@ -300,6 +300,9 @@
 <span id="292">292</span>
 <span id="293">293</span>
 <span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for extensible text message events ([MSC1767]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Extensible events</span>
@@ -479,7 +482,10 @@
     }
 
     <span class="doccomment">/// Create a new `MessageContent` from the given body and optional formatted body.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_room_message_content</span>(<span class="ident">body</span>: <span class="ident">String</span>, <span class="ident">formatted</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FormattedBody</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">from_room_message_content</span>(
+        <span class="ident">body</span>: <span class="ident">String</span>,
+        <span class="ident">formatted</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">FormattedBody</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="self">Self</span> {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">FormattedBody</span> { <span class="ident">body</span>: <span class="ident">html_body</span>, .. }) <span class="op">=</span>
             <span class="ident">formatted</span>.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">formatted</span><span class="op">|</span> <span class="ident">formatted</span>.<span class="ident">format</span> <span class="op">==</span> <span class="ident">MessageFormat::Html</span>)
         {
@@ -595,5 +601,5 @@
     <span class="ident">MissingField</span>(<span class="ident">String</span>),
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (ddcbba036 2022-06-29)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (1517f5de0 2022-07-07)" ></div>
 </body></html>

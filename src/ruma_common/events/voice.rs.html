@@ -133,6 +133,11 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Types for voice message events ([MSC3245]).</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [MSC3245]: https://github.com/matrix-org/matrix-spec-proposals/pull/3245</span>
@@ -144,7 +149,9 @@
     <span class="ident">audio::AudioContent</span>,
     <span class="ident">file::FileContent</span>,
     <span class="ident">message</span>::{<span class="ident">MessageContent</span>, <span class="ident">TryFromExtensibleError</span>},
-    <span class="ident">room::message</span>::{<span class="ident">AudioMessageEventContent</span>, <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>},
+    <span class="ident">room::message</span>::{
+        <span class="ident">AudioInfo</span>, <span class="ident">AudioMessageEventContent</span>, <span class="ident">MessageType</span>, <span class="ident">Relation</span>, <span class="ident">RoomMessageEventContent</span>,
+    },
 };
 
 <span class="doccomment">/// The payload for an extensible voice message.</span>
@@ -217,12 +224,15 @@
         <span class="ident">relates_to</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Relation</span><span class="op">&gt;</span>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">TryFromExtensibleError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">AudioMessageEventContent</span> { <span class="ident">body</span>, <span class="ident">source</span>, <span class="ident">info</span>, <span class="ident">message</span>, <span class="ident">file</span>, <span class="ident">audio</span>, <span class="ident">voice</span> } <span class="op">=</span> <span class="ident">content</span>;
+        <span class="kw">let</span> <span class="ident">AudioInfo</span> { <span class="ident">duration</span>, <span class="ident">mimetype</span>, <span class="ident">size</span> } <span class="op">=</span> <span class="ident">info</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">info</span>).<span class="ident">unwrap_or_default</span>();
 
         <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">MessageContent::plain</span>(<span class="ident">body</span>));
         <span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-            <span class="ident">FileContent::from_room_message_content</span>(<span class="ident">source</span>, <span class="ident">info</span>.<span class="ident">as_deref</span>(), <span class="prelude-val">None</span>)
+            <span class="ident">FileContent::from_room_message_content</span>(<span class="ident">source</span>, <span class="prelude-val">None</span>, <span class="ident">mimetype</span>, <span class="ident">size</span>)
         });
-        <span class="kw">let</span> <span class="ident">audio</span> <span class="op">=</span> <span class="ident">audio</span>.<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">info</span>.<span class="ident">as_deref</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>)).<span class="ident">unwrap_or_default</span>();
+        <span class="kw">let</span> <span class="ident">audio</span> <span class="op">=</span> <span class="ident">audio</span>
+            .<span class="ident">or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">duration</span>.<span class="ident">map</span>(<span class="ident">AudioContent::from_room_message_content</span>))
+            .<span class="ident">unwrap_or_default</span>();
         <span class="kw">let</span> <span class="ident">voice</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">voice</span>) <span class="op">=</span> <span class="ident">voice</span> {
             <span class="ident">voice</span>
         } <span class="kw">else</span> {
@@ -261,5 +271,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (ddcbba036 2022-06-29)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (1517f5de0 2022-07-07)" ></div>
 </body></html>

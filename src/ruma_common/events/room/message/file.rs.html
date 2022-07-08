@@ -155,6 +155,20 @@
 <span id="147">147</span>
 <span id="148">148</span>
 <span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">js_int::UInt</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 
@@ -225,7 +239,14 @@
             <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
             <span class="ident">file</span>: <span class="prelude-val">Some</span>(<span class="ident">FileContent::plain</span>(
                 <span class="ident">url</span>.<span class="ident">clone</span>(),
-                <span class="ident">info</span>.<span class="ident">as_deref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> <span class="ident">Box::new</span>(<span class="ident">info</span>.<span class="ident">into</span>())),
+                <span class="ident">info</span>.<span class="ident">as_deref</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> {
+                    <span class="ident">FileContentInfo::from_room_message_content</span>(
+                        <span class="prelude-val">None</span>,
+                        <span class="ident">info</span>.<span class="ident">mimetype</span>.<span class="ident">to_owned</span>(),
+                        <span class="ident">info</span>.<span class="ident">size</span>.<span class="ident">to_owned</span>(),
+                    )
+                    .<span class="ident">map</span>(<span class="ident">Box::new</span>)
+                }),
             )),
             <span class="ident">body</span>,
             <span class="ident">filename</span>: <span class="prelude-val">None</span>,
@@ -251,14 +272,17 @@
 
     <span class="doccomment">/// Create a new `FileMessageEventContent` with the given message and file info.</span>
     <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_extensible_content</span>(<span class="ident">message</span>: <span class="ident">MessageContent</span>, <span class="ident">file</span>: <span class="ident">FileContent</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">from_extensible_content</span>(<span class="ident">message</span>: <span class="ident">MessageContent</span>, <span class="ident">file</span>: <span class="ident">FileContent</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">body</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">body</span>) <span class="op">=</span> <span class="ident">message</span>.<span class="ident">find_plain</span>() {
             <span class="ident">body</span>.<span class="ident">to_owned</span>()
         } <span class="kw">else</span> {
             <span class="ident">message</span>[<span class="number">0</span>].<span class="ident">body</span>.<span class="ident">clone</span>()
         };
         <span class="kw">let</span> <span class="ident">filename</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">info</span>.<span class="ident">as_deref</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> <span class="ident">info</span>.<span class="ident">name</span>.<span class="ident">clone</span>());
-        <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">info</span>.<span class="ident">as_deref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> <span class="ident">Box::new</span>(<span class="ident">info</span>.<span class="ident">into</span>()));
+        <span class="kw">let</span> <span class="ident">info</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">info</span>.<span class="ident">as_deref</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">info</span><span class="op">|</span> {
+            <span class="ident">FileInfo::from_extensible_content</span>(<span class="ident">info</span>.<span class="ident">mimetype</span>.<span class="ident">to_owned</span>(), <span class="ident">info</span>.<span class="ident">size</span>.<span class="ident">to_owned</span>())
+                .<span class="ident">map</span>(<span class="ident">Box::new</span>)
+        });
         <span class="kw">let</span> <span class="ident">source</span> <span class="op">=</span> (<span class="kw-2">&amp;</span><span class="ident">file</span>).<span class="ident">into</span>();
 
         <span class="self">Self</span> { <span class="ident">message</span>: <span class="prelude-val">Some</span>(<span class="ident">message</span>), <span class="ident">file</span>: <span class="prelude-val">Some</span>(<span class="ident">file</span>), <span class="ident">body</span>, <span class="ident">filename</span>, <span class="ident">source</span>, <span class="ident">info</span> }
@@ -295,15 +319,19 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
         <span class="ident"><span class="self">Self</span>::default</span>()
     }
-}
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">FileContentInfo</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">FileInfo</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">info</span>: <span class="kw-2">&amp;</span><span class="ident">FileContentInfo</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="ident">FileContentInfo</span> { <span class="ident">mimetype</span>, <span class="ident">size</span>, .. } <span class="op">=</span> <span class="ident">info</span>;
-        <span class="self">Self</span> { <span class="ident">mimetype</span>: <span class="ident">mimetype</span>.<span class="ident">to_owned</span>(), <span class="ident">size</span>: <span class="ident">size</span>.<span class="ident">to_owned</span>(), ..<span class="ident">Default::default</span>() }
+    <span class="doccomment">/// Creates a `FileInfo` with the given optional mimetype and size.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns `None` if the `FileInfo` would be empty.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc3551&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">from_extensible_content</span>(<span class="ident">mimetype</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UInt</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">mimetype</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="ident">size</span>.<span class="ident">is_none</span>() {
+            <span class="prelude-val">None</span>
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Some</span>(<span class="self">Self</span> { <span class="ident">mimetype</span>, <span class="ident">size</span>, ..<span class="ident">Default::default</span>() })
+        }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (ddcbba036 2022-06-29)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../../../" data-current-crate="ruma_common" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (1517f5de0 2022-07-07)" ></div>
 </body></html>
