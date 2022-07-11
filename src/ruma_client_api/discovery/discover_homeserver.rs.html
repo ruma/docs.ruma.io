@@ -145,6 +145,10 @@
 <span id="137">137</span>
 <span id="138">138</span>
 <span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /.well-known/matrix/client` ([spec])</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#getwell-knownmatrixclient</span>
@@ -186,7 +190,11 @@
 
         <span class="doccomment">/// Information about the authentication server to connect to when using OpenID Connect.</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;unstable-msc2965&quot;</span>)]</span>
-        <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;m.authentication&quot;</span>, <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+        <span class="attribute">#[<span class="ident">serde</span>(
+            <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;org.matrix.msc2965.authentication&quot;</span>,
+            <span class="ident">alias</span> <span class="op">=</span> <span class="string">&quot;m.authentication&quot;</span>,
+            <span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>
+        )]</span>
         <span class="kw">pub</span> <span class="ident">authentication</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">AuthenticationServerInfo</span><span class="op">&gt;</span>,
     }
 
@@ -285,5 +293,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (1517f5de0 2022-07-07)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="ruma_client_api" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0-nightly (c396bb3b8 2022-07-10)" ></div>
 </body></html>
