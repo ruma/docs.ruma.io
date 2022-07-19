@@ -265,17 +265,6 @@
 <span id="257">257</span>
 <span id="258">258</span>
 <span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
-<span id="263">263</span>
-<span id="264">264</span>
-<span id="265">265</span>
-<span id="266">266</span>
-<span id="267">267</span>
-<span id="268">268</span>
-<span id="269">269</span>
-<span id="270">270</span>
 </pre><pre class="rust"><code><span class="doccomment">//! `GET /_matrix/client/*/rooms/{roomId}/messages`</span>
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v3</span> {
@@ -283,7 +272,6 @@
     <span class="doccomment">//!</span>
     <span class="doccomment">//! [spec]: https://spec.matrix.org/v1.2/client-server-api/#get_matrixclientv3roomsroomidmessages</span>
 
-    <span class="kw">use</span> <span class="ident">assign::assign</span>;
     <span class="kw">use</span> <span class="ident">js_int</span>::{<span class="ident">uint</span>, <span class="ident">UInt</span>};
     <span class="kw">use</span> <span class="ident">ruma_common</span>::{
         <span class="ident">api::ruma_api</span>,
@@ -389,56 +377,46 @@
             }
         }
 
-        <span class="doccomment">/// Creates a new `Request` with the given room ID and optional `from` token, and `dir` set</span>
-        <span class="doccomment">/// to `Backward`.</span>
+        <span class="doccomment">/// Creates a new `Request` with the given room ID and `dir` set to `Backward`.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// `Request::backward(room_id, Some(from))` can also be written as</span>
-        <span class="doccomment">/// `Request::backward_from(room_id, from)`.\</span>
-        <span class="doccomment">/// `Request::backward(room_id, None)` can also be written as `Request::from_end(room_id)`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">backward</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">from</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-            <span class="macro">assign!</span>(<span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">room_id</span>, <span class="ident">Direction::Backward</span>), { <span class="ident">from</span> })
+        <span class="doccomment">/// If the returned request is sent without `from` being set, pagination will start at the</span>
+        <span class="doccomment">/// end of (the accessible part of) the room timeline.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// # Example</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ```rust</span>
+        <span class="doccomment">/// # use ruma_client_api::message::get_message_events;</span>
+        <span class="doccomment">/// # let room_id = ruma_common::room_id!(&quot;!a:example.org&quot;);</span>
+        <span class="doccomment">/// # let token = &quot;prev_batch token&quot;;</span>
+        <span class="doccomment">/// let request = get_message_events::v3::Request::backward(room_id).from(token);</span>
+        <span class="doccomment">/// ```</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">backward</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>) -&gt; <span class="self">Self</span> {
+            <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">room_id</span>, <span class="ident">Direction::Backward</span>)
         }
 
-        <span class="doccomment">/// Creates a new `Request` with the given room ID and optional `from` token, and `dir` set</span>
-        <span class="doccomment">/// to `Forward`.</span>
+        <span class="doccomment">/// Creates a new `Request` with the given room ID and `dir` set to `Forward`.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// `Request::forward(room_id, Some(from))` can also be written as</span>
-        <span class="doccomment">/// `Request::forward_from(room_id, from)`.\</span>
-        <span class="doccomment">/// `Request::forward(room_id, None)` can also be written as `Request::from_start(room_id)`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">forward</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">from</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-            <span class="macro">assign!</span>(<span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">room_id</span>, <span class="ident">Direction::Forward</span>), { <span class="ident">from</span> })
+        <span class="doccomment">/// If the returned request is sent without `from` being set, pagination will start at the</span>
+        <span class="doccomment">/// beginning of (the accessible part of) the room timeline.</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// # Example</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// ```rust</span>
+        <span class="doccomment">/// # use ruma_client_api::message::get_message_events;</span>
+        <span class="doccomment">/// # let room_id = ruma_common::room_id!(&quot;!a:example.org&quot;);</span>
+        <span class="doccomment">/// # let token = &quot;end token&quot;;</span>
+        <span class="doccomment">/// let request = get_message_events::v3::Request::forward(room_id).from(token);</span>
+        <span class="doccomment">/// ```</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">forward</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>) -&gt; <span class="self">Self</span> {
+            <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">room_id</span>, <span class="ident">Direction::Forward</span>)
         }
 
-        <span class="doccomment">/// Creates a new `Request` with the given room ID and `from` token, and `dir` set to</span>
-        <span class="doccomment">/// `Backward`.</span>
+        <span class="doccomment">/// Creates a new `Request` from `self` with the `from` field set to the given value.</span>
         <span class="doccomment">///</span>
-        <span class="doccomment">/// Equivalent to `Request::backward(room_id, Some(from))`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">backward_from</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">from</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
-            <span class="ident"><span class="self">Self</span>::backward</span>(<span class="ident">room_id</span>, <span class="prelude-val">Some</span>(<span class="ident">from</span>))
-        }
-
-        <span class="doccomment">/// Creates a new `Request` with the given room ID and `from` token, and `dir` set to</span>
-        <span class="doccomment">/// `Forward`.</span>
-        <span class="doccomment">///</span>
-        <span class="doccomment">/// Equivalent to `Request::forward(room_id, Some(from))`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">forward_from</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>, <span class="ident">from</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>) -&gt; <span class="self">Self</span> {
-            <span class="ident"><span class="self">Self</span>::forward</span>(<span class="ident">room_id</span>, <span class="prelude-val">Some</span>(<span class="ident">from</span>))
-        }
-
-        <span class="doccomment">/// Creates a new `Request` to fetch messages from the very start of the available history</span>
-        <span class="doccomment">/// for a given room.</span>
-        <span class="doccomment">///</span>
-        <span class="doccomment">/// Equivalent to `Request::forward(room_id, None)`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_start</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>) -&gt; <span class="self">Self</span> {
-            <span class="ident"><span class="self">Self</span>::forward</span>(<span class="ident">room_id</span>, <span class="prelude-val">None</span>)
-        }
-
-        <span class="doccomment">/// Creates a new `Request` to fetch messages from the very end of the available history for</span>
-        <span class="doccomment">/// a given room.</span>
-        <span class="doccomment">///</span>
-        <span class="doccomment">/// Equivalent to `Request::backward(room_id, None)`.</span>
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_end</span>(<span class="ident">room_id</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RoomId</span>) -&gt; <span class="self">Self</span> {
-            <span class="ident"><span class="self">Self</span>::backward</span>(<span class="ident">room_id</span>, <span class="prelude-val">None</span>)
+        <span class="doccomment">/// Since the field is public, you can also assign to it directly. This method merely acts</span>
+        <span class="doccomment">/// as a shorthand for that, because it is very common to set this field.</span>
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from</span>(<span class="self">self</span>, <span class="ident">from</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+            <span class="self">Self</span> { <span class="ident">from</span>: <span class="ident">from</span>.<span class="ident">into</span>(), ..<span class="self">self</span> }
         }
     }
 
